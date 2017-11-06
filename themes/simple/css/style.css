@@ -2087,3 +2087,8 @@ button.close {
 .sum-voting {
 	margin-top:5px;
 }
+
+.news_column ul.related {
+    padding: 4px;
+    display: inline-block;
+}

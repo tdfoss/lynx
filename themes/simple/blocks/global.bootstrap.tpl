@@ -1,8 +1,14 @@
 <!-- BEGIN: submenu -->
 <ul class="dropdown-menu">
-    <!-- BEGIN: loop -->
-    <li
-        <!-- BEGIN: submenu -->class="dropdown-submenu"<!-- END: submenu -->> <!-- BEGIN: icon --> <img src="{SUBMENU.icon}" />&nbsp; <!-- END: icon --> <a href="{SUBMENU.link}" title="{SUBMENU.note}"{SUBMENU.target}>{SUBMENU.title_trim}</a> <!-- BEGIN: item --> {SUB} <!-- END: item -->
+	<!-- BEGIN: loop -->
+    <li <!-- BEGIN: submenu -->class="dropdown-submenu"<!-- END: submenu -->>
+        <!-- BEGIN: icon -->
+        <img src="{SUBMENU.icon}" />&nbsp;
+        <!-- END: icon -->
+        <a href="{SUBMENU.link}" title="{SUBMENU.note}" {SUBMENU.target}>{SUBMENU.title_trim}</a>
+        <!-- BEGIN: item -->
+        {SUB}
+        <!-- END: item -->
     </li>
     <!-- END: loop -->
 </ul>
@@ -10,57 +16,38 @@
 
 <!-- BEGIN: main -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <!-- BEGIN: mobile_menu -->
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-            </button>
-            <!-- END: mobile_menu -->
-            <a class="navbar-brand" href="{THEME_SITE_HREF}" title="{LANG.Home}"><em class="fa fa-home">&nbsp;</em>{LANG.Home}</a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <!-- BEGIN: top_menu -->
-                <li {TOP_MENU.current} rol="presentation">
-                    <!-- BEGIN: icon --> <img src="{TOP_MENU.icon}" />&nbsp; <!-- END: icon --> <a
-                        <!-- BEGIN: has_sub --> class="dropdown-toggle" aria-expanded="false" <!-- END: has_sub --> href="{TOP_MENU.link}" role="button" title="{TOP_MENU.note}" {TOP_MENU.target}>{TOP_MENU.title_trim} <!-- BEGIN: caret --> <span class="caret"></span> <!-- END: caret -->
-                </a> <!-- BEGIN: sub --> {SUB} <!-- END: sub -->
-                </li>
-                <!-- END: top_menu -->
-            </ul>
-        </div>
-    </div>
-</nav>
+<!-- <div class="navbar navbar-default navbar-static-top" role="navigation"> -->
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu-site-default">
+			<span class="sr-only">&nbsp;</span>
+			<span class="icon-bar">&nbsp;</span>
+			<span class="icon-bar">&nbsp;</span>
+			<span class="icon-bar">&nbsp;</span>
+		</button>
+	</div>
+	<div class="collapse navbar-collapse" id="menu-site-default">
+        <ul class="nav navbar-nav">
+			<li>
+				<a class="home" title="{LANG.Home}" href="{THEME_SITE_HREF}"><em class="fa fa-lg fa-home">&nbsp;</em><span class="visible-xs-inline-block"> {LANG.Home}</span></a>
+			</li>
+			<!-- BEGIN: top_menu -->
+            <li {TOP_MENU.current} rol="presentation">
+                <!-- BEGIN: icon -->
+                <img src="{TOP_MENU.icon}" />&nbsp;
+                <!-- END: icon -->
+                <a class="dropdown-toggle" {TOP_MENU.dropdown_data_toggle} href="{TOP_MENU.link}" role="button" aria-expanded="false" title="{TOP_MENU.note}" {TOP_MENU.target}>{TOP_MENU.title_trim}<!-- BEGIN: has_sub --> <strong class="caret">&nbsp;</strong><!-- END: has_sub --></a>
+                <!-- BEGIN: sub -->
+                {SUB}
+                <!-- END: sub -->
+			</li>
+			<!-- END: top_menu -->
+         </ul>
+	</div>
+</div>
+<script type="text/javascript" data-show="after">
+$(function(){
+    checkWidthMenu();
+    $(window).resize(checkWidthMenu);
+});
+</script>
 <!-- END: main -->
-
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-            </button>
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="menu-site-default">
-            <ul class="nav navbar-nav">
-                <li
-                    <!-- BEGIN: home_active --> class="active"<!-- END: home_active -->> <a title="{LANG.Home}" href="{THEME_SITE_HREF}"><em class="fa fa-lg fa-home">&nbsp;</em> {LANG.Home}</a>
-                </li>
-                <!-- BEGIN: top_menu -->
-                <li {TOP_MENU.current} rol="presentation">
-                    <!-- BEGIN: icon --> <img src="{TOP_MENU.icon}" />&nbsp; <!-- END: icon --> <a
-                        <!-- BEGIN: has_sub --> class="dropdown-toggle" aria-expanded="false" <!-- END: has_sub --> href="{TOP_MENU.link}" role="button" title="{TOP_MENU.note}" {TOP_MENU.target}>{TOP_MENU.title_trim} <!-- BEGIN: caret --> <span class="caret"></span> <!-- END: caret -->
-                </a> <!-- BEGIN: sub --> {SUB} <!-- END: sub -->
-                </li>
-                <!-- END: top_menu -->
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="http://mynukeviet.net" title="Ứng dụng NukeViet"><em class="fa fa-globe">&nbsp;</em> Ứng dụng NukeViet</a></li>
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container -->
-</nav>
