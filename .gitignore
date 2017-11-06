@@ -77,7 +77,9 @@ composer.lock
 /Readme.txt
 /Readme_Vietnamese.txt
 /admin/
-/themes/
+/themes/mobile_default
+/themes/admin_default
+/themes/default
 /assets/
 /composer.json
 /data/
