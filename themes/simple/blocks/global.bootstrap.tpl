@@ -22,10 +22,17 @@
                 <li><a class="home" title="{LANG.Home}" href="{THEME_SITE_HREF}"><em class="fa fa-lg fa-home">&nbsp;</em><span class="visible-xs-inline-block"> {LANG.Home}</span></a></li>
                 <!-- BEGIN: top_menu -->
                 <li {TOP_MENU.current} rol="presentation">
-                    <!-- BEGIN: icon --> <img src="{TOP_MENU.icon}" />&nbsp; <!-- END: icon --> <a class="dropdown-toggle" {TOP_MENU.dropdown_data_toggle} href="{TOP_MENU.link}" role="button" aria-expanded="false" title="{TOP_MENU.note}"{TOP_MENU.target}>{TOP_MENU.title_trim}<!-- BEGIN: has_sub --> <strong class="caret">&nbsp;</strong>
-                    <!-- END: has_sub --></a> <!-- BEGIN: sub --> {SUB} <!-- END: sub -->
+                    <!-- BEGIN: icon --> <img src="{TOP_MENU.icon}" />&nbsp; <!-- END: icon --> <a class="dropdown-toggle" {TOP_MENU.dropdown_data_toggle} href="{TOP_MENU.link}" role="button" aria-expanded="false" title="{TOP_MENU.note}"{TOP_MENU.target}>{TOP_MENU.title_trim}<!-- BEGIN: has_sub --> <strong class="caret">&nbsp;</strong> <!-- END: has_sub --></a> <!-- BEGIN: sub --> {SUB} <!-- END: sub -->
                 </li>
                 <!-- END: top_menu -->
+            </ul>
+            <ul class="nav navbar-nav pull-right">
+                <!-- BEGIN: user -->
+                <li><a title="{LANG_THEME.userinfo}" href="{URL_USERINFO}"><em class="fa fa-lg fa-user">&nbsp;</em>{LANG_THEME.userinfo}</a></li>
+                <!-- END: user -->
+                <!-- BEGIN: guest -->
+                <li><a title="{LANG_THEME.login}" href="{URL_LOGIN}"><em class="fa fa-lg fa-sign-in">&nbsp;</em>{LANG_THEME.login}</a></li>
+                <!-- END: guest -->
             </ul>
         </div>
     </div>
