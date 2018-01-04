@@ -3,9 +3,11 @@
             <hr />
             <footer>
                 [FOOTER_INFO]
+                <!-- BEGIN: copyright -->
                 <div class="text-center">
                     <p>Thiết kế bởi <a href="https://aztest.vn" title="Hệ thống tạo lập website thi trắc nghiệm trực tuyến"><strong>AZtest</strong></a></p>
                 </div>
+                <!-- END: copyright -->
             </footer>
         </div>
     </footer>

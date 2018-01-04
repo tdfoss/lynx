@@ -281,6 +281,10 @@ function nv_site_theme($contents, $full = true)
         }
     }
 
+    if($global_config['idsite'] > 0){
+        $xtpl->parse('main.copyright');
+    }
+
     $xtpl->parse('main');
     $sitecontent = $xtpl->text('main');
 
