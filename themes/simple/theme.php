@@ -102,45 +102,9 @@ function nv_site_theme($contents, $full = true)
     if (isset($module_config['themes'][$global_config['module_theme']]) and !empty($module_config['themes'][$global_config['module_theme']])) {
         $config_theme = unserialize($module_config['themes'][$global_config['module_theme']]);
 
-        if (isset($config_theme['css_content']) and !empty($config_theme['css_content'])) {
-            $customFileName = $global_config['module_theme'] . '.' . NV_LANG_DATA . '.' . $global_config['idsite'];
-
-            if (!file_exists(NV_ROOTDIR . '/' . NV_ASSETS_DIR . '/css/' . $customFileName . '.css')) {
-                $replace = array(
-                    '[body]' => 'body',
-                    '[a_link]' => 'a, a:link, a:active, a:visited',
-                    '[a_link_hover]' => 'a:hover',
-                    '[content]' => '.wraper',
-                    '[header]' => '#header',
-                    '[footer]' => '#footer',
-                    '[block]' => '.panel, .well, .nv-block-banners',
-                    '[block_heading]' => '.panel-default > .panel-heading'
-                );
-
-                $css_content = str_replace(array_keys($replace), array_values($replace), $config_theme['css_content']);
-
-                file_put_contents(NV_ROOTDIR . '/' . NV_ASSETS_DIR . '/css/' . $customFileName . '.css', $css_content);
-            }
-
-            $html_links[] = array(
-                'rel' => 'StyleSheet',
-                'href' => NV_BASE_SITEURL . NV_ASSETS_DIR . '/css/' . $customFileName . '.css?t=' . $global_config['timestamp']
-            );
-        }
-
-        if (isset($config_theme['gfont']) and !empty($config_theme['gfont']) and isset($config_theme['gfont']['family']) and !empty($config_theme['gfont']['family'])) {
-            $subset = isset($config_theme['gfont']['subset']) ? $config_theme['gfont']['subset'] : '';
-            $gf = new NukeViet\Client\Gfonts(array(
-                'fonts' => array(
-                    $config_theme['gfont']
-                ),
-                'subset' => $subset
-            ), $client_info);
-            $webFontFile = $gf->getUrlCss();
-            array_unshift($html_links, array(
-                'rel' => 'StyleSheet',
-                'href' => $webFontFile
-            ));
+        // full
+        if (isset($config_theme['theme_layout']) && $config_theme['theme_layout']) {
+            $xtpl->parse('main.full_style');
         }
 
         unset($config_theme, $css_content, $webFontFile, $font, $subset, $gf);
@@ -281,7 +245,7 @@ function nv_site_theme($contents, $full = true)
         }
     }
 
-    if($global_config['idsite'] > 0){
+    if ($global_config['idsite'] > 0) {
         $xtpl->parse('main.copyright');
     }
 

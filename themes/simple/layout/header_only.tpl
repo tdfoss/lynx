@@ -11,5 +11,14 @@
 		<!-- BEGIN: js -->
 		<script<!-- BEGIN: ext --> src="{JS_SRC}"<!-- END: ext -->><!-- BEGIN: int -->{JS_CONTENT}<!-- END: int --></script>
 		<!-- END: js -->
+        
+        <!-- BEGIN: full_style -->
+        <style>
+            .container{
+                width: auto !important
+            }
+        </style>
+        <!-- END: full_style -->
+        
 	</head>
 	<body>
