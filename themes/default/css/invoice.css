@@ -1,0 +1,60 @@
+/**
+ * @Project NUKEVIET 4.x
+ * @Author TDFOSS.,LTD (contact@tdfoss.vn)
+ * @Copyright (C) 2018 TDFOSS.,LTD. All rights reserved
+ * @Createdate Mon, 26 Feb 2018 03:48:37 GMT
+ */
+.red {
+    color: red
+}
+
+table.table-middle td {
+    vertical-align: middle !important
+}
+
+table.table-middle td span.help-block, table.table-middle td span.help-block ul {
+    margin-bottom: 0;
+    font-size: 12px
+}
+
+.title_invoice {
+    margin-bottom: 10px;
+}
+
+.title_invoice h3 {
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+.title_invoice p {
+    font-size: 16px;
+}
+
+.table_infoinvoice {
+    margin-top: 20px;
+}
+
+.info_customer {
+    margin: auto;
+}
+
+.title_table {
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding-bottom: 10px;
+}
+
+.button_fixed_bottom {
+    background-color: #ccc;
+    z-index: 999999;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+    margin: 0;
+}
+
+#ui-datepicker-div{
+    z-index: 9999999999 !important
+}
