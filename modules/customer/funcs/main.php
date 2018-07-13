@@ -41,6 +41,12 @@ $array_search = array(
     'workforceid' => $nv_Request->get_int('workforceid', 'post,get', 0),
 );
 
+if (!class_exists('PHPExcel')) {
+    if (file_exists(NV_ROOTDIR . '/includes/class/PHPExcel.php')) {
+        require_once NV_ROOTDIR . '/includes/class/PHPExcel.php';
+    }
+}
+
 if ($nv_Request->isset_request('ordername', 'get')) {
     $array_search['ordername'] = $nv_Request->get_title('ordername', 'get');
     $nv_Request->set_Cookie('ordername', $array_search['ordername']);
@@ -130,6 +136,12 @@ $xtpl->assign('Q', $array_search['q']);
 $xtpl->assign('URL_ADD', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=content' . ($is_contact ? '&amp;is_contact=1' : ''));
 $xtpl->assign('SORTURL', $array_sort_url);
 
+if (class_exists('PHPExcel')) {
+    $xtpl->assign('IMPORT_EXCEL', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=import&action=' . $module_name);
+} else {
+    $xtpl->parse('main.btn_disabled');
+}
+
 foreach ($array_customer_type_id as $value) {
     $xtpl->assign('TYPEID', array(
         'key' => $value['id'],
@@ -188,6 +200,8 @@ foreach ($array_action as $key => $value) {
     $xtpl->parse('main.action_top');
     $xtpl->parse('main.action_bottom');
 }
+
+
 
 $xtpl->parse('main');
 $contents = $xtpl->text('main');

@@ -10,8 +10,8 @@ if (!defined('NV_IS_MOD_WORKFORCE')) die('Stop!!!');
 
 $maxdays = 24;
 $percent_overtime = 150;
-$groups_admin = '10,14';
-$groups_use = '14';
+$groups_admin = '2';
+$groups_use = '1';
 $current_month = nv_date('m/Y', strtotime("first day of previous month"));
 
 if ($nv_Request->isset_request('save_change', 'post')) {

@@ -47,6 +47,7 @@
     </select>
     <button class="btn btn-primary" onclick="nv_list_action( $('#action-top').val(), '{BASE_URL}', '{LANG.error_empty_data}' ); return false;">{LANG.perform}</button>
     <a href="{URL_ADD}" class="btn btn-primary">{LANG.customer_add}</a>
+    <a href="{IMPORT_EXCEL}" class="btn btn-success <!-- BEGIN: btn_disabled -->disabled<!-- END: btn_disabled -->" data-toggle="tooltip" data-original-title="{LANG.import_excel}"><em class="fa fa-plus-square">&nbsp;</em>{LANG.import_excel}</a>
 </form>
 <form action="{NV_BASE_SITEURL}index.php?{NV_LANG_VARIABLE}={NV_LANG_DATA}&amp;{NV_NAME_VARIABLE}={MODULE_NAME}&amp;{NV_OP_VARIABLE}={OP}" method="post">
     <div class="table-responsive">
