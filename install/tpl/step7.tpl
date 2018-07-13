@@ -10,7 +10,7 @@
         <!-- BEGIN: loop -->
         <tr>
             <th scope="row" class="spec center">
-                <input type="radio" name="package" id="package{ROWKEY}" value="{ROW.title}"/>
+                <input type="radio" name="package" id="package{ROWKEY}" value="{ROW.title}" {ROW.checked}/>
             </th>
             <td>
                 <strong><label for="package{ROWKEY}">{ROW.title}</label></strong>

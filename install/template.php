@@ -340,6 +340,7 @@ function nv_step_7($array_data, $nextstep)
     $xtpl->assign('DATA', $array_data);
     $xtpl->assign('ACTIONFORM', NV_BASE_SITEURL . 'install/index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&step=' . $step);
 
+    $i = 0;
     foreach ($array_samples_data as $key => $data) {
         require NV_ROOTDIR . '/install/samples/' . $data;
         unset($sql_create_table);
@@ -347,7 +348,8 @@ function nv_step_7($array_data, $nextstep)
         $row = array(
             'url' => $sample_base_siteurl,
             'compatible' => $sample_base_siteurl == NV_BASE_SITEURL ? true : false,
-            'title' => $data
+            'title' => $data,
+            'checked' => $i == 0 ? 'checked="checked"' : ''
         );
         $xtpl->assign('ROW', $row);
         $xtpl->assign('ROWKEY', $key);
@@ -359,6 +361,7 @@ function nv_step_7($array_data, $nextstep)
         }
 
         $xtpl->parse('step.loop');
+        $i++;
     }
 
     if (!empty($array_data['error'])) {
