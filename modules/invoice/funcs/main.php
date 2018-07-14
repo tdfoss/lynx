@@ -99,6 +99,8 @@ if (!empty($array_search['performerid'])) {
 if ($array_search['status'] >= 0) {
     $base_url .= '&amp;status=' . $array_search['status'];
     $where .= ' AND status=' . $array_search['status'];
+} elseif ($array_search['status'] < 0 && $nv_Request->isset_request('q', 'get')) {
+    //
 } elseif (!empty($array_config['default_status'])) {
     $where .= ' AND status IN (' . $array_config['default_status'] . ')';
 }
@@ -174,7 +176,7 @@ while ($view = $sth->fetch()) {
 
     if ($view['status'] == 2) {
         $xtpl->parse('main.loop.danger');
-    }elseif ($view['status'] == 3) {
+    } elseif ($view['status'] == 3) {
         $xtpl->parse('main.loop.success');
     }
 
