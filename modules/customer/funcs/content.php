@@ -12,7 +12,6 @@ if (!defined('NV_IS_MOD_CUSTOMER')) die('Stop!!!');
 $row = array();
 $error = array();
 $row['id'] = $nv_Request->get_int('id', 'post,get', 0);
-$array_care_staff_users = nv_crm_list_workforce();
 
 if ($row['id'] > 0) {
     $lang_module['customer_add'] = $lang_module['customer_edit'];
@@ -161,7 +160,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
                     $array_userid = array(
                         $row['care_staff']
                     );
-                    $content = sprintf($lang_module['notification_new_care_staff'], nv_show_name_user($row['first_name'], $row['last_name']), $array_care_staff_users[$user_info['userid']]['fullname']);
+                    $content = sprintf($lang_module['notification_new_care_staff'], nv_show_name_user($row['first_name'], $row['last_name']), $workforce_list[$user_info['userid']]['fullname']);
                     $url = NV_MY_DOMAIN . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=detail&id=' . $new_id;
                     nv_send_notification($array_userid, $content, 'new_care_staff', $module_name, $url);
                 }
@@ -236,7 +235,7 @@ foreach ($array_customer_type_id as $value) {
     $xtpl->parse('main.select_type_id');
 }
 
-foreach ($array_care_staff_users as $value) {
+foreach ($workforce_list as $value) {
     $xtpl->assign('OPTION', array(
         'key' => $value['userid'],
         'title' => $value['fullname'],

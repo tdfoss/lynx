@@ -9,6 +9,7 @@
 if (!defined('NV_SYSTEM')) die('Stop!!!');
 
 define('NV_IS_MOD_CUSTOMER', true);
+require_once NV_ROOTDIR . '/modules/customer/site.functions.php';
 
 if (isset($workforce_list[$user_info['userid']])) {
     define('CRM_WORKFORCE', true);
@@ -25,8 +26,6 @@ $array_gender = array(
     1 => $lang_module['male'],
     0 => $lang_module['female']
 );
-
-require_once NV_ROOTDIR . '/modules/customer/site.functions.php';
 
 function nv_customer_premission($module, $type = 'where')
 {
