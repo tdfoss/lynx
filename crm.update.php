@@ -30,6 +30,8 @@ while (list ($lang) = $language_query->fetch(3)) {
 
     $sql[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', 'customer', 'groups_admin', '1'), ('" . $lang . "', 'customer', 'groups_manage', '1,2,3');";
 
+    $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_products ADD url TEXT NOT NULL AFTER vat;";
+
     foreach ($sql as $_sql) {
         try {
             $db->query($_sql);

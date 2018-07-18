@@ -37,3 +37,4 @@ $lang_module['products_add'] = 'Thêm sản phẩm';
 $lang_module['products_edit'] = 'Sửa sản phẩm';
 $lang_module['error_empty_data'] = 'Bạn cần chọn dữ liệu để thực hiện!';
 $lang_module['perform'] = 'Thực hiện';
+$lang_module['url'] = 'URL giới thiệu';
