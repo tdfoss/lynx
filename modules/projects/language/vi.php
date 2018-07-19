@@ -38,6 +38,7 @@ $lang_module['url_code'] = 'URL kho code';
 $lang_module['content'] = 'Nội dung';
 $lang_module['project_add'] = 'Thêm dự án';
 $lang_module['project_edit'] = 'Sửa dự án';
+$lang_module['status_select'] = 'Chọn trạng thái';
 $lang_module['status'] = 'Trạng thái';
 $lang_module['status_0'] = 'Chưa thực hiện';
 $lang_module['status_1'] = 'Đã bắt đầu';
@@ -64,4 +65,5 @@ $lang_module['types'] = 'types';
 $lang_module['note'] = 'Ghi chú';
 $lang_module['typeid'] = 'Danh mục dự án';
 
-$lang_module['workforceid_select'] = 'Chọn nhân viên hỗ trợ';
+$lang_module['workforceid_select'] = 'Chọn nhân viên phụ trách';
+$lang_module['customer_select'] = 'Chọn khách hàng';
