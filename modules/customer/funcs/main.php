@@ -38,7 +38,7 @@ $where = '';
 $array_search = array(
     'q' => $nv_Request->get_title('q', 'post,get'),
     'type_id' => $nv_Request->get_int('type_id', 'post,get', 0),
-    'workforceid' => $nv_Request->get_int('workforceid', 'post,get', 0),
+    'workforceid' => $nv_Request->get_int('workforceid', 'post,get', 0)
 );
 
 if (!class_exists('PHPExcel')) {
@@ -202,16 +202,8 @@ foreach ($array_action as $key => $value) {
     $xtpl->parse('main.action_bottom');
 }
 
-
-
 $xtpl->parse('main');
 $contents = $xtpl->text('main');
-
-$page_title = $lang_module['customer'];
-$array_mod_title[] = array(
-    'title' => $page_title,
-    'link' => NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op
-);
 
 include NV_ROOTDIR . '/includes/header.php';
 echo nv_site_theme($contents);

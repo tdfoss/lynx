@@ -279,13 +279,9 @@ $xtpl->parse('main');
 $contents = $xtpl->text('main');
 
 $page_title = $lang_module['customer_add'];
-$array_mod_title[] = array(
-    'title' => $lang_module['customer'],
-    'link' => NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name
-);
+
 $array_mod_title[] = array(
     'title' => $page_title,
-    'link' => NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op
 );
 
 include NV_ROOTDIR . '/includes/header.php';
