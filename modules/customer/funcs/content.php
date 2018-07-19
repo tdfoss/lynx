@@ -278,7 +278,7 @@ if (!empty($error)) {
 $xtpl->parse('main');
 $contents = $xtpl->text('main');
 
-$page_title = $lang_module['customer_add'];
+$page_title = $lang_module['customer_add'];#
 $array_mod_title[] = array(
     'title' => $page_title,
 );
