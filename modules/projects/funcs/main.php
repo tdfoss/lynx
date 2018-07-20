@@ -39,8 +39,8 @@ $page = $nv_Request->get_int('page', 'post,get', 1);
 $array_search = array(
     'q' => $nv_Request->get_title('q', 'post,get'),
     'status' => $nv_Request->get_int('status', 'get', -1),
-    'workforce' => $nv_Request->get_int('workforce', 'get', 0),
-    'customer' => $nv_Request->get_int('customer', 'get', 0)
+    'workforce' => $nv_Request->get_int('workforceid', 'get', 0),
+    'customerid' => $nv_Request->get_int('customerid', 'get', 0)
 );
 
 if (!empty($array_search['q'])) {
@@ -57,12 +57,12 @@ if ($array_search['status'] >= 0) {
 
 if (!empty($array_search['workforce'])) {
     $base_url .= '&workforce=' . $array_search['workforce'];
-    $where .= ' AND workforce=' . $array_search['workforce'];
+    $where .= ' AND workforceid=' . $array_search['workforce'];
 }
 
-if (!empty($array_search['customer'])) {
-    $base_url .= '&customer=' . $array_search['customer'];
-    $where .= ' AND customer=' . $array_search['customer'];
+if (!empty($array_search['customerid'])) {
+    $base_url .= '&amp;customerid=' . $array_search['customerid'];
+    $where .= ' AND customerid=' . $array_search['customerid'];
 }
 
 $where .= nv_projects_premission($module_name);
@@ -82,6 +82,11 @@ $db->select('*')
     ->offset(($page - 1) * $per_page);
 $sth = $db->prepare($db->sql());
 $sth->execute();
+
+$customer_info = array();
+if (!empty($array_search['customerid'])) {
+    $customer_info = nv_crm_customer_info($array_search['customerid']);
+}
 
 $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
 $xtpl->assign('LANG', $lang_module);
@@ -132,10 +137,6 @@ while ($view = $sth->fetch()) {
     $xtpl->assign('VIEW', $view);
     $xtpl->parse('main.loop');
 }
-$customer_info = array();
-if (!empty($row['customerid'])) {
-    $customer_info = nv_crm_customer_info($row['customerid']);
-}
 
 $array_action = array(
     'delete_list_id' => $lang_global['delete']
@@ -152,15 +153,15 @@ foreach ($array_status as $index => $value) {
 }
 
 if (!empty($workforce_list)) {
-    foreach ($workforce_list as $user) {
+    foreach ($workforce_list as $index => $value) {
         $sl = $index == $array_search['workforce'] ? 'selected="selected"' : '';
-        $xtpl->assign('WORKFORCE', $user);
+        $xtpl->assign('WORKFORCE', array(
+            'index' => $index,
+            'value' => $value['fullname'],
+            'selected' => $sl
+        ));
         $xtpl->parse('main.workforce');
     }
-}
-$customer_info = array();
-if (!empty($row['customerid'])) {
-    $customer_info = nv_crm_customer_info($row['customerid']);
 }
 
 if (!empty($customer_info)) {

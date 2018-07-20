@@ -17,17 +17,16 @@
                     <select name="workforceid" class="form-control select2">
                         <option value=0>---{LANG.workforceid_select}---</option>
                         <!-- BEGIN: workforce -->
-                        <option value="{WORKFORCE.userid}"{WORKFORCE.selected}>{WORKFORCE.fullname}</option>
+                        <option value="{WORKFORCE.index}"{WORKFORCE.selected} >{WORKFORCE.value}</option>
                         <!-- END: workforce -->
                     </select>
                 </div>
             </div>
             <div class="col-xs-24 col-md-4">
                 <div class="form-group">
-                    <select name="customerid" id="customerid" class="form-control select2">
-                        <option value=0>---{LANG.customer_select}---</option>
+                    <select name="customerid" id="customerid" class="form-control">
                         <!-- BEGIN: customer -->
-                        <option value="{CUSTOMER.id}" selected="selected">{CUSTOMER.fullname}</option>
+                        <option value="{CUSTOMER.id}">{CUSTOMER.fullname}</option>
                         <!-- END: customer -->
                     </select>
                 </div>
