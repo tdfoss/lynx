@@ -15,7 +15,10 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
     if ($id > 0 and $delete_checkss == md5($id . NV_CACHE_PREFIX . $client_info['session_id'])) {
         $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '  WHERE id = ' . $db->quote($id));
         $nv_Cache->delMod($module_name);
+
         Header('Location: ' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=' . $op);
+        nv_insert_logs( NV_LANG_DATA, $module_name, $lang_module['title_project'], $lang_module['delete_project'], $admin_info['userid'] );
+
         die();
     }
 } elseif ($nv_Request->isset_request('delete_list', 'post')) {
@@ -26,6 +29,8 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
         foreach ($array_id as $id) {
             $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '  WHERE id = ' . $db->quote($id));
         }
+        nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_project'], $lang_module['delete_many_project'], $admin_info['userid']);
+
         $nv_Cache->delMod($module_name);
         die('OK');
     }

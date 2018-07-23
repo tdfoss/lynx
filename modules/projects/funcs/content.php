@@ -11,11 +11,11 @@ if (!defined('NV_IS_MOD_PROJECT')) die('Stop!!!');
 
 if ($nv_Request->isset_request('get_user_json', 'post, get')) {
     $q = $nv_Request->get_title('q', 'post, get', '');
-    
+
     $db->sqlreset()
-    ->select('id, first_name, last_name, main_phone, main_email')
-    ->from(NV_PREFIXLANG . '_customer')
-    ->where('(first_name LIKE "%' . $q . '%"
+        ->select('id, first_name, last_name, main_phone, main_email')
+        ->from(NV_PREFIXLANG . '_customer')
+        ->where('(first_name LIKE "%' . $q . '%"
             OR last_name LIKE "%' . $q . '%"
             OR main_phone LIKE "%' . $q . '%"
             OR other_phone LIKE "%' . $q . '%"
@@ -29,28 +29,27 @@ if ($nv_Request->isset_request('get_user_json', 'post, get')) {
         )')
         ->order('first_name ASC')
         ->limit(20);
-        
-        $sth = $db->prepare($db->sql());
-        $sth->execute();
-        
-        $array_data = array();
-        while (list ($customerid, $first_name, $last_name, $main_phone, $main_email) = $sth->fetch(3)) {
-            $array_data[] = array(
-                'id' => $customerid,
-                'fullname' => nv_show_name_user($first_name, $last_name),
-                'phone' => $main_phone,
-                'email' => $main_email
-            );
-        }
-        
-        header('Cache-Control: no-cache, must-revalidate');
-        header('Content-type: application/json');
-        
-        ob_start('ob_gzhandler');
-        echo json_encode($array_data);
-        exit();
-}
 
+    $sth = $db->prepare($db->sql());
+    $sth->execute();
+
+    $array_data = array();
+    while (list ($customerid, $first_name, $last_name, $main_phone, $main_email) = $sth->fetch(3)) {
+        $array_data[] = array(
+            'id' => $customerid,
+            'fullname' => nv_show_name_user($first_name, $last_name),
+            'phone' => $main_phone,
+            'email' => $main_email
+        );
+    }
+
+    header('Cache-Control: no-cache, must-revalidate');
+    header('Content-type: application/json');
+
+    ob_start('ob_gzhandler');
+    echo json_encode($array_data);
+    exit();
+}
 
 $row = array();
 $error = array();
@@ -64,7 +63,6 @@ if ($row['id'] > 0) {
         die();
     }
     $row['workforceid'] = $row['workforceid_old'] = !empty($row['workforceid']) ? array_map('intval', explode(',', $row['workforceid'])) : array();
-    
 } else {
     $row['id'] = 0;
     $row['customerid'] = 0;
@@ -115,7 +113,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
     $row['status'] = $nv_Request->get_int('status', 'post', 1);
     $row['type_id'] = $nv_Request->get_int('type_id', 'post', 0);
     $row['sendinfo'] = $nv_Request->get_int('sendinfo', 'post', 0);
-    
+
     $workforceid = !empty($row['workforceid']) ? implode(',', $row['workforceid']) : '';
 
     if (empty($row['customerid'])) {
@@ -143,6 +141,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $data_insert['status'] = $row['status'];
                 $data_insert['type_id'] = $row['type_id'];
                 $new_id = $db->insert_id($_sql, 'id', $data_insert);
+                nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_project'], $lang_module['content_project'], $admin_info['userid']);
             } else {
                 $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET customerid = :customerid, workforceid = :workforceid, title = :title, begintime = :begintime, endtime = :endtime, realtime = :realtime, url_code = :url_code, content = :content, edittime = ' . NV_CURRENTTIME . ', status = :status, type_id = :type_id WHERE id=' . $row['id']);
                 $stmt->bindParam(':customerid', $row['customerid'], PDO::PARAM_INT);
@@ -157,11 +156,12 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $stmt->bindParam(':type_id', $row['type_id'], PDO::PARAM_INT);
                 if ($stmt->execute()) {
                     $new_id = $row['id'];
+                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_project'], $lang_module['update_project'], $admin_info['userid']);
                 }
             }
 
             if ($new_id > 0) {
-                
+
                 if ($row['workforceid'] != $row['workforceid_old']) {
                     $sth = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_performer (projectid, userid) VALUES( :projectid, :userid)');
                     foreach ($row['workforceid'] as $userid) {
@@ -171,7 +171,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
                             $sth->execute();
                         }
                     }
-                    
+
                     foreach ($row['workforceid_old'] as $userid) {
                         if (!in_array($userid, $row['workforceid'])) {
                             $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_performer WHERE userid = ' . $userid . ' AND projectid=' . $new_id);
@@ -291,7 +291,6 @@ $xtpl->assign('LANG', $lang_module);
 $xtpl->assign('MODULE_NAME', $module_name);
 $xtpl->assign('OP', $op);
 $xtpl->assign('ROW', $row);
-
 
 if (!empty($workforce_list)) {
     foreach ($workforce_list as $user) {

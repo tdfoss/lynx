@@ -125,6 +125,9 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $data_insert['is_contacts'] = $row['is_contacts'];
                 $data_insert['type_id'] = $row['type_id'];
                 $new_id = $db->insert_id($_sql, 'id', $data_insert);
+                nv_insert_logs( NV_LANG_DATA, $module_name, $lang_module['title_customer'], $lang_module['content_customer'], $admin_info['userid'] );
+
+
             } else {
                 $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET first_name = :first_name, last_name = :last_name, main_phone = :main_phone, other_phone = :other_phone, main_email = :main_email, other_email = :other_email, birthday = :birthday, facebook = :facebook, skype = :skype, zalo = :zalo, gender = :gender, address = :address, unit = :unit, trading_person = :trading_person, unit_name = :unit_name, tax_code = :tax_code, address_invoice = :address_invoice, care_staff = :care_staff, image = :image, edittime=' . NV_CURRENTTIME . ', note = :note, type_id = :type_id WHERE id=' . $row['id']);
                 $stmt->bindParam(':first_name', $row['first_name'], PDO::PARAM_STR);
@@ -150,6 +153,8 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $stmt->bindParam(':type_id', $row['type_id'], PDO::PARAM_INT);
                 if ($stmt->execute()) {
                     $new_id = $row['id'];
+                    nv_insert_logs( NV_LANG_DATA, $module_name, $lang_module['title_customer'], $lang_module['update_customer'], $admin_info['userid'] );
+
                 }
             }
             if ($new_id > 0) {
@@ -163,6 +168,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
                     $content = sprintf($lang_module['notification_new_care_staff'], nv_show_name_user($row['first_name'], $row['last_name']), $workforce_list[$user_info['userid']]['fullname']);
                     $url = NV_MY_DOMAIN . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=detail&id=' . $new_id;
                     nv_send_notification($array_userid, $content, 'new_care_staff', $module_name, $url);
+
                 }
 
                 $nv_Cache->delMod($module_name);

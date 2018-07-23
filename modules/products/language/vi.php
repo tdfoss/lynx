@@ -38,3 +38,7 @@ $lang_module['products_edit'] = 'Sửa sản phẩm';
 $lang_module['error_empty_data'] = 'Bạn cần chọn dữ liệu để thực hiện!';
 $lang_module['perform'] = 'Thực hiện';
 $lang_module['url'] = 'URL giới thiệu';
+$lang_module['title_product'] = 'Sản phẩm';
+$lang_module['content_product'] = 'Thêm, sửa sản phẩm thành công';
+$lang_module['delete_product'] = 'Xóa sản phẩm thành công';
+$lang_module['delete_many_product'] = 'Xóa nhiều sản phẩm thành công';
