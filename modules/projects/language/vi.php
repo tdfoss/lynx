@@ -19,8 +19,6 @@ $lang_module['main'] = 'Trang chính';
 $lang_module['detail'] = 'Xem chi tiết';
 $lang_module['search'] = 'Tìm kiếm';
 $lang_module['save'] = 'Lưu lại';
-
-//Lang for function main
 $lang_module['add'] = 'Thêm mới';
 $lang_module['edit'] = 'Sửa';
 $lang_module['delete'] = 'Xóa';
@@ -54,14 +52,18 @@ $lang_module['perform'] = 'Thực hiện';
 $lang_module['sendmail'] = 'Gửi Email';
 $lang_module['sendinfo'] = 'Gửi thông tin dự án';
 $lang_module['sendinfo_note'] = 'Gửi thông tin dự án cho khách hàng qua Email';
+$lang_module['types'] = 'types';
+$lang_module['note'] = 'Ghi chú';
+$lang_module['typeid'] = 'Danh mục dự án';
+$lang_module['workforceid_select'] = 'Chọn nhân viên hỗ trợ';
+$lang_module['task_list'] = 'Danh mục công việc';
+$lang_module['task_add'] = 'Thêm công việc';
+$lang_module['task_begin_time'] = 'Thời gian bắt đầu';
+$lang_module['task_end_time'] = 'Thời gian kết thúc';
+$lang_module['task_status_0'] = 'Chưa bắt đầu';
+$lang_module['task_status_1'] = 'Đang thực hiện';
+$lang_module['task_status_2'] = 'Đã hoàn thành';
 
 $lang_module['error_required_customerid'] = 'Lỗi: bạn cần nhập dữ liệu cho Khách hàng';
 $lang_module['error_required_workforceid'] = 'Lỗi: bạn cần nhập dữ liệu cho Nhân viên phụ trách';
 $lang_module['error_required_title'] = 'Lỗi: bạn cần nhập dữ liệu cho Tiêu đề';
-
-//Lang for function types
-$lang_module['types'] = 'types';
-$lang_module['note'] = 'Ghi chú';
-$lang_module['typeid'] = 'Danh mục dự án';
-
-$lang_module['workforceid_select'] = 'Chọn nhân viên hỗ trợ';
