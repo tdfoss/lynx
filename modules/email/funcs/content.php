@@ -127,6 +127,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
         } else {
             $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=detail&id=' . $new_id;
         }
+        nv_insert_logs( NV_LANG_DATA, $module_name, $lang_module['title_email'],$admin_info['username']." ".$lang_module['content_email'], $admin_info['userid'] );
 
         $contents = nv_theme_alert($message_title, $message_content, $color, $url, $lang_module['view_detail'], 3);
 

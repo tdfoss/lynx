@@ -16,6 +16,8 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
     $delete_checkss = $nv_Request->get_string('delete_checkss', 'get');
     if ($id > 0 and $delete_checkss == md5($id . NV_CACHE_PREFIX . $client_info['session_id'])) {
         nv_delete_invoice($id);
+        nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_invoice'], $admin_info['username']." ".$lang_module['delete_invoice'], $admin_info['userid']);
+
         $nv_Cache->delMod($module_name);
         if (!empty($redirect)) {
             $url = nv_redirect_decrypt($redirect);
@@ -33,6 +35,8 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
         foreach ($array_id as $id) {
             nv_delete_invoice($id);
         }
+        nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_invoice'], $admin_info['username']." ".$lang_module['delete_many_invoice'], $admin_info['userid']);
+
         $nv_Cache->delMod($module_name);
         die('OK');
     }

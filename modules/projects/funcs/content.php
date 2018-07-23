@@ -141,7 +141,6 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $data_insert['status'] = $row['status'];
                 $data_insert['type_id'] = $row['type_id'];
                 $new_id = $db->insert_id($_sql, 'id', $data_insert);
-                nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_project'], $lang_module['content_project'], $admin_info['userid']);
             } else {
                 $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET customerid = :customerid, workforceid = :workforceid, title = :title, begintime = :begintime, endtime = :endtime, realtime = :realtime, url_code = :url_code, content = :content, edittime = ' . NV_CURRENTTIME . ', status = :status, type_id = :type_id WHERE id=' . $row['id']);
                 $stmt->bindParam(':customerid', $row['customerid'], PDO::PARAM_INT);
@@ -156,7 +155,6 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $stmt->bindParam(':type_id', $row['type_id'], PDO::PARAM_INT);
                 if ($stmt->execute()) {
                     $new_id = $row['id'];
-                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_project'], $lang_module['update_project'], $admin_info['userid']);
                 }
             }
 
@@ -223,6 +221,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 }
 
                 $nv_Cache->delMod($module_name);
+                nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_project'], $admin_info['username']." ".$lang_module['content_project'], $admin_info['userid']);
 
                 if (!empty($row['redirect'])) {
                     $url = nv_redirect_decrypt($row['redirect']);

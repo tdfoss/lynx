@@ -6,7 +6,6 @@
  * @Copyright (C) 2018 TDFOSS.,LTD. All rights reserved
  * @Createdate Fri, 12 Jan 2018 09:14:06 GMT
  */
-
 if (!defined('NV_MAINFILE')) die('Stop!!!');
 
 $lang_translator['author'] = 'TDFOSS.,LTD (contact@tdfoss.vn)';
@@ -67,8 +66,7 @@ $lang_module['typeid'] = 'Danh mục dự án';
 
 $lang_module['workforceid_select'] = 'Chọn nhân viên phụ trách';
 $lang_module['customer_select'] = 'Chọn khách hàng';
-$lang_module['title_project'] = 'Khách hàng';
-$lang_module['content_project'] = 'Thêm dữ liệu ';
-$lang_module['update_project'] = 'Cập nhật dữ liệu ';
-$lang_module['delete_project'] = 'Xóa dữ liệu';
-$lang_module['delete_many_project'] = 'Xóa nhiều dữ liệu';
+$lang_module['title_project'] = 'Dự án';
+$lang_module['content_project'] = 'thêm, cập nhật dữ liệu dự án ';
+$lang_module['delete_project'] = 'xóa dữ liệu dự án';
+$lang_module['delete_many_project'] = 'xóa nhiều dữ liệu dự án';

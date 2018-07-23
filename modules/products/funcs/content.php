@@ -56,7 +56,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
             $exc = $stmt->execute();
             if ($exc) {
                 $nv_Cache->delMod($module_name);
-                nv_insert_logs( NV_LANG_DATA, $module_name, $lang_module['title_product'], $lang_module['content_product'], $admin_info['userid'] );
+                nv_insert_logs( NV_LANG_DATA, $module_name, $lang_module['title_product'], $admin_info['username']." ".$lang_module['content_product'], $admin_info['userid'] );
 
                 Header('Location: ' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name);
                 die();

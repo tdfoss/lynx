@@ -8,6 +8,12 @@
  */
 if (!defined('NV_IS_MOD_PROJECT')) die('Stop!!!');
 
+if ($nv_Request->isset_request('task_list', 'post')) {
+    $projectid = $nv_Request->get_int('projectid', 'post', 0);
+    $contents = nv_theme_project_task_lisk($projectid);
+    nv_htmlOutput($contents);
+}
+
 if ($nv_Request->isset_request('change_status', 'post')) {
     $id = $nv_Request->get_int('id', 'post', 0);
 

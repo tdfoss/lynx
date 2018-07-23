@@ -125,7 +125,6 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $data_insert['is_contacts'] = $row['is_contacts'];
                 $data_insert['type_id'] = $row['type_id'];
                 $new_id = $db->insert_id($_sql, 'id', $data_insert);
-                nv_insert_logs( NV_LANG_DATA, $module_name, $lang_module['title_customer'], $lang_module['content_customer'], $admin_info['userid'] );
 
 
             } else {
@@ -153,7 +152,6 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $stmt->bindParam(':type_id', $row['type_id'], PDO::PARAM_INT);
                 if ($stmt->execute()) {
                     $new_id = $row['id'];
-                    nv_insert_logs( NV_LANG_DATA, $module_name, $lang_module['title_customer'], $lang_module['update_customer'], $admin_info['userid'] );
 
                 }
             }
@@ -182,6 +180,8 @@ if ($nv_Request->isset_request('submit', 'post')) {
                     $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . ($row['is_contacts'] ? '&is_contact=1' : '');
                 }
 
+                nv_insert_logs( NV_LANG_DATA, $module_name, $lang_module['title_customer'], $admin_info['username']." ".$lang_module['content_customer'], $admin_info['userid'] );
+
                 Header('Location: ' . $url);
                 die();
             }
@@ -190,7 +190,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
         }
     }
 }
-
+// var_dump($admin_info['username']);die;
 if (!empty($row['image']) and is_file(NV_UPLOADS_REAL_DIR . '/' . $module_upload . '/' . $row['image'])) {
     $row['image'] = NV_BASE_SITEURL . NV_UPLOADS_DIR . '/' . $module_upload . '/' . $row['image'];
 }

@@ -26,7 +26,7 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
         foreach ($array_id as $id) {
             nv_customer_delete($id);
         }
-        nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_customer'], $lang_module['delete_customer'], $admin_info['userid']);
+        nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_customer'], $admin_info['username']." ".$lang_module['delete_customer'], $admin_info['userid']);
         $nv_Cache->delMod($module_name);
         die('OK');
     }
