@@ -13,8 +13,8 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
     $id = $nv_Request->get_int('delete_id', 'get');
     $delete_checkss = $nv_Request->get_string('delete_checkss', 'get');
     if ($id > 0 and $delete_checkss == md5($id . NV_CACHE_PREFIX . $client_info['session_id'])) {
-        $userid = $db->query('SELECT userid FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetchColumn();
-        $fullname = $workforce_list[$userid]['fullname'];
+
+
 
         $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '  WHERE id = ' . $db->quote($id));
 

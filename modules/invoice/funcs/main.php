@@ -18,10 +18,6 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
         $userid = $db->query('SELECT userid FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetchColumn();
         $fullname = $workforce_list[$userid]['fullname'];
 
-
-        nv_delete_invoice($id);
-        nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_invoice'],$workforce_list[$user_info['userid']]['fullname']." ".$lang_module['delete_invoice']." ".$fullname, $user_info['userid']);
-
         $nv_Cache->delMod($module_name);
         if (!empty($redirect)) {
             $url = nv_redirect_decrypt($redirect);
@@ -44,7 +40,7 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
             nv_delete_invoice($id);
         }
         $printdelete = implode(', ', $array_id);
-        nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_invoice'], $workforce_list[$user_info['userid']]['fullname']." ".$lang_module['delete_many_invoice']." ".implode(', ', $array_name), $user_info['userid']);
+        nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_invoice'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['delete_many_invoice'] . " " . implode(', ', $array_name), $user_info['userid']);
 
         $nv_Cache->delMod($module_name);
         die('OK');

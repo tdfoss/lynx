@@ -125,7 +125,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $data_insert['is_contacts'] = $row['is_contacts'];
                 $data_insert['type_id'] = $row['type_id'];
                 $new_id = $db->insert_id($_sql, 'id', $data_insert);
-//                 var_dump($row['first_name']." ".$row['last_name']);die;
+                //                 var_dump($row['first_name']." ".$row['last_name']);die;
             } else {
                 $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET first_name = :first_name, last_name = :last_name, main_phone = :main_phone, other_phone = :other_phone, main_email = :main_email, other_email = :other_email, birthday = :birthday, facebook = :facebook, skype = :skype, zalo = :zalo, gender = :gender, address = :address, unit = :unit, trading_person = :trading_person, unit_name = :unit_name, tax_code = :tax_code, address_invoice = :address_invoice, care_staff = :care_staff, image = :image, edittime=' . NV_CURRENTTIME . ', note = :note, type_id = :type_id WHERE id=' . $row['id']);
                 $stmt->bindParam(':first_name', $row['first_name'], PDO::PARAM_STR);
@@ -173,10 +173,10 @@ if ($nv_Request->isset_request('submit', 'post')) {
                     $url = nv_redirect_decrypt($row['redirect']);
                 } elseif (empty($row['id'])) {
                     $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=detail&id=' . $new_id;
-                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_customer'], $workforce_list[$user_info['userid']]['fullname']  . " " . $lang_module['content_customer']." ".$row['last_name']." ".$row['first_name'], $workforce_list[$user_info['userid']]['fullname']);
+                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_customer'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['content_customer'] . " " . $row['last_name'] . " " . $row['first_name'], $workforce_list[$user_info['userid']]['fullname']);
                 } else {
                     $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . ($row['is_contacts'] ? '&is_contact=1' : '');
-                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_customer'], $workforce_list[$user_info['userid']]['fullname']  . " " . $lang_module['edit_customer']." ".$row['last_name']." ".$row['first_name'], $workforce_list[$user_info['userid']]['fullname']);
+                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_customer'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['edit_customer'] . " " . $row['last_name'] . " " . $row['first_name'], $workforce_list[$user_info['userid']]['fullname']);
                 }
 
                 Header('Location: ' . $url);

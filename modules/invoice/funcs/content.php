@@ -191,7 +191,6 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $data_insert['discount_value'] = $row['discount_value'];
                 $data_insert['auto_create'] = $row['auto_create'];
                 $new_id = $db->insert_id($_sql, 'id', $data_insert);
-
             } else {
                 $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET title = :title, customerid = :customerid, createtime = :createtime, duetime = :duetime, cycle = :cycle, workforceid = :workforceid, presenterid = :presenterid, performerid = :performerid, terms = :terms, description = :description, grand_total = :grand_total, discount_percent = :discount_percent, discount_value = :discount_value, status = :status, auto_create = :auto_create WHERE id=' . $row['id']);
                 $stmt->bindParam(':title', $row['title'], PDO::PARAM_STR);
@@ -211,7 +210,6 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $stmt->bindParam(':auto_create', $row['auto_create'], PDO::PARAM_INT);
                 if ($stmt->execute()) {
                     $new_id = $row['id'];
-
                 }
             }
 
@@ -303,12 +301,10 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 } else {
                     $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=detail&id=' . $new_id;
                 }
-                if (empty($row['id'])){
-                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_invoice'], $workforce_list[$user_info['userid']]['fullname']." ".$lang_module['content_invoice']." ".$row['title'], $workforce_list[$user_info['userid']]['fullname']);
-
-                }else{
-                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_invoice'], $workforce_list[$user_info['userid']]['fullname']." ".$lang_module['edit_invoice']." ".$row['title'], $workforce_list[$user_info['userid']]['fullname']);
-
+                if (empty($row['id'])) {
+                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_invoice'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['content_invoice'] . " " . $row['title'], $workforce_list[$user_info['userid']]['fullname']);
+                } else {
+                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_invoice'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['edit_invoice'] . " " . $row['title'], $workforce_list[$user_info['userid']]['fullname']);
                 }
 
                 Header('Location: ' . $url);

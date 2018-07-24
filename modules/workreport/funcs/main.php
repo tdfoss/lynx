@@ -25,7 +25,7 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
         } else {
             $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=' . $op;
         }
-        nv_insert_logs( NV_LANG_DATA, $module_name, $lang_module['title_workreport'], $user_info['username']." ".$lang_module['delete_workreport'],$workforce_list[$user_info['userid']]['fullname']);
+        nv_insert_logs( NV_LANG_DATA, $module_name, $lang_module['title_workreport'], $workforce_list[$user_info['userid']]['fullname']." ".$lang_module['delete_workreport'],$workforce_list[$user_info['userid']]['fullname']);
 
         nv_redirect_location($url);
     }
@@ -69,10 +69,10 @@ if ($nv_Request->isset_request('submit', 'post')) {
             $exc = $stmt->execute();
             if ($exc) {
                 if (empty($row['id'])) {
-                    nv_insert_logs( NV_LANG_DATA, $module_name, $lang_module['title_workreport'], $user_info['username']." ".$lang_module['add_workreport'], $workforce_list[$user_info['userid']]['fullname'] );
+                    nv_insert_logs( NV_LANG_DATA, $module_name, $lang_module['title_workreport'], $workforce_list[$user_info['userid']]['fullname']." ".$lang_module['add_workreport'], $workforce_list[$user_info['userid']]['fullname'] );
 
                 }else {
-                    nv_insert_logs( NV_LANG_DATA, $module_name, $lang_module['title_workreport'], $user_info['username']." ".$lang_module['content_workreport'], $workforce_list[$user_info['userid']]['fullname'] );
+                    nv_insert_logs( NV_LANG_DATA, $module_name, $lang_module['title_workreport'], $workforce_list[$user_info['userid']]['fullname']." ".$lang_module['content_workreport'], $workforce_list[$user_info['userid']]['fullname'] );
 
                 }
                 $nv_Cache->delMod($module_name);

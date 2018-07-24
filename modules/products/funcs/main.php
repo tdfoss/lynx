@@ -32,10 +32,9 @@ if ($nv_Request->isset_request('change_status', 'post, get')) {
 if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_request('delete_checkss', 'get')) {
     $id = $nv_Request->get_int('delete_id', 'get');
     $delete_checkss = $nv_Request->get_string('delete_checkss', 'get');
+
     if ($id > 0 and $delete_checkss == md5($id . NV_CACHE_PREFIX . $client_info['session_id'])) {
 
-        $userid = $db->query('SELECT userid FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetchColumn();
-        $fullname = $workforce_list[$userid]['fullname'];
         nv_delete_products($id);
         nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_product'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['delete_product'] . " " . $fullname, $user_info['userid']);
         $nv_Cache->delMod($module_name);
