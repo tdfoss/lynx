@@ -222,10 +222,10 @@ if ($nv_Request->isset_request('submit', 'post')) {
 
                 $nv_Cache->delMod($module_name);
                 if (empty($row['id'])) {
-                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_project'], $user_info['username']." ".$lang_module['content_project']." ".$row['title'], $admin_info['userid']);
+                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_project'], $workforce_list[$user_info['userid']]['fullname']." ".$lang_module['content_project']." ".$row['title'],$workforce_list[$user_info['userid']]['fullname']);
 
                 } else {
-                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_project'], $user_info['username']." ".$lang_module['edit_project']." ".$row['title'], $admin_info['userid']);
+                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_project'], $workforce_list[$user_info['userid']]['fullname']." ".$lang_module['edit_project']." ".$row['title'], $workforce_list[$user_info['userid']]['fullname']);
 
                 }
 

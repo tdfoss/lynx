@@ -128,9 +128,9 @@ if ($nv_Request->isset_request('submit', 'post')) {
         }
 
         if (empty($row['id'])) {
-            nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_email'], $user_info['username'] . " " . $lang_module['content_email']." ".$row['title'], $admin_info['userid']);
+            nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_email'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['content_email']." ".$row['title'], $workforce_list[$user_info['userid']]['fullname']);
         } else {
-            nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_email'], $user_info['username'] . " " . $lang_module['edit_email']." ".$row['title'], $admin_info['userid']);
+            nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_email'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['edit_email']." ".$row['title'], $workforce_list[$user_info['userid']]['fullname']);
         }
 
         $contents = nv_theme_alert($message_title, $message_content, $color, $url, $lang_module['view_detail'], 3);
