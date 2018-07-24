@@ -101,10 +101,8 @@ if ($nv_Request->isset_request('submit', 'post')) {
         try {
             if (empty($row['id'])) {
                 $stmt = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (userid, first_name, last_name, gender, birthday, main_phone, other_phone, main_email, other_email, address, knowledge, image, jointime, salary, allowance, addtime, edittime, useradd) VALUES (:userid, :first_name, :last_name, :gender, :birthday, :main_phone, :other_phone, :main_email, :other_email, :address, :knowledge, :image, :jointime, :salary, :allowance, ' . NV_CURRENTTIME . ', ' . NV_CURRENTTIME . ', ' . $user_info['userid'] . ')');
-
             } else {
                 $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET userid = :userid, first_name = :first_name, last_name = :last_name, gender = :gender, birthday = :birthday, main_phone = :main_phone, other_phone = :other_phone, main_email = :main_email, other_email = :other_email, address = :address, knowledge = :knowledge, image = :image, jointime = :jointime, salary = :salary, allowance = :allowance, edittime = ' . NV_CURRENTTIME . ' WHERE id=' . $row['id']);
-
             }
             $stmt->bindParam(':userid', $row['userid'], PDO::PARAM_INT);
             $stmt->bindParam(':first_name', $row['first_name'], PDO::PARAM_STR);
@@ -125,12 +123,15 @@ if ($nv_Request->isset_request('submit', 'post')) {
             if ($exc) {
                 $nv_Cache->delMod($module_name);
 
-                nv_insert_logs( NV_LANG_DATA, $module_name, $lang_module['title_workforce'], $admin_info['username']." ".$lang_module['content_workforce'], $admin_info['userid'] );
+                if (empty($row['id'])) {
+                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_workforce'], $user_info['username'] . " " . $lang_module['content_workforce']." ".$row['last_name']." ".$row['first_name'], $admin_info['userid']);
+                } else {
+                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_workforce'], $user_info['username'] . " " . $lang_module['edit_workforce']." ".$row['last_name']." ".$row['first_name'], $admin_info['userid']);
+                }
+
                 Header('Location: ' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name);
                 die();
-
             }
-
         } catch (PDOException $e) {
             trigger_error($e->getMessage());
         }

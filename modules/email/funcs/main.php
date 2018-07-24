@@ -13,10 +13,14 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
     $id = $nv_Request->get_int('delete_id', 'get');
     $delete_checkss = $nv_Request->get_string('delete_checkss', 'get');
     if ($id > 0 and $delete_checkss == md5($id . NV_CACHE_PREFIX . $client_info['session_id'])) {
-        nv_delete_email($id);
-        $nv_Cache->delMod($module_name);
-        nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_email'], $admin_info['username'] . " " . $lang_module['delete_email'], $admin_info['userid']);
+        $userid = $db->query('SELECT userid FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetchColumn();
+        $fullname = $workforce_list[$userid]['fullname'];
 
+
+        nv_delete_email($id);
+
+        nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_email'], $workforce_list[$user_info['userid']]['fullname']. " " . $lang_module['delete_email']." ".$fullname, $user_info['userid']);
+        $nv_Cache->delMod($module_name);
         Header('Location: ' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=' . $op);
         die();
     }
@@ -26,9 +30,15 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
 
     if (!empty($array_id)) {
         foreach ($array_id as $id) {
+            $userid = $db->query('SELECT userid FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetchColumn();
+            if ($userid) {
+                $array_name[] = $workforce_list[$userid]['fullname'];
+            }
+
             nv_delete_email($id);
         }
-        nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_email'], $admin_info['username'] . " " . $lang_module['delete_many_email'], $admin_info['userid']);
+        $printdelete = implode(', ', $array_id);
+        nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_email'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['delete_many_email']." ".implode(', ', $array_name), $user_info['userid']);
 
         $nv_Cache->delMod($module_name);
         die('OK');

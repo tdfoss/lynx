@@ -7,7 +7,6 @@
  * @License GNU/GPL version 2 or any later version
  * @Createdate Wed, 07 Feb 2018 09:53:57 GMT
  */
-
 if (!defined('NV_IS_MOD_EMAIL')) die('Stop!!!');
 
 if ($nv_Request->isset_request('get_user_json', 'post, get')) {
@@ -81,7 +80,7 @@ if ($row['id'] > 0) {
     $row['sendto_id_old'] = array();
     $row['send_my_cc'] = 1;
 }
-
+// var_dump($customer_info);die;
 $row['redirect'] = $nv_Request->get_string('redirect', 'post,get', '');
 
 if ($nv_Request->isset_request('submit', 'post')) {
@@ -127,7 +126,12 @@ if ($nv_Request->isset_request('submit', 'post')) {
         } else {
             $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=detail&id=' . $new_id;
         }
-        nv_insert_logs( NV_LANG_DATA, $module_name, $lang_module['title_email'],$admin_info['username']." ".$lang_module['content_email'], $admin_info['userid'] );
+
+        if (empty($row['id'])) {
+            nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_email'], $user_info['username'] . " " . $lang_module['content_email']." ".$row['title'], $admin_info['userid']);
+        } else {
+            nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_email'], $user_info['username'] . " " . $lang_module['edit_email']." ".$row['title'], $admin_info['userid']);
+        }
 
         $contents = nv_theme_alert($message_title, $message_content, $color, $url, $lang_module['view_detail'], 3);
 

@@ -131,6 +131,7 @@ $lang_module['error_payment_content'] = 'Vì lý do nào đó hệ thống khôn
 
 
 $lang_module['title_invoice'] = 'Hóa đơn';
-$lang_module['content_invoice'] = 'thêm, cập nhật dữ liệu hóa đơn';
+$lang_module['content_invoice'] = 'thêm dữ liệu hóa đơn';
+$lang_module['edit_invoice'] = 'sửa dữ liệu hóa đơn';
 $lang_module['delete_invoice'] = 'xóa dữ liệu hóa đơn';
 $lang_module['delete_many_invoice'] = 'xóa nhiều dữ liệu hóa đơn';
