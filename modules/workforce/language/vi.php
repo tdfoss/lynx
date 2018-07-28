@@ -64,6 +64,11 @@ $lang_module['bonus'] = 'Thưởng';
 $lang_module['deduction'] = 'Tổng các khoản trừ';
 $lang_module['received'] = 'Thực nhận';
 $lang_module['time'] = 'Thời gian';
+$lang_module['title_workforce'] = 'Nhân sự';
+$lang_module['content_workforce'] = 'thêm dữ liệu nhân sự';
+$lang_module['edit_workforce'] = 'sửa dữ liệu nhân sự';
+$lang_module['delete_workforce'] = 'xóa dữ liệu nhân sự';
+$lang_module['delete_many_workforce'] = 'xóa dữ liệu nhân sự';
 
 $lang_module['error_required_userid'] = 'Lỗi: bạn cần chọn Tài khoản thành viên';
 $lang_module['error_required_first_name'] = 'Lỗi: bạn cần nhập dữ liệu cho Tên';

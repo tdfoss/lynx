@@ -193,14 +193,8 @@ if (isset($site_mods['support'])) {
 $xtpl->parse('main');
 $contents = $xtpl->text('main');
 
-$page_title = $lang_module['customer_detail'] . ' ' . $customer_info['fullname'];
 $array_mod_title[] = array(
-    'title' => $lang_module['customer'],
-    'link' => NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name
-);
-$array_mod_title[] = array(
-    'title' => $customer_info['fullname'],
-    'link' => NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=detail&id=' . $id
+    'title' => $customer_info['fullname']
 );
 
 include NV_ROOTDIR . '/includes/header.php';
