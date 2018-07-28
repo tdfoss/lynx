@@ -54,8 +54,8 @@ function nv_theme_project_task_lisk($projectid)
 {
     global $db, $module_data, $module_file, $lang_module, $module_config, $module_info, $array_task_status, $workforce_list;
 
-    $array_data = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_task t1 INNER JOIN ' . NV_PREFIXLANG . '_task t2 ON t1.taskid=t2.id WHERE projectid=' . $projectid . ' ORDER BY begintime')->fetchAll();
-
+    $array_data = $db->query('SELECT t2.* FROM ' . NV_PREFIXLANG . '_' . $module_data . '_task t1 INNER JOIN ' . NV_PREFIXLANG . '_task t2 ON t1.taskid=t2.id WHERE t1.projectid=' . $projectid . ' ORDER BY begintime')->fetchAll();
+  
     $xtpl = new XTemplate('detail.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
     $xtpl->assign('LANG', $lang_module);
 
@@ -73,7 +73,8 @@ function nv_theme_project_task_lisk($projectid)
                 $task['performer_str'][] = isset($workforce_list[$userid]) ? $workforce_list[$userid]['fullname'] : '-';
             }
             $task['performer_str'] = !empty($task['performer_str']) ? implode(', ', $task['performer_str']) : '';
-
+            $task['link'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=task&amp;' . NV_OP_VARIABLE . '=detail&id=' . $task['id'];
+          
             $xtpl->assign('TASK', $task);
             $xtpl->parse('task_list.loop');
         }

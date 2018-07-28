@@ -68,12 +68,12 @@
             <!-- BEGIN: loop -->
             <tr>
                 <td class="text-center">{TASK.number}</td>
-                <td>{TASK.title}</td>
+                <td><a href="{TASK.link}">{TASK.title}</a></td>
                 <td>{TASK.performer_str}</td>
                 <td>{TASK.begintime}</td>
                 <td>{TASK.endtime}</td>
                 <td>{TASK.status}</td>
-                <td><a href="" class="btn btn-default btn-xs" onclick="nv_task_content({TASK.taskid}, {TASK.projectid});" ><i class="fa fa-edit"></i></a></td>
+                <td><a href="" class="btn btn-default btn-xs" onclick="nv_task_content({TASK.taskid}, {TASK.projectid});"><i class="fa fa-edit"></i></a></td>
             </tr>
             <!-- END: loop -->
         </tbody>
