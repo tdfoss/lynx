@@ -10,8 +10,6 @@ if (!defined('NV_IS_MOD_WORKFORCE')) die('Stop!!!');
 
 $maxdays = 24;
 $percent_overtime = 150;
-$groups_admin = '2';
-$groups_use = '1';
 $current_month = nv_date('m/Y', strtotime("first day of previous month"));
 
 if ($nv_Request->isset_request('save_change', 'post')) {
@@ -74,7 +72,7 @@ if ($nv_Request->isset_request('save_change', 'post')) {
     ));
 }
 
-if (!nv_user_in_groups($groups_admin)) {
+if (!nv_user_in_groups($array_config['groups_admin'])) {
     nv_info_die($lang_global['error_404_title'], $lang_global['error_404_title'], $lang_global['error_404_content'], 404);
 }
 
@@ -88,7 +86,7 @@ if (!empty($array_search['month'])) {
     $current_month = $array_search['month'];
 }
 
-$workforce_list = nv_crm_list_workforce($groups_use);
+$workforce_list = nv_crm_list_workforce($array_config['groups_use']);
 if (!empty($workforce_list)) {
     $bonus = $advance = $deduction = $received = $total = 0;
     $array_data = array();

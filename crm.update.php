@@ -34,6 +34,10 @@ while (list ($lang) = $language_query->fetch(3)) {
 
     $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_projects_task( taskid int(11) unsigned NOT NULL, projectid mediumint(8) unsigned NOT NULL, UNIQUE KEY taskid(taskid, projectid) ) ENGINE=MyISAM";
 
+    $sql[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', 'workforce', 'groups_admin', '1');";
+
+    $sql[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', 'workforce', 'groups_use', '1');";
+
     foreach ($sql as $_sql) {
         try {
             $db->query($_sql);
@@ -41,6 +45,6 @@ while (list ($lang) = $language_query->fetch(3)) {
             //
         }
     }
-    $nv_Cache->delMod($mod);
+    $nv_Cache->delAll();
 }
 die('OK');

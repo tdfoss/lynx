@@ -10,9 +10,7 @@ if (!defined('NV_SYSTEM')) die('Stop!!!');
 
 define('NV_IS_MOD_WORKFORCE', true);
 
-$array_config = array();
-$array_config['groups_admin'] = '10';
-$array_config['groups_manage'] = '10,11';
+$array_config = $module_config[$module_name];
 
 $array_gender = array(
     1 => $lang_module['male'],
@@ -33,9 +31,9 @@ function nv_workforce_check_premission()
 {
     global $array_config, $user_info;
 
-    if (empty($array_config['groups_manage'])) {
+    if (empty($array_config['groups_use'])) {
         return false;
-    } elseif (!empty(array_intersect(explode(',', $array_config['groups_manage']), $user_info['in_groups']))) {
+    } elseif (!empty(array_intersect(explode(',', $array_config['groups_use']), $user_info['in_groups']))) {
         return true;
     }
     return false;
