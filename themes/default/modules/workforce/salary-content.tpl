@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-xs-24 col-md-6">
             <div class="form-group">
-                <select class="form-control" name="month">
+                <select class="form-control" name="month" id="month">
                     <!-- BEGIN: month -->
                     <option value="{MONTH.index}"{MONTH.selected}>{MONTH.value}</option>
                     <!-- END: month -->
@@ -98,7 +98,7 @@ $(document).ready(function () {
                 var sourceRow = hotElement.getSourceDataAtRow(rowThatHasBeenChanged);
               
                 $.ajax({
-                    url : script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=salary-content&nocache=' + new Date().getTime(),
+                    url : script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=salary-content&month=' + $('#month').val() + '&nocache=' + new Date().getTime(),
                     type : "POST",
                     data : {
                         save_change: 1,

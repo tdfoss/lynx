@@ -12,6 +12,14 @@ $maxdays = 24;
 $percent_overtime = 150;
 $current_month = nv_date('m/Y', strtotime("first day of previous month"));
 
+$array_search = array(
+    'month' => $nv_Request->get_string('month', 'get', $current_month)
+);
+
+if (!empty($array_search['month'])) {
+    $current_month = $array_search['month'];
+}
+
 if ($nv_Request->isset_request('save_change', 'post')) {
     $data = $nv_Request->get_array('data', 'post');
     $data['workday'] = preg_replace('/[^0-9]\./', '', $data['workday']);
@@ -76,16 +84,6 @@ if (!nv_user_in_groups($array_config['groups_admin'])) {
     nv_info_die($lang_global['error_404_title'], $lang_global['error_404_title'], $lang_global['error_404_content'], 404);
 }
 
-$base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name;
-$array_users = array();
-$array_search = array(
-    'month' => $nv_Request->get_string('month', 'get', $current_month)
-);
-
-if (!empty($array_search['month'])) {
-    $current_month = $array_search['month'];
-}
-
 $workforce_list = nv_crm_list_workforce($array_config['groups_use']);
 if (!empty($workforce_list)) {
     $bonus = $advance = $deduction = $received = $total = 0;
@@ -128,11 +126,6 @@ $array_salary[] = array(
     'bonus' => $bonus
 
 );
-
-if (!empty($array_search['month'])) {
-    $base_url .= '&month=' . $array_search['month'];
-    $current_month = $array_search['month'];
-}
 
 $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
 $xtpl->assign('LANG', $lang_module);
