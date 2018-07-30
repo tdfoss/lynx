@@ -35,6 +35,12 @@
         <!-- END: content -->
     </div>
     <div class="col-xs-24 col-sm-12 col-md-12">
+        <!-- BEGIN: task_list -->
+        <div id="task_list">{TASK_LIST}</div>
+        <div class="text-center m-bottom">
+            <button class="btn btn-success btn-xs" onclick="nv_task_content(0, {ROW.id});">{LANG.task_add}</button>
+        </div>
+        <!-- END: task_list -->
         <!-- BEGIN: comment -->
         <div class="panel panel-default">
             <div class="panel-body">{COMMENT}</div>
@@ -43,3 +49,34 @@
     </div>
 </div>
 <!-- END: main -->
+<!-- BEGIN: task_list -->
+<div class="panel panel-default">
+    <div class="panel-heading">{LANG.task_list}</div>
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th width="40"></th>
+                <th>{LANG.title}</th>
+                <th>{LANG.workforceid}</th>
+                <th>{LANG.task_begin_time}</th>
+                <th>{LANG.task_end_time}</th>
+                <th>{LANG.status}</th>
+                <th width="50"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- BEGIN: loop -->
+            <tr>
+                <td class="text-center">{TASK.number}</td>
+                <td><a href="{TASK.link}">{TASK.title}</a></td>
+                <td>{TASK.performer_str}</td>
+                <td>{TASK.begintime}</td>
+                <td>{TASK.endtime}</td>
+                <td>{TASK.status}</td>
+                <td><a href="" class="btn btn-default btn-xs" onclick="nv_task_content({TASK.taskid}, {TASK.projectid});"><i class="fa fa-edit"></i></a></td>
+            </tr>
+            <!-- END: loop -->
+        </tbody>
+    </table>
+</div>
+<!-- END: task_list -->

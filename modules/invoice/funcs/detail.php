@@ -142,8 +142,8 @@ $id = $nv_Request->get_int('id', 'id', 0);
 $downpdf = $nv_Request->get_int('downpdf', 'downpdf', 0);
 $sendmail = $nv_Request->get_int('sendmail', 'sendmail', 0);
 
-if ($id > 0) {
-    $row = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id . nv_invoice_premission($module_name))->fetch();
+$row = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id . nv_invoice_premission($module_name))->fetch();
+if ($row) {
     $row['createtime'] = date('d/m/Y', $row['createtime']);
     $row['duetime'] = (empty($row['duetime'])) ? ($lang_module['non_identify']) : nv_date('d/m/Y', $row['duetime']);
     $row['customer'] = nv_crm_customer_info($row['customerid']);

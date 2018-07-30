@@ -36,3 +36,9 @@ $lang_module['error_required_content'] = 'Lỗi: bạn cần nhập dữ liệu 
 $lang_module['error_required_fortime'] = 'Lỗi: ngày báo cáo đã có';
 $lang_module['title_no_premission'] = 'Khu vực không được phép truy cập';
 $lang_module['content_no_premission'] = 'Bạn không được cấp phép để sử dụng tính năng này, vui lòng trở lại';
+
+
+$lang_module['title_workreport'] = 'Báo cáo công việc';
+$lang_module['content_workreport'] = 'cập nhật báo cáo công việc';
+$lang_module['add_workreport'] = 'thêm báo cáo công việc';
+$lang_module['delete_workreport'] = 'xóa thông tin báo cáo công việc';
