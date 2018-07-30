@@ -27,11 +27,11 @@ $array_transaction_status = array(
     5 => $lang_module['transaction_status_5']
 );
 
-// $_sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_services WHERE active=1 ORDER BY weight';
-// $array_services = $nv_Cache->db($_sql, 'id', 'services');
+$_sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_services WHERE active=1 ORDER BY weight';
+$array_services = $nv_Cache->db($_sql, 'id', 'services');
 
-// $_sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_products WHERE active=1 ORDER BY weight';
-// $array_products = $nv_Cache->db($_sql, 'id', 'products');
+$_sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_products WHERE active=1 ORDER BY weight';
+$array_products = $nv_Cache->db($_sql, 'id', 'products');
 
 function nv_copy_invoice($id, $status = 0, $create_user_id = 0)
 {

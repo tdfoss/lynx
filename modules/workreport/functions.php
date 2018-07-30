@@ -90,5 +90,3 @@ function nv_workreport_premission($type = 'where')
         }
     }
 }
-
-
