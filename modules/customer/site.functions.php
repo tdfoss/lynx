@@ -8,25 +8,6 @@
  */
 if (!defined('NV_MAINFILE')) die('Stop!!!');
 
-if (!isset($site_mods['workforce'])) {
-    $workforce_list = array();
-    $where = '';
-
-    $where .= !empty($array_config['groups_manage']) ? ' AND userid IN (SELECT userid FROM ' . NV_USERS_GLOBALTABLE . '_groups_managers WHERE group_id IN (' . $array_config['groups_manage'] . '))' : '';
-    $result = $db->query('SELECT userid, first_name, last_name, username, email FROM ' . NV_USERS_GLOBALTABLE . ' WHERE active=1' . $where);
-    while ($row = $result->fetch()) {
-        $row['fullname'] = nv_show_name_user($row['first_name'], $row['last_name'], $row['username']);
-        $workforce_list[$row['userid']] = $row;
-    }
-}
-
-if (empty($workforce_list)) {
-    $contents = nv_theme_alert($lang_module['workforce_empty_title'], $lang_module['workforce_empty_content'], 'danger');
-    include NV_ROOTDIR . '/includes/header.php';
-    echo nv_site_theme($contents);
-    include NV_ROOTDIR . '/includes/footer.php';
-}
-
 function nv_crm_customer_info($customerid)
 {
     global $db;

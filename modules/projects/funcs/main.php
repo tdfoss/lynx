@@ -13,15 +13,9 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
     $id = $nv_Request->get_int('delete_id', 'get');
     $delete_checkss = $nv_Request->get_string('delete_checkss', 'get');
     if ($id > 0 and $delete_checkss == md5($id . NV_CACHE_PREFIX . $client_info['session_id'])) {
-
-
-
         $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '  WHERE id = ' . $db->quote($id));
-
-        nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_project'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['delete_project']." ".$fullname, $user_info['userid']);
         $nv_Cache->delMod($module_name);
         Header('Location: ' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=' . $op);
-
         die();
     }
 } elseif ($nv_Request->isset_request('delete_list', 'post')) {
@@ -30,15 +24,8 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
 
     if (!empty($array_id)) {
         foreach ($array_id as $id) {
-            $userid = $db->query('SELECT userid FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetchColumn();
-            if ($userid) {
-                $array_name[] = $workforce_list[$userid]['fullname'];
-            }
             $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '  WHERE id = ' . $db->quote($id));
         }
-
-        nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_project'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['delete_many_project']." ".implode(', ', $array_name), $user_info['userid']);
-
         $nv_Cache->delMod($module_name);
         die('OK');
     }
@@ -50,10 +37,7 @@ $base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DA
 $per_page = 20;
 $page = $nv_Request->get_int('page', 'post,get', 1);
 $array_search = array(
-    'q' => $nv_Request->get_title('q', 'post,get'),
-    'status' => $nv_Request->get_int('status', 'get', -1),
-    'workforce' => $nv_Request->get_int('workforceid', 'get', 0),
-    'customerid' => $nv_Request->get_int('customerid', 'get', 0)
+    'q' => $nv_Request->get_title('q', 'post,get')
 );
 
 if (!empty($array_search['q'])) {
@@ -62,20 +46,6 @@ if (!empty($array_search['q'])) {
         OR url_code LIKE "%' . $array_search['q'] . '%"
         OR content LIKE "%' . $array_search['q'] . '%"
     ';
-}
-if ($array_search['status'] >= 0) {
-    $base_url .= '&status=' . $array_search['status'];
-    $where .= ' AND status=' . $array_search['status'];
-}
-
-if (!empty($array_search['workforce'])) {
-    $base_url .= '&workforce=' . $array_search['workforce'];
-    $where .= ' AND workforceid=' . $array_search['workforce'];
-}
-
-if (!empty($array_search['customerid'])) {
-    $base_url .= '&amp;customerid=' . $array_search['customerid'];
-    $where .= ' AND customerid=' . $array_search['customerid'];
 }
 
 $where .= nv_projects_premission($module_name);
@@ -95,11 +65,6 @@ $db->select('*')
     ->offset(($page - 1) * $per_page);
 $sth = $db->prepare($db->sql());
 $sth->execute();
-
-$customer_info = array();
-if (!empty($array_search['customerid'])) {
-    $customer_info = nv_crm_customer_info($array_search['customerid']);
-}
 
 $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
 $xtpl->assign('LANG', $lang_module);
@@ -154,34 +119,6 @@ while ($view = $sth->fetch()) {
 $array_action = array(
     'delete_list_id' => $lang_global['delete']
 );
-
-foreach ($array_status as $index => $value) {
-    $sl = $index == $array_search['status'] ? 'selected="selected"' : '';
-    $xtpl->assign('STATUS', array(
-        'index' => $index,
-        'value' => $value,
-        'selected' => $sl
-    ));
-    $xtpl->parse('main.status');
-}
-
-if (!empty($workforce_list)) {
-    foreach ($workforce_list as $index => $value) {
-        $sl = $index == $array_search['workforce'] ? 'selected="selected"' : '';
-        $xtpl->assign('WORKFORCE', array(
-            'index' => $index,
-            'value' => $value['fullname'],
-            'selected' => $sl
-        ));
-        $xtpl->parse('main.workforce');
-    }
-}
-
-if (!empty($customer_info)) {
-    $xtpl->assign('CUSTOMER', $customer_info);
-    $xtpl->parse('main.customer');
-}
-
 foreach ($array_action as $key => $value) {
     $xtpl->assign('ACTION', array(
         'key' => $key,
