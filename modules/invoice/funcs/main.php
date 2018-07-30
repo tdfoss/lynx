@@ -15,9 +15,7 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
     $id = $nv_Request->get_int('delete_id', 'get');
     $delete_checkss = $nv_Request->get_string('delete_checkss', 'get');
     if ($id > 0 and $delete_checkss == md5($id . NV_CACHE_PREFIX . $client_info['session_id'])) {
-        $userid = $db->query('SELECT userid FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetchColumn();
-        $fullname = $workforce_list[$userid]['fullname'];
-
+        nv_delete_invoice($id);
         $nv_Cache->delMod($module_name);
         if (!empty($redirect)) {
             $url = nv_redirect_decrypt($redirect);
@@ -33,15 +31,8 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
 
     if (!empty($array_id)) {
         foreach ($array_id as $id) {
-            $userid = $db->query('SELECT userid FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetchColumn();
-            if ($userid) {
-                $array_name[] = $workforce_list[$userid]['fullname'];
-            }
             nv_delete_invoice($id);
         }
-        $printdelete = implode(', ', $array_id);
-        nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_invoice'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['delete_many_invoice'] . " " . implode(', ', $array_name), $user_info['userid']);
-
         $nv_Cache->delMod($module_name);
         die('OK');
     }
@@ -108,8 +99,6 @@ if (!empty($array_search['performerid'])) {
 if ($array_search['status'] >= 0) {
     $base_url .= '&amp;status=' . $array_search['status'];
     $where .= ' AND status=' . $array_search['status'];
-} elseif ($array_search['status'] < 0 && $nv_Request->isset_request('q', 'get')) {
-    //
 } elseif (!empty($array_config['default_status'])) {
     $where .= ' AND status IN (' . $array_config['default_status'] . ')';
 }
@@ -185,7 +174,7 @@ while ($view = $sth->fetch()) {
 
     if ($view['status'] == 2) {
         $xtpl->parse('main.loop.danger');
-    } elseif ($view['status'] == 3) {
+    }elseif ($view['status'] == 3) {
         $xtpl->parse('main.loop.success');
     }
 

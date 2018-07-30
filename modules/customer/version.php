@@ -10,7 +10,7 @@ if (!defined('NV_MAINFILE')) die('Stop!!!');
 
 $module_version = array(
     'name' => 'Customer',
-    'modfuncs' => 'main,detail,content,import, export',
+    'modfuncs' => 'main,detail,content',
     'change_alias' => '',
     'submenu' => 'main',
     'is_sysmod' => 1,
