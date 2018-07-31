@@ -71,7 +71,7 @@
 </form>
 <form action="{NV_BASE_SITEURL}index.php?{NV_LANG_VARIABLE}={NV_LANG_DATA}&amp;{NV_NAME_VARIABLE}={MODULE_NAME}&amp;{NV_OP_VARIABLE}={OP}" method="post">
     <div class="table-responsive">
-        <table class="table table-striped table-bordered table-hover">
+        <table class="table table-striped table-bordered table-hover table-middle">
             <thead>
                 <tr>
                     <th width="50" class="text-center">{LANG.number}</th>
@@ -92,7 +92,8 @@
                 <!-- BEGIN: loop -->
                 <tr>
                     <td class="text-center">{VIEW.number}</td>
-                    <td>{VIEW.fortime}</td>
+                    <td class="text-center">{VIEW.day_in_weeks}<br />{VIEW.fortime}
+                    </td>
                     <td>{VIEW.content}</td>
                     <td>{VIEW.addtime}</td>
                     <td class="text-center">
