@@ -30,6 +30,7 @@ $lang_module['content'] = 'Nội dung công việc';
 $lang_module['addtime'] = 'Thời gian báo cáo';
 $lang_module['month'] = 'Tháng %d';
 $lang_module['admin'] = 'Xem theo ngày';
+$lang_module['logs_workreport'] = 'Cập nhật báo cáo công việc';
 
 $lang_module['error_required_fortime'] = 'Lỗi: bạn cần nhập dữ liệu cho Ngày báo cáo';
 $lang_module['error_required_content'] = 'Lỗi: bạn cần nhập dữ liệu cho Nội dung công việc';

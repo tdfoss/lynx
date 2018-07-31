@@ -63,6 +63,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
 
             $exc = $stmt->execute();
             if ($exc) {
+                nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_workreport'], '', $user_info['userid']);
                 $nv_Cache->delMod($module_name);
                 if (!empty($row['redirect'])) {
                     $url = nv_redirect_decrypt($row['redirect']);
