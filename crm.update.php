@@ -32,6 +32,8 @@ while (list ($lang) = $language_query->fetch(3)) {
 
     $sql[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', 'workreport', 'allow_time', '1440');";
 
+    $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_workreport ADD time float NOT NULL AFTER fortime";
+
     foreach ($sql as $_sql) {
         try {
             $db->query($_sql);

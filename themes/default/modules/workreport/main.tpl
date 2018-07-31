@@ -58,6 +58,12 @@
                 </div>
             </div>
             <div class="form-group">
+                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.time}</strong></label>
+                <div class="col-sm-19 col-md-20">
+                    <input type="text" name="time" value="{ROW.time}" class="form-control required" />
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.content}</strong></label>
                 <div class="col-sm-19 col-md-20">
                     <textarea class="form-control required" style="height: 100px;" cols="75" rows="5" name="content">{ROW.content}</textarea>
@@ -76,6 +82,7 @@
                 <tr>
                     <th width="50" class="text-center">{LANG.number}</th>
                     <th width="150">{LANG.fortime}</th>
+                    <th width="180">{LANG.time}</th>
                     <th>{LANG.content}</th>
                     <th width="150">{LANG.addtime}</th>
                     <th width="150">&nbsp;</th>
@@ -94,6 +101,7 @@
                     <td class="text-center">{VIEW.number}</td>
                     <td class="text-center">{VIEW.day_in_weeks}<br />{VIEW.fortime}
                     </td>
+                    <td class="text-center">{VIEW.time}</td>
                     <td>{VIEW.content}</td>
                     <td>{VIEW.addtime}</td>
                     <td class="text-center">
