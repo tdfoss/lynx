@@ -27,7 +27,6 @@ if ($row['id'] > 0) {
     $row['price'] = '';
     $row['note'] = '';
     $row['vat'] = 0;
-    $row['url'] = '';
 }
 
 if ($nv_Request->isset_request('submit', 'post')) {
@@ -35,7 +34,6 @@ if ($nv_Request->isset_request('submit', 'post')) {
     $row['catid'] = $nv_Request->get_title('catid', 'post', '');
     $row['price'] = $nv_Request->get_title('price', 'post', '');
     $row['vat'] = $nv_Request->get_float('vat', 'post', 0);
-    $row['url'] = $nv_Request->get_title('url', 'post', '');
     $row['note'] = $nv_Request->get_textarea('note', '', NV_ALLOWED_HTML_TAGS);
 
     if (empty($row['title'])) {
@@ -53,22 +51,16 @@ if ($nv_Request->isset_request('submit', 'post')) {
             $stmt->bindParam(':catid', $row['catid'], PDO::PARAM_STR);
             $stmt->bindParam(':price', $row['price'], PDO::PARAM_STR);
             $stmt->bindParam(':vat', $row['vat'], PDO::PARAM_STR);
-            $stmt->bindParam(':url', $row['url'], PDO::PARAM_STR);
             $stmt->bindParam(':note', $row['note'], PDO::PARAM_STR, strlen($row['note']));
 
             $exc = $stmt->execute();
-
             if ($exc) {
-
                 if (empty($row['id'])) {
                     nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_product'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['content_product'] . " " . $row['title'], $workforce_list[$user_info['userid']]['fullname']);
                 } else {
-
                     nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_product'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['edit_product'] . " " . $row['title'], $workforce_list[$user_info['userid']]['fullname']);
                 }
-
                 $nv_Cache->delMod($module_name);
-
                 Header('Location: ' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name);
                 die();
             }
@@ -77,8 +69,6 @@ if ($nv_Request->isset_request('submit', 'post')) {
         }
     }
 }
-
-$row['vat'] = !empty($row['vat']) ? $row['vat'] : '';
 
 $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
 $xtpl->assign('LANG', $lang_module);

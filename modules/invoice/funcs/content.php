@@ -301,11 +301,6 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 } else {
                     $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=detail&id=' . $new_id;
                 }
-                if (empty($row['id'])) {
-                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_invoice'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['content_invoice'] . " " . $row['title'], $workforce_list[$user_info['userid']]['fullname']);
-                } else {
-                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_invoice'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['edit_invoice'] . " " . $row['title'], $workforce_list[$user_info['userid']]['fullname']);
-                }
 
                 Header('Location: ' . $url);
                 die();

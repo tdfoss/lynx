@@ -2,16 +2,16 @@
 
 /**
  * @Project NUKEVIET 4.x
- * @Author mynukeviet (contact@mynukeviet.com)
- * @Copyright (C) 2018 mynukeviet. All rights reserved
- * @Createdate Wed, 01 Aug 2018 01:34:45 GMT
+ * @Author TDFOSS.,LTD (contact@tdfoss.vn)
+ * @Copyright (C) 2018 TDFOSS.,LTD. All rights reserved
+ * @Createdate Tue, 27 Feb 2018 05:52:30 GMT
  */
 
 if ( ! defined( 'NV_MAINFILE' ) ) die( 'Stop!!!' );
 
-$lang_translator['author'] = 'mynukeviet (contact@mynukeviet.com)';
-$lang_translator['createdate'] = '01/08/2018, 01:34';
-$lang_translator['copyright'] = '@Copyright (C) 2018 mynukeviet All rights reserved';
+$lang_translator['author'] = 'TDFOSS.,LTD (contact@tdfoss.vn)';
+$lang_translator['createdate'] = '27/02/2018, 05:52';
+$lang_translator['copyright'] = '@Copyright (C) 2018 TDFOSS.,LTD All rights reserved';
 $lang_translator['info'] = '';
 $lang_translator['langtype'] = 'lang_module';
 
