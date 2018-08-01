@@ -9,10 +9,13 @@
 if (!defined('NV_SYSTEM')) die('Stop!!!');
 
 define('NV_IS_MOD_PRODUCTS', true);
-
+define( 'NV_IS_MOD_PRODUCT_TYPE', true );
 function nv_delete_products($id)
 {
     global $db, $module_data;
 
     $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '  WHERE id = ' . $id);
 }
+
+$_sql = 'SELECT id,title FROM ' . NV_PREFIXLANG . '_' . $module_data . '_cat';
+$array_type = $nv_Cache->db($_sql, 'id', $module_name);

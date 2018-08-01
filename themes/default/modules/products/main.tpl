@@ -8,6 +8,16 @@
                     <input class="form-control" type="text" value="{Q}" name="q" maxlength="255" placeholder="{LANG.search_title}" />
                 </div>
             </div>
+            <div class="col-xs-24 col-md-4">
+                <div class="form-group">
+                     <select class="form-control" name="catid">
+                        <option value="0">---{LANG.typeid}---</option>
+                        <!-- BEGIN: select_type -->
+                        <option value="{TYPE.key}"{TYPE.selected}>{TYPE.title}</option>
+                        <!-- END: select_type -->
+                    </select>
+                </div>
+            </div>
             <div class="col-xs-12 col-md-3">
                 <div class="form-group">
                     <input class="btn btn-primary" type="submit" value="{LANG.search_submit}" />
@@ -32,6 +42,7 @@
                 <tr>
                     <th class="text-center" width="50"><input name="check_all[]" type="checkbox" value="yes" onclick="nv_checkAll(this.form, 'idcheck[]', 'check_all[]',this.checked);"></th>
                     <th>{LANG.title}</th>
+                    <th>{LANG.product_type}</th>
                     <th>{LANG.price}</th>
                     <th>{LANG.vat}</th>
                     <th width="100" class="text-center">{LANG.active}</th>
@@ -50,6 +61,7 @@
                 <tr>
                     <td class="text-center"><input type="checkbox" onclick="nv_UncheckAll(this.form, 'idcheck[]', 'check_all[]', this.checked);" value="{VIEW.id}" name="idcheck[]" class="post"></td>
                     <td>{VIEW.title}</td>
+                    <td>{VIEW.catid}</td>
                     <td>{VIEW.price}</td>
                     <td>{VIEW.vat}</td>
                     <td class="text-center"><input type="checkbox" name="active" id="change_status_{VIEW.id}" value="{VIEW.id}" {CHECK} onclick="nv_change_status({VIEW.id});" /></td>
