@@ -13,6 +13,17 @@
                 </div>
             </div>
             <div class="form-group">
+                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.product_type}</strong></label>
+                <div class="col-sm-19 col-md-20">
+                    <select class="form-control " name="catid">
+                        <option value="0">---{LANG.typeid}---</option>
+                        <!-- BEGIN: select_type -->
+                        <option value="{TYPE.key}"{TYPE.selected}>{TYPE.title}</option>
+                        <!-- END: select_type -->
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.price}</strong></label>
                 <div class="col-sm-19 col-md-20">
                     <input class="form-control" type="text" name="price" value="{ROW.price}" />

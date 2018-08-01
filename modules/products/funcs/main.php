@@ -69,6 +69,10 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
 
     if (!empty($array_id)) {
         foreach ($array_id as $id) {
+            $userid = $db->query('SELECT id FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetchColumn();
+            if ($userid) {
+                $array_name[] = $workforce_list[$userid]['fullname'];
+            }
             nv_delete_products($id);
         }
         $nv_Cache->delMod($module_name);
@@ -79,6 +83,52 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
 
 $q = $nv_Request->get_title('q', 'post,get');
 
+$page = $nv_Request->get_int('page', 'post,get', 1);
+$is_contact = $nv_Request->get_int('is_contact', 'get', 0);
+$where = '';
+if ($nv_Request->isset_request('ordername', 'get')) {
+    $array_search['ordername'] = $nv_Request->get_title('ordername', 'get');
+    $nv_Request->set_Cookie('ordername', $array_search['ordername']);
+} elseif ($nv_Request->isset_request('ordername', 'cookie')) {
+    $array_search['ordername'] = $nv_Request->get_title('ordername', 'cookie');
+} else {
+    $array_search['ordername'] = 'first_name';
+}
+
+if ($nv_Request->isset_request('ordertype', 'get')) {
+    $array_search['ordertype'] = $nv_Request->get_title('ordertype', 'get');
+    $nv_Request->set_Cookie('ordertype', $array_search['ordertype']);
+} elseif ($nv_Request->isset_request('ordername', 'cookie')) {
+    $array_search['ordertype'] = $nv_Request->get_title('ordertype', 'cookie');
+} else {
+    $array_search['ordertype'] = 'asc';
+}
+$base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;is_contact=' . $is_contact;
+if (!empty($array_search['q'])) {
+    $base_url .= '&q=' . $array_search['q'];
+    $where .= ' AND (id LIKE "%' . $array_search['q'] . '%"
+        OR title LIKE "%' . $array_search['q'] . '%"
+        OR catid LIKE "%' . $array_search['q'] . '%"
+        OR price LIKE "%' . $array_search['q'] . '%"
+        OR vat LIKE "%' . $array_search['q'] . '%"
+        OR url LIKE "%' . $array_search['q'] . '%"
+        OR active LIKE "%' . $array_search['q'] . '%"
+        OR note LIKE "%' . $array_search['q'] . '%"
+
+    )';
+}
+
+$array_search = array(
+    'q' => $nv_Request->get_title('q', 'post,get'),
+    'catid' => $nv_Request->get_int('catid', 'post,get', 0)
+);
+
+// var_dump($array_search);die;
+if (!empty($array_search['catid'])) {
+    $base_url .= '&catid=' . $array_search['catid'];
+    $where .= ' AND catid=' . $array_search['catid'];
+}
+
 // Fetch Limit
 $show_view = false;
 if (!$nv_Request->isset_request('id', 'post,get')) {
@@ -87,7 +137,8 @@ if (!$nv_Request->isset_request('id', 'post,get')) {
     $page = $nv_Request->get_int('page', 'post,get', 1);
     $db->sqlreset()
         ->select('COUNT(*)')
-        ->from('' . NV_PREFIXLANG . '_' . $module_data . '');
+        ->from('' . NV_PREFIXLANG . '_' . $module_data . '')
+        ->where('1=1' . $where);
 
     if (!empty($q)) {
         $db->where('title LIKE :q_title OR price LIKE :q_price');
@@ -114,6 +165,7 @@ if (!$nv_Request->isset_request('id', 'post,get')) {
     $sth->execute();
 }
 
+
 $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
 $xtpl->assign('LANG', $lang_module);
 $xtpl->assign('MODULE_NAME', $module_name);
@@ -121,6 +173,16 @@ $xtpl->assign('OP', $op);
 $xtpl->assign('ROW', $row);
 $xtpl->assign('Q', $q);
 $xtpl->assign('URL_ADD', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $module_info['alias']['content']);
+
+foreach ($array_type as $value) {
+    $xtpl->assign('TYPE', array(
+        'key' => $value['id'],
+        'title' => $value['title'],
+        'selected' => ($value['id'] == $array_search['catid']) ? ' selected="selected"' : ''
+
+    ));
+    $xtpl->parse('main.select_type');
+}
 
 $base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op;
 if (!empty($q)) {
@@ -146,6 +208,9 @@ while ($view = $sth->fetch()) {
     $xtpl->assign('CHECK', $view['active'] == 1 ? 'checked' : '');
     $view['link_edit'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $module_info['alias']['content'] . '&amp;id=' . $view['id'];
     $view['link_delete'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;delete_id=' . $view['id'] . '&amp;delete_checkss=' . md5($view['id'] . NV_CACHE_PREFIX . $client_info['session_id']);
+    $view['catid'] = !empty($view['catid']) ? $array_type[$view['catid']]['title'] : '';
+
+    //     var_dump($array_type);die;
     $xtpl->assign('VIEW', $view);
     $xtpl->parse('main.loop');
 }
