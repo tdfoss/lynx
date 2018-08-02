@@ -41,7 +41,6 @@
             <thead>
                 <tr>
                     <th class="text-center" width="50"><input name="check_all[]" type="checkbox" value="yes" onclick="nv_checkAll(this.form, 'idcheck[]', 'check_all[]',this.checked);"></th>
-                    <th width="100">{LANG.weight}</th>
                     <th>{LANG.title}</th>
                     <th>{LANG.product_type}</th>
                     <th>{LANG.price}</th>
@@ -61,11 +60,6 @@
                 <!-- BEGIN: loop -->
                 <tr>
                     <td class="text-center"><input type="checkbox" onclick="nv_UncheckAll(this.form, 'idcheck[]', 'check_all[]', this.checked);" value="{VIEW.id}" name="idcheck[]" class="post"></td>
-                    <td><select class="form-control" id="id_weight_{VIEW.id}" onchange="nv_change_weight('{VIEW.id}');">
-                            <!-- BEGIN: weight_loop -->
-                            <option value="{WEIGHT.key}"{WEIGHT.selected}>{WEIGHT.title}</option>
-                            <!-- END: weight_loop -->
-                    </select></td>
                     <td>{VIEW.title}</td>
                     <td>{VIEW.catid}</td>
                     <td>{VIEW.price}</td>
@@ -88,21 +82,6 @@
 </form>
 <script type="text/javascript">
 //<![CDATA[
-	function nv_change_weight(id) {
-		var nv_timer = nv_settimeout_disable('id_weight_' + id, 5000);
-		var new_vid = $('#id_weight_' + id).val();
-		$.post(script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=services&nocache=' + new Date().getTime(), 'ajax_action=1&id=' + id + '&new_vid=' + new_vid, function(res) {
-			var r_split = res.split('_');
-			if (r_split[0] != 'OK') {
-				alert(nv_is_change_act_confirm[2]);
-			}
-			window.location.href = script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=services';
-			return;
-		});
-		return;
-	}
-
-
 	function nv_change_status(id) {
 		var new_status = $('#change_status_' + id).is(':checked') ? true : false;
 		if (confirm(nv_is_change_act_confirm[0])) {
@@ -119,8 +98,6 @@
 		}
 		return;
 	}
-
-
 //]]>
 </script>
 <!-- END: main -->

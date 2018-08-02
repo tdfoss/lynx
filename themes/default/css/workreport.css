@@ -4,11 +4,3 @@
  * @Copyright (C) 2018 mynukeviet. All rights reserved
  * @Createdate Fri, 16 Mar 2018 14:11:35 GMT
  */
-table.table-middle td {
-    vertical-align: middle !important
-}
-
-table.table-middle td span.help-block, table.table-middle td span.help-block ul {
-    margin-bottom: 0;
-    font-size: 12px
-}

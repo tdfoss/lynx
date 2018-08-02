@@ -31,7 +31,56 @@ $array_status = array(
 $_sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_types WHERE active=1 ORDER BY weight';
 $array_working_type_id = $nv_Cache->db($_sql, 'id', $module_name);
 
+
+// $_sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_projects ORDER BY weight';
+// $array_info_project = $nv_Cache->db($_sql, 'id', $module_name);
+// var_dump($array_info_project);die;
+
+
 function nv_number_format($number)
 {
     return number_format($number);
+<<<<<<< HEAD
+}
+
+/**
+ * nv_theme_project_task_lisk()
+ *
+ * @param mixed $projectid
+ * @return
+ */
+function nv_theme_project_task_lisk($projectid)
+{
+    global $db, $module_data, $module_file, $lang_module, $module_config, $module_info, $array_task_status, $workforce_list;
+
+    $array_data = $db->query('SELECT t2.* FROM ' . NV_PREFIXLANG . '_' . $module_data . '_task t1 INNER JOIN ' . NV_PREFIXLANG . '_task t2 ON t1.taskid=t2.id WHERE t1.projectid=' . $projectid . ' ORDER BY begintime')->fetchAll();
+
+    $xtpl = new XTemplate('detail.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
+    $xtpl->assign('LANG', $lang_module);
+
+    if (!empty($array_data)) {
+        $i = 1;
+        foreach ($array_data as $task) {
+            $task['number'] = $i++;
+            $task['status'] = $array_task_status[$task['status']];
+            $task['begintime'] = !empty($task['begintime']) ? nv_date('d/m/Y', $task['begintime']) : '-';
+            $task['endtime'] = !empty($task['endtime']) ? nv_date('d/m/Y', $task['endtime']) : '-';
+
+            $task['performer_str'] = array();
+            $performer = !empty($task['performer']) ? explode(',', $task['performer']) : array();
+            foreach ($performer as $userid) {
+                $task['performer_str'][] = isset($workforce_list[$userid]) ? $workforce_list[$userid]['fullname'] : '-';
+            }
+            $task['performer_str'] = !empty($task['performer_str']) ? implode(', ', $task['performer_str']) : '';
+            $task['link'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=task&amp;' . NV_OP_VARIABLE . '=detail&id=' . $task['id'];
+
+            $xtpl->assign('TASK', $task);
+            $xtpl->parse('task_list.loop');
+        }
+    }
+
+    $xtpl->parse('task_list');
+    return $xtpl->text('task_list');
+=======
+>>>>>>> branch 'develop' of git@github.com:huuthoqt1994/lynx.git
 }

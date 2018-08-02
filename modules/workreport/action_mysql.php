@@ -6,6 +6,7 @@
  * @Copyright (C) 2017 mynukeviet. All rights reserved
  * @Createdate Thu, 16 Nov 2017 14:20:02 GMT
  */
+
 if (!defined('NV_IS_FILE_MODULES')) die('Stop!!!');
 
 $sql_drop_module = array();
@@ -16,7 +17,6 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   id int(11) unsigned NOT NULL AUTO_INCREMENT,
   userid mediumint(8) unsigned NOT NULL,
   fortime int(11) unsigned NOT NULL,
-  time float NOT NULL,
   content text NOT NULL,
   addtime int(11) NOT NULL,
   PRIMARY KEY (id)
@@ -24,8 +24,7 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
 
 $data = array(
     'work_groups' => '4',
-    'admin_groups' => '1',
-    'allow_time' => '1440'
+    'admin_groups' => '1'
 );
 
 foreach ($data as $config_name => $config_value) {

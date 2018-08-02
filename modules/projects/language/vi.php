@@ -51,6 +51,7 @@ $lang_module['new_project'] = 'Dự án <strong>%s</strong> đã được tạo'
 $lang_module['new_project_title'] = '[%s] Thông tin dự án %s';
 $lang_module['error_empty_data'] = 'Bạn cần chọn dữ liệu để thực hiện!';
 $lang_module['perform'] = 'Thực hiện';
+$lang_module['creatinvoice'] = 'Tạo hóa đơn';
 $lang_module['sendmail'] = 'Gửi Email';
 $lang_module['sendinfo'] = 'Gửi thông tin dự án';
 $lang_module['sendinfo_note'] = 'Gửi thông tin dự án cho khách hàng qua Email';

@@ -13,7 +13,12 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
     $id = $nv_Request->get_int('delete_id', 'get');
     $delete_checkss = $nv_Request->get_string('delete_checkss', 'get');
     if ($id > 0 and $delete_checkss == md5($id . NV_CACHE_PREFIX . $client_info['session_id'])) {
+
+        $userid = $db->query('SELECT userid FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetchColumn();
+        $fullname = $workforce_list[$userid]['fullname'];
+
         nv_customer_delete($id);
+        nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_customer'],  $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['delete_customer'] . " " . $fullname, $user_info['userid']);
         Header('Location: ' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=' . $op);
         die();
     }
@@ -23,8 +28,15 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
 
     if (!empty($array_id)) {
         foreach ($array_id as $id) {
+
+            $userid = $db->query('SELECT userid FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetchColumn();
+            if ($userid) {
+                $array_name[] = $workforce_list[$userid]['fullname'];
+            }
             nv_customer_delete($id);
         }
+        $printdelete = implode(', ', $array_id);
+        nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_customer'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['delete_many_customer'] . " " . implode(', ', $array_name), $user_info['userid']);
         $nv_Cache->delMod($module_name);
         die('OK');
     }
@@ -38,8 +50,14 @@ $where = '';
 $array_search = array(
     'q' => $nv_Request->get_title('q', 'post,get'),
     'type_id' => $nv_Request->get_int('type_id', 'post,get', 0),
-    'workforceid' => $nv_Request->get_int('workforceid', 'post,get', 0),
+    'workforceid' => $nv_Request->get_int('workforceid', 'post,get', 0)
 );
+
+if (!class_exists('PHPExcel')) {
+    if (file_exists(NV_ROOTDIR . '/includes/class/PHPExcel.php')) {
+        require_once NV_ROOTDIR . '/includes/class/PHPExcel.php';
+    }
+}
 
 if ($nv_Request->isset_request('ordername', 'get')) {
     $array_search['ordername'] = $nv_Request->get_title('ordername', 'get');
@@ -130,6 +148,12 @@ $xtpl->assign('Q', $array_search['q']);
 $xtpl->assign('URL_ADD', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=content' . ($is_contact ? '&amp;is_contact=1' : ''));
 $xtpl->assign('SORTURL', $array_sort_url);
 
+if (class_exists('PHPExcel')) {
+    $xtpl->assign('IMPORT_EXCEL', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=import&action=' . $module_name);
+} else {
+    $xtpl->parse('main.btn_disabled');
+}
+
 foreach ($array_customer_type_id as $value) {
     $xtpl->assign('TYPEID', array(
         'key' => $value['id'],
@@ -151,6 +175,7 @@ while ($view = $sth->fetch()) {
     $view['link_view'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $view['id'] . '&amp;is_contacts=' . $view['is_contacts'];
     $view['link_edit'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=content&amp;id=' . $view['id'] . '&amp;redirect=' . nv_redirect_encrypt($client_info['selfurl']);
     $view['link_delete'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;delete_id=' . $view['id'] . '&amp;delete_checkss=' . md5($view['id'] . NV_CACHE_PREFIX . $client_info['session_id']);
+    $view['type_id'] = !empty($view['type_id']) ? $array_customer_type_id[$view['type_id']]['title'] : '';
     $xtpl->assign('VIEW', $view);
     $xtpl->parse('main.loop');
 }
@@ -191,12 +216,6 @@ foreach ($array_action as $key => $value) {
 
 $xtpl->parse('main');
 $contents = $xtpl->text('main');
-
-$page_title = $lang_module['customer'];
-$array_mod_title[] = array(
-    'title' => $page_title,
-    'link' => NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op
-);
 
 include NV_ROOTDIR . '/includes/header.php';
 echo nv_site_theme($contents);

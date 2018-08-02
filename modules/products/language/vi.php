@@ -45,4 +45,3 @@ $lang_module['delete_product'] = 'xóa sản phẩm';
 $lang_module['delete_many_product'] = 'xóa nhiều sản phẩm';
 $lang_module['product_type'] = 'Loại sản phẩm';
 $lang_module['typeid'] = 'Chọn loại sản phẩm';
-$lang_module['perform'] = 'Thực hiện';

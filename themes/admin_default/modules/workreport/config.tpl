@@ -22,12 +22,6 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-3 text-right"><strong>{LANG.config_allow_time}</strong></label>
-                <div class="col-sm-21">
-                    <input type="number" class="form-control" name="allow_time" value="{DATA.allow_time}" />
-                </div>
-            </div>
         </div>
     </div>
     <div class='text-center'>
