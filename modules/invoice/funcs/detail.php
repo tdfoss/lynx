@@ -170,6 +170,10 @@ while ($order = $order_id->fetch()) {
 $row['item_total'] = number_format($row['item_total']);
 $row['vat_total'] = number_format($row['vat_total']);
 
+$row['terms'] = nv_nl2br($row['terms']);
+// $row['terms'] = nv_br2nl ($row['terms']);
+$row['description'] = nv_nl2br($row['description']);
+
 $array_control = array(
     'url_confirm_payment' => NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=' . $op . '&amp;confirm_payment_id=' . $id,
     'url_sendmail' => NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=' . $op . '&amp;sendmail_id=' . $id,
