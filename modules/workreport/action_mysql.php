@@ -6,7 +6,6 @@
  * @Copyright (C) 2017 mynukeviet. All rights reserved
  * @Createdate Thu, 16 Nov 2017 14:20:02 GMT
  */
-
 if (!defined('NV_IS_FILE_MODULES')) die('Stop!!!');
 
 $sql_drop_module = array();

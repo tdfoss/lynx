@@ -38,7 +38,7 @@ if (defined('NV_IS_USER')) {
 function nv_check_action($addtime)
 {
     global $array_config, $is_admin;
-
+    
     if ($is_admin || ($addtime + (30 * 60))) {
         return true;
     }
@@ -48,13 +48,13 @@ function nv_check_action($addtime)
 function nv_workreport_premission($type = 'where')
 {
     global $db, $module_data, $array_config, $user_info, $workforce_list;
-
+    
     $array_userid = array(); // mảng chứa userid mà người này được quản lý
-
+    
     // nhóm quản lý thấy tất cả
     $group_manage = !empty($array_config['admin_groups']) ? explode(',', $array_config['admin_groups']) : array();
     if (empty(array_intersect($group_manage, $user_info['in_groups']))) {
-
+        
         // kiểm tra tư cách trong nhóm (trưởng nhóm / thành viên nhóm)
         $count = 0;
         $result = $db->query('SELECT * FROM ' . NV_USERS_GLOBALTABLE . '_groups_users WHERE is_leader=1 AND approved=1 AND userid=' . $user_info['userid']);
@@ -67,9 +67,9 @@ function nv_workreport_premission($type = 'where')
                 $array_userid[$userid] = $userid;
             }
         }
-
+        
         $array_userid = array_unique($array_userid);
-
+        
         if ($type == 'where') {
             if ($count > 0) {
                 // nếu là trưởng nhóm, thấy nhân viên do mình quản lý

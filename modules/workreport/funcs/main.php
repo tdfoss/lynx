@@ -13,10 +13,9 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
     $id = $nv_Request->get_int('delete_id', 'get');
     $delete_checkss = $nv_Request->get_string('delete_checkss', 'get');
     $redirect = $nv_Request->get_string('redirect', 'get', '');
-
+    
     $addtime = $db->query('SELECT addtime FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetchColumn();
-
-
+    
     if ($id > 0 and $delete_checkss == md5($id . NV_CACHE_PREFIX . $client_info['session_id']) and nv_check_action($addtime)) {
         $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '  WHERE id = ' . $db->quote($id));
         $nv_Cache->delMod($module_name);
@@ -25,8 +24,8 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
         } else {
             $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=' . $op;
         }
-        nv_insert_logs( NV_LANG_DATA, $module_name, $lang_module['title_workreport'], $workforce_list[$user_info['userid']]['fullname']." ".$lang_module['delete_workreport'],$workforce_list[$user_info['userid']]['fullname']);
-
+        nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_workreport'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['delete_workreport'], $workforce_list[$user_info['userid']]['fullname']);
+        
         nv_redirect_location($url);
     }
 }
@@ -45,7 +44,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
         $row['fortime'] = 0;
     }
     $row['content'] = $nv_Request->get_string('content', 'post', '');
-
+    
     if (empty($row['fortime'])) {
         $error[] = $lang_module['error_required_fortime'];
     } elseif (empty($row['content'])) {
@@ -53,27 +52,23 @@ if ($nv_Request->isset_request('submit', 'post')) {
     } elseif (empty($row['id']) && $db->query('SELECT COUNT(*) FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE fortime=' . $row['fortime'] . ' AND userid=' . $user_info['userid'])->fetchColumn() > 0) {
         $error[] = $lang_module['error_required_fortime'];
     }
-
+    
     if (empty($error)) {
         try {
             if (empty($row['id'])) {
                 $stmt = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (userid, fortime, content, addtime) VALUES (' . $user_info['userid'] . ', :fortime, :content, ' . NV_CURRENTTIME . ')');
-
             } else {
                 $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET fortime = :fortime, content = :content WHERE id=' . $row['id']);
-
             }
             $stmt->bindParam(':fortime', $row['fortime'], PDO::PARAM_INT);
             $stmt->bindParam(':content', $row['content'], PDO::PARAM_STR, strlen($row['content']));
-
+            
             $exc = $stmt->execute();
             if ($exc) {
                 if (empty($row['id'])) {
-                    nv_insert_logs( NV_LANG_DATA, $module_name, $lang_module['title_workreport'], $workforce_list[$user_info['userid']]['fullname']." ".$lang_module['add_workreport'], $workforce_list[$user_info['userid']]['fullname'] );
-
-                }else {
-                    nv_insert_logs( NV_LANG_DATA, $module_name, $lang_module['title_workreport'], $workforce_list[$user_info['userid']]['fullname']." ".$lang_module['content_workreport'], $workforce_list[$user_info['userid']]['fullname'] );
-
+                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_workreport'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['add_workreport'], $workforce_list[$user_info['userid']]['fullname']);
+                } else {
+                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_workreport'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['content_workreport'], $workforce_list[$user_info['userid']]['fullname']);
                 }
                 $nv_Cache->delMod($module_name);
                 if (!empty($row['redirect'])) {
@@ -81,7 +76,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 } else {
                     $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=' . $op;
                 }
-
+                
                 nv_redirect_location($url);
             }
         } catch (PDOException $e) {
@@ -93,7 +88,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
     if (empty($row)) {
         nv_redirect_location(NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=' . $op);
     }
-
+    
     if (!nv_check_action($row['addtime'])) {
         nv_redirect_location(NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=' . $op);
     }
@@ -162,24 +157,24 @@ if (!empty($generate_page)) {
 $number = $page > 1 ? ($per_page * ($page - 1)) + 1 : 1;
 while ($view = $sth->fetch()) {
     $view['number'] = $number++;
-
+    
     $allow_action = 0;
     if (nv_check_action($view['addtime'])) {
         $allow_action = 1;
         $view['link_edit'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;id=' . $view['id'] . '&amp;redirect=' . nv_redirect_encrypt($client_info['selfurl']);
         $view['link_delete'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;delete_id=' . $view['id'] . '&amp;delete_checkss=' . md5($view['id'] . NV_CACHE_PREFIX . $client_info['session_id'] . '&amp;redirect=' . nv_redirect_encrypt($client_info['selfurl']));
     }
-
+    
     $view['fortime'] = (empty($view['fortime'])) ? '' : nv_date('d/m/Y', $view['fortime']);
     $view['addtime'] = (empty($view['addtime'])) ? '' : nv_date('H:i d/m/Y', $view['addtime']);
     $view['content'] = nv_nl2br($view['content']);
-
+    
     $xtpl->assign('VIEW', $view);
-
+    
     if ($allow_action) {
         $xtpl->parse('main.loop.action');
     }
-
+    
     $xtpl->parse('main.loop');
 }
 
@@ -203,7 +198,7 @@ if (!empty($workforce_list)) {
             }
         }
         $xtpl->parse('main.users');
-
+        
         $xtpl->assign('URL_ADMIN', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $module_info['alias']['admin']);
         $xtpl->parse('main.admin');
     }
