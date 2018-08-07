@@ -6,6 +6,7 @@
  * @Copyright (C) 2018 mynukeviet. All rights reserved
  * @Createdate Fri, 16 Mar 2018 14:11:35 GMT
  */
+
 if (!defined('NV_IS_MOD_WORKREPORT')) die('Stop!!!');
 
 /**

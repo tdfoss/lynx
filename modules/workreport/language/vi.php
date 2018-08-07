@@ -6,6 +6,7 @@
  * @Copyright (C) 2018 mynukeviet. All rights reserved
  * @Createdate Fri, 16 Mar 2018 14:11:35 GMT
  */
+
 if (!defined('NV_MAINFILE')) die('Stop!!!');
 
 $lang_translator['author'] = 'mynukeviet (contact@mynukeviet.com)';
@@ -29,14 +30,12 @@ $lang_module['content'] = 'Nội dung công việc';
 $lang_module['addtime'] = 'Thời gian báo cáo';
 $lang_module['month'] = 'Tháng %d';
 $lang_module['admin'] = 'Xem theo ngày';
+$lang_module['logs_workreport'] = 'Cập nhật báo cáo công việc';
+$lang_module['time'] = 'Thời gian làm việc (giờ)';
 
 $lang_module['error_required_fortime'] = 'Lỗi: bạn cần nhập dữ liệu cho Ngày báo cáo';
 $lang_module['error_required_content'] = 'Lỗi: bạn cần nhập dữ liệu cho Nội dung công việc';
+$lang_module['error_required_time'] = 'Lỗi: bạn cần nhập dữ liệu cho Thời gian làm việc';
 $lang_module['error_required_fortime'] = 'Lỗi: ngày báo cáo đã có';
 $lang_module['title_no_premission'] = 'Khu vực không được phép truy cập';
 $lang_module['content_no_premission'] = 'Bạn không được cấp phép để sử dụng tính năng này, vui lòng trở lại';
-
-$lang_module['title_workreport'] = 'Báo cáo công việc';
-$lang_module['content_workreport'] = 'cập nhật báo cáo công việc';
-$lang_module['add_workreport'] = 'thêm báo cáo công việc';
-$lang_module['delete_workreport'] = 'xóa thông tin báo cáo công việc';

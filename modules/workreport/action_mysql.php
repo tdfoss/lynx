@@ -16,6 +16,7 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   id int(11) unsigned NOT NULL AUTO_INCREMENT,
   userid mediumint(8) unsigned NOT NULL,
   fortime int(11) unsigned NOT NULL,
+  time float NOT NULL,
   content text NOT NULL,
   addtime int(11) NOT NULL,
   PRIMARY KEY (id)
@@ -23,7 +24,8 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
 
 $data = array(
     'work_groups' => '4',
-    'admin_groups' => '1'
+    'admin_groups' => '1',
+    'allow_time' => '1440'
 );
 
 foreach ($data as $config_name => $config_value) {
