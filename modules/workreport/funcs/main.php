@@ -163,7 +163,6 @@ $total = 0;
 while ($view = $sth->fetch()) {
     $view['number'] = $number++;
     $total += $view['time'];
-    $view['worktime'] = $total;
 
     $allow_action = 0;
     if (nv_check_action($view['addtime'])) {
@@ -185,6 +184,8 @@ while ($view = $sth->fetch()) {
 
     $xtpl->parse('main.loop');
 }
+
+$xtpl->assign('TOTAL', $total);
 
 for ($i = 1; $i <= 12; $i++) {
     $xtpl->assign('MONTH', array(

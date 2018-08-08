@@ -118,7 +118,7 @@
                 <!-- END: loop -->
             </tbody>
             <thead>
-            <tr><th colspan="6">{LANG.worktime}{VIEW.worktime}</th></tr>
+            <tr><th colspan="6">{LANG.worktime}{TOTAL}</th></tr>
             </thead></table>
     </div>
 </form>
