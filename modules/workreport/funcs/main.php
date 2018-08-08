@@ -125,9 +125,9 @@ if (!empty($array_search['userid'])) {
 $where .= nv_workreport_premission();
 
 $db->sqlreset()
-    ->select('COUNT(*)')
-    ->from(NV_PREFIXLANG . '_' . $module_data . '')
-    ->where('DATE_FORMAT(FROM_UNIXTIME(fortime),"%m")=' . $current_month . $where);
+->select('COUNT(*)')
+->from(NV_PREFIXLANG . '_' . $module_data . '')
+->where('DATE_FORMAT(FROM_UNIXTIME(fortime),"%m")=' . $current_month . $where);
 
 $sth = $db->prepare($db->sql());
 
@@ -135,9 +135,9 @@ $sth->execute();
 $num_items = $sth->fetchColumn();
 
 $db->select('*')
-    ->order('fortime DESC')
-    ->limit($per_page)
-    ->offset(($page - 1) * $per_page);
+->order('fortime DESC')
+->limit($per_page)
+->offset(($page - 1) * $per_page);
 $sth = $db->prepare($db->sql());
 $sth->execute();
 //tinh tong thoi gian lam viec
