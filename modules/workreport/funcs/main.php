@@ -140,6 +140,19 @@ $db->select('*')
     ->offset(($page - 1) * $per_page);
 $sth = $db->prepare($db->sql());
 $sth->execute();
+//tinh tong thoi gian lam viec
+$array_times = array();
+$_sql = 'SELECT id, time FROM ' . NV_PREFIXLANG . '_' . $module_data;
+$_query = $db->query($_sql);
+while ($_row = $_query->fetch()) {
+    $array_times[$_row['id']] = $_row;
+}
+$total = 0;
+foreach ($array_times as $key => $value) {
+
+    $total += $value['time'];
+}
+
 
 $row['fortime'] = !empty($row['fortime']) ? nv_date('d/m/Y', $row['fortime']) : '';
 
@@ -169,6 +182,7 @@ while ($view = $sth->fetch()) {
     $view['fortime'] = (empty($view['fortime'])) ? '' : nv_date('d/m/Y', $view['fortime']);
     $view['addtime'] = (empty($view['addtime'])) ? '' : nv_date('H:i d/m/Y', $view['addtime']);
     $view['content'] = nv_nl2br($view['content']);
+    $view['worktime'] =  $total;
 
     $xtpl->assign('VIEW', $view);
 
