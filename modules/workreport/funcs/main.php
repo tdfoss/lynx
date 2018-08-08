@@ -138,8 +138,11 @@ $db->select('*')
     ->order('fortime DESC')
     ->limit($per_page)
     ->offset(($page - 1) * $per_page);
+
 $sth = $db->prepare($db->sql());
 $sth->execute();
+
+//tinh tong thoi gian lam viec
 
 $row['fortime'] = !empty($row['fortime']) ? nv_date('d/m/Y', $row['fortime']) : '';
 
@@ -154,9 +157,12 @@ if (!empty($generate_page)) {
     $xtpl->assign('NV_GENERATE_PAGE', $generate_page);
     $xtpl->parse('main.generate_page');
 }
+
 $number = $page > 1 ? ($per_page * ($page - 1)) + 1 : 1;
+$total = 0;
 while ($view = $sth->fetch()) {
     $view['number'] = $number++;
+    $total += $view['time'];
 
     $allow_action = 0;
     if (nv_check_action($view['addtime'])) {
@@ -178,6 +184,8 @@ while ($view = $sth->fetch()) {
 
     $xtpl->parse('main.loop');
 }
+
+$xtpl->assign('TOTAL', $total);
 
 for ($i = 1; $i <= 12; $i++) {
     $xtpl->assign('MONTH', array(
