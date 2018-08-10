@@ -19,7 +19,7 @@
 </div>
 <form action="{NV_BASE_SITEURL}index.php?{NV_LANG_VARIABLE}={NV_LANG_DATA}&amp;{NV_NAME_VARIABLE}={MODULE_NAME}&amp;{NV_OP_VARIABLE}={OP}" method="post">
 	<div class="table-responsive">
-		<table class="table table-striped table-bordered table-hover">
+		<table class="table table-striped table-bordered table-hover table-middle">
 			<thead>
 				<tr>
 					<th width="100">{LANG.weight}</th>
@@ -51,7 +51,11 @@
 					<td>{VIEW.vat}</td>
 					<td>{VIEW.price_unit}</td>
 					<td class="text-center"><input type="checkbox" name="active" id="change_status_{VIEW.id}" value="{VIEW.id}" {CHECK} onclick="nv_change_status({VIEW.id});" /></td>
-					<td class="text-center"><i class="fa fa-edit fa-lg">&nbsp;</i> <a href="{VIEW.link_edit}#edit">{LANG.edit}</a> - <em class="fa fa-trash-o fa-lg">&nbsp;</em> <a href="{VIEW.link_delete}" onclick="return confirm(nv_is_del_confirm[0]);">{LANG.delete}</a></td>
+					<td class="text-center">
+						<!-- BEGIN: invoice -->
+						<a class="btn btn-default btn-xs" href="{VIEW.link_invoice}" title="{LANG.invoice_view}"><i class="fa fa-file-o">&nbsp;</i></a>&nbsp;
+						<!-- END: invoice -->
+						<a class="btn btn-default btn-xs" href="{VIEW.link_edit}" title="{LANG.edit}"><i class="fa fa-edit">&nbsp;</i></a>&nbsp;<a href="{VIEW.link_delete}" class="btn btn-default btn-xs" title="{LANG.delete}" onclick="return confirm(nv_is_del_confirm[0]);"><em class="fa fa-trash-o">&nbsp;</em></a></td>
 				</tr>
 				<!-- END: loop -->
 			</tbody>

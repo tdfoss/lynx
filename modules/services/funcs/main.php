@@ -211,7 +211,15 @@ if ($show_view) {
         $xtpl->assign('CHECK', $view['active'] == 1 ? 'checked' : '');
         $view['link_edit'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;id=' . $view['id'];
         $view['link_delete'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;delete_id=' . $view['id'] . '&amp;delete_checkss=' . md5($view['id'] . NV_CACHE_PREFIX . $client_info['session_id']);
+        if(isset($site_mods['invoice'])){
+            $view['link_invoice'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=invoice&amp;serviceid=' . $view['id'];
+        }
         $xtpl->assign('VIEW', $view);
+        
+        if(isset($site_mods['invoice'])){
+            $xtpl->parse('main.view.loop.invoice');
+        }
+        
         $xtpl->parse('main.view.loop');
     }
     $xtpl->parse('main.view');
