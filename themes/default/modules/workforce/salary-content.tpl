@@ -98,7 +98,7 @@ $(document).ready(function () {
                 var sourceRow = hotElement.getSourceDataAtRow(rowThatHasBeenChanged);
               
                 $.ajax({
-                    url : script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=salary-content&nocache=' + new Date().getTime(),
+                    url : script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=salary-content&save_change=1&nocache=' + new Date().getTime(),
                     type : "POST",
                     data : {
                         save_change: 1,

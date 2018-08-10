@@ -49,7 +49,7 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   bonus double unsigned NOT NULL DEFAULT '0' COMMENT 'Thưởng',
   total double unsigned NOT NULL COMMENT 'Tổng',
   deduction double unsigned NOT NULL DEFAULT '0' COMMENT 'Tổng các khoản trừ',
-  received double unsigned NOT NULL COMMENT 'Thực nhận',
+  received double NOT NULL COMMENT 'Thực nhận',
   time varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   UNIQUE KEY userid (userid,time)
 ) ENGINE=MyISAM";
