@@ -6,7 +6,6 @@
  * @Copyright (C) 2018 TDFOSS.,LTD. All rights reserved
  * @Createdate Fri, 12 Jan 2018 09:14:06 GMT
  */
-
 if (!defined('NV_SYSTEM')) die('Stop!!!');
 
 define('NV_IS_MOD_PROJECT', true);
@@ -17,6 +16,15 @@ require_once NV_ROOTDIR . '/modules/customer/site.functions.php';
 if (!defined('NV_IS_USER')) {
     $url_back = NV_BASE_SITEURL . 'index.php?' . NV_NAME_VARIABLE . '=users&' . NV_OP_VARIABLE . '=login&nv_redirect=' . nv_redirect_encrypt($client_info['selfurl']);
     nv_redirect_location($url_back);
+}
+
+if (isset($site_mods['task'])) {
+    define('NV_TASK', true);
+    $array_task_status = array(
+        0 => $lang_module['task_status_0'],
+        1 => $lang_module['task_status_1'],
+        2 => $lang_module['task_status_2']
+    );
 }
 
 $array_status = array(
@@ -31,16 +39,9 @@ $array_status = array(
 $_sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_types WHERE active=1 ORDER BY weight';
 $array_working_type_id = $nv_Cache->db($_sql, 'id', $module_name);
 
-
-// $_sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_projects ORDER BY weight';
-// $array_info_project = $nv_Cache->db($_sql, 'id', $module_name);
-// var_dump($array_info_project);die;
-
-
 function nv_number_format($number)
 {
     return number_format($number);
-<<<<<<< HEAD
 }
 
 /**
@@ -81,6 +82,4 @@ function nv_theme_project_task_lisk($projectid)
 
     $xtpl->parse('task_list');
     return $xtpl->text('task_list');
-=======
->>>>>>> branch 'develop' of git@github.com:huuthoqt1994/lynx.git
 }
