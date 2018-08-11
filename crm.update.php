@@ -38,6 +38,8 @@ while (list ($lang) = $language_query->fetch(3)) {
 
     $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_products_cat (id smallint(4) NOT NULL AUTO_INCREMENT,title varchar(255) NOT NULL,note text NOT NULL,weight smallint(4) unsigned NOT NULL,PRIMARY KEY (id)) ENGINE=MyISAM;";
 
+    $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_workforce_salary CHANGE total total DOUBLE NOT NULL COMMENT 'Tổng';";
+
     foreach ($sql as $_sql) {
         try {
             $db->query($_sql);
