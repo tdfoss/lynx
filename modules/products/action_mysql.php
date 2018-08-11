@@ -23,7 +23,6 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   url text NOT NULL,
   active tinyint(1) unsigned NOT NULL DEFAULT '1',
   note text NOT NULL,
-  weight smallint(4) unsigned NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE=MyISAM";
 
