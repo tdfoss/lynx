@@ -13,6 +13,7 @@ $row = array();
 $error = array();
 $row['id'] = $nv_Request->get_int('id', 'post,get', 0);
 
+
 if ($row['id'] > 0) {
     $lang_module['customer_add'] = $lang_module['customer_edit'];
     $row = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $row['id'])->fetch();
@@ -25,6 +26,7 @@ if ($row['id'] > 0) {
     $row['id'] = 0;
     $row['first_name'] = '';
     $row['last_name'] = '';
+    $row['tags'] = '';
     $row['main_phone'] = '';
     $row['other_phone'] = '';
     $row['main_email'] = '';
@@ -52,6 +54,7 @@ $row['redirect'] = $nv_Request->get_string('redirect', 'post,get', '');
 if ($nv_Request->isset_request('submit', 'post')) {
     $row['first_name'] = $nv_Request->get_title('first_name', 'post', '');
     $row['last_name'] = $nv_Request->get_title('last_name', 'post', '');
+    $row['tags'] = $nv_Request->get_title('tags', 'post', '');
     $row['main_phone'] = $nv_Request->get_title('main_phone', 'post', '');
     $row['other_phone'] = $nv_Request->get_array('other_phone', 'post');
     $row['other_phone'] = !empty($row['other_phone']) ? implode('|', $row['other_phone']) : '';
@@ -100,10 +103,11 @@ if ($nv_Request->isset_request('submit', 'post')) {
         try {
             $new_id = 0;
             if (empty($row['id'])) {
-                $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (note, first_name, last_name, main_phone, other_phone, main_email, other_email, birthday, facebook, skype, zalo, gender, address, unit, trading_person, unit_name, tax_code, address_invoice, care_staff, image, addtime, userid, is_contacts, type_id) VALUES (:note, :first_name, :last_name, :main_phone, :other_phone, :main_email, :other_email, :birthday, :facebook, :skype, :zalo, :gender, :address, :unit, :trading_person, :unit_name, :tax_code, :address_invoice, :care_staff, :image, ' . NV_CURRENTTIME . ', ' . $user_info['userid'] . ', :is_contacts, :type_id)';
+                $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (note, first_name, last_name,tags, main_phone, other_phone, main_email, other_email, birthday, facebook, skype, zalo, gender, address, unit, trading_person, unit_name, tax_code, address_invoice, care_staff, image, addtime, userid, is_contacts, type_id) VALUES (:note, :first_name, :last_name,:tags, :main_phone, :other_phone, :main_email, :other_email, :birthday, :facebook, :skype, :zalo, :gender, :address, :unit, :trading_person, :unit_name, :tax_code, :address_invoice, :care_staff, :image, ' . NV_CURRENTTIME . ', ' . $user_info['userid'] . ', :is_contacts, :type_id)';
                 $data_insert = array();
                 $data_insert['first_name'] = $row['first_name'];
                 $data_insert['last_name'] = $row['last_name'];
+                $data_insert['tags'] = $row['tags'];
                 $data_insert['main_phone'] = $row['main_phone'];
                 $data_insert['other_phone'] = $row['other_phone'];
                 $data_insert['main_email'] = $row['main_email'];
@@ -127,9 +131,10 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $new_id = $db->insert_id($_sql, 'id', $data_insert);
                 //                 var_dump($row['first_name']." ".$row['last_name']);die;
             } else {
-                $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET first_name = :first_name, last_name = :last_name, main_phone = :main_phone, other_phone = :other_phone, main_email = :main_email, other_email = :other_email, birthday = :birthday, facebook = :facebook, skype = :skype, zalo = :zalo, gender = :gender, address = :address, unit = :unit, trading_person = :trading_person, unit_name = :unit_name, tax_code = :tax_code, address_invoice = :address_invoice, care_staff = :care_staff, image = :image, edittime=' . NV_CURRENTTIME . ', note = :note, type_id = :type_id WHERE id=' . $row['id']);
+                $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET first_name = :first_name, last_name = :last_name,tags =:tags, main_phone = :main_phone, other_phone = :other_phone, main_email = :main_email, other_email = :other_email, birthday = :birthday, facebook = :facebook, skype = :skype, zalo = :zalo, gender = :gender, address = :address, unit = :unit, trading_person = :trading_person, unit_name = :unit_name, tax_code = :tax_code, address_invoice = :address_invoice, care_staff = :care_staff, image = :image, edittime=' . NV_CURRENTTIME . ', note = :note, type_id = :type_id WHERE id=' . $row['id']);
                 $stmt->bindParam(':first_name', $row['first_name'], PDO::PARAM_STR);
                 $stmt->bindParam(':last_name', $row['last_name'], PDO::PARAM_STR);
+                $stmt->bindParam(':tags', $row['tags'], PDO::PARAM_STR);
                 $stmt->bindParam(':main_phone', $row['main_phone'], PDO::PARAM_STR);
                 $stmt->bindParam(':other_phone', $row['other_phone'], PDO::PARAM_STR);
                 $stmt->bindParam(':main_email', $row['main_email'], PDO::PARAM_STR);
@@ -237,6 +242,15 @@ foreach ($array_customer_type_id as $value) {
     ));
     $xtpl->parse('main.select_type_id');
 }
+foreach ($array_customer_tags as $value) {
+    $xtpl->assign('TAG', array(
+        'key' => $value['tid'],
+        'title' => $value['title'],
+        'selected' => ($value['tid'] == $row['title']) ?' selected="selected"' : ''
+    ));
+    $xtpl->parse('main.select_tag');
+}
+
 
 foreach ($workforce_list as $value) {
     $xtpl->assign('OPTION', array(

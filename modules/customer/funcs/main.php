@@ -202,6 +202,7 @@ if (!empty($workforce_list)) {
     }
 }
 
+
 $array_action = array(
     'delete_list_id' => $lang_global['delete']
 );
