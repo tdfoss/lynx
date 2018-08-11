@@ -170,3 +170,4 @@ $lang_module['content_customer'] = 'thêm dữ liệu khách hàng';
 $lang_module['edit_customer'] = 'sửa dữ liệu khách hàng';
 $lang_module['delete_customer'] = 'xóa dữ liệu khách hàng';
 $lang_module['delete_many_customer'] = 'xóa nhiều dữ liệu của khách hàng';
+$lang_module['choice_service'] = 'Chọn dịch vụ';

@@ -11,6 +11,7 @@ if (!defined('NV_IS_FILE_MODULES')) die('Stop!!!');
 $sql_drop_module = array();
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data;
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_types";
+$sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_tags";
 
 $sql_create_module = $sql_drop_module;
 $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "(
@@ -51,6 +52,14 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   active tinyint(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (id)
 ) ENGINE=MyISAM";
+
+$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_tags(
+  tid smallint(4) NOT NULL AUTO_INCREMENT,
+  title varchar(255)  COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tiêu đề',
+  note text  COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Ghi chú',
+  weight smallint(4) unsigned NOT NULL,
+  PRIMARY KEY (tid)
+) ENGINE=MyISAM;";
 
 $data = array();
 $array_config['groups_admin'] = '1';
