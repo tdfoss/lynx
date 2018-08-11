@@ -18,7 +18,7 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
         $fullname = $workforce_list[$userid]['fullname'];
 
         nv_customer_delete($id);
-        nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_customer'],  $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['delete_customer'] . " " . $fullname, $user_info['userid']);
+        nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_customer'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['delete_customer'] . " " . $fullname, $user_info['userid']);
         Header('Location: ' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=' . $op);
         die();
     }
@@ -46,11 +46,12 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
 $per_page = 20;
 $page = $nv_Request->get_int('page', 'post,get', 1);
 $is_contact = $nv_Request->get_int('is_contact', 'get', 0);
-$where = '';
+$join = $where = '';
 $array_search = array(
     'q' => $nv_Request->get_title('q', 'post,get'),
     'type_id' => $nv_Request->get_int('type_id', 'post,get', 0),
-    'workforceid' => $nv_Request->get_int('workforceid', 'post,get', 0)
+    'workforceid' => $nv_Request->get_int('workforceid', 'post,get', 0),
+    'tag_id' => $nv_Request->get_typed_array('tag_id', 'get', 'int')
 );
 
 if (!class_exists('PHPExcel')) {
@@ -108,19 +109,27 @@ if (!empty($array_search['workforceid'])) {
     $where .= ' AND userid=' . $array_search['workforceid'];
 }
 
+if (!empty($array_search['tag_id'])) {
+    $join .= ' INNER JOIN ' . NV_PREFIXLANG . '_' . $module_data . '_tags_customer t2 ON t1.id=t2.customerid';
+    $base_url .= '&workforceid=' . $array_search['workforceid'];
+    $base_url .= implode('&tag_id=', $array_search['tag_id']);
+    $where .= ' AND t2.tid IN (' . implode(',', $array_search['tag_id']) . ')';
+}
+
 $where .= nv_customer_premission($module_name);
 $where .= ' AND is_contacts=' . $is_contact;
 
 $db->sqlreset()
     ->select('COUNT(*)')
-    ->from(NV_PREFIXLANG . '_' . $module_data)
+    ->from(NV_PREFIXLANG . '_' . $module_data . ' t1')
+    ->join($join)
     ->where('1=1' . $where);
 
 $sth = $db->prepare($db->sql());
 $sth->execute();
 $num_items = $sth->fetchColumn();
 
-$db->select('*')
+$db->select('t1.*')
     ->order($array_search['ordername'] . ' ' . $array_search['ordertype'])
     ->limit($per_page)
     ->offset(($page - 1) * $per_page);
@@ -202,6 +211,13 @@ if (!empty($workforce_list)) {
     }
 }
 
+if (!empty($array_customer_tags)) {
+    foreach ($array_customer_tags as $tags) {
+        $tags['selected'] = in_array($tags['tid'], $array_search['tag_id']) ? 'selected="selected"' : '';
+        $xtpl->assign('TAGS', $tags);
+        $xtpl->parse('main.tags');
+    }
+}
 
 $array_action = array(
     'delete_list_id' => $lang_global['delete']
