@@ -13,7 +13,7 @@ if ($nv_Request->isset_request('delete_tid', 'get') and $nv_Request->isset_reque
     $tid = $nv_Request->get_int('delete_tid', 'get');
     $delete_checkss = $nv_Request->get_string('delete_checkss', 'get');
     if ($tid > 0 and $delete_checkss == md5($tid . NV_CACHE_PREFIX . $client_info['session_id'])) {
-        $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_tags  WHERE tid = ' . $db->quote($tid));
+        nv_customer_tags_delete($tid);
         $nv_Cache->delMod($module_name);
         Header('Location: ' . NV_BASE_ADMINURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=' . $op);
         die();
@@ -23,8 +23,8 @@ if ($nv_Request->isset_request('delete_tid', 'get') and $nv_Request->isset_reque
     $array_id = explode(',', $listall);
 
     if (!empty($array_id)) {
-        foreach ($array_id as $id) {
-            $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_tags WHERE tid = ' . $tid);
+        foreach ($array_id as $tid) {
+            nv_customer_tags_delete($tid);
         }
         $nv_Cache->delMod($module_name);
         die('OK');
