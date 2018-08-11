@@ -26,6 +26,8 @@ while (list ($lang) = $language_query->fetch(3)) {
 
     $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_products ADD catid smallint(4) unsigned NOT NULL AFTER title";
 
+    $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_products ADD weight TEXT NOT NULL AFTER note;";
+
     $sql[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', 'projects', 'groups_manage', '1');";
 
     $sql[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', 'invoice', 'default_status', '0,1,2,3,4');";
@@ -38,10 +40,8 @@ while (list ($lang) = $language_query->fetch(3)) {
 
     $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_products_cat (id smallint(4) NOT NULL AUTO_INCREMENT,title varchar(255) NOT NULL,note text NOT NULL,weight smallint(4) unsigned NOT NULL,PRIMARY KEY (id)) ENGINE=MyISAM;";
 
-    $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_customer_tags (tid smallint(4) NOT NULL AUTO_INCREMENT,title varchar(255) NOT NULL COMMENT 'Tiêu đề', note text  NOT NULL COMMENT 'Ghi chú', weight smallint(4) unsigned NOT NULL,PRIMARY KEY (tid)) ENGINE=MyISAM;";
-    ;
+    $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_customer_tags (tid smallint(4) NOT NULL AUTO_INCREMENT,title varchar(255) NOT NULL COMMENT 'Tiêu đề', note text  NOT NULL COMMENT 'Ghi chú', weight smallint(4) unsigned NOT NULL,PRIMARY KEY (tid)) ENGINE=MyISAM;";;
 
-    $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_products ADD weight TEXT NOT NULL AFTER note;";
     foreach ($sql as $_sql) {
         try {
             $db->query($_sql);
