@@ -193,8 +193,9 @@ if (isset($site_mods['support'])) {
 $xtpl->parse('main');
 $contents = $xtpl->text('main');
 
+$page_title = $customer_info['fullname'];
 $array_mod_title[] = array(
-    'title' => $customer_info['fullname']
+    'title' => $page_title
 );
 
 include NV_ROOTDIR . '/includes/header.php';
