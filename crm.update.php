@@ -40,6 +40,8 @@ while (list ($lang) = $language_query->fetch(3)) {
 
     $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_workforce_salary CHANGE total total DOUBLE NOT NULL COMMENT 'Tổng';";
 
+    $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_workforce_salary CHANGE received received DOUBLE NOT NULL COMMENT 'Thực nhận';";
+
     foreach ($sql as $_sql) {
         try {
             $db->query($_sql);
