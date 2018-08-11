@@ -97,16 +97,12 @@
                         <tr>
                             <th>{LANG.edittime}</th>
                             <td>{CUSTOMER.edittime}</td>
-                            <th>
-                                <label class="control-label"><strong>Tag khách hàng</strong></label>
-                            </th>
-                            <td>
-                                <select class="form-control select2" name="customer_tag[]" multiple="multiple" style="width: 100%" id="change_tags_{CUSTOMER.id}" onchange="nv_chang_tags('{CUSTOMER.id}');">
+                            <th><label class="control-label"><strong>Tag khách hàng</strong></label></th>
+                            <td><select class="form-control select2" name="customer_tag[]" multiple="multiple" style="width: 100%" id="change_tags_{CUSTOMER.id}" onchange="nv_chang_tags('{CUSTOMER.id}');">
                                     <!-- BEGIN: select_tag -->
                                     <option value="{TAG.tid}"{TAG.selected}>{TAG.title}</option>
                                     <!-- END: select_tag -->
-                                </select>
-                            </td>
+                            </select></td>
                         </tr>
                         <tr>
                             <th>{LANG.note}</th>

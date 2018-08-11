@@ -55,10 +55,15 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
 
 $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_tags(
   tid smallint(4) NOT NULL AUTO_INCREMENT,
-  title varchar(255)  COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tiêu đề',
-  note text  COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Ghi chú',
-  weight smallint(4) unsigned NOT NULL,
+  title varchar(255) NOT NULL COMMENT 'Tiêu đề',
+  note text NOT NULL COMMENT 'Ghi chú',
   PRIMARY KEY (tid)
+) ENGINE=MyISAM;";
+
+$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_tags_customer(
+  tid smallint(4) NOT NULL,
+  customerid mediumint(8) unsigned NOT NULL,
+  UNIQUE KEY tid (tid, customerid)
 ) ENGINE=MyISAM;";
 
 $data = array();

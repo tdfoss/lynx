@@ -8,11 +8,6 @@
  */
 if (!defined('NV_MAINFILE')) die('Stop!!!');
 
-$_sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_tags ORDER BY weight';
-$array_customer_tags = $nv_Cache->db($_sql, 'id', $module_name);
-
-
-
 if (!isset($site_mods['workforce'])) {
     $workforce_list = array();
     $where = '';

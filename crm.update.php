@@ -42,7 +42,9 @@ while (list ($lang) = $language_query->fetch(3)) {
 
     $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_workforce_salary CHANGE received received DOUBLE NOT NULL COMMENT 'Thực nhận';";
 
-    $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_customer_tags (tid smallint(4) NOT NULL AUTO_INCREMENT,title varchar(255) NOT NULL COMMENT 'Tiêu đề', note text  NOT NULL COMMENT 'Ghi chú', weight smallint(4) unsigned NOT NULL,PRIMARY KEY (tid)) ENGINE=MyISAM;";
+    $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_customer_tags (tid smallint(4) NOT NULL AUTO_INCREMENT,title varchar(255) NOT NULL COMMENT 'Tiêu đề', note text  NOT NULL COMMENT 'Ghi chú',PRIMARY KEY (tid)) ENGINE=MyISAM;";
+
+    $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_customer_tags_customer( tid smallint(4) NOT NULL, customerid mediumint(8) unsigned NOT NULL, UNIQUE KEY tid (tid, customerid) ) ENGINE=MyISAM";
 
     foreach ($sql as $_sql) {
         try {

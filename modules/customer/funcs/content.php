@@ -13,7 +13,6 @@ $row = array();
 $error = array();
 $row['id'] = $nv_Request->get_int('id', 'post,get', 0);
 
-
 if ($row['id'] > 0) {
     $lang_module['customer_add'] = $lang_module['customer_edit'];
     $row = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $row['id'])->fetch();
@@ -26,7 +25,7 @@ if ($row['id'] > 0) {
     $row['id'] = 0;
     $row['first_name'] = '';
     $row['last_name'] = '';
-    $row['tags'] = '';
+    $row['tags'] = array();
     $row['main_phone'] = '';
     $row['other_phone'] = '';
     $row['main_email'] = '';
@@ -246,11 +245,10 @@ foreach ($array_customer_tags as $value) {
     $xtpl->assign('TAG', array(
         'key' => $value['tid'],
         'title' => $value['title'],
-        'selected' => ($value['tid'] == $row['title']) ?' selected="selected"' : ''
+        'selected' => ($value['tid'] == $row['title']) ? ' selected="selected"' : ''
     ));
     $xtpl->parse('main.select_tag');
 }
-
 
 foreach ($workforce_list as $value) {
     $xtpl->assign('OPTION', array(

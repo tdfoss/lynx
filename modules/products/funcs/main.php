@@ -63,11 +63,16 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
     die('NO');
 }
 
-$q = $nv_Request->get_title('q', 'post,get');
-
 $page = $nv_Request->get_int('page', 'post,get', 1);
 $is_contact = $nv_Request->get_int('is_contact', 'get', 0);
+$base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;is_contact=' . $is_contact;
+$array_search = array(
+    'q' => $nv_Request->get_title('q', 'post,get'),
+    'catid' => $nv_Request->get_int('catid', 'post,get', 0)
+);
+
 $where = '';
+
 if ($nv_Request->isset_request('ordername', 'get')) {
     $array_search['ordername'] = $nv_Request->get_title('ordername', 'get');
     $nv_Request->set_Cookie('ordername', $array_search['ordername']);
@@ -85,27 +90,16 @@ if ($nv_Request->isset_request('ordertype', 'get')) {
 } else {
     $array_search['ordertype'] = 'asc';
 }
-$base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;is_contact=' . $is_contact;
+
 if (!empty($array_search['q'])) {
     $base_url .= '&q=' . $array_search['q'];
     $where .= ' AND (id LIKE "%' . $array_search['q'] . '%"
         OR title LIKE "%' . $array_search['q'] . '%"
-        OR catid LIKE "%' . $array_search['q'] . '%"
-        OR price LIKE "%' . $array_search['q'] . '%"
-        OR vat LIKE "%' . $array_search['q'] . '%"
         OR url LIKE "%' . $array_search['q'] . '%"
-        OR active LIKE "%' . $array_search['q'] . '%"
         OR note LIKE "%' . $array_search['q'] . '%"
-
     )';
 }
 
-$array_search = array(
-    'q' => $nv_Request->get_title('q', 'post,get'),
-    'catid' => $nv_Request->get_int('catid', 'post,get', 0)
-);
-
-// var_dump($array_search);die;
 if (!empty($array_search['catid'])) {
     $base_url .= '&catid=' . $array_search['catid'];
     $where .= ' AND catid=' . $array_search['catid'];
@@ -146,7 +140,6 @@ if (!$nv_Request->isset_request('id', 'post,get')) {
     }
     $sth->execute();
 }
-
 
 $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
 $xtpl->assign('LANG', $lang_module);
