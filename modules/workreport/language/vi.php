@@ -30,7 +30,6 @@ $lang_module['content'] = 'Nội dung công việc';
 $lang_module['addtime'] = 'Thời gian báo cáo';
 $lang_module['month'] = 'Tháng %d';
 $lang_module['admin'] = 'Xem theo ngày';
-$lang_module['logs_workreport'] = 'Cập nhật báo cáo công việc';
 $lang_module['time'] = 'Thời gian làm việc (giờ)';
 $lang_module['worktime'] = 'Tổng thời gian làm việc (giờ): ';
 
