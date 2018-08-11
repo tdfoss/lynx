@@ -41,6 +41,7 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   note text NOT NULL COMMENT 'Ghi chú',
   is_contacts tinyint(1) NOT NULL COMMENT 'Loại khách hàng',
   type_id smallint(4) unsigned NOT NULL DEFAULT '0',
+  tag_id varchar(100) NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE=MyISAM";
 

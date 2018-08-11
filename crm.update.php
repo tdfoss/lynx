@@ -46,6 +46,8 @@ while (list ($lang) = $language_query->fetch(3)) {
 
     $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_customer_tags_customer( tid smallint(4) NOT NULL, customerid mediumint(8) unsigned NOT NULL, UNIQUE KEY tid (tid, customerid) ) ENGINE=MyISAM";
 
+    $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_customer ADD tag_id VARCHAR(100) NOT NULL AFTER type_id;";
+
     foreach ($sql as $_sql) {
         try {
             $db->query($_sql);

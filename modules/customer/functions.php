@@ -23,7 +23,7 @@ $_sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_types WHERE ac
 $array_customer_type_id = $nv_Cache->db($_sql, 'id', $module_name);
 
 $_sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_tags ORDER BY weight';
-$array_customer_tags = $nv_Cache->db($_sql, 'id', $module_name);
+$array_customer_tags = $nv_Cache->db($_sql, 'tid', $module_name);
 
 $array_gender = array(
     1 => $lang_module['male'],

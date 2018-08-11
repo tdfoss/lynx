@@ -21,6 +21,7 @@ if ($row['id'] > 0) {
         die();
     }
     $row['care_staff_old'] = $row['care_staff'];
+    $row['tag_id'] = $row['tag_id_old'] = !empty($row['tag_id']) ? explode(',', $row['tag_id']) : array();
 } else {
     $row['id'] = 0;
     $row['first_name'] = '';
@@ -46,6 +47,7 @@ if ($row['id'] > 0) {
     $row['is_contacts'] = $nv_Request->get_int('is_contact', 'get', 0);
     $row['type_id'] = 0;
     $row['birthday'] = 0;
+    $row['tag_id'] = $row['tag_id_old'] = array();
 }
 
 $row['redirect'] = $nv_Request->get_string('redirect', 'post,get', '');
@@ -53,7 +55,6 @@ $row['redirect'] = $nv_Request->get_string('redirect', 'post,get', '');
 if ($nv_Request->isset_request('submit', 'post')) {
     $row['first_name'] = $nv_Request->get_title('first_name', 'post', '');
     $row['last_name'] = $nv_Request->get_title('last_name', 'post', '');
-    $row['tags'] = $nv_Request->get_title('tags', 'post', '');
     $row['main_phone'] = $nv_Request->get_title('main_phone', 'post', '');
     $row['other_phone'] = $nv_Request->get_array('other_phone', 'post');
     $row['other_phone'] = !empty($row['other_phone']) ? implode('|', $row['other_phone']) : '';
@@ -75,6 +76,20 @@ if ($nv_Request->isset_request('submit', 'post')) {
     $row['note'] = $nv_Request->get_editor('note', '', NV_ALLOWED_HTML_TAGS);
     $row['is_contacts'] = $nv_Request->get_int('is_contacts', 'post', 0);
     $row['type_id'] = $nv_Request->get_int('type_id', 'post', 0);
+    $row['tag_id'] = $nv_Request->get_array('tag_id', 'post');
+
+    if (!empty($row['tag_id'])) {
+        foreach ($row['tag_id'] as $index => $value) {
+            if (!is_numeric($value)) {
+                $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_tags(title) VALUES (:title)';
+                $data_insert = array(
+                    'title' => $value
+                );
+                $row['tag_id'][$index] = $db->insert_id($_sql, 'id', $data_insert);
+            }
+        }
+    }
+    $tag_id = !empty($row['tag_id']) ? implode(',', $row['tag_id']) : '';
 
     if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $nv_Request->get_string('birthday', 'post'), $m)) {
         $row['birthday'] = mktime(23, 59, 59, $m[2], $m[1], $m[3]);
@@ -102,11 +117,10 @@ if ($nv_Request->isset_request('submit', 'post')) {
         try {
             $new_id = 0;
             if (empty($row['id'])) {
-                $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (note, first_name, last_name,tags, main_phone, other_phone, main_email, other_email, birthday, facebook, skype, zalo, gender, address, unit, trading_person, unit_name, tax_code, address_invoice, care_staff, image, addtime, userid, is_contacts, type_id) VALUES (:note, :first_name, :last_name,:tags, :main_phone, :other_phone, :main_email, :other_email, :birthday, :facebook, :skype, :zalo, :gender, :address, :unit, :trading_person, :unit_name, :tax_code, :address_invoice, :care_staff, :image, ' . NV_CURRENTTIME . ', ' . $user_info['userid'] . ', :is_contacts, :type_id)';
+                $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (note, first_name, last_name, main_phone, other_phone, main_email, other_email, birthday, facebook, skype, zalo, gender, address, unit, trading_person, unit_name, tax_code, address_invoice, care_staff, image, addtime, userid, is_contacts, type_id, tag_id) VALUES (:note, :first_name, :last_name, :main_phone, :other_phone, :main_email, :other_email, :birthday, :facebook, :skype, :zalo, :gender, :address, :unit, :trading_person, :unit_name, :tax_code, :address_invoice, :care_staff, :image, ' . NV_CURRENTTIME . ', ' . $user_info['userid'] . ', :is_contacts, :type_id, :tag_id)';
                 $data_insert = array();
                 $data_insert['first_name'] = $row['first_name'];
                 $data_insert['last_name'] = $row['last_name'];
-                $data_insert['tags'] = $row['tags'];
                 $data_insert['main_phone'] = $row['main_phone'];
                 $data_insert['other_phone'] = $row['other_phone'];
                 $data_insert['main_email'] = $row['main_email'];
@@ -127,13 +141,12 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $data_insert['note'] = $row['note'];
                 $data_insert['is_contacts'] = $row['is_contacts'];
                 $data_insert['type_id'] = $row['type_id'];
+                $data_insert['tag_id'] = $tag_id;
                 $new_id = $db->insert_id($_sql, 'id', $data_insert);
-                //                 var_dump($row['first_name']." ".$row['last_name']);die;
             } else {
-                $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET first_name = :first_name, last_name = :last_name,tags =:tags, main_phone = :main_phone, other_phone = :other_phone, main_email = :main_email, other_email = :other_email, birthday = :birthday, facebook = :facebook, skype = :skype, zalo = :zalo, gender = :gender, address = :address, unit = :unit, trading_person = :trading_person, unit_name = :unit_name, tax_code = :tax_code, address_invoice = :address_invoice, care_staff = :care_staff, image = :image, edittime=' . NV_CURRENTTIME . ', note = :note, type_id = :type_id WHERE id=' . $row['id']);
+                $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET first_name = :first_name, last_name = :last_name, main_phone = :main_phone, other_phone = :other_phone, main_email = :main_email, other_email = :other_email, birthday = :birthday, facebook = :facebook, skype = :skype, zalo = :zalo, gender = :gender, address = :address, unit = :unit, trading_person = :trading_person, unit_name = :unit_name, tax_code = :tax_code, address_invoice = :address_invoice, care_staff = :care_staff, image = :image, edittime=' . NV_CURRENTTIME . ', note = :note, type_id = :type_id, tag_id = :tag_id WHERE id=' . $row['id']);
                 $stmt->bindParam(':first_name', $row['first_name'], PDO::PARAM_STR);
                 $stmt->bindParam(':last_name', $row['last_name'], PDO::PARAM_STR);
-                $stmt->bindParam(':tags', $row['tags'], PDO::PARAM_STR);
                 $stmt->bindParam(':main_phone', $row['main_phone'], PDO::PARAM_STR);
                 $stmt->bindParam(':other_phone', $row['other_phone'], PDO::PARAM_STR);
                 $stmt->bindParam(':main_email', $row['main_email'], PDO::PARAM_STR);
@@ -153,11 +166,29 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $stmt->bindParam(':image', $row['image'], PDO::PARAM_STR);
                 $stmt->bindParam(':note', $row['note'], PDO::PARAM_STR, strlen($row['note']));
                 $stmt->bindParam(':type_id', $row['type_id'], PDO::PARAM_INT);
+                $stmt->bindParam(':tag_id', $tag_id, PDO::PARAM_STR);
                 if ($stmt->execute()) {
                     $new_id = $row['id'];
                 }
             }
             if ($new_id > 0) {
+
+                if ($row['tag_id'] != $row['tag_id_old']) {
+                    $sth = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_tags_customer (tid, customerid) VALUES(:tid, :customerid)');
+                    foreach ($row['tag_id'] as $tag_id) {
+                        if (!in_array($tag_id, $row['tag_id_old'])) {
+                            $sth->bindParam(':tid', $tag_id, PDO::PARAM_INT);
+                            $sth->bindParam(':customerid', $new_id, PDO::PARAM_INT);
+                            $sth->execute();
+                        }
+                    }
+
+                    foreach ($row['tag_id_old'] as $tag_id_old) {
+                        if (!in_array($tag_id_old, $row['tag_id'])) {
+                            $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_tags_customer WHERE tid=' . $tag_id_old . ' AND customerid=' . $new_id);
+                        }
+                    }
+                }
 
                 // thông báo đến người chăm sóc khách hàng (nếu không phải là người thêm kh)
                 if ($row['care_staff'] != $row['care_staff_old']) {
@@ -191,7 +222,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
         }
     }
 }
-// var_dump($admin_info['username']);die;
+
 if (!empty($row['image']) and is_file(NV_UPLOADS_REAL_DIR . '/' . $module_upload . '/' . $row['image'])) {
     $row['image'] = NV_BASE_SITEURL . NV_UPLOADS_DIR . '/' . $module_upload . '/' . $row['image'];
 }
@@ -241,13 +272,14 @@ foreach ($array_customer_type_id as $value) {
     ));
     $xtpl->parse('main.select_type_id');
 }
+
 foreach ($array_customer_tags as $value) {
-    $xtpl->assign('TAG', array(
+    $xtpl->assign('TAGS', array(
         'key' => $value['tid'],
         'title' => $value['title'],
-        'selected' => ($value['tid'] == $row['title']) ? ' selected="selected"' : ''
+        'selected' => in_array($value['tid'], $row['tag_id']) ? ' selected="selected"' : ''
     ));
-    $xtpl->parse('main.select_tag');
+    $xtpl->parse('main.tags');
 }
 
 foreach ($workforce_list as $value) {
