@@ -10,7 +10,6 @@
 if (!defined('NV_IS_MOD_CUSTOMER')) die('Stop!!!');
 
 if ($nv_Request->isset_request('change_contacts', 'post')) {
-
     $id = $nv_Request->get_int('id', 'post', 0);
     $query = 'SELECT is_contacts FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id;
     $row = $db->query($query)->fetch();
@@ -103,6 +102,14 @@ if (isset($site_mods['invoice'])) {
     $customer_info['count_invoices'] = sizeof($array_invoice);
 }
 
+$customer_info['tags'] = array();
+if (!empty($customer_info['tag_id'])) {
+    $customer_info['tag_id'] = explode(',', $customer_info['tag_id']);
+    foreach ($customer_info['tag_id'] as $tag_id) {
+        $customer_info['tags'][] = $array_customer_tags[$tag_id]['title'];
+    }
+}
+
 $other_phone = !empty($customer_info['other_phone']) ? explode('|', $customer_info['other_phone']) : array();
 $customer_info['other_phone'] = nv_theme_crm_label($other_phone);
 
@@ -188,6 +195,13 @@ if ($customer_info['is_contacts'] == 0) {
 if (isset($site_mods['support'])) {
     $xtpl->assign('URL_ADD_SUPPORT', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=support&' . NV_OP_VARIABLE . '=content&customerid=' . $id);
     $xtpl->parse('main.support');
+}
+
+if (!empty($customer_info['tags'])) {
+    foreach ($customer_info['tags'] as $tags) {
+        $xtpl->assign('TAGS', $tags);
+        $xtpl->parse('main.tags');
+    }
 }
 
 $xtpl->parse('main');
