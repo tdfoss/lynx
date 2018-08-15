@@ -170,7 +170,7 @@ if (!empty($generate_page)) {
 }
 $number = $page > 1 ? ($per_page * ($page - 1)) + 1 : 1;
 while ($view = $sth->fetch()) {
-    $view['price'] = !empty($view['price']) ? $view['price'] : '';
+    $view['price'] = !empty($view['price']) ? number_format($view['price']) : '';
     $xtpl->assign('CHECK', $view['active'] == 1 ? 'checked' : '');
     $view['link_edit'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $module_info['alias']['content'] . '&amp;id=' . $view['id'];
     $view['link_delete'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;delete_id=' . $view['id'] . '&amp;delete_checkss=' . md5($view['id'] . NV_CACHE_PREFIX . $client_info['session_id']);
