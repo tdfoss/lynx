@@ -11,6 +11,7 @@ if (!defined('NV_IS_FILE_MODULES')) die('Stop!!!');
 $sql_drop_module = array();
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data;
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_types";
+$sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_tags";
 
 $sql_create_module = $sql_drop_module;
 $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "(
@@ -40,6 +41,7 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   note text NOT NULL COMMENT 'Ghi chú',
   is_contacts tinyint(1) NOT NULL COMMENT 'Loại khách hàng',
   type_id smallint(4) unsigned NOT NULL DEFAULT '0',
+  tag_id varchar(100) NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE=MyISAM";
 
@@ -52,9 +54,22 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   PRIMARY KEY (id)
 ) ENGINE=MyISAM";
 
+$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_tags(
+  tid smallint(4) NOT NULL AUTO_INCREMENT,
+  title varchar(255) NOT NULL COMMENT 'Tiêu đề',
+  note text NOT NULL COMMENT 'Ghi chú',
+  PRIMARY KEY (tid)
+) ENGINE=MyISAM;";
+
+$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_tags_customer(
+  tid smallint(4) NOT NULL,
+  customerid mediumint(8) unsigned NOT NULL,
+  UNIQUE KEY tid (tid, customerid)
+) ENGINE=MyISAM;";
+
 $data = array();
-$data['groups_admin'] = '1';
-$data['groups_manage'] = '1,2,3';
+$array_config['groups_admin'] = '1';
+$array_config['groups_manage'] = '1,2,3';
 
 foreach ($data as $config_name => $config_value) {
     $sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', " . $db->quote($module_name) . ", " . $db->quote($config_name) . ", " . $db->quote($config_value) . ")";

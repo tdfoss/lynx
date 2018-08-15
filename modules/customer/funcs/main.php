@@ -13,7 +13,12 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
     $id = $nv_Request->get_int('delete_id', 'get');
     $delete_checkss = $nv_Request->get_string('delete_checkss', 'get');
     if ($id > 0 and $delete_checkss == md5($id . NV_CACHE_PREFIX . $client_info['session_id'])) {
+
+        $userid = $db->query('SELECT userid FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetchColumn();
+        $fullname = $workforce_list[$userid]['fullname'];
+
         nv_customer_delete($id);
+        nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_customer'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['delete_customer'] . " " . $fullname, $user_info['userid']);
         Header('Location: ' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=' . $op);
         die();
     }
@@ -23,8 +28,15 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
 
     if (!empty($array_id)) {
         foreach ($array_id as $id) {
+
+            $userid = $db->query('SELECT userid FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetchColumn();
+            if ($userid) {
+                $array_name[] = $workforce_list[$userid]['fullname'];
+            }
             nv_customer_delete($id);
         }
+        $printdelete = implode(', ', $array_id);
+        nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_customer'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['delete_many_customer'] . " " . implode(', ', $array_name), $user_info['userid']);
         $nv_Cache->delMod($module_name);
         die('OK');
     }
@@ -34,12 +46,19 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
 $per_page = 20;
 $page = $nv_Request->get_int('page', 'post,get', 1);
 $is_contact = $nv_Request->get_int('is_contact', 'get', 0);
-$where = '';
+$join = $where = '';
 $array_search = array(
     'q' => $nv_Request->get_title('q', 'post,get'),
     'type_id' => $nv_Request->get_int('type_id', 'post,get', 0),
     'workforceid' => $nv_Request->get_int('workforceid', 'post,get', 0),
+    'tag_id' => $nv_Request->get_typed_array('tag_id', 'get', 'int')
 );
+
+if (!class_exists('PHPExcel')) {
+    if (file_exists(NV_ROOTDIR . '/includes/class/PHPExcel.php')) {
+        require_once NV_ROOTDIR . '/includes/class/PHPExcel.php';
+    }
+}
 
 if ($nv_Request->isset_request('ordername', 'get')) {
     $array_search['ordername'] = $nv_Request->get_title('ordername', 'get');
@@ -90,19 +109,27 @@ if (!empty($array_search['workforceid'])) {
     $where .= ' AND userid=' . $array_search['workforceid'];
 }
 
+if (!empty($array_search['tag_id'])) {
+    $join .= ' INNER JOIN ' . NV_PREFIXLANG . '_' . $module_data . '_tags_customer t2 ON t1.id=t2.customerid';
+    $base_url .= '&workforceid=' . $array_search['workforceid'];
+    $base_url .= implode('&tag_id=', $array_search['tag_id']);
+    $where .= ' AND t2.tid IN (' . implode(',', $array_search['tag_id']) . ')';
+}
+
 $where .= nv_customer_premission($module_name);
 $where .= ' AND is_contacts=' . $is_contact;
 
 $db->sqlreset()
     ->select('COUNT(*)')
-    ->from(NV_PREFIXLANG . '_' . $module_data)
+    ->from(NV_PREFIXLANG . '_' . $module_data . ' t1')
+    ->join($join)
     ->where('1=1' . $where);
 
 $sth = $db->prepare($db->sql());
 $sth->execute();
 $num_items = $sth->fetchColumn();
 
-$db->select('*')
+$db->select('t1.*')
     ->order($array_search['ordername'] . ' ' . $array_search['ordertype'])
     ->limit($per_page)
     ->offset(($page - 1) * $per_page);
@@ -130,6 +157,12 @@ $xtpl->assign('Q', $array_search['q']);
 $xtpl->assign('URL_ADD', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=content' . ($is_contact ? '&amp;is_contact=1' : ''));
 $xtpl->assign('SORTURL', $array_sort_url);
 
+if (class_exists('PHPExcel')) {
+    $xtpl->assign('IMPORT_EXCEL', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=import&action=' . $module_name);
+} else {
+    $xtpl->parse('main.btn_disabled');
+}
+
 foreach ($array_customer_type_id as $value) {
     $xtpl->assign('TYPEID', array(
         'key' => $value['id'],
@@ -151,6 +184,7 @@ while ($view = $sth->fetch()) {
     $view['link_view'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $view['id'] . '&amp;is_contacts=' . $view['is_contacts'];
     $view['link_edit'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=content&amp;id=' . $view['id'] . '&amp;redirect=' . nv_redirect_encrypt($client_info['selfurl']);
     $view['link_delete'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;delete_id=' . $view['id'] . '&amp;delete_checkss=' . md5($view['id'] . NV_CACHE_PREFIX . $client_info['session_id']);
+    $view['type_id'] = !empty($view['type_id']) ? $array_customer_type_id[$view['type_id']]['title'] : '';
     $xtpl->assign('VIEW', $view);
     $xtpl->parse('main.loop');
 }
@@ -177,6 +211,14 @@ if (!empty($workforce_list)) {
     }
 }
 
+if (!empty($array_customer_tags)) {
+    foreach ($array_customer_tags as $tags) {
+        $tags['selected'] = in_array($tags['tid'], $array_search['tag_id']) ? 'selected="selected"' : '';
+        $xtpl->assign('TAGS', $tags);
+        $xtpl->parse('main.tags');
+    }
+}
+
 $array_action = array(
     'delete_list_id' => $lang_global['delete']
 );
@@ -191,12 +233,6 @@ foreach ($array_action as $key => $value) {
 
 $xtpl->parse('main');
 $contents = $xtpl->text('main');
-
-$page_title = $lang_module['customer'];
-$array_mod_title[] = array(
-    'title' => $page_title,
-    'link' => NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op
-);
 
 include NV_ROOTDIR . '/includes/header.php';
 echo nv_site_theme($contents);

@@ -6,7 +6,7 @@
                 <label class="col-sm-4 control-label">{LANG.config_groups_admin}</label>
                 <div class="col-sm-20" style="height: 200px; padding: 10px; border: solid 1px #ddd; overflow: scroll;">
                     <!-- BEGIN: groups_use -->
-                    <label class="show"><input type="checkbox" name="groups_use[]" value="{GROUPS_USE.value}" {GROUPS_USE.checked} />{GROUPS_USE.title}</label>
+                    <label class="show"><input type="checkbox" name="groups_admin[]" value="{GROUPS_USE.value}" {GROUPS_USE.checked} />{GROUPS_USE.title}</label>
                     <!-- END: groups_use -->
                 </div>
             </div>

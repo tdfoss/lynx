@@ -15,6 +15,3 @@ $allow_func = array(
     'main',
     'config'
 );
-
-$_sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_price_unit WHERE active=1';
-$array_price_unit = $nv_Cache->db($_sql, 'id', $module_name);

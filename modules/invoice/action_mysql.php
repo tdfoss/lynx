@@ -38,6 +38,7 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   useradd mediumint(8) unsigned NOT NULL,
   reminder tinyint(1) unsigned NOT NULL DEFAULT '1',
   auto_create tinyint(1) unsigned NOT NULL DEFAULT '0',
+  weight smallint(4) unsigned NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE=MyISAM";
 

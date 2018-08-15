@@ -10,8 +10,8 @@ if (!defined('NV_IS_MOD_WORKFORCE')) die('Stop!!!');
 
 $maxdays = 24;
 $percent_overtime = 150;
-$groups_admin = '10,14';
-$groups_use = '14';
+$groups_admin = $array_config['groups_admin'];
+$groups_use = $array_config['groups_use'];
 $current_month = nv_date('m/Y', strtotime("first day of previous month"));
 
 if ($nv_Request->isset_request('save_change', 'post')) {
@@ -78,6 +78,16 @@ if (!nv_user_in_groups($groups_admin)) {
     nv_info_die($lang_global['error_404_title'], $lang_global['error_404_title'], $lang_global['error_404_content'], 404);
 }
 
+$base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name;
+$array_users = array();
+$array_search = array(
+    'month' => $nv_Request->get_string('month', 'get', $current_month)
+);
+
+if (!empty($array_search['month'])) {
+    $current_month = $array_search['month'];
+}
+
 $workforce_list = nv_crm_list_workforce($groups_use);
 if (!empty($workforce_list)) {
     $bonus = $advance = $deduction = $received = $total = 0;
@@ -121,10 +131,27 @@ $array_salary[] = array(
 
 );
 
+if (!empty($array_search['month'])) {
+    $base_url .= '&month=' . $array_search['month'];
+    $current_month = $array_search['month'];
+}
+
 $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
 $xtpl->assign('LANG', $lang_module);
+$xtpl->assign('MODULE_NAME', $module_name);
+$xtpl->assign('OP', $op);
 $xtpl->assign('DATA', json_encode(array_values($array_salary)));
 $xtpl->assign('TITLE', $lang_module['salary_content'] . ' ' . $current_month);
+
+for ($i = 1; $i <= 12; $i++) {
+    $xtpl->assign('MONTH', array(
+        'index' => vsprintf('%02d', $i) . '/' . nv_date('Y', NV_CURRENTTIME),
+        'value' => sprintf($lang_module['month_f'], $i),
+        'selected' => $current_month == $i ? 'selected="selected"' : ''
+    ));
+
+    $xtpl->parse('main.month');
+}
 
 $xtpl->parse('main');
 $contents = $xtpl->text('main');

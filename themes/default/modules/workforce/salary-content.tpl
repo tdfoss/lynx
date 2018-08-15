@@ -1,5 +1,26 @@
 <!-- BEGIN: main -->
 <link rel="stylesheet" media="screen" href="{NV_ASSETS_DIR}/js/handsontable/handsontable.full.css">
+<form action="{NV_BASE_SITEURL}index.php" method="get">
+    <input type="hidden" name="{NV_LANG_VARIABLE}" value="{NV_LANG_DATA}" />
+    <input type="hidden" name="{NV_NAME_VARIABLE}" value="{MODULE_NAME}" />
+    <input type="hidden" name="{NV_OP_VARIABLE}" value="{OP}" />
+    <div class="row">
+        <div class="col-xs-24 col-md-6">
+            <div class="form-group">
+                <select class="form-control" name="month">
+                    <!-- BEGIN: month -->
+                    <option value="{MONTH.index}"{MONTH.selected}>{MONTH.value}</option>
+                    <!-- END: month -->
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <div class="form-group">
+                <input class="btn btn-primary" type="submit" value="{LANG.search_submit}" />
+            </div>
+        </div>
+    </div>
+</form>
 <h1 class="text-center title">{TITLE}</h1>
 <div id="salary-table"></div>
 <script src="{NV_ASSETS_DIR}/js/handsontable/handsontable.full.js"></script>
@@ -77,7 +98,7 @@ $(document).ready(function () {
                 var sourceRow = hotElement.getSourceDataAtRow(rowThatHasBeenChanged);
               
                 $.ajax({
-                    url : script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=salary-content&nocache=' + new Date().getTime(),
+                    url : script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=salary-content&save_change=1&nocache=' + new Date().getTime(),
                     type : "POST",
                     data : {
                         save_change: 1,

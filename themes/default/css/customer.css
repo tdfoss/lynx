@@ -33,3 +33,13 @@
 table.row-click tr{
     cursor: pointer;
 }
+
+.infoalert {
+    background-color: #0f9d58;
+    font-size: 13px;
+    padding: 10px;
+    color: #fff;
+}
+.error {
+    color: #FF0040;
+}
