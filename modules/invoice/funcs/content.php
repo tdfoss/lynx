@@ -1,6 +1,4 @@
 <?php
-use League\Url\Components\Query;
-
 /**
  * @Project NUKEVIET 4.x
  * @Author VINADES.,JSC <contact@vinades.vn>
@@ -397,6 +395,7 @@ foreach ($row['detail'] as $item) {
     $xtpl->assign('ITEM', $item);
 
     if ($item['module'] == 'services') {
+
         if (!empty($array_services)) {
             foreach ($array_services as $services) {
                 $services['selected'] = ($item['module'] == 'services' && $services['id'] == $item['itemid']) ? 'selected="selected"' : '';

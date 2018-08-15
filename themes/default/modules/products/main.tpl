@@ -43,6 +43,7 @@
                     <th class="text-center" width="50"><input name="check_all[]" type="checkbox" value="yes" onclick="nv_checkAll(this.form, 'idcheck[]', 'check_all[]',this.checked);"></th>
                     <th>{LANG.title}</th>
                     <th>{LANG.product_type}</th>
+                    <th>{LANG.url}</th>
                     <th>{LANG.price}</th>
                     <th>{LANG.vat}</th>
                     <th width="100" class="text-center">{LANG.active}</th>
@@ -62,6 +63,7 @@
                     <td class="text-center"><input type="checkbox" onclick="nv_UncheckAll(this.form, 'idcheck[]', 'check_all[]', this.checked);" value="{VIEW.id}" name="idcheck[]" class="post"></td>
                     <td>{VIEW.title}</td>
                     <td>{VIEW.catid}</td>
+                    <td><a href={VIEW.url}>{VIEW.url}</a></td>
                     <td>{VIEW.price}</td>
                     <td>{VIEW.vat}</td>
                     <td class="text-center"><input type="checkbox" name="active" id="change_status_{VIEW.id}" value="{VIEW.id}" {CHECK} onclick="nv_change_status({VIEW.id});" /></td>
