@@ -19,4 +19,5 @@ $lang_module['main'] = 'Trang chính';
 $lang_module['config'] = 'Cấu hình';
 $lang_module['save'] = 'Lưu lại';
 
-$lang_module['config_workgroup'] = 'Nhóm nhân viên';
+$lang_module['config_workgroup'] = 'Nhóm sử dụng';
+$lang_module['group_manager'] = 'Nhóm quản lý';

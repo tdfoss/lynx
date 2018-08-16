@@ -7,8 +7,12 @@
  * @License GNU/GPL version 2 or any later version
  * @Createdate Wed, 22 Nov 2017 13:35:04 GMT
  */
-
 if (!defined('NV_IS_MOD_OFFICE')) die('Stop!!!');
+
+if ($count_groupmanager == 0){
+    $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name;
+    nv_redirect_location($url);
+}
 
 $row = array();
 $error = array();

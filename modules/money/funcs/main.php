@@ -7,7 +7,6 @@
  * @License GNU/GPL version 2 or any later version
  * @Createdate Wed, 22 Nov 2017 13:34:56 GMT
  */
-
 if (!defined('NV_IS_MOD_OFFICE')) die('Stop!!!');
 
 if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_request('delete_checkss', 'get')) {
@@ -57,9 +56,9 @@ if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $array_search['to']
 $per_page = 20;
 $page = $nv_Request->get_int('page', 'post,get', 1);
 $db->sqlreset()
-->select('COUNT(*)')
-->from(NV_PREFIXLANG . '_' . $module_data . '_money')
-->where('1=1' . $where);
+    ->select('COUNT(*)')
+    ->from(NV_PREFIXLANG . '_' . $module_data . '_money')
+    ->where('1=1' . $where);
 
 $sth = $db->prepare($db->sql());
 
@@ -67,9 +66,9 @@ $sth->execute();
 $num_items = $sth->fetchColumn();
 
 $db->select('*')
-->order('date DESC, addtime DESC')
-->limit($per_page)
-->offset(($page - 1) * $per_page);
+    ->order('date DESC, addtime DESC')
+    ->limit($per_page)
+    ->offset(($page - 1) * $per_page);
 $sth = $db->prepare($db->sql());
 $sth->execute();
 
@@ -102,9 +101,11 @@ while ($view = $sth->fetch()) {
         $view['fullname'] = $array_user[$view['userid']];
     }
 
-    if (nv_check_action($view['addtime'])) {
-        $view['link_edit'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $module_info['alias']['content'] . '&amp;id=' . $view['id'] . '&amp;redirect=' . nv_redirect_encrypt($client_info['selfurl']);
-        $view['link_delete'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;delete_id=' . $view['id'] . '&amp;delete_checkss=' . md5($view['id'] . NV_CACHE_PREFIX . $client_info['session_id']) . '&amp;redirect=' . nv_redirect_encrypt($client_info['selfurl']);
+    if (!empty($count_groupmanager)) {
+        if (nv_check_action($view['addtime'])) {
+            $view['link_edit'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $module_info['alias']['content'] . '&amp;id=' . $view['id'] . '&amp;redirect=' . nv_redirect_encrypt($client_info['selfurl']);
+            $view['link_delete'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;delete_id=' . $view['id'] . '&amp;delete_checkss=' . md5($view['id'] . NV_CACHE_PREFIX . $client_info['session_id']) . '&amp;redirect=' . nv_redirect_encrypt($client_info['selfurl']);
+        }
     }
 
     $view['date'] = !empty($view['date']) ? nv_date('d/m/Y', $view['date']) : '';
@@ -112,8 +113,13 @@ while ($view = $sth->fetch()) {
     $view['money'] = nv_number_format($view['money']);
     $xtpl->assign('VIEW', $view);
 
-    if (nv_check_action($view['addtime'])) {
-        $xtpl->parse('main.loop.admin');
+    if (!empty($count_groupmanager)) {
+        if (nv_check_action($view['addtime'])) {
+            $xtpl->parse('main.loop.groupmanager_td.admin');
+        }
+        $xtpl->parse('main.loop.groupmanager_td');
+        $xtpl->parse('main.loop.groupmanager_td1');
+        $xtpl->parse('main.loop.groupmanager_td2');
     }
 
     $xtpl->parse('main.loop');
@@ -122,13 +128,19 @@ while ($view = $sth->fetch()) {
 $array_action = array(
     'delete_list_id' => $lang_global['delete']
 );
+
 foreach ($array_action as $key => $value) {
     $xtpl->assign('ACTION', array(
         'key' => $key,
         'value' => $value
     ));
-    $xtpl->parse('main.action_top');
-    $xtpl->parse('main.action_bottom');
+    $xtpl->parse('main.groupmanager_th2.action_top');
+    $xtpl->parse('main.groupmanager_th1.action_bottom');
+}
+if (!empty($count_groupmanager)) {
+    $xtpl->parse('main.groupmanager_th');
+    $xtpl->parse('main.groupmanager_th1');
+    $xtpl->parse('main.groupmanager_th2');
 }
 
 if (!$global_config['rewrite_enable']) {
