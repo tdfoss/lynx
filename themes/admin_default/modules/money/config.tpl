@@ -10,6 +10,15 @@
                     <!-- END: groups -->
                 </div>
             </div>
+            
+            <div class="form-group">
+                <label class="col-sm-4 control-label">{LANG.group_manager}</label>
+                <div class="col-sm-20" style="height: 200px; padding: 10px; border: solid 1px #ddd; overflow: scroll;">
+                    <!-- BEGIN: groupmanager-->
+                    <label class="show"><input type="checkbox" name="groupmanager[]" value="{GROUPSMANAGER.value}" {GROUPSMANAGER.checked} />{GROUPSMANAGER.title}</label>
+                    <!-- END: groupmanager -->
+                </div>
+            </div>
         </div>
     </div>
     <div class="text-center">

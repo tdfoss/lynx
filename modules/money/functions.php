@@ -6,7 +6,6 @@
  * @Copyright (C) 2017 mynukeviet. All rights reserved
  * @Createdate Thu, 16 Nov 2017 13:27:56 GMT
  */
-
 if (!defined('NV_SYSTEM')) die('Stop!!!');
 
 define('NV_IS_MOD_OFFICE', true);
@@ -19,8 +18,12 @@ if (!defined('NV_IS_USER')) {
 $array_config = $module_config[$module_name];
 
 $count = 0;
+$count_groupmanager = 0;
 if (!empty($array_config['workgroup'])) {
     $count = $db->query('SELECT COUNT(*) FROM ' . NV_USERS_GLOBALTABLE . '_groups_users WHERE userid = ' . $user_info['userid'] . ' AND group_id IN (' . $array_config['workgroup'] . ')')->fetchColumn();
+}
+if (!empty($array_config['groupmanager'])) {
+    $count_groupmanager = $db->query('SELECT COUNT(*) FROM ' . NV_USERS_GLOBALTABLE . '_groups_users WHERE userid = ' . $user_info['userid'] . ' AND group_id IN (' . $array_config['groupmanager'] . ')')->fetchColumn();
 }
 
 if (empty($count)) {
