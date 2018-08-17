@@ -47,3 +47,10 @@ $lang_module['send_my_cc_note'] = 'Bạn sẽ nhận bản sao thư này sau khi
 $lang_module['error_required_title'] = 'Lỗi: bạn cần nhập dữ liệu cho Tiêu đề thư';
 $lang_module['error_required_content'] = 'Lỗi: bạn cần nhập dữ liệu cho Nội dung';
 $lang_module['error_empty_data'] = 'Bạn cần chọn dữ liệu để thực hiện!';
+
+$lang_module['title_email'] = 'Email';
+$lang_module['content_email'] = 'gửi email';
+$lang_module['edit_email'] = 'gửi email';
+$lang_module['delete_email'] = '%s xóa "%s"';
+$lang_module['delete_email_event'] = 'Xóa Email';
+$lang_module['delete_many_email'] = 'xóa nhiều thông tin email';

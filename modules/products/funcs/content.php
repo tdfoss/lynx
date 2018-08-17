@@ -23,6 +23,7 @@ if ($row['id'] > 0) {
 } else {
     $row['id'] = 0;
     $row['title'] = '';
+    $row['catid'] = '';
     $row['price'] = '';
     $row['note'] = '';
     $row['vat'] = 0;
@@ -31,6 +32,7 @@ if ($row['id'] > 0) {
 
 if ($nv_Request->isset_request('submit', 'post')) {
     $row['title'] = $nv_Request->get_title('title', 'post', '');
+    $row['catid'] = $nv_Request->get_title('catid', 'post', '');
     $row['price'] = $nv_Request->get_title('price', 'post', '');
     $row['vat'] = $nv_Request->get_float('vat', 'post', 0);
     $row['url'] = $nv_Request->get_title('url', 'post', '');
@@ -43,19 +45,30 @@ if ($nv_Request->isset_request('submit', 'post')) {
     if (empty($error)) {
         try {
             if (empty($row['id'])) {
-                $stmt = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (title, price, vat, url, note) VALUES (:title, :price, :vat, :url, :note)');
+                $stmt = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (title, catid, price, vat, url, note) VALUES (:title, :catid, :price, :vat, :url, :note)');
             } else {
-                $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET title = :title, price = :price, vat = :vat, note = :note WHERE id=' . $row['id']);
+                $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET title = :title, catid = :catid, price = :price, vat = :vat, url = :url, note = :note WHERE id=' . $row['id']);
             }
             $stmt->bindParam(':title', $row['title'], PDO::PARAM_STR);
+            $stmt->bindParam(':catid', $row['catid'], PDO::PARAM_STR);
             $stmt->bindParam(':price', $row['price'], PDO::PARAM_STR);
             $stmt->bindParam(':vat', $row['vat'], PDO::PARAM_STR);
             $stmt->bindParam(':url', $row['url'], PDO::PARAM_STR);
             $stmt->bindParam(':note', $row['note'], PDO::PARAM_STR, strlen($row['note']));
 
             $exc = $stmt->execute();
+
             if ($exc) {
+
+                if (empty($row['id'])) {
+                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_product'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['content_product'] . " " . $row['title'], $workforce_list[$user_info['userid']]['fullname']);
+                } else {
+
+                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_product'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['edit_product'] . " " . $row['title'], $workforce_list[$user_info['userid']]['fullname']);
+                }
+
                 $nv_Cache->delMod($module_name);
+
                 Header('Location: ' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name);
                 die();
             }
@@ -72,6 +85,16 @@ $xtpl->assign('LANG', $lang_module);
 $xtpl->assign('MODULE_NAME', $module_name);
 $xtpl->assign('OP', $op);
 $xtpl->assign('ROW', $row);
+
+foreach ($array_type as $value) {
+    $xtpl->assign('TYPE', array(
+        'key' => $value['id'],
+        'title' => $value['title'],
+        'selected' => ($value['id'] == $row['catid']) ? ' selected="selected"' : ''
+
+    ));
+    $xtpl->parse('main.select_type');
+}
 
 if (!empty($error)) {
     $xtpl->assign('ERROR', implode('<br />', $error));

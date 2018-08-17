@@ -39,7 +39,7 @@ function nv_check_action($addtime)
 {
     global $array_config, $is_admin;
 
-    if ($is_admin || ($addtime + (30 * 60))) {
+    if ($is_admin || ((NV_CURRENTTIME - $addtime) <= ($array_config['allow_time'] * 60))) {
         return true;
     }
     return false;

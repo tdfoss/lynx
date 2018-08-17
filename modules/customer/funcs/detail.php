@@ -10,7 +10,6 @@
 if (!defined('NV_IS_MOD_CUSTOMER')) die('Stop!!!');
 
 if ($nv_Request->isset_request('change_contacts', 'post')) {
-
     $id = $nv_Request->get_int('id', 'post', 0);
     $query = 'SELECT is_contacts FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id;
     $row = $db->query($query)->fetch();
@@ -103,6 +102,14 @@ if (isset($site_mods['invoice'])) {
     $customer_info['count_invoices'] = sizeof($array_invoice);
 }
 
+$customer_info['tags'] = array();
+if (!empty($customer_info['tag_id'])) {
+    $customer_info['tag_id'] = explode(',', $customer_info['tag_id']);
+    foreach ($customer_info['tag_id'] as $tag_id) {
+        $customer_info['tags'][] = $array_customer_tags[$tag_id]['title'];
+    }
+}
+
 $other_phone = !empty($customer_info['other_phone']) ? explode('|', $customer_info['other_phone']) : array();
 $customer_info['other_phone'] = nv_theme_crm_label($other_phone);
 
@@ -190,17 +197,19 @@ if (isset($site_mods['support'])) {
     $xtpl->parse('main.support');
 }
 
+if (!empty($customer_info['tags'])) {
+    foreach ($customer_info['tags'] as $tags) {
+        $xtpl->assign('TAGS', $tags);
+        $xtpl->parse('main.tags');
+    }
+}
+
 $xtpl->parse('main');
 $contents = $xtpl->text('main');
 
-$page_title = $lang_module['customer_detail'] . ' ' . $customer_info['fullname'];
+$page_title = $customer_info['fullname'];
 $array_mod_title[] = array(
-    'title' => $lang_module['customer'],
-    'link' => NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name
-);
-$array_mod_title[] = array(
-    'title' => $customer_info['fullname'],
-    'link' => NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=detail&id=' . $id
+    'title' => $page_title
 );
 
 include NV_ROOTDIR . '/includes/header.php';

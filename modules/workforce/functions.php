@@ -10,9 +10,7 @@ if (!defined('NV_SYSTEM')) die('Stop!!!');
 
 define('NV_IS_MOD_WORKFORCE', true);
 
-$array_config = array();
-$array_config['groups_admin'] = '10';
-$array_config['groups_manage'] = '10,11';
+$array_config = $module_config[$module_name];
 
 $array_gender = array(
     1 => $lang_module['male'],

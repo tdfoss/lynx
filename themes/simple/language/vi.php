@@ -10,3 +10,7 @@
 
 $lang_block['login'] = 'Đăng nhập';
 $lang_block['userinfo'] = 'Thông tin tài khoản';
+$lang_block['fullname'] = 'Người thực hiện';
+$lang_block['log_time'] = 'Thời gian';
+$lang_block['content'] = 'Nội dung';
+$lang_block['system'] = 'Hệ thống';

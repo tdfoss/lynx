@@ -6,7 +6,7 @@
  * @Copyright (C) 2018 TDFOSS.,LTD. All rights reserved
  * @Createdate Mon, 26 Feb 2018 03:48:37 GMT
  */
-if (!defined('NV_MAINFILE')) {
+if (! defined('NV_MAINFILE')) {
     die('Stop!!!');
 }
 
@@ -27,11 +27,15 @@ $array_transaction_status = array(
     5 => $lang_module['transaction_status_5']
 );
 
-$_sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_services WHERE active=1 ORDER BY weight';
-$array_services = $nv_Cache->db($_sql, 'id', 'services');
+if (isset($site_mods['services'])) {
+    $_sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_services WHERE active=1';
+    $array_services = $nv_Cache->db($_sql, 'id', 'services');
+}
 
-$_sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_products WHERE active=1 ORDER BY weight';
-$array_products = $nv_Cache->db($_sql, 'id', 'products');
+if (isset($site_mods['products'])) {
+    $_sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_products WHERE active=1';
+    $array_products = $nv_Cache->db($_sql, 'id', 'products');
+}
 
 function nv_copy_invoice($id, $status = 0, $create_user_id = 0)
 {
@@ -61,7 +65,7 @@ function nv_copy_invoice($id, $status = 0, $create_user_id = 0)
                 $stmt->bindParam(':code', $auto_code, PDO::PARAM_STR);
                 $stmt->execute();
                 while ($stmt->rowCount()) {
-                    $auto_code = vsprintf($format_code, ($new_id + $i++));
+                    $auto_code = vsprintf($format_code, ($new_id + $i ++));
                 }
 
                 $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET code= :code WHERE id=' . $new_id);
@@ -75,10 +79,10 @@ function nv_copy_invoice($id, $status = 0, $create_user_id = 0)
                     $rows['detail'][$_row['itemid']] = $_row;
                 }
 
-                if (!empty($rows['detail'])) {
+                if (! empty($rows['detail'])) {
                     $sth = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_detail (idinvoice, idcustomer, module, itemid, quantity, price, vat, total, note, weight) VALUES(:idinvoice, :idcustomer, :module, :itemid, :quantity, :price, :vat, :total, :note, :weight)');
                     foreach ($rows['detail'] as $service) {
-                        $service['note'] = !empty($service['note']) ? $service['note'] : '';
+                        $service['note'] = ! empty($service['note']) ? $service['note'] : '';
                         $total = $service['price'] * $service['quantity'];
                         $total = $total + (($total * $service['vat']) / 100);
                         $sth->bindParam(':idinvoice', $new_id, PDO::PARAM_INT);
@@ -150,7 +154,7 @@ function nv_sendmail_econtent($new_id, $adduser = 0, $location_file = '')
             }
 
             $cc_id = array();
-            if (!empty($row['workforceid']) && $user_info['userid'] != $row['workforceid']) {
+            if (! empty($row['workforceid']) && $user_info['userid'] != $row['workforceid']) {
                 $cc_id[] = $row['workforceid'];
             }
 
@@ -196,10 +200,10 @@ function nv_invoice_table($id)
     $templateCSS = file_exists(NV_ROOTDIR . '/themes/' . $global_config['module_theme'] . '/css/pdf.css') ? $global_config['module_theme'] : 'default';
     $xtpl->assign('TEMPLATE_CSS', $templateCSS);
 
-    if (!empty($array_invoice_products)) {
+    if (! empty($array_invoice_products)) {
         $i = 1;
         foreach ($array_invoice_products as $orders) {
-            $orders['number'] = $i++;
+            $orders['number'] = $i ++;
             $orders['vat_price'] = ($orders['price'] * $orders['vat']) / 100;
             $orders['vat_price'] = number_format($orders['vat_price']);
             $orders['price'] = number_format($orders['price']);
@@ -220,7 +224,7 @@ function nv_invoice_table($id)
 
     $xtpl->assign('ROW_SEND', $row);
 
-    if (!empty($row['discount_percent']) && !empty($row['discount_value'])) {
+    if (! empty($row['discount_percent']) && ! empty($row['discount_value'])) {
         $xtpl->parse('main.discount');
     }
 
@@ -240,7 +244,7 @@ function nv_invoice_template($id)
 
     $size = @getimagesize(NV_ROOTDIR . '/' . $global_config['site_logo']);
     $logo = preg_replace('/\.[a-z]+$/i', '.svg', $global_config['site_logo']);
-    if (!file_exists(NV_ROOTDIR . '/' . $logo)) {
+    if (! file_exists(NV_ROOTDIR . '/' . $logo)) {
         $logo = $global_config['site_logo'];
     }
 
@@ -330,7 +334,7 @@ function convert_number_to_words($number)
         1000000000000000000 => 'tỷ tỷ'
     );
 
-    if (!is_numeric($number)) {
+    if (! is_numeric($number)) {
         return false;
     }
 

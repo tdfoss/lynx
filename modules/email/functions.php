@@ -6,7 +6,6 @@
  * @Copyright (C) 2018 Le Hong Quang. All rights reserved
  * @Createdate Wed, 07 Feb 2018 03:04:50 GMT
  */
-
 if (!defined('NV_SYSTEM')) die('Stop!!!');
 
 define('NV_IS_MOD_EMAIL', true);
@@ -33,4 +32,5 @@ function nv_delete_email($id)
             }
         }
     }
+    return $rows['title'];
 }

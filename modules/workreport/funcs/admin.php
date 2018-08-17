@@ -20,6 +20,7 @@ $db->select('userid, content, addtime')
 $sth = $db->query($db->sql());
 
 while ($row = $sth->fetch()) {
+	$row['content'] = nv_nl2br($row['content']);
     $row['addtime'] = nv_date("H:i d/m/Y", $row['addtime']);
     $array_data[$row['userid']] = $row;
 }

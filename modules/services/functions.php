@@ -21,6 +21,9 @@ if (isset($workforce_list[$user_info['userid']])) {
 $_sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_services WHERE active=1 ORDER BY weight';
 $array_services = $nv_Cache->db($_sql, 'id', $module_name);
 
+$_sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_price_unit WHERE active=1';
+$array_price_unit = $nv_Cache->db($_sql, 'id', $module_name);
+
 function nv_delete_service($id)
 {
     global $db, $module_data;

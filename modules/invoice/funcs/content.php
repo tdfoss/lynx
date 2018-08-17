@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @Project NUKEVIET 4.x
  * @Author VINADES.,JSC <contact@vinades.vn>
@@ -82,6 +81,7 @@ $row = array();
 $error = array();
 $row['redirect'] = $nv_Request->get_string('redirect', 'post,get', '');
 $row['id'] = $nv_Request->get_int('id', 'post,get', 0);
+$row['projectid'] = $nv_Request->get_int('projectid', 'post,get', 0);
 
 if ($row['id'] > 0) {
     $lang_module['content'] = $lang_module['invoice_edit'];
@@ -114,6 +114,11 @@ if ($row['id'] > 0) {
     $row['discount_percent'] = 0;
     $row['discount_value'] = 0;
     $row['auto_create'] = 0;
+
+    if ($row['projectid'] > 0) {
+        $result = $db->query('SELECT customerid, title FROM ' . NV_PREFIXLANG . '_projects WHERE id=' . $row['projectid']);
+        list ($row['customerid'], $row['title']) = $result->fetch(3);
+    }
 }
 
 if ($nv_Request->isset_request('submit', 'post')) {
@@ -390,6 +395,7 @@ foreach ($row['detail'] as $item) {
     $xtpl->assign('ITEM', $item);
 
     if ($item['module'] == 'services') {
+
         if (!empty($array_services)) {
             foreach ($array_services as $services) {
                 $services['selected'] = ($item['module'] == 'services' && $services['id'] == $item['itemid']) ? 'selected="selected"' : '';

@@ -5,6 +5,29 @@
  * @Createdate Fri, 12 Jan 2018 09:14:06 GMT
  */
 
+function nv_task_content(taskid, projectid) {
+    $.ajax({
+        type : 'POST',
+        url : script_name + '?' + nv_name_variable + '=task&' + nv_fc_variable + '=content&nocache=' + new Date().getTime(),
+        data : 'ajax=1&id=' + taskid + '&projectid=' + projectid,
+        success : function(html) {
+            modalShow('', html);
+            $('#sitemodal .modal-dialog').css('max-width', 900);
+        }
+    });
+}
+
+function nv_projects_task_list(projectid) {
+    $.ajax({
+        type : 'POST',
+        url : script_name + '?' + nv_name_variable + '=projects&' + nv_fc_variable + '=detail&nocache=' + new Date().getTime(),
+        data : 'task_list=1&projectid=' + projectid,
+        success : function(html) {
+            $('#task_list').html(html);
+        }
+    });
+}
+
 function nv_list_action(action, url_action, del_confirm_no_post) {
     var listall = [];
     $('input.post:checked').each(function() {

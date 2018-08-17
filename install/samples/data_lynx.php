@@ -5,7 +5,7 @@
  * @Author VINADES.,JSC <contact@vinades.vn>
  * @Copyright (C) 2018 VINADES.,JSC. All rights reserved
  * @License GNU/GPL version 2 or any later version
- * @Createdate Sat, 14 Jul 2018 03:34:25 GMT
+ * @Createdate Wed, 15 Aug 2018 06:22:11 GMT
  */
 
 if (!defined('NV_MAINFILE')) {
@@ -144,7 +144,7 @@ $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'gzip_method', '1')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'authors_detail_main', '0')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'spadmin_add_admin', '1')";
-$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'timestamp', '96')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'timestamp', '101')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'captcha_type', '1')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'version', '4.3.02')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'cookie_httponly', '1')";
@@ -195,7 +195,7 @@ $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'autologosize3', '30')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'autologomod', '')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'name_show', '0')";
-$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'cronjobs_next_time', '1531539557')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'cronjobs_next_time', '1534314354')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'disable_site_content', 'Vì lý do kỹ thuật website tạm ngưng hoạt động. Thành thật xin lỗi các bạn vì sự bất tiện này!')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'seotools', 'prcservice', '')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'about', 'auto_postcomm', '1')";
@@ -313,7 +313,6 @@ $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'ftp_path', '/')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'ftp_check_login', '0')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'themes', 'simple', 'a:1:{s:12:\"theme_layout\";i:1;}')";
-$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'office', 'workgroup', '4')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'notification', 'onesignal_appid', '')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'workreport', 'work_groups', '4')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'workreport', 'admin_groups', '1')";
@@ -332,10 +331,14 @@ $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'projects', 'alloweditorcomm', '0')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'projects', 'groups_manage', '1')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'customer', 'groups_admin', '1')";
-$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'customer', 'groups_manage', '1,2,3')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'customer', 'groups_manage', '')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'invoice', 'groups_manage', '1')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'invoice', 'groups_admin', '')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'invoice', 'default_status', '0,1,3,2,4')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'workforce', 'groups_admin', '1')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'groups_use', 'groups_use', '1')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'workforce', 'groups_use', '1')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'workreport', 'allow_time', '1440')";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_cronjobs`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_cronjobs` (
@@ -354,15 +357,15 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_cronjobs` (
   PRIMARY KEY (`id`),
   KEY `is_sys` (`is_sys`)
 ) ENGINE=MyISAM  AUTO_INCREMENT=10  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (1, 1514880771, 5, 'online_expired_del.php', 'cron_online_expired_del', '', 0, 1, 1, 1531539257, 1, 'Xóa các dòng ghi trạng thái online đã cũ trong CSDL')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (2, 1514880771, 1440, 'dump_autobackup.php', 'cron_dump_autobackup', '', 0, 1, 1, 1531468532, 1, 'Tự động lưu CSDL')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (3, 1514880771, 60, 'temp_download_destroy.php', 'cron_auto_del_temp_download', '', 0, 1, 1, 1531537151, 1, 'Xóa các file tạm trong thư mục tmp')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (4, 1514880771, 30, 'ip_logs_destroy.php', 'cron_del_ip_logs', '', 0, 1, 1, 1531539257, 1, 'Xóa IP log files, Xóa các file nhật ký truy cập')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (5, 1514880771, 1440, 'error_log_destroy.php', 'cron_auto_del_error_log', '', 0, 1, 1, 1531468532, 1, 'Xóa các file error_log quá hạn')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (1, 1514880771, 5, 'online_expired_del.php', 'cron_online_expired_del', '', 0, 1, 1, 1534314054, 1, 'Xóa các dòng ghi trạng thái online đã cũ trong CSDL')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (2, 1514880771, 1440, 'dump_autobackup.php', 'cron_dump_autobackup', '', 0, 1, 1, 1534302515, 1, 'Tự động lưu CSDL')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (3, 1514880771, 60, 'temp_download_destroy.php', 'cron_auto_del_temp_download', '', 0, 1, 1, 1534313433, 1, 'Xóa các file tạm trong thư mục tmp')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (4, 1514880771, 30, 'ip_logs_destroy.php', 'cron_del_ip_logs', '', 0, 1, 1, 1534313433, 1, 'Xóa IP log files, Xóa các file nhật ký truy cập')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (5, 1514880771, 1440, 'error_log_destroy.php', 'cron_auto_del_error_log', '', 0, 1, 1, 1534302515, 1, 'Xóa các file error_log quá hạn')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (6, 1514880771, 360, 'error_log_sendmail.php', 'cron_auto_sendmail_error_log', '', 0, 1, 0, 0, 0, 'Gửi email các thông báo lỗi cho admin')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (7, 1514880771, 60, 'ref_expired_del.php', 'cron_ref_expired_del', '', 0, 1, 1, 1531537151, 1, 'Xóa các referer quá hạn')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (8, 1514880771, 60, 'check_version.php', 'cron_auto_check_version', '', 0, 1, 1, 1531537151, 1, 'Kiểm tra phiên bản NukeViet')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (9, 1514880771, 1440, 'notification_autodel.php', 'cron_notification_autodel', '', 0, 1, 1, 1531531196, 1, 'Xóa thông báo cũ')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (7, 1514880771, 60, 'ref_expired_del.php', 'cron_ref_expired_del', '', 0, 1, 1, 1534313433, 1, 'Xóa các referer quá hạn')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (8, 1514880771, 60, 'check_version.php', 'cron_auto_check_version', '', 0, 1, 1, 1534313433, 1, 'Kiểm tra phiên bản NukeViet')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (9, 1514880771, 1440, 'notification_autodel.php', 'cron_notification_autodel', '', 0, 1, 1, 1534302515, 1, 'Xóa thông báo cũ')";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_extension_files`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_extension_files` (
@@ -477,7 +480,7 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_notification` 
   `add_time` int(11) unsigned NOT NULL,
   `view` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  AUTO_INCREMENT=1523  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+) ENGINE=MyISAM  AUTO_INCREMENT=1555  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (118, 1, 0, 0, 'vi', 'task', 0, 'comment_task', 'a:2:{s:7:\"content\";s:192:\"<strong>xuantrieuphong</strong> đã bình luận tại công việc <strong>Thêm bài viết giới thiệu dịch vụ “Dịch vụ quản lý fanpage Facebook” trên tdfoss.vn</strong>\";s:3:\"url\";s:78:\"https://client.tdfoss.vn/index.php?language=vi&nv=task&op=detail&id=40#cid_184\";}', 1520560102, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (115, 2, 0, 0, 'vi', 'task', 0, 'comment_task', 'a:2:{s:7:\"content\";s:183:\"<strong>admin</strong> đã bình luận tại công việc <strong>Thêm bài viết giới thiệu dịch vụ “Dịch vụ quản lý fanpage Facebook” trên tdfoss.vn</strong>\";s:3:\"url\";s:78:\"https://client.tdfoss.vn/index.php?language=vi&nv=task&op=detail&id=40#cid_181\";}', 1520556598, 0)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (116, 1, 0, 0, 'vi', 'task', 0, 'comment_task', 'a:2:{s:7:\"content\";s:192:\"<strong>xuantrieuphong</strong> đã bình luận tại công việc <strong>Thêm bài viết giới thiệu dịch vụ “Dịch vụ quản lý fanpage Facebook” trên tdfoss.vn</strong>\";s:3:\"url\";s:78:\"https://client.tdfoss.vn/index.php?language=vi&nv=task&op=detail&id=40#cid_182\";}', 1520560003, 1)";
@@ -1902,6 +1905,38 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1520, 1, 0, 0, 'vi', 'task', 0, 'comment_task', 'a:2:{s:7:\"content\";s:116:\"<strong>caothao</strong> đã bình luận tại công việc <strong>Đăng ký dịch vụ sms cho AZtest</strong>\";s:3:\"url\";s:79:\"https://client.tdfoss.vn/index.php?language=vi&nv=task&op=detail&id=157#cid_627\";}', 1531383112, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1521, 7, 0, 0, 'vi', 'task', 0, 'comment_task', 'a:2:{s:7:\"content\";s:114:\"<strong>admin</strong> đã bình luận tại công việc <strong>Đăng ký dịch vụ sms cho AZtest</strong>\";s:3:\"url\";s:79:\"https://client.tdfoss.vn/index.php?language=vi&nv=task&op=detail&id=157#cid_628\";}', 1531383127, 0)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1522, 5, 0, 0, 'vi', 'support', 0, 'reply_ticket', 'a:2:{s:7:\"content\";s:112:\"Khách đã trả lời yêu cầu hỗ trợ \"Re: [Yêu cầu hỗ trợ #000279] Giao diện tin tức news04\"\";s:3:\"url\";s:74:\"https://client.tdfoss.vn/index.php?language=vi&nv=support&op=detail&id=279\";}', 1531385831, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1523, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:71:\"Bạn có công việc <strong>f hft hftgh</strong> cần thực hiện\";s:3:\"url\";s:64:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=1\";}', 1532221537, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1524, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:70:\"Bạn có công việc <strong>tfghftgftg</strong> cần thực hiện\";s:3:\"url\";s:64:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=2\";}', 1532224771, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1525, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:75:\"Bạn có công việc <strong>Highcharts Demo</strong> cần thực hiện\";s:3:\"url\";s:64:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=3\";}', 1532224869, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1526, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:75:\"Bạn có công việc <strong>Highcharts Demo</strong> cần thực hiện\";s:3:\"url\";s:64:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=4\";}', 1532224954, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1527, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:75:\"Bạn có công việc <strong>Highcharts Demo</strong> cần thực hiện\";s:3:\"url\";s:64:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=5\";}', 1532225111, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1528, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:75:\"Bạn có công việc <strong>Highcharts Demo</strong> cần thực hiện\";s:3:\"url\";s:64:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=6\";}', 1532225137, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1529, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:75:\"Bạn có công việc <strong>Highcharts Demo</strong> cần thực hiện\";s:3:\"url\";s:64:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=7\";}', 1532225236, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1530, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:75:\"Bạn có công việc <strong>Highcharts Demo</strong> cần thực hiện\";s:3:\"url\";s:64:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=8\";}', 1532225271, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1531, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:75:\"Bạn có công việc <strong>Highcharts Demo</strong> cần thực hiện\";s:3:\"url\";s:64:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=9\";}', 1532225288, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1532, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:75:\"Bạn có công việc <strong>Highcharts Demo</strong> cần thực hiện\";s:3:\"url\";s:65:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=10\";}', 1532225369, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1533, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:75:\"Bạn có công việc <strong>Highcharts Demo</strong> cần thực hiện\";s:3:\"url\";s:65:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=11\";}', 1532225425, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1534, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:75:\"Bạn có công việc <strong>Highcharts Demo</strong> cần thực hiện\";s:3:\"url\";s:65:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=12\";}', 1532225621, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1535, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:75:\"Bạn có công việc <strong>Highcharts Demo</strong> cần thực hiện\";s:3:\"url\";s:65:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=13\";}', 1532225658, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1536, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:65:\"Bạn có công việc <strong>gerge</strong> cần thực hiện\";s:3:\"url\";s:65:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=14\";}', 1532249752, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1537, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:75:\"Bạn có công việc <strong>Highcharts Demo</strong> cần thực hiện\";s:3:\"url\";s:65:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=15\";}', 1532250645, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1538, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:75:\"Bạn có công việc <strong>Highcharts Demo</strong> cần thực hiện\";s:3:\"url\";s:65:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=16\";}', 1532250700, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1539, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:75:\"Bạn có công việc <strong>Highcharts Demo</strong> cần thực hiện\";s:3:\"url\";s:65:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=18\";}', 1532250853, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1540, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:75:\"Bạn có công việc <strong>Highcharts Demo</strong> cần thực hiện\";s:3:\"url\";s:65:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=19\";}', 1532252454, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1541, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:75:\"Bạn có công việc <strong>Highcharts Demo</strong> cần thực hiện\";s:3:\"url\";s:65:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=20\";}', 1532252489, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1542, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:75:\"Bạn có công việc <strong>Highcharts Demo</strong> cần thực hiện\";s:3:\"url\";s:65:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=21\";}', 1532252606, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1543, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:75:\"Bạn có công việc <strong>Highcharts Demo</strong> cần thực hiện\";s:3:\"url\";s:65:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=22\";}', 1532252701, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1544, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:75:\"Bạn có công việc <strong>Highcharts Demo</strong> cần thực hiện\";s:3:\"url\";s:65:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=23\";}', 1532252792, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1545, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:75:\"Bạn có công việc <strong>Highcharts Demo</strong> cần thực hiện\";s:3:\"url\";s:65:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=24\";}', 1532252851, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1546, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:75:\"Bạn có công việc <strong>Highcharts Demo</strong> cần thực hiện\";s:3:\"url\";s:65:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=25\";}', 1532252861, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1547, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:75:\"Bạn có công việc <strong>Highcharts Demo</strong> cần thực hiện\";s:3:\"url\";s:65:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=26\";}', 1532252875, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1548, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:75:\"Bạn có công việc <strong>Highcharts Demo</strong> cần thực hiện\";s:3:\"url\";s:65:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=27\";}', 1532253106, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1549, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:75:\"Bạn có công việc <strong>Highcharts Demo</strong> cần thực hiện\";s:3:\"url\";s:65:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=28\";}', 1532253202, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1550, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:75:\"Bạn có công việc <strong>Highcharts Demo</strong> cần thực hiện\";s:3:\"url\";s:65:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=29\";}', 1532253216, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1551, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:75:\"Bạn có công việc <strong>Highcharts Demo</strong> cần thực hiện\";s:3:\"url\";s:65:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=30\";}', 1532253260, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1552, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:78:\"Bạn có công việc <strong>Sản phẩm mới</strong> cần thực hiện\";s:3:\"url\";s:65:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=31\";}', 1532253267, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1553, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:71:\"Bạn có công việc <strong>22222222222</strong> cần thực hiện\";s:3:\"url\";s:65:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=32\";}', 1532413513, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1554, 0, 0, 0, 'vi', 'invoice', 0, 'new_invoice', 'a:2:{s:7:\"content\";s:72:\"Bạn có hóa đơn <strong># - Highcharts Demo</strong> cần xử lý\";s:3:\"url\";s:67:\"http://site-lynx.vn/index.php?language=vi&nv=invoice&op=detail&id=1\";}', 1532747590, 0)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_plugin`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_plugin` (
@@ -1949,11 +1984,11 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extension
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (327, 'module', 'two-step-verification', 1, 0, 'two-step-verification', 'two_step_verification', '4.3.02 1525251600', 1514880771, 'VINADES <contact@vinades.vn>', '')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (307, 'theme', 'default', 0, 0, 'default', 'default', '4.3.02 1525251600', 1514880771, 'VINADES <contact@vinades.vn>', '')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (311, 'theme', 'mobile_default', 0, 0, 'mobile_default', 'mobile_default', '4.3.02 1525251600', 1514880771, 'VINADES <contact@vinades.vn>', '')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'module', 'task', 0, 0, 'task', 'task', '1.0.00 1515850509', 1532220850, 'TDFOSS.,LTD (contact@tdfoss.vn)', '')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'module', 'projects', 0, 0, 'projects', 'projects', '1.0.00 1515748446', 1515750959, 'TDFOSS.,LTD (contact@tdfoss.vn)', '')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'module', 'services', 0, 0, 'services', 'services', '1.0.00 1516075899', 1516096778, 'TDFOSS.,LTD (contact@tdfoss.vn)', '')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'module', 'notification', 0, 1, 'notification', 'notification', '4.0.11 1430878940', 1517809309, 'VINADES (contact@vinades.vn)', '')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (137, 'module', 'home', 0, 0, 'home', 'home', '3.4.01 1517879613', 1517879613, 'hoaquynhtim99 (phantandung92@gmail.com)', 'Module dùng làm trang chủ cho những website sử dụng block để làm homepage.')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'module', 'office', 0, 1, 'office', 'office', '1.0.00 1510838877', 1517900243, 'mynukeviet (contact@mynukeviet.com)', '')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'module', 'email', 0, 0, 'email', 'email', '1.0.01 1517972690', 1518147698, 'Le Hong Quang (quanglh268@tdfoss.com)', '')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'module', 'invoice', 0, 0, 'invoice', 'invoice', '1.0.00 1519616917', 1519719766, 'TDFOSS.,LTD (contact@tdfoss.vn)', '')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'module', 'products', 0, 0, 'products', 'products', '1.0.00 1519710750', 1519719766, 'TDFOSS.,LTD (contact@tdfoss.vn)', '')";
@@ -1961,6 +1996,8 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extension
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'module', 'customer', 1, 0, 'customer', 'customer', '1.0.00 1525523219', 1525527261, 'TDFOSS.,LTD (contact@tdfoss.vn)', '')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'module', 'workforce', 1, 0, 'workforce', 'workforce', '1.0.00 1525563940', 1525568595, 'TDFOSS.,LTD (contact@tdfoss.vn)', '')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'module', 'api', 0, 0, 'api', 'api', '1.0.00 1523071996', 1526207356, 'mynukeviet (contact@mynukeviet.com)', '')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'module', 'voting', 0, 0, 'voting', 'voting', '4.3.02 1525251600', 1532220850, 'VINADES <contact@vinades.vn>', '')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'module', 'money', 0, 1, 'money', 'money', '1.0.00 1510838877', 1534302937, 'mynukeviet (contact@mynukeviet.com)', '')";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_setup_language`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_setup_language` (
@@ -2430,9 +2467,9 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_group
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_groups` (`bid`, `theme`, `module`, `file_name`, `title`, `link`, `template`, `position`, `exp_time`, `active`, `act`, `groups_view`, `all_func`, `weight`, `config`) VALUES (29, 'mobile_default', 'theme', 'global.menu_footer.php', 'Các chuyên mục chính', '', 'primary', '[MENU_FOOTER]', 0, '1', 1, '6', 1, 1, 'a:1:{s:14:\"module_in_menu\";a:9:{i:0;s:5:\"about\";i:1;s:4:\"news\";i:2;s:5:\"users\";i:3;s:7:\"contact\";i:4;s:6:\"voting\";i:5;s:7:\"banners\";i:6;s:4:\"seek\";i:7;s:5:\"feeds\";i:8;s:9:\"siteterms\";}}')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_groups` (`bid`, `theme`, `module`, `file_name`, `title`, `link`, `template`, `position`, `exp_time`, `active`, `act`, `groups_view`, `all_func`, `weight`, `config`) VALUES (30, 'mobile_default', 'theme', 'global.company_info.php', 'Công ty chủ quản', '', 'primary', '[COMPANY_INFO]', 0, '1', 1, '6', 1, 1, 'a:17:{s:12:\"company_name\";s:58:\"Công ty cổ phần phát triển nguồn mở Việt Nam\";s:15:\"company_address\";s:72:\"Phòng 1706 - Tòa nhà CT2 Nàng Hương, 583 Nguyễn Trãi, Hà Nội\";s:16:\"company_sortname\";s:12:\"VINADES.,JSC\";s:15:\"company_regcode\";s:0:\"\";s:16:\"company_regplace\";s:0:\"\";s:21:\"company_licensenumber\";s:0:\"\";s:22:\"company_responsibility\";s:0:\"\";s:15:\"company_showmap\";i:1;s:20:\"company_mapcenterlat\";d:20.984516000000013;s:20:\"company_mapcenterlng\";d:105.795475;s:14:\"company_maplat\";d:20.984516;s:14:\"company_maplng\";d:105.79547500000001;s:15:\"company_mapzoom\";i:17;s:13:\"company_phone\";s:58:\"+84-24-85872007[+842485872007]|+84-904762534[+84904762534]\";s:11:\"company_fax\";s:15:\"+84-24-35500914\";s:13:\"company_email\";s:18:\"contact@vinades.vn\";s:15:\"company_website\";s:17:\"http://vinades.vn\";}')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_groups` (`bid`, `theme`, `module`, `file_name`, `title`, `link`, `template`, `position`, `exp_time`, `active`, `act`, `groups_view`, `all_func`, `weight`, `config`) VALUES (35, 'simple', 'theme', 'global.bootstrap.php', 'global top', '', 'no_title', '[TOP]', 0, '1', 1, '6', 1, 1, 'a:2:{s:6:\"menuid\";i:1;s:12:\"title_length\";i:24;}')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_groups` (`bid`, `theme`, `module`, `file_name`, `title`, `link`, `template`, `position`, `exp_time`, `active`, `act`, `groups_view`, `all_func`, `weight`, `config`) VALUES (37, 'simple', 'notification', 'global.block_notification_onesignal.php', 'global block notification push', '', 'no_title', '[TOP]', 0, '1', 1, '6', 1, 2, '')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_groups` (`bid`, `theme`, `module`, `file_name`, `title`, `link`, `template`, `position`, `exp_time`, `active`, `act`, `groups_view`, `all_func`, `weight`, `config`) VALUES (37, 'simple', 'notification', 'global.block_notification_onesignal.php', 'global block notification push', '', 'no_title', '[TOP]', 0, '1', 1, '', 1, 2, '')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_groups` (`bid`, `theme`, `module`, `file_name`, `title`, `link`, `template`, `position`, `exp_time`, `active`, `act`, `groups_view`, `all_func`, `weight`, `config`) VALUES (39, 'simple', 'projects', 'global.manage_projects.php', 'Dự án', '/index.php?language=vi&nv=projects', 'default_no_padding', '[BOTTOM]', 0, '1', 1, '14', 0, 1, 'a:4:{s:6:\"numrow\";i:5;s:10:\"characters\";i:0;s:4:\"type\";a:4:{i:0;i:0;i:1;i:1;i:2;i:2;i:3;i:3;}s:6:\"updown\";s:8:\"edittime\";}')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_groups` (`bid`, `theme`, `module`, `file_name`, `title`, `link`, `template`, `position`, `exp_time`, `active`, `act`, `groups_view`, `all_func`, `weight`, `config`) VALUES (43, 'simple', 'notification', 'global.block_notification_popup.php', 'global block notification popup', '', 'no_title', '[TOP]', 0, '1', 1, '6', 1, 3, '')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_groups` (`bid`, `theme`, `module`, `file_name`, `title`, `link`, `template`, `position`, `exp_time`, `active`, `act`, `groups_view`, `all_func`, `weight`, `config`) VALUES (43, 'simple', 'notification', 'global.block_notification_popup.php', 'global block notification popup', '', 'no_title', '[TOP]', 0, '1', 1, '', 1, 3, '')";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_blocks_weight`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_blocks_weight` (
@@ -3906,27 +3943,27 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weigh
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (26, 109, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (27, 109, 2)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (35, 109, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 89, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 88, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 86, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 87, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 79, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 78, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 80, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 84, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 83, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 85, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 74, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 75, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 71, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 66, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 65, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 72, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 67, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 76, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 77, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 69, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 70, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (19, 157, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (30, 158, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (28, 158, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (30, 157, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (22, 157, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (23, 158, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (22, 158, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (29, 158, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (29, 157, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (28, 157, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (27, 158, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (26, 157, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (35, 158, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 158, 3)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 157, 3)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (27, 157, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 157, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (26, 158, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (23, 157, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 158, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (35, 157, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 19, 2)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 20, 2)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 21, 2)";
@@ -3938,24 +3975,24 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weigh
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 27, 2)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 28, 2)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 29, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 47, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 48, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 49, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 50, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 51, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (5, 160, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (11, 159, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (11, 160, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (16, 159, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (16, 160, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 58, 2)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 59, 2)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 60, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 93, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 91, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 90, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 92, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (13, 157, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (8, 157, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (19, 158, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (8, 158, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 99, 2)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 100, 2)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 98, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 104, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 103, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 102, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (15, 158, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (15, 157, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (13, 158, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 108, 2)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 107, 2)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 106, 2)";
@@ -4105,27 +4142,27 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weigh
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 117, 2)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 116, 2)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 115, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 89, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 88, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 86, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 87, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 79, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 78, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 80, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 84, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 83, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 85, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 74, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 75, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 71, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 66, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 65, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 72, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 67, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 76, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 77, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 69, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 70, 3)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (29, 159, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (22, 160, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (23, 160, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (22, 159, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (27, 159, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (35, 160, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (27, 160, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (26, 160, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (26, 159, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (23, 159, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 160, 3)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 159, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (16, 162, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (5, 162, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (5, 161, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 159, 3)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (11, 161, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 160, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (35, 159, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (11, 162, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (16, 161, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 19, 3)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 20, 3)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 21, 3)";
@@ -4138,24 +4175,24 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weigh
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 28, 3)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 29, 3)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 64, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 47, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 48, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 49, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 50, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 51, 3)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (15, 162, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (17, 161, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (17, 162, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (20, 161, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (20, 162, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 58, 3)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 59, 3)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 60, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 93, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 91, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 90, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 92, 3)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (30, 159, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (28, 159, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (29, 160, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (28, 160, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 99, 3)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 100, 3)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 98, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 104, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 103, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 102, 3)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (19, 160, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (19, 159, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (30, 160, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 108, 3)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 107, 3)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 106, 3)";
@@ -4203,9 +4240,9 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weigh
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (35, 122, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (35, 121, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 122, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 121, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (17, 157, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 122, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 121, 3)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (8, 159, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (16, 125, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (16, 124, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (16, 123, 1)";
@@ -4318,8 +4355,8 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weigh
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (26, 128, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (27, 128, 2)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (35, 128, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 128, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 128, 3)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (17, 158, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (8, 160, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (16, 129, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (11, 129, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (5, 129, 1)";
@@ -4544,10 +4581,10 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weigh
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (27, 140, 2)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (35, 139, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (35, 140, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 139, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 140, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 139, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 140, 3)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (20, 157, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (20, 158, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (13, 159, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (13, 160, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (16, 147, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (16, 149, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (16, 142, 1)";
@@ -4667,20 +4704,20 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weigh
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (35, 143, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (35, 144, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (35, 150, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 147, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 149, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 142, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 148, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 143, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 144, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 150, 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 147, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 149, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 142, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 148, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 143, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 144, 3)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 150, 3)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (11, 158, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (16, 158, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (5, 157, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (16, 157, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (5, 158, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (11, 157, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 64, 3)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (17, 160, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (20, 160, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (15, 159, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (20, 159, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (15, 160, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (17, 159, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (5, 159, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (16, 151, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (11, 151, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (5, 151, 1)";
@@ -4719,6 +4756,99 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weigh
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (35, 152, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 152, 2)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 152, 3)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (16, 156, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (16, 155, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (16, 154, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (11, 156, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (11, 155, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (11, 154, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (5, 156, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (5, 155, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (5, 154, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (20, 156, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (20, 155, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (20, 154, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (17, 156, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (17, 155, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (17, 154, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (15, 156, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (15, 155, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (15, 154, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (13, 156, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (13, 155, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (13, 154, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (8, 156, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (8, 155, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (8, 154, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (19, 156, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (19, 155, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (19, 154, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (30, 156, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (30, 155, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (30, 154, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (28, 156, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (28, 155, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (28, 154, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (29, 156, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (29, 155, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (29, 154, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (22, 156, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (22, 155, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (22, 154, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (23, 156, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (23, 155, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (23, 154, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (26, 156, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (26, 155, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (26, 154, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (27, 156, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (27, 155, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (27, 154, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (35, 156, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (35, 155, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (35, 154, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 156, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 155, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 154, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 156, 3)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 155, 3)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 154, 3)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (15, 161, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (13, 162, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (13, 161, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (8, 162, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (8, 161, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (19, 162, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (19, 161, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (30, 162, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (30, 161, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (28, 162, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (28, 161, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (29, 162, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (29, 161, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (22, 162, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (22, 161, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (23, 162, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (23, 161, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (26, 162, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (26, 161, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (27, 162, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (27, 161, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (35, 162, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (35, 161, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 162, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (37, 161, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 162, 3)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (43, 161, 3)";
+
+$sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_cat`";
+$sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_cat` (
+  `id` smallint(4) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `note` text NOT NULL,
+  `weight` smallint(4) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_comment`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_comment` (
@@ -4889,9 +5019,26 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_customer` (
   `note` text NOT NULL COMMENT 'Ghi chú',
   `is_contacts` tinyint(1) NOT NULL COMMENT 'Loại khách hàng',
   `type_id` smallint(4) unsigned NOT NULL DEFAULT '0',
+  `tag_id` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  AUTO_INCREMENT=2  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_customer` (`id`, `first_name`, `last_name`, `main_phone`, `other_phone`, `main_email`, `other_email`, `birthday`, `facebook`, `skype`, `zalo`, `gender`, `address`, `unit`, `trading_person`, `unit_name`, `tax_code`, `address_invoice`, `care_staff`, `image`, `addtime`, `edittime`, `userid`, `note`, `is_contacts`, `type_id`) VALUES (1, 'Phượng', 'Hồ Thị Hoa', '', '', '', '', 0, '', '', '', 0, '', '', '', '', '', '', 1, '', 1531404094, 0, 1, '', 0, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_customer` (`id`, `first_name`, `last_name`, `main_phone`, `other_phone`, `main_email`, `other_email`, `birthday`, `facebook`, `skype`, `zalo`, `gender`, `address`, `unit`, `trading_person`, `unit_name`, `tax_code`, `address_invoice`, `care_staff`, `image`, `addtime`, `edittime`, `userid`, `note`, `is_contacts`, `type_id`, `tag_id`) VALUES (1, 'Phượng', 'Hồ Thị Hoa', '', '', '', '', 0, '', '', '', 0, '', '', '', '', '', '', 1, '', 1531404094, 1533981772, 1, '', 0, 0, '3,4')";
+
+$sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_customer_tags`";
+$sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_customer_tags` (
+  `tid` smallint(4) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL COMMENT 'Tiêu đề',
+  `note` text NOT NULL COMMENT 'Ghi chú',
+  `weight` smallint(4) unsigned NOT NULL,
+  PRIMARY KEY (`tid`)
+) ENGINE=MyISAM  AUTO_INCREMENT=5  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+
+$sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_customer_tags_customer`";
+$sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_customer_tags_customer` (
+  `tid` smallint(4) NOT NULL,
+  `customerid` mediumint(8) unsigned NOT NULL,
+  UNIQUE KEY `tid` (`tid`,`customerid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_customer_types`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_customer_types` (
@@ -4913,7 +5060,8 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_email` (
   `files` varchar(255) NOT NULL,
   `addtime` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+) ENGINE=MyISAM  AUTO_INCREMENT=2  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_email` (`id`, `title`, `useradd`, `cc_id`, `content`, `files`, `addtime`) VALUES (1, '[lynx] Thông tin dự án rgerge', 0, '', '', '', 1532217024)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_email_sendto`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_email_sendto` (
@@ -4921,6 +5069,7 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_email_sendt
   `customer_id` mediumint(8) unsigned NOT NULL,
   UNIQUE KEY `email_id` (`email_id`,`customer_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_email_sendto` (`email_id`, `customer_id`) VALUES (1, 1)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_email_template`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_email_template` (
@@ -4999,7 +5148,8 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_invoice` (
   `reminder` tinyint(1) unsigned NOT NULL DEFAULT '1',
   `auto_create` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+) ENGINE=MyISAM  AUTO_INCREMENT=2  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_invoice` (`id`, `title`, `code`, `customerid`, `createtime`, `duetime`, `cycle`, `status`, `workforceid`, `presenterid`, `performerid`, `terms`, `description`, `grand_total`, `discount_percent`, `discount_value`, `sended`, `addtime`, `updatetime`, `useradd`, `reminder`, `auto_create`) VALUES (1, 'Highcharts Demo', '000001', 1, 1532795039, 0, 0, 0, 0, 0, 0, '', '', '0', 0, '0', 0, 1532747590, 0, 1, 1, 0)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_invoice_detail`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_invoice_detail` (
@@ -5073,26 +5223,24 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_menu_rows` 
   `status` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `parentid` (`parentid`,`mid`)
-) ENGINE=MyISAM  AUTO_INCREMENT=51  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (29, 0, 1, 'Dự án', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=projects', '', '', '', 3, 13, 0, '34', '14', '0', '', 1, '', 0, 1)";
+) ENGINE=MyISAM  AUTO_INCREMENT=52  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (29, 0, 1, 'Dự án', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=projects', '', '', '', 3, 11, 0, '34', '14', '0', '', 1, '', 0, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (26, 46, 1, 'Nhân sự', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=workforce', '', '', '', 1, 2, 1, '', '14', 'crm', 'workforce', 1, '', 0, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (25, 0, 1, 'Khách hàng', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=customer', '', '', '', 2, 9, 0, '33,42,43', '10,11,12', 'crm', 'manage_customer', 1, '', 0, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (48, 46, 1, 'Lịch sử thanh toán lương', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=workforce&op=salary', '', '', '', 4, 7, 1, '', '14', 'workforce', 'main', 1, '', 0, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (33, 25, 1, 'Thêm khách hàng', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=customer&op=content', '', '', '', 1, 10, 1, '', '6', 'crm', 'manage_customer_form', 1, '', 0, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (31, 0, 1, 'Báo cáo công việc', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=workreport', '', '', '', 6, 19, 0, '', '14', 'workreport', '', 1, '', 0, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (46, 0, 1, 'Văn phòng', '#', '', '', '', 1, 1, 0, '26,48,32,47,49', '14', '0', '', 1, '', 0, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (32, 46, 1, 'Quản lý thu chi', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=office&op=money', '', '', '', 2, 3, 1, '38,39', '10', 'office', 'money', 1, '', 0, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (34, 29, 1, 'Thêm dự án', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=projects&op=content', '', '', '', 1, 14, 1, '', '6', 'projects', 'main', 1, '', 0, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (44, 0, 1, 'Hóa đơn', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=invoice', '', '', '', 4, 15, 0, '45', '10,11,16', 'invoice', '', 1, '', 0, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (38, 32, 1, 'Thêm khoản thu', 'https://client.tdfoss.vn/index.php?language=vi&nv=office&op=money-content&type=1', '', '', '', 1, 4, 2, '', '6', '0', '', 1, '', 0, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (39, 32, 1, 'Thêm khoản chi', 'https://client.tdfoss.vn/index.php?language=vi&nv=office&op=money-content&type=2', '', '', '', 2, 5, 2, '', '6', '0', '', 1, '', 0, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (40, 0, 1, 'Quản lý Email', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=email', '', '', '', 5, 17, 0, '41', '14', 'email', '', 1, '', 0, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (41, 40, 1, 'Gửi Email mới', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=email&op=content', '', '', '', 1, 18, 1, '', '6', 'email', 'content', 1, '', 0, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (42, 25, 1, 'Thêm liên hệ', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=customer&op=content&is_contact=1', '', '', '', 3, 12, 1, '', '6', 'crm', 'manage_customer_form', 1, '', 0, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (47, 46, 1, 'Sản phẩm', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=products', '', '', '', 5, 8, 1, '', '10,11', 'products', '', 1, '', 0, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (43, 25, 1, 'Danh sách liên hệ', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=customer&is_contact=1', '', '', '', 2, 11, 1, '', '6', 'crm', 'manage_customer', 1, '', 0, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (45, 44, 1, 'Tạo hóa đơn', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=invoice&op=content', '', '', '', 1, 16, 1, '', '6', 'invoice', 'content', 1, '', 0, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (49, 46, 1, 'Báo cáo lương', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=workforce&op=salary-content', '', '', '', 3, 6, 1, '', '10,16', 'workforce', 'main', 1, '', 0, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (25, 0, 1, 'Khách hàng', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=customer', '', '', '', 2, 7, 0, '33,42,43', '10,11,12', 'crm', 'manage_customer', 1, '', 0, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (48, 46, 1, 'Lịch sử thanh toán lương', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=workforce&op=salary', '', '', '', 3, 4, 1, '', '14', 'workforce', 'main', 1, '', 0, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (33, 25, 1, 'Thêm khách hàng', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=customer&op=content', '', '', '', 1, 8, 1, '', '6', 'crm', 'manage_customer_form', 1, '', 0, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (31, 0, 1, 'Báo cáo công việc', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=workreport', '', '', '', 6, 17, 0, '', '14', 'workreport', '', 1, '', 0, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (46, 0, 1, 'Văn phòng', '#', '', '', '', 1, 1, 0, '26,48,51,47,49', '14', '0', '', 1, '', 0, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (34, 29, 1, 'Thêm dự án', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=projects&op=content', '', '', '', 1, 12, 1, '', '6', 'projects', 'main', 1, '', 0, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (44, 0, 1, 'Hóa đơn', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=invoice', '', '', '', 4, 13, 0, '45', '10,11,16', 'invoice', '', 1, '', 0, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (51, 46, 1, 'Dịch vụ', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=services', '', '', '', 5, 6, 1, '', '6', 'services', '', 1, '', 0, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (40, 0, 1, 'Quản lý Email', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=email', '', '', '', 5, 15, 0, '41', '14', 'email', '', 1, '', 0, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (41, 40, 1, 'Gửi Email mới', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=email&op=content', '', '', '', 1, 16, 1, '', '6', 'email', 'content', 1, '', 0, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (42, 25, 1, 'Thêm liên hệ', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=customer&op=content&is_contact=1', '', '', '', 3, 10, 1, '', '6', 'crm', 'manage_customer_form', 1, '', 0, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (47, 46, 1, 'Sản phẩm', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=products', '', '', '', 4, 5, 1, '', '10,11', 'products', '', 1, '', 0, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (43, 25, 1, 'Danh sách liên hệ', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=customer&is_contact=1', '', '', '', 2, 9, 1, '', '6', 'crm', 'manage_customer', 1, '', 0, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (45, 44, 1, 'Tạo hóa đơn', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=invoice&op=content', '', '', '', 1, 14, 1, '', '6', 'invoice', 'content', 1, '', 0, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (49, 46, 1, 'Báo cáo lương', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=workforce&op=salary-content', '', '', '', 2, 3, 1, '', '10,16', 'workforce', 'main', 1, '', 0, 1)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_modfuncs`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_modfuncs` (
@@ -5109,7 +5257,7 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_modfuncs` (
   PRIMARY KEY (`func_id`),
   UNIQUE KEY `func_name` (`func_name`,`in_module`),
   UNIQUE KEY `alias` (`alias`,`in_module`)
-) ENGINE=MyISAM  AUTO_INCREMENT=154  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+) ENGINE=MyISAM  AUTO_INCREMENT=163  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modfuncs` (`func_id`, `func_name`, `alias`, `func_custom_name`, `func_site_title`, `in_module`, `show_func`, `in_submenu`, `subweight`, `setting`) VALUES (100, 'main', 'main', 'Main', '', 'projects', 1, 1, 1, '')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modfuncs` (`func_id`, `func_name`, `alias`, `func_custom_name`, `func_site_title`, `in_module`, `show_func`, `in_submenu`, `subweight`, `setting`) VALUES (99, 'detail', 'detail', 'Detail', '', 'projects', 1, 0, 3, '')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modfuncs` (`func_id`, `func_name`, `alias`, `func_custom_name`, `func_site_title`, `in_module`, `show_func`, `in_submenu`, `subweight`, `setting`) VALUES (98, 'content', 'content', 'Content', '', 'projects', 1, 0, 2, '')";
@@ -5152,10 +5300,6 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modfuncs` (`
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modfuncs` (`func_id`, `func_name`, `alias`, `func_custom_name`, `func_site_title`, `in_module`, `show_func`, `in_submenu`, `subweight`, `setting`) VALUES (108, 'main', 'main', 'Main', '', 'services', 1, 1, 1, '')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modfuncs` (`func_id`, `func_name`, `alias`, `func_custom_name`, `func_site_title`, `in_module`, `show_func`, `in_submenu`, `subweight`, `setting`) VALUES (109, 'main', 'main', 'Main', '', 'notification', 1, 1, 1, '')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modfuncs` (`func_id`, `func_name`, `alias`, `func_custom_name`, `func_site_title`, `in_module`, `show_func`, `in_submenu`, `subweight`, `setting`) VALUES (110, 'main', 'main', 'Main', '', 'home', 1, 0, 1, '')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modfuncs` (`func_id`, `func_name`, `alias`, `func_custom_name`, `func_site_title`, `in_module`, `show_func`, `in_submenu`, `subweight`, `setting`) VALUES (111, 'main', 'main', 'Main', '', 'office', 1, 1, 1, '')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modfuncs` (`func_id`, `func_name`, `alias`, `func_custom_name`, `func_site_title`, `in_module`, `show_func`, `in_submenu`, `subweight`, `setting`) VALUES (112, 'money-content', 'money-content', 'Money-content', '', 'office', 1, 0, 4, '')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modfuncs` (`func_id`, `func_name`, `alias`, `func_custom_name`, `func_site_title`, `in_module`, `show_func`, `in_submenu`, `subweight`, `setting`) VALUES (113, 'money', 'money', 'Money', '', 'office', 1, 1, 3, '')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modfuncs` (`func_id`, `func_name`, `alias`, `func_custom_name`, `func_site_title`, `in_module`, `show_func`, `in_submenu`, `subweight`, `setting`) VALUES (114, 'workreport', 'workreport', 'Workreport', '', 'office', 1, 1, 2, '')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modfuncs` (`func_id`, `func_name`, `alias`, `func_custom_name`, `func_site_title`, `in_module`, `show_func`, `in_submenu`, `subweight`, `setting`) VALUES (115, 'content', 'content', 'Content', '', 'email', 1, 1, 3, '')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modfuncs` (`func_id`, `func_name`, `alias`, `func_custom_name`, `func_site_title`, `in_module`, `show_func`, `in_submenu`, `subweight`, `setting`) VALUES (116, 'detail', 'detail', 'Detail', '', 'email', 1, 1, 2, '')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modfuncs` (`func_id`, `func_name`, `alias`, `func_custom_name`, `func_site_title`, `in_module`, `show_func`, `in_submenu`, `subweight`, `setting`) VALUES (117, 'main', 'main', 'Main', '', 'email', 1, 1, 1, '')";
@@ -5290,18 +5434,6 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modthemes` (
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modthemes` (`func_id`, `layout`, `theme`) VALUES (110, 'left-main-right', 'default')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modthemes` (`func_id`, `layout`, `theme`) VALUES (110, 'main', 'mobile_default')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modthemes` (`func_id`, `layout`, `theme`) VALUES (110, 'main', 'simple')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modthemes` (`func_id`, `layout`, `theme`) VALUES (111, 'left-main-right', 'default')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modthemes` (`func_id`, `layout`, `theme`) VALUES (111, 'main', 'mobile_default')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modthemes` (`func_id`, `layout`, `theme`) VALUES (111, 'main', 'simple')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modthemes` (`func_id`, `layout`, `theme`) VALUES (112, 'left-main-right', 'default')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modthemes` (`func_id`, `layout`, `theme`) VALUES (112, 'main', 'mobile_default')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modthemes` (`func_id`, `layout`, `theme`) VALUES (112, 'main', 'simple')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modthemes` (`func_id`, `layout`, `theme`) VALUES (113, 'left-main-right', 'default')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modthemes` (`func_id`, `layout`, `theme`) VALUES (113, 'main', 'mobile_default')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modthemes` (`func_id`, `layout`, `theme`) VALUES (113, 'main', 'simple')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modthemes` (`func_id`, `layout`, `theme`) VALUES (114, 'left-main-right', 'default')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modthemes` (`func_id`, `layout`, `theme`) VALUES (114, 'main', 'mobile_default')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modthemes` (`func_id`, `layout`, `theme`) VALUES (114, 'main', 'simple')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modthemes` (`func_id`, `layout`, `theme`) VALUES (115, 'left-main-right', 'default')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modthemes` (`func_id`, `layout`, `theme`) VALUES (115, 'main', 'mobile_default')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modthemes` (`func_id`, `layout`, `theme`) VALUES (115, 'main', 'simple')";
@@ -5399,14 +5531,27 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`t
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`, `gid`) VALUES ('services', 'services', 'services', 'services', 'services', 'Quản lý dịch vụ', '', '', 1516096780, 1, 1, '', '', '', '', '10,11', 11, 1, '', 0, 0, 0)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`, `gid`) VALUES ('notification', 'notification', 'notification', 'notification', 'notification', 'Thông báo', '', '', 1517809311, 1, 0, '', '', '', '', '6', 12, 1, '', 0, 0, 0)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`, `gid`) VALUES ('home', 'home', 'home', 'home', 'home', 'Home', '', '', 1517879767, 1, 0, '', '', '', '', '6', 13, 1, '', 0, 0, 0)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`, `gid`) VALUES ('office', 'office', 'office', 'office', 'office', 'Văn phòng', '', '', 1517900246, 1, 1, '', '', '', '', '14', 14, 1, '', 0, 0, 0)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`, `gid`) VALUES ('email', 'email', 'email', 'email', 'email', 'Email', '', '', 1518147700, 1, 1, '', '', '', '', '6', 15, 1, '', 1, 1, 0)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`, `gid`) VALUES ('products', 'products', 'products', 'products', 'products', 'Sản phẩm', '', '', 1519719768, 1, 1, '', '', '', '', '6', 16, 1, '', 0, 0, 0)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`, `gid`) VALUES ('invoice', 'invoice', 'invoice', 'invoice', 'invoice', 'Hóa đơn', '', '', 1519719779, 1, 1, '', '', '', '', '10,11,16', 17, 1, '', 0, 0, 0)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`, `gid`) VALUES ('workreport', 'workreport', 'workreport', 'workreport', 'workreport', 'Báo cáo công việc', '', '', 1521274444, 1, 1, '', '', '', '', '6', 18, 1, '', 0, 0, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`, `gid`) VALUES ('email', 'email', 'email', 'email', 'email', 'Email', '', '', 1518147700, 1, 1, '', '', '', '', '6', 14, 1, '', 1, 1, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`, `gid`) VALUES ('products', 'products', 'products', 'products', 'products', 'Sản phẩm', '', '', 1519719768, 1, 1, '', '', '', '', '6', 15, 1, '', 0, 0, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`, `gid`) VALUES ('invoice', 'invoice', 'invoice', 'invoice', 'invoice', 'Hóa đơn', '', '', 1519719779, 1, 1, '', '', '', '', '10,11,16', 16, 1, '', 0, 0, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`, `gid`) VALUES ('workreport', 'workreport', 'workreport', 'workreport', 'workreport', 'Báo cáo công việc', '', '', 1521274444, 1, 1, '', '', '', '', '6', 17, 1, '', 0, 0, 0)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`, `gid`) VALUES ('customer', 'customer', 'customer', 'customer', 'customer', 'Khách hàng', '', '', 1525527263, 1, 1, '', '', '', '', '6', 1, 1, '', 0, 0, 0)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`, `gid`) VALUES ('workforce', 'workforce', 'workforce', 'workforce', 'workforce', 'Nhân sự', '', '', 1525568597, 1, 1, '', '', '', '', '6', 19, 1, '', 0, 0, 0)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`, `gid`) VALUES ('api', 'api', 'api', 'api', 'api', 'Api', '', '', 1526207358, 1, 0, '', '', '', '', '6', 20, 1, '', 0, 0, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`, `gid`) VALUES ('workforce', 'workforce', 'workforce', 'workforce', 'workforce', 'Nhân sự', '', '', 1525568597, 1, 1, '', '', '', '', '6', 18, 1, '', 0, 0, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`, `gid`) VALUES ('api', 'api', 'api', 'api', 'api', 'Api', '', '', 1526207358, 1, 0, '', '', '', '', '6', 19, 1, '', 0, 0, 0)";
+
+$sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_money_money`";
+$sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_money_money` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `type` tinyint(1) unsigned NOT NULL,
+  `date` int(11) unsigned NOT NULL,
+  `money` double NOT NULL,
+  `note` text NOT NULL,
+  `addtime` int(11) unsigned NOT NULL,
+  `userid` mediumint(8) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  AUTO_INCREMENT=3  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_money_money` (`id`, `type`, `date`, `money`, `note`, `addtime`, `userid`) VALUES (1, 2, 1534352399, '6000000', 'gd gd rgf', 1534303342, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_money_money` (`id`, `type`, `date`, `money`, `note`, `addtime`, `userid`) VALUES (2, 1, 1534352399, '121000', 'gdrg', 1534303387, 1)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_news_1`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_news_1` (
@@ -6176,28 +6321,6 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_notificatio
   UNIQUE KEY `userid` (`userid`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 
-$sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_office_money`";
-$sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_office_money` (
-  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `type` tinyint(1) unsigned NOT NULL,
-  `date` int(11) unsigned NOT NULL,
-  `money` double NOT NULL,
-  `note` text NOT NULL,
-  `addtime` int(11) unsigned NOT NULL,
-  `userid` mediumint(8) unsigned NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
-
-$sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_office_workreport`";
-$sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_office_workreport` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `userid` mediumint(8) unsigned NOT NULL,
-  `fortime` int(11) unsigned NOT NULL,
-  `content` text NOT NULL,
-  `addtime` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
-
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_page`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_page` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
@@ -6242,13 +6365,26 @@ $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_pro
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_products` (
   `id` smallint(4) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
+  `catid` smallint(4) unsigned NOT NULL,
   `price` double unsigned NOT NULL,
   `vat` double unsigned NOT NULL DEFAULT '0',
+  `url` text NOT NULL,
   `active` tinyint(1) unsigned NOT NULL DEFAULT '1',
   `note` text NOT NULL,
   `weight` smallint(4) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+) ENGINE=MyISAM  AUTO_INCREMENT=2  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_products` (`id`, `title`, `catid`, `price`, `vat`, `url`, `active`, `note`, `weight`) VALUES (1, 'fthfth', 1, '1000000', '0', 'https://ngoisao.net/rss/hau-truong.rss', 1, '', 0)";
+
+$sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_products_cat`";
+$sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_products_cat` (
+  `id` smallint(4) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `note` text NOT NULL,
+  `weight` smallint(4) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  AUTO_INCREMENT=2  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_products_cat` (`id`, `title`, `note`, `weight`) VALUES (1, 'drg rg', '', 1)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_projects`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_projects` (
@@ -6268,7 +6404,7 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_projects` (
   `status` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `type_id` smallint(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+) ENGINE=MyISAM  AUTO_INCREMENT=2  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_projects_econtent`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_projects_econtent` (
@@ -6285,6 +6421,19 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_projects_pe
   `follow` tinyint(1) unsigned NOT NULL DEFAULT '1',
   UNIQUE KEY `projectid` (`projectid`,`userid`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_projects_performer` (`projectid`, `userid`, `follow`) VALUES (1, 1, 1)";
+
+$sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_projects_task`";
+$sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_projects_task` (
+  `taskid` int(11) unsigned NOT NULL,
+  `projectid` mediumint(8) unsigned NOT NULL,
+  `weight` smallint(4) unsigned NOT NULL DEFAULT '0',
+  UNIQUE KEY `taskid` (`taskid`,`projectid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_projects_task` (`taskid`, `projectid`, `weight`) VALUES (32, 1, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_projects_task` (`taskid`, `projectid`, `weight`) VALUES (31, 1, 3)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_projects_task` (`taskid`, `projectid`, `weight`) VALUES (30, 1, 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_projects_task` (`taskid`, `projectid`, `weight`) VALUES (27, 1, 1)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_projects_types`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_projects_types` (
@@ -6640,22 +6789,29 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_workforce_s
   `overtime` double unsigned NOT NULL COMMENT 'Số ngày làm thêm',
   `advance` double unsigned NOT NULL DEFAULT '0' COMMENT 'Tạm ứng',
   `bonus` double unsigned NOT NULL DEFAULT '0' COMMENT 'Thưởng',
-  `total` double unsigned NOT NULL COMMENT 'Tổng',
+  `total` double NOT NULL COMMENT 'Tổng',
   `deduction` double unsigned NOT NULL DEFAULT '0' COMMENT 'Tổng các khoản trừ',
-  `received` double unsigned NOT NULL COMMENT 'Thực nhận',
+  `received` double NOT NULL COMMENT 'Thực nhận',
   `time` varchar(10) NOT NULL,
   UNIQUE KEY `userid` (`userid`,`time`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_workforce_salary` (`userid`, `salary`, `allowance`, `workday`, `overtime`, `advance`, `bonus`, `total`, `deduction`, `received`, `time`) VALUES (1, '0', '0', '0', '0', '0', '0', '0', '0', '0', '06/2018')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_workforce_salary` (`userid`, `salary`, `allowance`, `workday`, `overtime`, `advance`, `bonus`, `total`, `deduction`, `received`, `time`) VALUES (1, '0', '0', '0', '0', '2', '0', '0', '0', '0', '05/2018')";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_workreport`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_workreport` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `userid` mediumint(8) unsigned NOT NULL,
   `fortime` int(11) unsigned NOT NULL,
+  `time` float NOT NULL,
   `content` text NOT NULL,
   `addtime` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+) ENGINE=MyISAM  AUTO_INCREMENT=3  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_workreport` (`id`, `userid`, `fortime`, `time`, `content`, `addtime`) VALUES (1, 1, 1531326239, '0', 'ffffffffff
+hhhhhhhhhhhy
+ttttttt', 1532784443)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_workreport` (`id`, `userid`, `fortime`, `time`, `content`, `addtime`) VALUES (2, 1, 1530635039, '7.5', 'rt rh rt', 1533038753)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_wallet_epay_log`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_wallet_epay_log` (

@@ -11,7 +11,7 @@ if ( ! defined( 'NV_IS_MOD_PRODUCTS' ) ) die( 'Stop!!!' );
 
 /**
  * nv_theme_products_main()
- * 
+ *
  * @param mixed $array_data
  * @return
  */
@@ -22,7 +22,7 @@ function nv_theme_products_main ( $array_data )
     $xtpl = new XTemplate( $op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file );
     $xtpl->assign( 'LANG', $lang_module );
 
-    
+
 
     $xtpl->parse( 'main' );
     return $xtpl->text( 'main' );
@@ -30,7 +30,7 @@ function nv_theme_products_main ( $array_data )
 
 /**
  * nv_theme_products_detail()
- * 
+ *
  * @param mixed $array_data
  * @return
  */
@@ -41,7 +41,7 @@ function nv_theme_products_detail ( $array_data )
     $xtpl = new XTemplate( $op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file );
     $xtpl->assign( 'LANG', $lang_module );
 
-    
+
 
     $xtpl->parse( 'main' );
     return $xtpl->text( 'main' );

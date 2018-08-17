@@ -1,5 +1,8 @@
 <!-- BEGIN: main -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/select2/select2.min.css" />
+<link rel="stylesheet" href="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/select2/select2-bootstrap.min.css" />
+<link type="text/css" href="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
 <ul class="list-inline pull-right">
     <!-- BEGIN: iscontacts_change -->
     <li><button class="btn btn-primary btn-xs" onclick="nv_change_contacts(); return  false;">
@@ -94,8 +97,12 @@
                         <tr>
                             <th>{LANG.edittime}</th>
                             <td>{CUSTOMER.edittime}</td>
-                            <th></th>
-                            <td></td>
+                            <th><label class="control-label"><strong>{LANG.tags}</strong></label></th>
+                            <td>
+                                <!-- BEGIN: tags -->
+                                <label class="label label-default">{TAGS}</label>
+                                <!-- END: tags -->
+                            </td>
                         </tr>
                         <tr>
                             <th>{LANG.note}</th>
@@ -247,7 +254,29 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/select2/select2.min.js"></script>
+<script type="text/javascript" sr="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/select2/i18n/{NV_LANG_INTERFACE}.js"></script>
+<script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/jquery-ui/jquery-ui.min.js"></script>
+<script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/language/jquery.ui.datepicker-{NV_LANG_INTERFACE}.js"></script>
 <script type="text/javascript">
+    $('.select2').select2({
+        language : '{NV_LANG_INTERFACE}',
+        theme : 'bootstrap'
+    });
+    
+    function nv_chang_tags(customerid) {
+        var tid = $('#change_tags_' + customerid).val();
+        $.post(script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=detail&nocache=' + new Date().getTime(), 'change_tags=1&customerid=' + customerid + '&tid=' + tid, function(res) {
+            //         var r_split = res.split("_");
+            //         if (r_split[0] != 'OK') {
+            //             alert(nv_is_change_act_confirm[2]);
+            //             clearTimeout(nv_timer);
+            //         }
+            //         return;
+        });
+        return;
+    }
+
     //Change hash for page-reload
     $('.nav-tabs a').on('shown.bs.tab', function(e) {
         window.location.hash = e.target.hash;

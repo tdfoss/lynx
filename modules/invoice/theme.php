@@ -74,7 +74,7 @@ function nv_theme_invoice_detail($row, $array_invoice_products, $array_control, 
         $xtpl->parse('main.description');
     }
 
-    if (empty($row['status'])) {
+    if ($row['status'] == 0 || $row['status'] == 3 || $row['status'] == 4) {
         $xtpl->parse('main.button_funs.invoice_payment_confirm');
     }
 

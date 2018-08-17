@@ -42,9 +42,14 @@ if ($nv_Request->isset_request('submit', 'post')) {
         $row['fortime'] = 0;
     }
     $row['content'] = $nv_Request->get_string('content', 'post', '');
+    $row['time'] = $nv_Request->get_string('time', 'post', 0);
+    $row['time'] = preg_replace('/\,/', '.', $row['time']);
+    $row['time'] = preg_replace('/[^0-9\.]/', '', $row['time']);
 
     if (empty($row['fortime'])) {
         $error[] = $lang_module['error_required_fortime'];
+    } elseif (empty($row['time'])) {
+        $error[] = $lang_module['error_required_time'];
     } elseif (empty($row['content'])) {
         $error[] = $lang_module['error_required_content'];
     } elseif (empty($row['id']) && $db->query('SELECT COUNT(*) FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE fortime=' . $row['fortime'] . ' AND userid=' . $user_info['userid'])->fetchColumn() > 0) {
@@ -54,10 +59,11 @@ if ($nv_Request->isset_request('submit', 'post')) {
     if (empty($error)) {
         try {
             if (empty($row['id'])) {
-                $stmt = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (userid, fortime, content, addtime) VALUES (' . $user_info['userid'] . ', :fortime, :content, ' . NV_CURRENTTIME . ')');
+                $stmt = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (userid, fortime, time, content, addtime) VALUES (' . $user_info['userid'] . ', :fortime, :time, :content, ' . NV_CURRENTTIME . ')');
             } else {
-                $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET fortime = :fortime, content = :content WHERE id=' . $row['id']);
+                $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET fortime = :fortime, time = :time, content = :content WHERE id=' . $row['id']);
             }
+            $stmt->bindParam(':time', $row['time'], PDO::PARAM_STR);
             $stmt->bindParam(':fortime', $row['fortime'], PDO::PARAM_INT);
             $stmt->bindParam(':content', $row['content'], PDO::PARAM_STR, strlen($row['content']));
 
@@ -88,6 +94,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
     $row['id'] = 0;
     $row['fortime'] = NV_CURRENTTIME;
     $row['content'] = '';
+    $row['time'] = 8;
 }
 
 $base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name;
@@ -130,8 +137,11 @@ $db->select('*')
     ->order('fortime DESC')
     ->limit($per_page)
     ->offset(($page - 1) * $per_page);
+
 $sth = $db->prepare($db->sql());
 $sth->execute();
+
+//tinh tong thoi gian lam viec
 
 $row['fortime'] = !empty($row['fortime']) ? nv_date('d/m/Y', $row['fortime']) : '';
 
@@ -146,9 +156,12 @@ if (!empty($generate_page)) {
     $xtpl->assign('NV_GENERATE_PAGE', $generate_page);
     $xtpl->parse('main.generate_page');
 }
+
 $number = $page > 1 ? ($per_page * ($page - 1)) + 1 : 1;
+$total = 0;
 while ($view = $sth->fetch()) {
     $view['number'] = $number++;
+    $total += $view['time'];
 
     $allow_action = 0;
     if (nv_check_action($view['addtime'])) {
@@ -157,6 +170,7 @@ while ($view = $sth->fetch()) {
         $view['link_delete'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;delete_id=' . $view['id'] . '&amp;delete_checkss=' . md5($view['id'] . NV_CACHE_PREFIX . $client_info['session_id'] . '&amp;redirect=' . nv_redirect_encrypt($client_info['selfurl']));
     }
 
+    $view['day_in_weeks'] = nv_date('l', $view['fortime']);
     $view['fortime'] = (empty($view['fortime'])) ? '' : nv_date('d/m/Y', $view['fortime']);
     $view['addtime'] = (empty($view['addtime'])) ? '' : nv_date('H:i d/m/Y', $view['addtime']);
     $view['content'] = nv_nl2br($view['content']);
@@ -169,6 +183,8 @@ while ($view = $sth->fetch()) {
 
     $xtpl->parse('main.loop');
 }
+
+$xtpl->assign('TOTAL', $total);
 
 for ($i = 1; $i <= 12; $i++) {
     $xtpl->assign('MONTH', array(
