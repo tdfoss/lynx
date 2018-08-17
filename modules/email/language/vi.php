@@ -51,5 +51,6 @@ $lang_module['error_empty_data'] = 'Bạn cần chọn dữ liệu để thực 
 $lang_module['title_email'] = 'Email';
 $lang_module['content_email'] = 'gửi email';
 $lang_module['edit_email'] = 'gửi email';
-$lang_module['delete_email'] = 'xóa email';
+$lang_module['delete_email'] = '%s xóa "%s"';
+$lang_module['delete_email_event'] = 'Xóa Email';
 $lang_module['delete_many_email'] = 'xóa nhiều thông tin email';
