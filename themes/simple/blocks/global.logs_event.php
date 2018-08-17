@@ -49,7 +49,7 @@ if (!nv_function_exists('nv_logs_event')) {
         $result = $db->query('SELECT * FROM ' . $db_config['prefix'] . '_logs ORDER BY id DESC LIMIT ' . $block_config['numrow']);
         while ($logs = $result->fetch()) {
             $logs['log_time'] = nv_date('H:i d/m/Y', $logs['log_time']);
-            $logs['fullname'] = !empty($logs['userid']) ? $workforce_list[$logs['userid']]['fullname'] : 'He thong';
+            $logs['fullname'] = !empty($logs['userid']) ? $workforce_list[$logs['userid']]['fullname'] : $lang_block['system'];
             $array_logs[] = $logs;
         }
 
