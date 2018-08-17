@@ -11,11 +11,11 @@ if (!defined('NV_IS_MOD_PROJECT')) die('Stop!!!');
 
 if ($nv_Request->isset_request('get_user_json', 'post, get')) {
     $q = $nv_Request->get_title('q', 'post, get', '');
-    
+
     $db->sqlreset()
-    ->select('id, first_name, last_name, main_phone, main_email')
-    ->from(NV_PREFIXLANG . '_customer')
-    ->where('(first_name LIKE "%' . $q . '%"
+        ->select('id, first_name, last_name, main_phone, main_email')
+        ->from(NV_PREFIXLANG . '_customer')
+        ->where('(first_name LIKE "%' . $q . '%"
             OR last_name LIKE "%' . $q . '%"
             OR main_phone LIKE "%' . $q . '%"
             OR other_phone LIKE "%' . $q . '%"
@@ -29,28 +29,27 @@ if ($nv_Request->isset_request('get_user_json', 'post, get')) {
         )')
         ->order('first_name ASC')
         ->limit(20);
-        
-        $sth = $db->prepare($db->sql());
-        $sth->execute();
-        
-        $array_data = array();
-        while (list ($customerid, $first_name, $last_name, $main_phone, $main_email) = $sth->fetch(3)) {
-            $array_data[] = array(
-                'id' => $customerid,
-                'fullname' => nv_show_name_user($first_name, $last_name),
-                'phone' => $main_phone,
-                'email' => $main_email
-            );
-        }
-        
-        header('Cache-Control: no-cache, must-revalidate');
-        header('Content-type: application/json');
-        
-        ob_start('ob_gzhandler');
-        echo json_encode($array_data);
-        exit();
-}
 
+    $sth = $db->prepare($db->sql());
+    $sth->execute();
+
+    $array_data = array();
+    while (list ($customerid, $first_name, $last_name, $main_phone, $main_email) = $sth->fetch(3)) {
+        $array_data[] = array(
+            'id' => $customerid,
+            'fullname' => nv_show_name_user($first_name, $last_name),
+            'phone' => $main_phone,
+            'email' => $main_email
+        );
+    }
+
+    header('Cache-Control: no-cache, must-revalidate');
+    header('Content-type: application/json');
+
+    ob_start('ob_gzhandler');
+    echo json_encode($array_data);
+    exit();
+}
 
 $row = array();
 $error = array();
@@ -64,7 +63,6 @@ if ($row['id'] > 0) {
         die();
     }
     $row['workforceid'] = $row['workforceid_old'] = !empty($row['workforceid']) ? array_map('intval', explode(',', $row['workforceid'])) : array();
-    
 } else {
     $row['id'] = 0;
     $row['customerid'] = 0;
@@ -115,7 +113,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
     $row['status'] = $nv_Request->get_int('status', 'post', 1);
     $row['type_id'] = $nv_Request->get_int('type_id', 'post', 0);
     $row['sendinfo'] = $nv_Request->get_int('sendinfo', 'post', 0);
-    
+
     $workforceid = !empty($row['workforceid']) ? implode(',', $row['workforceid']) : '';
 
     if (empty($row['customerid'])) {
@@ -161,7 +159,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
             }
 
             if ($new_id > 0) {
-                
+
                 if ($row['workforceid'] != $row['workforceid_old']) {
                     $sth = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_performer (projectid, userid) VALUES( :projectid, :userid)');
                     foreach ($row['workforceid'] as $userid) {
@@ -171,7 +169,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
                             $sth->execute();
                         }
                     }
-                    
+
                     foreach ($row['workforceid_old'] as $userid) {
                         if (!in_array($userid, $row['workforceid'])) {
                             $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_performer WHERE userid = ' . $userid . ' AND projectid=' . $new_id);
@@ -193,32 +191,34 @@ if ($nv_Request->isset_request('submit', 'post')) {
 
                     if ($row['sendinfo']) {
                         // gửi mail thông báo khách hàng
-                        $customer_info = nv_crm_customer_info($row['customerid']);
                         $message = $db->query('SELECT econtent FROM ' . NV_PREFIXLANG . '_' . $module_data . '_econtent WHERE action="new_project"')->fetchColumn();
-                        $array_replace = array(
-                            'SITE_NAME' => $global_config['site_name'],
-                            'CUSTOMER_FISRT_NAME' => $customer_info['first_name'],
-                            'CUSTOMER_LAST_NAME' => $customer_info['last_name'],
-                            'USER_WORK' => $workforce_list[$workforceid]['fullname'],
-                            'TITLE' => $row['title'],
-                            'BEGIN_TIME' => !empty($row['begintime']) ? nv_date('d/m/Y', $row['begintime']) : '-',
-                            'END_TIME' => !empty($row['endtime']) ? nv_date('d/m/Y', $row['endtime']) : '-',
-                            'PRICE' => !empty($row['price']) ? nv_number_format($row['price']) : '-',
-                            'CONTENT' => $row['content'],
-                            'STATUS' => $lang_module['status_' . $row['status']],
-                            'URL_DETAIL' => NV_MY_DOMAIN . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $new_id
-                        );
-                        $message = nv_unhtmlspecialchars($message);
-                        foreach ($array_replace as $index => $value) {
-                            $message = str_replace('[' . $index . ']', $value, $message);
-                        }
-                        $subject = sprintf($lang_module['new_project_title'], $global_config['site_name'], $row['title']);
+                        if (!empty($message)) {
+                            $customer_info = nv_crm_customer_info($row['customerid']);
+                            $array_replace = array(
+                                'SITE_NAME' => $global_config['site_name'],
+                                'CUSTOMER_FISRT_NAME' => $customer_info['first_name'],
+                                'CUSTOMER_LAST_NAME' => $customer_info['last_name'],
+                                'USER_WORK' => $workforce_list[$workforceid]['fullname'],
+                                'TITLE' => $row['title'],
+                                'BEGIN_TIME' => !empty($row['begintime']) ? nv_date('d/m/Y', $row['begintime']) : '-',
+                                'END_TIME' => !empty($row['endtime']) ? nv_date('d/m/Y', $row['endtime']) : '-',
+                                'PRICE' => !empty($row['price']) ? nv_number_format($row['price']) : '-',
+                                'CONTENT' => $row['content'],
+                                'STATUS' => $lang_module['status_' . $row['status']],
+                                'URL_DETAIL' => NV_MY_DOMAIN . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $new_id
+                            );
+                            $message = nv_unhtmlspecialchars($message);
+                            foreach ($array_replace as $index => $value) {
+                                $message = str_replace('[' . $index . ']', $value, $message);
+                            }
+                            $subject = sprintf($lang_module['new_project_title'], $global_config['site_name'], $row['title']);
 
-                        require_once NV_ROOTDIR . '/modules/email/site.functions.php';
-                        $sendto_id = array(
-                            $row['customerid']
-                        );
-                        nv_email_send($subject, $message, 0, $sendto_id);
+                            require_once NV_ROOTDIR . '/modules/email/site.functions.php';
+                            $sendto_id = array(
+                                $row['customerid']
+                            );
+                            nv_email_send($subject, $message, 0, $sendto_id);
+                        }
                     }
                 }
 
@@ -291,7 +291,6 @@ $xtpl->assign('LANG', $lang_module);
 $xtpl->assign('MODULE_NAME', $module_name);
 $xtpl->assign('OP', $op);
 $xtpl->assign('ROW', $row);
-
 
 if (!empty($workforce_list)) {
     foreach ($workforce_list as $user) {
