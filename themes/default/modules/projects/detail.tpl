@@ -16,6 +16,7 @@
                     <li><label>{LANG.customerid}</label><a href="{ROW.customer.link_view}">{ROW.customer.fullname}</a></li>
                     <li><label>{LANG.workforceid}</label>{ROW.performer_str}</li>
                     <li><label>{LANG.price}</label>{ROW.price}</li>
+                    <li><label>{LANG.vat}</label>{ROW.vat}</li>
                     <li><label>{LANG.begintime}</label>{ROW.begintime}</li>
                     <li><label>{LANG.endtime}</label>{ROW.endtime}</li>
                     <li><label>{LANG.realtime}</label>{ROW.realtime}</li>
