@@ -53,6 +53,12 @@
                     <input type="price" class="form-control" name="price" value="{ROW.price}">
                 </div>
             </div>
+             <div class="form-group">
+                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.vat}</strong></label>
+                <div class="col-sm-19 col-md-20">
+                    <input type="vat" class="form-control" name="vat" value="{ROW.vat}">
+                </div>
+            </div>
             <div class="form-group">
                 <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.begintime}</strong></label>
                 <div class="col-sm-19 col-md-20">
