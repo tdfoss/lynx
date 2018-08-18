@@ -211,7 +211,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
                                 'BEGIN_TIME' => !empty($row['begintime']) ? nv_date('d/m/Y', $row['begintime']) : '-',
                                 'END_TIME' => !empty($row['endtime']) ? nv_date('d/m/Y', $row['endtime']) : '-',
                                 'PRICE' => !empty($row['price']) ? nv_number_format($row['price']) : '-',
-				 'VAT' => $row['vat']),
+				'VAT' => $row['vat'],
                                 'CONTENT' => $row['content'],
                                 'STATUS' => $lang_module['status_' . $row['status']],
                                 'URL_DETAIL' => NV_MY_DOMAIN . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $new_id
