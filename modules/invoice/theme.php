@@ -49,7 +49,7 @@ function nv_theme_invoice_detail($row, $array_invoice_products, $array_control, 
         $i = 1;
         foreach ($array_invoice_products as $orders) {
             $orders['number'] = $i++;
-            $orders['vat_price'] = ($orders['price'] * $orders['vat']) / 100;
+            $orders['vat_price'] = ($orders['price'] * $orders['vat'] * $orders['quantity']) / 100;
             $orders['vat_price'] = number_format($orders['vat_price']);
             $orders['price'] = number_format($orders['price']);
             $orders['total'] = number_format($orders['total']);
