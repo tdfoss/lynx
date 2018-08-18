@@ -248,19 +248,12 @@ function nv_invoice_template($id)
         $logo = $global_config['site_logo'];
     }
 
-    $payment_url = '';
-    if (isset($site_mods['wallet']) and file_exists(NV_ROOTDIR . '/modules/wallet/wallet.class.php')) {
-        $payment_url = NV_MY_DOMAIN . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=' . $op . '&id=' . $id . '&checksum=' . md5($id . $global_config['sitekey'] . $client_info['session_id']) . '&payment=1';
-        $payment_url = urlencode($payment_url);
-    }
-
     $message = $db->query('SELECT econtent FROM ' . NV_PREFIXLANG . '_' . $module_data . '_econtent WHERE action="contentpdf"')->fetchColumn();
     $array_replace = array(
         'FULLNAME' => $ctmid['fullname'],
         'TITLE' => $invoice_info['title'],
         'STATUS' => $array_status[$invoice_info['status']],
         'URL' => NV_MY_DOMAIN . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $id,
-        'URL_PAYMENT' => urldecode($payment_url),
         'CODE' => $invoice_info['code'],
         'WORKFORCE' => $workforce_list[$invoice_info['workforceid']]['fullname'],
         'CREATETIME' => date('d/m/Y', $invoice_info['createtime']),

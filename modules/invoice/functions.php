@@ -201,27 +201,6 @@ function nv_transaction_update($invoiceid)
     }
 }
 
-function nv_status_wallet_invoice($status)
-{
-    $nv_transaction_status = 1; // Đang thực hiện giao dịch
-
-    if ($status == 0) {
-        $nv_transaction_status = 0;
-    } elseif ($status == 1) {
-        $nv_transaction_status = 4;
-    } elseif ($status == 2) {
-        $nv_transaction_status = 4;
-    } elseif ($status == 3) {
-        $nv_transaction_status = 4;
-    } elseif ($status == 4) {
-        $nv_transaction_status = 1;
-    } elseif ($status == 5) {
-        $nv_transaction_status = 4;
-    }
-
-    return $nv_transaction_status;
-}
-
 function nv_support_confirm_payment($id)
 {
     global $db, $module_data;

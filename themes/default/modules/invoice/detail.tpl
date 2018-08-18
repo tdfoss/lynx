@@ -16,7 +16,6 @@
     <!-- END: invoice_payment_confirm -->
     <!--     <li><a href="javascript:void(0);" onclick="nv_invoice_sendmail({ROW.id}); return !1;" class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="{LANG.send_mail_note}"><em class="fa fa-envelope">&nbsp;</em>{LANG.send_mail}</a></li> -->
     <li><a href="{CONTROL.url_sendmail}" onclick="nv_invoice_sendmail({ROW.id}); return !1;" class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="{LANG.send_mail_note}"><em class="fa fa-envelope">&nbsp;</em>{LANG.send_mail}</a></li>
-    <li><a href="{CONTROL.url_invoice}" class="btn btn-primary btn-xs" target="_blank" data-toggle="tooltip" data-original-title="{LANG.open_new_window}"><em class="fa fa-link">&nbsp;</em>{LANG.open_new_window}</a></li>
     <li><a href="{CONTROL.url_add}" class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="{LANG.add_invoice}"><em class="fa fa-plus-square">&nbsp;</em>{LANG.add}</a></li>
     <li><a href="{CONTROL.url_copy}" onclick="nv_invoice_copy({ROW.id}); return !1;" class="btn btn-default btn-xs" data-toggle="tooltip" data-original-title="{LANG.invoice_copy}"><em class="fa fa-copy">&nbsp;</em>{LANG.invoice_copy}</a></li>
     <li><a href="{CONTROL.url_edit}" class="btn btn-default btn-xs" data-toggle="tooltip" data-original-title="{LANG.edit_invoice}"><em class="fa fa-edit">&nbsp;</em>{LANG.edit}</a></li>
