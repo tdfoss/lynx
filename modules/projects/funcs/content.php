@@ -149,7 +149,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $stmt->bindParam(':customerid', $row['customerid'], PDO::PARAM_INT);
                 $stmt->bindParam(':workforceid', $workforceid, PDO::PARAM_STR);
                 $stmt->bindParam(':title', $row['title'], PDO::PARAM_STR);
-		$stmt->bindParam(':title', $row['price'], PDO::PARAM_INT);
+		$stmt->bindParam(':price', $row['price'], PDO::PARAM_INT);
                 $stmt->bindParam(':begintime', $row['begintime'], PDO::PARAM_INT);
                 $stmt->bindParam(':endtime', $row['endtime'], PDO::PARAM_INT);
                 $stmt->bindParam(':realtime', $row['realtime'], PDO::PARAM_INT);
