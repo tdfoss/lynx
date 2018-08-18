@@ -68,6 +68,7 @@ if ($row['id'] > 0) {
     $row['customerid'] = 0;
     $row['workforceid'] = $row['workforceid_old'] = array();
     $row['title'] = '';
+    $row['price'] = 0;
     $row['begintime'] = 0;
     $row['endtime'] = 0;
     $row['realtime'] = 0;
@@ -84,6 +85,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
     $row['customerid'] = $nv_Request->get_int('customerid', 'post', 0);
     $row['workforceid'] = $nv_Request->get_typed_array('workforceid', 'post', 'int');
     $row['title'] = $nv_Request->get_title('title', 'post', '');
+    $row['price'] = $nv_Request->get_int('price', 'post', 0);
 
     if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $nv_Request->get_string('begintime', 'post'), $m)) {
         $_hour = 23;
@@ -128,11 +130,12 @@ if ($nv_Request->isset_request('submit', 'post')) {
         try {
             $new_id = 0;
             if (empty($row['id'])) {
-                $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (customerid, workforceid, title, begintime, endtime, realtime, url_code, content, useradd, addtime, status, type_id) VALUES (:customerid, :workforceid, :title, :begintime, :endtime, :realtime, :url_code, :content, ' . $user_info['userid'] . ', ' . NV_CURRENTTIME . ', :status, :type_id)';
+                $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (customerid, workforceid, title, price, begintime, endtime, realtime, url_code, content, useradd, addtime, status, type_id) VALUES (:customerid, :workforceid, :title, :begintime, :endtime, :realtime, :url_code, :content, ' . $user_info['userid'] . ', ' . NV_CURRENTTIME . ', :status, :type_id)';
                 $data_insert = array();
                 $data_insert['customerid'] = $row['customerid'];
                 $data_insert['workforceid'] = $workforceid;
                 $data_insert['title'] = $row['title'];
+		$data_insert['price'] = $row['price'];
                 $data_insert['begintime'] = $row['begintime'];
                 $data_insert['endtime'] = $row['endtime'];
                 $data_insert['realtime'] = $row['realtime'];
@@ -142,10 +145,11 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $data_insert['type_id'] = $row['type_id'];
                 $new_id = $db->insert_id($_sql, 'id', $data_insert);
             } else {
-                $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET customerid = :customerid, workforceid = :workforceid, title = :title, begintime = :begintime, endtime = :endtime, realtime = :realtime, url_code = :url_code, content = :content, edittime = ' . NV_CURRENTTIME . ', status = :status, type_id = :type_id WHERE id=' . $row['id']);
+                $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET customerid = :customerid, workforceid = :workforceid, title = :title, price = :price, begintime = :begintime, endtime = :endtime, realtime = :realtime, url_code = :url_code, content = :content, edittime = ' . NV_CURRENTTIME . ', status = :status, type_id = :type_id WHERE id=' . $row['id']);
                 $stmt->bindParam(':customerid', $row['customerid'], PDO::PARAM_INT);
                 $stmt->bindParam(':workforceid', $workforceid, PDO::PARAM_STR);
                 $stmt->bindParam(':title', $row['title'], PDO::PARAM_STR);
+		$stmt->bindParam(':title', $row['price'], PDO::PARAM_INT);
                 $stmt->bindParam(':begintime', $row['begintime'], PDO::PARAM_INT);
                 $stmt->bindParam(':endtime', $row['endtime'], PDO::PARAM_INT);
                 $stmt->bindParam(':realtime', $row['realtime'], PDO::PARAM_INT);
