@@ -31,6 +31,7 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   endtime int(11) unsigned NOT NULL DEFAULT '0',
   realtime int(11) unsigned NOT NULL DEFAULT '0',
   price double unsigned NOT NULL DEFAULT '0',
+  vat double unsigned NOT NULL DEFAULT '0',
   url_code text NOT NULL,
   content text NOT NULL,
   useradd smallint(4) unsigned NOT NULL COMMENT 'Nhân viên tạo',
