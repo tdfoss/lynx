@@ -117,6 +117,7 @@ $lang_module['payment_success_content'] = 'Giao dịch thành công. Cảm ơn b
 $lang_module['open_new_window'] = 'Mở trang mới';
 $lang_module['new_ticket'] = 'Tạo hỗ trợ';
 $lang_module['confirm_confirm_payment'] = 'Bạn có chắc chắn muốn xác nhận thanh toán cho các hóa đơn được chọn?';
+$lang_module['other'] = 'Tùy chọn khác';
 
 $lang_module['error_unknow'] = 'Vì một lý do nào đó hệ thống không thể đáp ứng yêu cầu của bạn lúc này, vui lòng liên hệ với người quản trị để biết thêm thông tin!';
 $lang_module['error_required_invoiceid'] = 'Lỗi: không xác định được Hóa đơn';

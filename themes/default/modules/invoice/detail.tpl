@@ -10,17 +10,24 @@
     <!-- BEGIN: support -->
     <li><a href="{CONTROL.url_support}" class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="{LANG.new_ticket}"><em class="fa fa-user">&nbsp;</em>{LANG.new_ticket}</a></li>
     <!-- END: support -->
-    <li><a href="{CONTROL.url_export_pdf}" class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="{LANG.export_pdf}"><em class="fa fa-download">&nbsp;</em>{LANG.export_pdf}</a></li>
     <!-- BEGIN: invoice_payment_confirm -->
     <li><a href="javascript:void(0);" onclick="nv_invoice_sendmail_confirm({ROW.id}); return !1;" class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="{LANG.send_mail_note_confirm}"><em class="fa fa-check-circle">&nbsp;</em>{LANG.confirm_payment}</a></li>
     <!-- END: invoice_payment_confirm -->
     <!--     <li><a href="javascript:void(0);" onclick="nv_invoice_sendmail({ROW.id}); return !1;" class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="{LANG.send_mail_note}"><em class="fa fa-envelope">&nbsp;</em>{LANG.send_mail}</a></li> -->
     <li><a href="{CONTROL.url_sendmail}" onclick="nv_invoice_sendmail({ROW.id}); return !1;" class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="{LANG.send_mail_note}"><em class="fa fa-envelope">&nbsp;</em>{LANG.send_mail}</a></li>
-    <li><a href="{CONTROL.url_add}" class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="{LANG.add_invoice}"><em class="fa fa-plus-square">&nbsp;</em>{LANG.add}</a></li>
-    <li><a href="{CONTROL.url_copy}" onclick="nv_invoice_copy({ROW.id}); return !1;" class="btn btn-default btn-xs" data-toggle="tooltip" data-original-title="{LANG.invoice_copy}"><em class="fa fa-copy">&nbsp;</em>{LANG.invoice_copy}</a></li>
     <li><a href="{CONTROL.url_edit}" class="btn btn-default btn-xs" data-toggle="tooltip" data-original-title="{LANG.edit_invoice}"><em class="fa fa-edit">&nbsp;</em>{LANG.edit}</a></li>
     <li><a href="{CONTROL.url_delete}" class="btn btn-danger btn-xs" onclick="return confirm(nv_is_del_confirm[0]);" data-toggle="tooltip" data-original-title="{LANG.delete_invoice}"><em class="fa fa-trash-o">&nbsp;</em>{LANG.delete}</a></li>
 </ul>
+<div class="dropdown dropdown-hover pull-right" style="padding-right: 10px">
+    <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+        <em class="fa fa-list-ul">&nbsp;</em>{LANG.other} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <li><a href="{CONTROL.url_add}"><em class="fa fa-plus-square">&nbsp;</em>{LANG.add}</a></li>
+        <li><a href="{CONTROL.url_copy}" onclick="nv_invoice_copy({ROW.id}); return !1;"><em class="fa fa-copy">&nbsp;</em>{LANG.invoice_copy}</a></li>
+        <li><a href="{CONTROL.url_export_pdf}"><em class="fa fa-download">&nbsp;</em>{LANG.export_pdf}</a></li>
+    </ul>
+</div>
 <!-- END: button_funs -->
 <div class="clearfix"></div>
 <div class="row">
