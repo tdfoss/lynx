@@ -29,6 +29,7 @@ $lang_module['customerid'] = 'Khách hàng';
 $lang_module['workforceid'] = 'Nhân viên phụ trách';
 $lang_module['title'] = 'Tiêu đề';
 $lang_module['price'] = 'Giá dự án';
+$lang_module['vat'] = 'Thuế (%)';
 $lang_module['begintime'] = 'Ngày bắt đầu';
 $lang_module['endtime'] = 'Ngày hoàn thành';
 $lang_module['realtime'] = 'Ngày hoàn thành thực tế';
