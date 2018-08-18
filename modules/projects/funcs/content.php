@@ -85,7 +85,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
     $row['customerid'] = $nv_Request->get_int('customerid', 'post', 0);
     $row['workforceid'] = $nv_Request->get_typed_array('workforceid', 'post', 'int');
     $row['title'] = $nv_Request->get_title('title', 'post', '');
-    $row['price'] = $nv_Request->get_int('price', 'post', 0);
+    $row['price'] = $nv_Request->get_title('price', 'post', 0);
 
     if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $nv_Request->get_string('begintime', 'post'), $m)) {
         $_hour = 23;
@@ -130,15 +130,15 @@ if ($nv_Request->isset_request('submit', 'post')) {
         try {
             $new_id = 0;
             if (empty($row['id'])) {
-                $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (customerid, workforceid, title, price, begintime, endtime, realtime, url_code, content, useradd, addtime, status, type_id) VALUES (:customerid, :workforceid, :title, :begintime, :endtime, :realtime, :url_code, :content, ' . $user_info['userid'] . ', ' . NV_CURRENTTIME . ', :status, :type_id)';
+                $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (customerid, workforceid, title, begintime, endtime, realtime, price, url_code, content, useradd, addtime, status, type_id) VALUES (:customerid, :workforceid, :title, :begintime, :endtime, :realtime, :price, :url_code, :content, ' . $user_info['userid'] . ', ' . NV_CURRENTTIME . ', :status, :type_id)';
                 $data_insert = array();
                 $data_insert['customerid'] = $row['customerid'];
                 $data_insert['workforceid'] = $workforceid;
                 $data_insert['title'] = $row['title'];
-		$data_insert['price'] = $row['price'];
                 $data_insert['begintime'] = $row['begintime'];
                 $data_insert['endtime'] = $row['endtime'];
                 $data_insert['realtime'] = $row['realtime'];
+                $data_insert['price'] = $row['price'];
                 $data_insert['url_code'] = $row['url_code'];
                 $data_insert['content'] = $row['content'];
                 $data_insert['status'] = $row['status'];
@@ -149,7 +149,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $stmt->bindParam(':customerid', $row['customerid'], PDO::PARAM_INT);
                 $stmt->bindParam(':workforceid', $workforceid, PDO::PARAM_STR);
                 $stmt->bindParam(':title', $row['title'], PDO::PARAM_STR);
-		$stmt->bindParam(':price', $row['price'], PDO::PARAM_INT);
+                $stmt->bindParam(':price', $row['price'], PDO::PARAM_STR);
                 $stmt->bindParam(':begintime', $row['begintime'], PDO::PARAM_INT);
                 $stmt->bindParam(':endtime', $row['endtime'], PDO::PARAM_INT);
                 $stmt->bindParam(':realtime', $row['realtime'], PDO::PARAM_INT);
@@ -289,6 +289,8 @@ if (defined('NV_EDITOR') and nv_function_exists('nv_aleditor')) {
 } else {
     $row['content'] = '<textarea style="width:100%;height:200px" name="content">' . $row['content'] . '</textarea>';
 }
+
+$row['price'] = !empty($row['price']) ? $row['price'] : '';
 
 $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
 $xtpl->assign('LANG', $lang_module);
