@@ -7,9 +7,6 @@
 <!-- END: dompdf_link_sendemail -->
 <!-- BEGIN: button_funs -->
 <ul class="pull-right list-inline form-tooltip">
-    <!-- BEGIN: support -->
-    <li><a href="{CONTROL.url_support}" class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="{LANG.new_ticket}"><em class="fa fa-user">&nbsp;</em>{LANG.new_ticket}</a></li>
-    <!-- END: support -->
     <!-- BEGIN: invoice_payment_confirm -->
     <li><a href="javascript:void(0);" onclick="nv_invoice_sendmail_confirm({ROW.id}); return !1;" class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="{LANG.send_mail_note_confirm}"><em class="fa fa-check-circle">&nbsp;</em>{LANG.confirm_payment}</a></li>
     <!-- END: invoice_payment_confirm -->
@@ -25,6 +22,9 @@
     <ul class="dropdown-menu">
         <li><a href="{CONTROL.url_add}"><em class="fa fa-plus-square">&nbsp;</em>{LANG.add}</a></li>
         <li><a href="{CONTROL.url_copy}" onclick="nv_invoice_copy({ROW.id}); return !1;"><em class="fa fa-copy">&nbsp;</em>{LANG.invoice_copy}</a></li>
+        <!-- BEGIN: support -->
+        <li><a href="{CONTROL.url_support}"><em class="fa fa-user">&nbsp;</em>{LANG.new_ticket}</a></li>
+        <!-- END: support -->
         <li><a href="{CONTROL.url_export_pdf}"><em class="fa fa-download">&nbsp;</em>{LANG.export_pdf}</a></li>
     </ul>
 </div>
