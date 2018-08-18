@@ -172,6 +172,14 @@
                                 <!-- END: loop -->
                             </select>
                             <!-- END: products -->
+			    <!-- BEGIN: projects -->
+                            <select class="select2 form-control" name="detail[{ITEM.index}][itemid]" style="width: 100%" onchange="nv_item_change($(this)); return !1;">
+                                <option value="0">---{LANG.projects_select}---</option>
+                                <!-- BEGIN: loop -->
+                                <option value="{PROJECTS.id}"{PROJECTS.selected}>{PROJECTS.title}</option>
+                                <!-- END: loop -->
+                            </select>
+                            <!-- END: projects -->
                         </div> <textarea class="form-control" name="detail[{ITEM.index}][note]" placeholder="{LANG.note}">{ITEM.note}</textarea></td>
                     <td><input type="number" class="form-control" name="detail[{ITEM.index}][quantity]" value="{ITEM.quantity}"></td>
                     <td><input type="text" class="form-control price" name="detail[{ITEM.index}][price]" value="{ITEM.price}"></td>
@@ -187,6 +195,7 @@
     <ul class="list-inline">
         <li><button class="btn btn-primary btn-xs" onclick="nv_service_add(); return !1;">{LANG.service_add}</button></li>
         <li><button class="btn btn-primary btn-xs" onclick="nv_product_add(); return !1;">{LANG.product_add}</button></li>
+	<li><button class="btn btn-primary btn-xs" onclick="nv_projects_add(); return !1;">{LANG.projects_add}</button></li>
     </ul>
     <table class="table table-striped table-bordered table-hover">
         <tbody>
@@ -315,6 +324,35 @@
     	<!-- BEGIN: products_js -->
         html += '		<option value="{PRODUCTS.id}">{PRODUCTS.title}</option>';
         <!-- END: products_js -->
+    	html += '	 </select></div><textarea class="form-control" name="detail[' + count + '][note]" placeholder="{LANG.note}"></textarea></td>';
+	    html += '    <td><input type="number" class="form-control quantity" name="detail[' + count + '][quantity]" value="1"></td>';
+        html += '    <td><input type="text" class="form-control price" name="detail[' + count + '][price]"></td>';
+        html += '    <td><input type="text" class="form-control vat" name="detail[' + count + '][vat]"></td>';
+        html += '    <td class="vat_price"></td>';
+        html += '    <td class="total"></td>';
+        html += '    <td class="text-center"><em class="fa fa-trash-o fa-lg pointer" onclick="$(this).closest(\'tr\').remove(); $(\'.number\').addNumber();">&nbsp;</em></td>';
+        html += '</tr>';
+        
+        $('#item-detail').append(html);
+        $('.number').addNumber();
+        
+        $(".select2_js").select2({
+            language : "{NV_LANG_INTERFACE}",
+            theme : "bootstrap",
+        });
+        count++;
+        return !1;
+    }
+    function nv_projects_add()
+    {
+        var html;
+        html += '<tr class="item" data-index="' + count + '" data-module="projects">';
+        html += '    <td class="number text-center">1</td>';
+        html += '    <td><input type="hidden" name="detail[' + count + '][module]" value="projects" /><div class="m-bottom"><select class="select2_js form-control" name="detail[' + count + '][itemid]" style="width: 100%" onchange="nv_item_change($(this)); return !1;">';
+        html += '	 <option value="0">---{LANG.projects_select}---</option>';
+    	<!-- BEGIN: projects_js -->
+        html += '		<option value="{PROJECTS.id}">{PROJECTS.title}</option>';
+        <!-- END: projects_js -->
     	html += '	 </select></div><textarea class="form-control" name="detail[' + count + '][note]" placeholder="{LANG.note}"></textarea></td>';
 	    html += '    <td><input type="number" class="form-control quantity" name="detail[' + count + '][quantity]" value="1"></td>';
         html += '    <td><input type="text" class="form-control price" name="detail[' + count + '][price]"></td>';
