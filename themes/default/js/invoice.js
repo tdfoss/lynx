@@ -39,7 +39,7 @@ function nv_item_change($this) {
     $.ajax({
         type : 'POST',
         url : script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=content&nocache=' + new Date().getTime(),
-        data : 'get_item_info=1&module=' + $this.closest('.item').data('module') + '&itemid=' + $this.val(),
+        data : 'get_item_info=1&module=' + $this.closest('.item').data('module') + '&itemid=' + $this.val() + '&quantity=' + $this.closest('.item').find('.quantity').val(),
         success : function(json) {
             $this.closest('.item').find('.price').val(json.price);
             $this.closest('.item').find('.vat').val(json.vat);

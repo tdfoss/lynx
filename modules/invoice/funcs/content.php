@@ -23,11 +23,12 @@ if ($nv_Request->isset_request('get_time_end', 'post')) {
 if ($nv_Request->isset_request('get_item_info', 'post')) {
     $itemid = $nv_Request->get_int('itemid', 'post', 0);
     $module = $nv_Request->get_title('module', 'post', '');
+    $quantity = $nv_Request->get_int('quantity', 'post', 1);
 
     if (isset($site_mods[$module])) {
         $rows = $db->query('SELECT price, vat FROM ' . NV_PREFIXLANG . '_' . $site_mods[$module]['module_data'] . ' WHERE id=' . $itemid)->fetch();
         if ($rows) {
-            $rows['vat_price'] = ($rows['price'] * $rows['vat']) / 100;
+            $rows['vat_price'] = ($rows['price'] * $rows['vat'] * $quantity) / 100;
             $rows['total'] = $rows['price'] + $rows['vat_price'];
             nv_jsonOutput($rows);
         }
@@ -383,7 +384,7 @@ $array_total = array(
 foreach ($row['detail'] as $item) {
     $item['index'] = $i;
     $item['number'] = $i + 1;
-    $item['vat_price'] = ($item['price'] * $item['vat']) / 100;
+    $item['vat_price'] = ($item['price'] * $item['vat'] * $item['quantity']) / 100;
 
     $array_total['item_total'] += ($item['price'] * $item['quantity']);
     $array_total['vat_total'] += $item['vat_price'];
