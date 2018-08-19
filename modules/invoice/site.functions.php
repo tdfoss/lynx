@@ -37,6 +37,11 @@ if (isset($site_mods['products'])) {
     $array_products = $nv_Cache->db($_sql, 'id', 'products');
 }
 
+if (isset($site_mods['projects'])) {
+    $_sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_projects';
+    $array_projects = $nv_Cache->db($_sql, 'id', 'projects');
+}
+
 function nv_copy_invoice($id, $status = 0, $create_user_id = 0)
 {
     global $db, $module_data, $user_info;

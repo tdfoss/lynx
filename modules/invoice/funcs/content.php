@@ -413,6 +413,15 @@ foreach ($row['detail'] as $item) {
             }
         }
         $xtpl->parse('main.items.products');
+    }elseif ($item['module'] == 'projects') {
+        if (!empty($array_projects)) {
+            foreach ($array_projects as $projects) {
+                $projects['selected'] = ($item['module'] == 'projects' && $projects['id'] == $item['itemid']) ? 'selected="selected"' : '';
+                $xtpl->assign('PROJECTS', $projects);
+                $xtpl->parse('main.items.projects.loop');
+            }
+        }
+        $xtpl->parse('main.items.projects');
     }
 
     $xtpl->parse('main.items');
@@ -436,6 +445,13 @@ if (!empty($array_products)) {
     foreach ($array_products as $products) {
         $xtpl->assign('PRODUCTS', $products);
         $xtpl->parse('main.products_js');
+    }
+}
+
+if (!empty($array_projects)) {
+    foreach ($array_projects as $projects) {
+        $xtpl->assign('PROJECTS', $projects);
+        $xtpl->parse('main.projects_js');
     }
 }
 
