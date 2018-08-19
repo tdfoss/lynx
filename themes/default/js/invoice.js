@@ -44,7 +44,33 @@ function nv_item_change($this) {
             $this.closest('.item').find('.price').val(json.price);
             $this.closest('.item').find('.vat').val(json.vat);
             $this.closest('.item').find('.total').text(json.total);
-            $this.closest('.item').find('.vat_price').text(json.vat_price);
+            $this.closest('.item').find('.vat_price').val(json.vat_price);
+            nv_item_change_input();
+        }
+    });
+}
+
+function nv_item_delete($this) {
+    $this.closest('tr').remove(); $('.number').addNumber();
+    nv_item_change_input();
+}
+
+function nv_item_change_input(){
+    $.ajax({
+        type : 'POST',
+        url : nv_base_siteurl + 'index.php?' + nv_lang_variable + '=' + nv_lang_data + '&' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=content&change_item=1&nocache=' + new Date().getTime(),
+        data : $('#frm-submit').serialize(),
+        success : function(json) {
+            $('#grand_total').text(json.grand_total);
+            $('#grand_total_string').text(json.grand_total_string);
+            $('#item_total').text(json.item_total);
+            $('#vat_total').text(json.vat_total);
+            var i = 0;
+            $.each(json.detail, function(index, value){
+                $('#item-detail .item').eq(i).find('.vat_price').val(value.vat_price);
+                $('#item-detail .item').eq(i).find('.total').text(value.total);
+                i++;
+            })
         }
     });
 }

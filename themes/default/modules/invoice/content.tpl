@@ -5,7 +5,7 @@
 <!-- BEGIN: error -->
 <div class="alert alert-warning">{ERROR}</div>
 <!-- END: error -->
-<form class="form-horizontal" action="{NV_BASE_SITEURL}index.php?{NV_LANG_VARIABLE}={NV_LANG_DATA}&amp;{NV_NAME_VARIABLE}={MODULE_NAME}&amp;{NV_OP_VARIABLE}={OP}" method="post">
+<form class="form-horizontal" action="{NV_BASE_SITEURL}index.php?{NV_LANG_VARIABLE}={NV_LANG_DATA}&amp;{NV_NAME_VARIABLE}={MODULE_NAME}&amp;{NV_OP_VARIABLE}={OP}" method="post" id="frm-submit">
     <input type="hidden" name="id" value="{ROW.id}" /> <input type="hidden" name="redirect" value="{ROW.redirect}" />
     <div class="panel panel-default">
         <div class="panel-heading">{LANG.invoice_info}</div>
@@ -136,7 +136,10 @@
         </div>
     </div>
     <div class="panel panel-default">
-        <div class="panel-heading">{LANG.item_details}</div>
+        <div class="panel-heading">
+            <span class="pull-left">{LANG.item_details}</span><span class="pull-right">{LANG.money_unit}: {LANG.vnd}</span>
+            <div class="clearfix"></div>
+        </div>
         <table class="table table-striped table-bordered table-hover table-middle">
             <thead>
                 <tr>
@@ -172,7 +175,7 @@
                                 <!-- END: loop -->
                             </select>
                             <!-- END: products -->
-			    <!-- BEGIN: projects -->
+                            <!-- BEGIN: projects -->
                             <select class="select2 form-control" name="detail[{ITEM.index}][itemid]" style="width: 100%" onchange="nv_item_change($(this)); return !1;">
                                 <option value="0">---{LANG.projects_select}---</option>
                                 <!-- BEGIN: loop -->
@@ -181,12 +184,12 @@
                             </select>
                             <!-- END: projects -->
                         </div> <textarea class="form-control" name="detail[{ITEM.index}][note]" placeholder="{LANG.note}">{ITEM.note}</textarea></td>
-                    <td><input type="number" class="form-control" name="detail[{ITEM.index}][quantity]" value="{ITEM.quantity}"></td>
-                    <td><input type="text" class="form-control price" name="detail[{ITEM.index}][price]" value="{ITEM.price}"></td>
-                    <td><input type="text" class="form-control vat" name="detail[{ITEM.index}][vat]" value="{ITEM.vat}"></td>
-                    <td class="vat_price">{ITEM.vat_price} {LANG.vnd}</td>
-                    <td class="total">{ITEM.total} {LANG.vnd}</td>
-                    <td class="text-center"><em class="fa fa-trash-o fa-lg pointer" onclick="$(this).closest('tr').remove(); $('.number').addNumber();">&nbsp;</em></td>
+                    <td><input type="number" class="form-control" onchange="nv_item_change_input();" name="detail[{ITEM.index}][quantity]" value="{ITEM.quantity}"></td>
+                    <td><input type="text" class="form-control price" onchange="nv_item_change_input();" name="detail[{ITEM.index}][price]" value="{ITEM.price}"></td>
+                    <td><input type="text" class="form-control vat" onchange="nv_item_change_input();" name="detail[{ITEM.index}][vat]" value="{ITEM.vat}"></td>
+                    <td><input type="text" class="form-control vat_price" readonly="readonly" name="detail[{ITEM.index}][vat_price]" value="{ITEM.vat_price}"></td>
+                    <td class="total">{ITEM.total}</td>
+                    <td class="text-center"><em class="fa fa-trash-o fa-lg pointer" onclick="nv_item_delete(this); return !1;">&nbsp;</em></td>
                 </tr>
                 <!-- END: items -->
             </tbody>
@@ -195,25 +198,25 @@
     <ul class="list-inline">
         <li><button class="btn btn-primary btn-xs" onclick="nv_service_add(); return !1;">{LANG.service_add}</button></li>
         <li><button class="btn btn-primary btn-xs" onclick="nv_product_add(); return !1;">{LANG.product_add}</button></li>
-	<li><button class="btn btn-primary btn-xs" onclick="nv_projects_add(); return !1;">{LANG.projects_add}</button></li>
+        <li><button class="btn btn-primary btn-xs" onclick="nv_projects_add(); return !1;">{LANG.projects_add}</button></li>
     </ul>
     <table class="table table-striped table-bordered table-hover">
         <tbody>
             <tr>
                 <th class="text-right">{LANG.item_total}</th>
-                <td width="300" id="item_total">{TOTAL.item_total} {LANG.vnd}</td>
+                <td width="300" id="item_total">{TOTAL.item_total}</td>
             </tr>
             <tr>
                 <th class="text-right">{LANG.vat_total}</th>
-                <td id="vat_total">{TOTAL.vat_total} {LANG.vnd}</td>
+                <td id="vat_total">{TOTAL.vat_total}</td>
             </tr>
             <tr>
                 <th class="text-right">{LANG.discount} (%)</th>
-                <td width="300"><input type="number" name="discount_percent" value="{ROW.discount_percent}" class="form-control" /></td>
+                <td width="300"><input type="number" name="discount_percent" value="{ROW.discount_percent}" class="form-control" onchange="nv_item_change_input();" /></td>
             </tr>
             <tr>
                 <th class="text-right">{LANG.grand_total}</th>
-                <td id="grand_total">{TOTAL.grand_total} {LANG.vnd}</td>
+                <td id="grand_total">{TOTAL.grand_total}</td>
             </tr>
             <tr>
                 <th class="text-right">{LANG.grand_total_string}</th>
@@ -295,12 +298,12 @@
         html += '		<option value="{SERVICES.id}">{SERVICES.title}</option>';
         <!-- END: services_js -->
     	html += '	 </select></div><textarea class="form-control" name="detail[' + count + '][note]" placeholder="{LANG.note}"></textarea></td>';
-	    html += '    <td><input type="number" class="form-control quantity" name="detail[' + count + '][quantity]" value="1"></td>';
-        html += '    <td><input type="text" class="form-control price" name="detail[' + count + '][price]"></td>';
-        html += '    <td><input type="text" class="form-control vat" name="detail[' + count + '][vat]"></td>';
-        html += '    <td class="vat_price"></td>';
+	    html += '    <td><input type="number" class="form-control quantity" onchange="nv_item_change_input();" name="detail[' + count + '][quantity]" value="1"></td>';
+        html += '    <td><input type="text" class="form-control price" onchange="nv_item_change_input();" name="detail[' + count + '][price]"></td>';
+        html += '    <td><input type="text" class="form-control vat" onchange="nv_item_change_input();" name="detail[' + count + '][vat]"></td>';
+        html += '    <td><input type="text" class="form-control vat_price" readonly="readonly" name="detail[' + count + '][vat_price]"></td>';
         html += '    <td class="total"></td>';
-        html += '    <td class="text-center"><em class="fa fa-trash-o fa-lg pointer" onclick="$(this).closest(\'tr\').remove(); $(\'.number\').addNumber();">&nbsp;</em></td>';
+        html += '    <td class="text-center"><em class="fa fa-trash-o fa-lg pointer" onclick="nv_item_delete(this); return !1;">&nbsp;</em></td>';
         html += '</tr>';
         
         $('#item-detail').append(html);
@@ -310,6 +313,7 @@
             language : "{NV_LANG_INTERFACE}",
             theme : "bootstrap",
         });
+        
         count++;
         return !1;
     }
@@ -325,12 +329,12 @@
         html += '		<option value="{PRODUCTS.id}">{PRODUCTS.title}</option>';
         <!-- END: products_js -->
     	html += '	 </select></div><textarea class="form-control" name="detail[' + count + '][note]" placeholder="{LANG.note}"></textarea></td>';
-	    html += '    <td><input type="number" class="form-control quantity" name="detail[' + count + '][quantity]" value="1"></td>';
-        html += '    <td><input type="text" class="form-control price" name="detail[' + count + '][price]"></td>';
-        html += '    <td><input type="text" class="form-control vat" name="detail[' + count + '][vat]"></td>';
-        html += '    <td class="vat_price"></td>';
+	    html += '    <td><input type="number" class="form-control quantity" onchange="nv_item_change_input();" name="detail[' + count + '][quantity]" value="1"></td>';
+        html += '    <td><input type="text" class="form-control price" onchange="nv_item_change_input();" name="detail[' + count + '][price]"></td>';
+        html += '    <td><input type="text" class="form-control vat" onchange="nv_item_change_input();" name="detail[' + count + '][vat]"></td>';
+        html += '    <td><input type="text" class="form-control vat_price" readonly="readonly" name="detail[' + count + '][vat_price]"></td>';
         html += '    <td class="total"></td>';
-        html += '    <td class="text-center"><em class="fa fa-trash-o fa-lg pointer" onclick="$(this).closest(\'tr\').remove(); $(\'.number\').addNumber();">&nbsp;</em></td>';
+        html += '    <td class="text-center"><em class="fa fa-trash-o fa-lg pointer" onclick="nv_item_delete(this); return !1;">&nbsp;</em></td>';
         html += '</tr>';
         
         $('#item-detail').append(html);
@@ -340,9 +344,11 @@
             language : "{NV_LANG_INTERFACE}",
             theme : "bootstrap",
         });
+        
         count++;
         return !1;
     }
+    
     function nv_projects_add()
     {
         var html;
@@ -354,12 +360,12 @@
         html += '		<option value="{PROJECTS.id}">{PROJECTS.title}</option>';
         <!-- END: projects_js -->
     	html += '	 </select></div><textarea class="form-control" name="detail[' + count + '][note]" placeholder="{LANG.note}"></textarea></td>';
-	    html += '    <td><input type="number" class="form-control quantity" name="detail[' + count + '][quantity]" value="1"></td>';
-        html += '    <td><input type="text" class="form-control price" name="detail[' + count + '][price]"></td>';
-        html += '    <td><input type="text" class="form-control vat" name="detail[' + count + '][vat]"></td>';
-        html += '    <td class="vat_price"></td>';
+	    html += '    <td><input type="number" class="form-control quantity" onchange="nv_item_change_input();" name="detail[' + count + '][quantity]" value="1"></td>';
+        html += '    <td><input type="text" class="form-control price" onchange="nv_item_change_input();" name="detail[' + count + '][price]"></td>';
+        html += '    <td><input type="text" class="form-control vat" onchange="nv_item_change_input();" name="detail[' + count + '][vat]"></td>';
+        html += '    <td><input type="text" class="form-control vat_price" readonly="readonly" name="detail[' + count + '][vat_price]"></td>';
         html += '    <td class="total"></td>';
-        html += '    <td class="text-center"><em class="fa fa-trash-o fa-lg pointer" onclick="$(this).closest(\'tr\').remove(); $(\'.number\').addNumber();">&nbsp;</em></td>';
+        html += '    <td class="text-center"><em class="fa fa-trash-o fa-lg pointer" onclick="nv_item_delete(this); return !1;">&nbsp;</em></td>';
         html += '</tr>';
         
         $('#item-detail').append(html);
@@ -369,6 +375,7 @@
             language : "{NV_LANG_INTERFACE}",
             theme : "bootstrap",
         });
+        
         count++;
         return !1;
     }

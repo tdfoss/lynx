@@ -8,6 +8,42 @@
  */
 if (!defined('NV_IS_MOD_INVOICE')) die('Stop!!!');
 
+if ($nv_Request->isset_request('change_item', 'post,get')) {
+    $item_total = $vat_total = $grand_total = 0;
+    $discount_percent = $nv_Request->get_int('discount_percent', 'post', 0);
+    $array_detail = array();
+    $data = $nv_Request->get_array('detail', 'post');
+    foreach ($data as $index => $value) {
+        if ($value['itemid'] > 0 && !empty($value['module'])) {
+            $value['price'] = preg_replace('/[^0-9]/', '', $value['price']);
+            $value['vat_price'] = ($value['price'] * $value['vat'] * $value['quantity']) / 100;
+            $value['total'] = nv_caculate_total($value['price'], $value['quantity'], $value['vat']);
+            $grand_total += $value['total'];
+            $item_total += ($value['price'] * $value['quantity']);
+            $vat_total += $value['vat_price'];
+            $value['vat_price'] = number_format($value['vat_price']);
+            $value['total'] = number_format($value['total']);
+            $array_detail[] = $value;
+        }
+    }
+
+    $discount_value = 0;
+    if (!empty($discount_percent)) {
+        $discount_value = ($discount_percent * $grand_total) / 100;
+    }
+
+    $grand_total = $grand_total - $discount_value;
+
+    $return_data = array(
+        'grand_total' => number_format($grand_total),
+        'grand_total_string' => nv_convert_number_to_words($grand_total),
+        'item_total' => number_format($item_total),
+        'vat_total' => number_format($vat_total),
+        'detail' => $array_detail
+    );
+    nv_jsonOutput($return_data);
+}
+
 if ($nv_Request->isset_request('get_time_end', 'post')) {
     $createtime = $nv_Request->get_title('createtime', 'post', '');
     $cycle = $nv_Request->get_int('cycle', 'post', 0);
@@ -414,7 +450,7 @@ foreach ($row['detail'] as $item) {
             }
         }
         $xtpl->parse('main.items.products');
-    }elseif ($item['module'] == 'projects') {
+    } elseif ($item['module'] == 'projects') {
         if (!empty($array_projects)) {
             foreach ($array_projects as $projects) {
                 $projects['selected'] = ($item['module'] == 'projects' && $projects['id'] == $item['itemid']) ? 'selected="selected"' : '';

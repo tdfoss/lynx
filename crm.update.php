@@ -48,6 +48,8 @@ while (list ($lang) = $language_query->fetch(3)) {
 
     $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_customer ADD tag_id VARCHAR(100) NOT NULL AFTER type_id;";
 
+    $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_projects ADD vat DOUBLE UNSIGNED NOT NULL DEFAULT '0' AFTER price;";
+
     foreach ($sql as $_sql) {
         try {
             $db->query($_sql);
