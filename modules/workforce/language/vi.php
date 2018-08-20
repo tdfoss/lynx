@@ -71,6 +71,10 @@ $lang_module['content_workforce'] = 'thêm dữ liệu nhân sự';
 $lang_module['edit_workforce'] = 'sửa dữ liệu nhân sự';
 $lang_module['delete_workforce'] = 'xóa dữ liệu nhân sự';
 $lang_module['delete_many_workforce'] = 'xóa dữ liệu nhân sự';
+$lang_module['status_1'] = 'Hoạt động';
+$lang_module['status_0'] = 'Ngưng hoạt động';
+$lang_module['workforce_edit'] = 'Sửa nhân sự';
+$lang_module['status'] = 'Trạng thái';
 
 $lang_module['error_required_userid'] = 'Lỗi: bạn cần chọn Tài khoản thành viên';
 $lang_module['error_required_first_name'] = 'Lỗi: bạn cần nhập dữ liệu cho Tên';
