@@ -64,7 +64,7 @@
 																src="{ADMIN_PHOTO}" class="img-circle"
 																alt="{ADMIN_USERNAME}">
 																<p>
-																		{ADMIN_USERNAME} - {ADMIN_POSITION} <small>IP:
+																		{ADMIN_USERNAME}<small>IP:
 																				{ADMIN_IP}</small>
 																</p></li>
 														<!-- Menu Body -->
