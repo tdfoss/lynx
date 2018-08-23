@@ -90,3 +90,13 @@ function nv_workreport_premission($type = 'where')
         }
     }
 }
+
+function nv_workreport_dateDifference($date_1, $date_2, $differenceFormat = '%a')
+{
+    $datetime1 = date_create($date_1);
+    $datetime2 = date_create($date_2);
+
+    $interval = date_diff($datetime1, $datetime2);
+
+    return $interval->format($differenceFormat);
+}

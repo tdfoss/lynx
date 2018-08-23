@@ -54,6 +54,8 @@ if ($nv_Request->isset_request('submit', 'post')) {
         $error[] = $lang_module['error_required_content'];
     } elseif (empty($row['id']) && $db->query('SELECT COUNT(*) FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE fortime=' . $row['fortime'] . ' AND userid=' . $user_info['userid'])->fetchColumn() > 0) {
         $error[] = $lang_module['error_required_fortime'];
+    } elseif (nv_workreport_dateDifference(date('Y/m/d', $row['fortime']), date('Y/m/d', NV_CURRENTTIME)) > $array_config['allow_days']) {
+        $error[] = sprintf($lang_module['error_allow_fortime'], date('d/m/Y', $row['fortime']));
     }
 
     if (empty($error)) {
