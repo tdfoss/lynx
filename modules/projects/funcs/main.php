@@ -71,6 +71,7 @@ if ($array_search['status'] > 0) {
 }
 
 if (!empty($array_search['begintime'])) {
+
     if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $nv_Request->get_string('begintime', 'get'), $m)) {
         $_hour = 23;
         $_min = 23;
@@ -78,9 +79,11 @@ if (!empty($array_search['begintime'])) {
     } else {
         $array_search['begintime'] = 0;
     }
+    $base_url .= '&amp;begintime= ' . $array_search['begintime'];
     $where .= ' AND begintime = ' . $array_search['begintime'];
 }
 if (!empty($array_search['endtime'])) {
+
     if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $nv_Request->get_string('endtime', 'get'), $m)) {
 
         $_hour = 23;
@@ -89,9 +92,11 @@ if (!empty($array_search['endtime'])) {
     } else {
         $array_search['endtime'] = 0;
     }
+    $base_url .= '&amp;endtime= ' . $array_search['endtime'];
     $where .= ' AND endtime = ' . $array_search['endtime'];
 }
 if (!empty($array_search['realtime'])) {
+
     if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $nv_Request->get_string('realtime', 'get'), $m)) {
 
         $_hour = 23;
@@ -100,9 +105,10 @@ if (!empty($array_search['realtime'])) {
     } else {
         $array_search['realtime'] = 0;
     }
+    $base_url .= '&amp;realtime= ' . $array_search['realtime'];
     $where .= ' AND realtime = ' . $array_search['realtime'];
 }
-if (! empty($array_search['customerid'])) {
+if (!empty($array_search['customerid'])) {
     $customer_info = nv_crm_customer_info($array_search['customerid']);
 }
 
