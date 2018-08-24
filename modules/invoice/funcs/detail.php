@@ -161,8 +161,8 @@ $row['vat_price'] = $row['item_total'] = $row['vat_total'] = 0;
 $array_invoice_products = array();
 $order_id = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_detail WHERE idinvoice=' . $id);
 while ($order = $order_id->fetch()) {
-    $row['vat_price'] = ($order['price'] * $order['vat'] * $order['quantity']) / 100;
-    $row['item_total'] += ($order['price'] * $order['quantity']);
+    $row['vat_price'] = ($order['price'] * $order['vat']) / 100;
+    $row['item_total'] += $order['price'];
     $row['vat_total'] += $row['vat_price'];
     $array_invoice_products[] = $order;
 }
@@ -171,7 +171,6 @@ $row['item_total'] = number_format($row['item_total']);
 $row['vat_total'] = number_format($row['vat_total']);
 
 $row['terms'] = nv_nl2br($row['terms']);
-// $row['terms'] = nv_br2nl ($row['terms']);
 $row['description'] = nv_nl2br($row['description']);
 
 $array_control = array(

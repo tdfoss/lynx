@@ -145,6 +145,7 @@
                 <tr>
                     <th width="50">{LANG.number}</th>
                     <th>{LANG.title}</th>
+                    <th width="150">{LANG.unit_price}</th>
                     <th width="150">{LANG.quantity}</th>
                     <th width="150">{LANG.price_string}</th>
                     <th width="150">{LANG.vat}</th>
@@ -184,7 +185,8 @@
                             </select>
                             <!-- END: projects -->
                         </div> <textarea class="form-control" name="detail[{ITEM.index}][note]" placeholder="{LANG.note}">{ITEM.note}</textarea></td>
-                    <td><input type="number" class="form-control" onchange="nv_item_change_input();" name="detail[{ITEM.index}][quantity]" value="{ITEM.quantity}"></td>
+                    <td><input type="text" class="form-control unit_price" onchange="nv_item_change_input();" name="detail[{ITEM.index}][unit_price]" value="{ITEM.unit_price}"></td>
+                    <td><input type="number" class="form-control quantity" onchange="nv_item_change_input();" name="detail[{ITEM.index}][quantity]" value="{ITEM.quantity}"></td>
                     <td><input type="text" class="form-control price" onchange="nv_item_change_input();" name="detail[{ITEM.index}][price]" value="{ITEM.price}"></td>
                     <td><input type="text" class="form-control vat" onchange="nv_item_change_input();" name="detail[{ITEM.index}][vat]" value="{ITEM.vat}"></td>
                     <td><input type="text" class="form-control vat_price" readonly="readonly" name="detail[{ITEM.index}][vat_price]" value="{ITEM.vat_price}"></td>
@@ -298,6 +300,7 @@
         html += '		<option value="{SERVICES.id}">{SERVICES.title}</option>';
         <!-- END: services_js -->
     	html += '	 </select></div><textarea class="form-control" name="detail[' + count + '][note]" placeholder="{LANG.note}"></textarea></td>';
+	    html += '    <td><input type="number" class="form-control unit_price" onchange="nv_item_change_input();" name="detail[' + count + '][unit_price]" value="0"></td>';
 	    html += '    <td><input type="number" class="form-control quantity" onchange="nv_item_change_input();" name="detail[' + count + '][quantity]" value="1"></td>';
         html += '    <td><input type="text" class="form-control price" onchange="nv_item_change_input();" name="detail[' + count + '][price]"></td>';
         html += '    <td><input type="text" class="form-control vat" onchange="nv_item_change_input();" name="detail[' + count + '][vat]"></td>';
@@ -329,6 +332,7 @@
         html += '		<option value="{PRODUCTS.id}">{PRODUCTS.title}</option>';
         <!-- END: products_js -->
     	html += '	 </select></div><textarea class="form-control" name="detail[' + count + '][note]" placeholder="{LANG.note}"></textarea></td>';
+    	html += '    <td><input type="number" class="form-control unit_price" onchange="nv_item_change_input();" name="detail[' + count + '][unit_price]" value="0"></td>';
 	    html += '    <td><input type="number" class="form-control quantity" onchange="nv_item_change_input();" name="detail[' + count + '][quantity]" value="1"></td>';
         html += '    <td><input type="text" class="form-control price" onchange="nv_item_change_input();" name="detail[' + count + '][price]"></td>';
         html += '    <td><input type="text" class="form-control vat" onchange="nv_item_change_input();" name="detail[' + count + '][vat]"></td>';
@@ -360,6 +364,7 @@
         html += '		<option value="{PROJECTS.id}">{PROJECTS.title}</option>';
         <!-- END: projects_js -->
     	html += '	 </select></div><textarea class="form-control" name="detail[' + count + '][note]" placeholder="{LANG.note}"></textarea></td>';
+    	html += '    <td><input type="number" class="form-control unit_price" onchange="nv_item_change_input();" name="detail[' + count + '][unit_price]" value="0"></td>';
 	    html += '    <td><input type="number" class="form-control quantity" onchange="nv_item_change_input();" name="detail[' + count + '][quantity]" value="1"></td>';
         html += '    <td><input type="text" class="form-control price" onchange="nv_item_change_input();" name="detail[' + count + '][price]"></td>';
         html += '    <td><input type="text" class="form-control vat" onchange="nv_item_change_input();" name="detail[' + count + '][vat]"></td>';

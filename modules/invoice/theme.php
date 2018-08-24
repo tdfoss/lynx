@@ -49,9 +49,10 @@ function nv_theme_invoice_detail($row, $array_invoice_products, $array_control, 
         $i = 1;
         foreach ($array_invoice_products as $orders) {
             $orders['number'] = $i++;
-            $orders['vat_price'] = ($orders['price'] * $orders['vat'] * $orders['quantity']) / 100;
+            $orders['vat_price'] = ($orders['price'] * $orders['vat']) / 100;
             $orders['vat_price'] = number_format($orders['vat_price']);
             $orders['price'] = number_format($orders['price']);
+            $orders['unit_price'] = number_format($orders['unit_price']);
             $orders['total'] = number_format($orders['total']);
 
             if ($orders['module'] == 'services') {
@@ -63,6 +64,13 @@ function nv_theme_invoice_detail($row, $array_invoice_products, $array_control, 
             }
 
             $xtpl->assign('ORDERS', $orders);
+
+            if ($orders['vat'] > 0) {
+                $xtpl->parse('main.invoice_list.loop.vat');
+            } else {
+                $xtpl->parse('main.invoice_list.loop.vat_empty');
+            }
+
             $xtpl->parse('main.invoice_list.loop');
         }
         $xtpl->parse('main.invoice_list');
