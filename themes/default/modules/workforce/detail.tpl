@@ -58,7 +58,15 @@
 								<th>{LANG.jointime}</th>
 								<td>{WORKFORCE.jointime}</td>
 								<th>{LANG.status}</th>
-								<td>{WORKFORCE.status}</td>
+								<!-- 								<td>{WORKFORCE.status}</td> -->
+								<td><select class="form-control"	
+										style="width: 200px" id="change_status_{WORKFORCE.id}"
+										onchange="nv_chang_status('{WORKFORCE.id}');" >
+										<option value="0">{LANG.status_0}</option>
+												<!-- BEGIN: status -->
+												<option value="{STATUS.data}"{STATUS.selected}>{STATUS.value}</option>
+												<!-- END: status -->
+								</select></td>
 						</tr>
 				</tbody>
 		</table>
