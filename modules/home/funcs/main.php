@@ -13,30 +13,24 @@ define('NV_IS_FILE_SITEINFO', true);
 $page_title = $module_info['custom_title'];
 $key_words = $module_info['keywords'];
 
-$disabled_module = array(
-    'users'
-);
-
 //Noi dung chinh cua trang
 $info = $pending_info = array();
 
 foreach ($site_mods as $mod => $value) {
-    if (!in_array($mod, $disabled_module)) {
-        if (file_exists(NV_ROOTDIR . '/modules/' . $value['module_file'] . '/siteinfo.php')) {
-            $siteinfo = $pendinginfo = array();
-            $mod_data = $value['module_data'];
+    if (file_exists(NV_ROOTDIR . '/modules/' . $value['module_file'] . '/siteinfo-home.php')) {
+        $siteinfo = $pendinginfo = array();
+        $mod_data = $value['module_data'];
 
-            include NV_ROOTDIR . '/modules/' . $value['module_file'] . '/siteinfo.php';
+        include NV_ROOTDIR . '/modules/' . $value['module_file'] . '/siteinfo-home.php';
 
-            if (!empty($siteinfo)) {
-                $info[$mod]['caption'] = $value['custom_title'];
-                $info[$mod]['field'] = $siteinfo;
-            }
+        if (!empty($siteinfo)) {
+            $info[$mod]['caption'] = $value['custom_title'];
+            $info[$mod]['field'] = $siteinfo;
+        }
 
-            if (!empty($pendinginfo)) {
-                $pending_info[$mod]['caption'] = $value['custom_title'];
-                $pending_info[$mod]['field'] = $pendinginfo;
-            }
+        if (!empty($pendinginfo)) {
+            $pending_info[$mod]['caption'] = $value['custom_title'];
+            $pending_info[$mod]['field'] = $pendinginfo;
         }
     }
 }

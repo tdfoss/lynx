@@ -14,6 +14,14 @@
 	<div class="{MODULE_NAME}">
 	{MODULE_CONTENT}
 	</div>
+    <div class="row">
+    	<div class="col-xs-24 col-sm-12 col-md-12">
+    	[BOTTOM_LEFT]
+    	</div>
+    	<div class="col-xs-24 col-sm-12 col-md-12">
+    	[BOTTOM_RIGHT]
+    	</div>
+    </div>
 	[BOTTOM]
 </div>
 
