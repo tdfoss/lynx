@@ -201,18 +201,22 @@ if ($nv_Request->isset_request('submit', 'post')) {
                     nv_send_notification($array_userid, $content, 'new_care_staff', $module_name, $url);
                 }
 
-                $nv_Cache->delMod($module_name);
-                $nv_Cache->delMod('users');
-
                 if (!empty($row['redirect'])) {
                     $url = nv_redirect_decrypt($row['redirect']);
-                } elseif (empty($row['id'])) {
+                }
+
+                if (empty($row['id'])) {
                     $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=detail&id=' . $new_id;
                     nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_customer'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['content_customer'] . " " . $row['last_name'] . " " . $row['first_name'], $workforce_list[$user_info['userid']]['fullname']);
                 } else {
                     $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . ($row['is_contacts'] ? '&is_contact=1' : '');
                     nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_customer'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['edit_customer'] . " " . $row['last_name'] . " " . $row['first_name'], $workforce_list[$user_info['userid']]['fullname']);
                 }
+
+                $nv_Cache->delMod($module_name);
+                $nv_Cache->delMod('users');
+
+
 
                 Header('Location: ' . $url);
                 die();
