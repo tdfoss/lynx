@@ -73,6 +73,9 @@ $lang_module['content_project'] = 'thêm dữ liệu dự án ';
 $lang_module['edit_project'] = 'sửa dữ liệu dự án ';
 $lang_module['delete_project'] = 'xóa dữ liệu dự án';
 $lang_module['delete_many_project'] = 'xóa nhiều dữ liệu dự án';
+$lang_module['price'] = 'Chi phí dự án';
+$lang_module['vat'] = 'Thuế';
+
 $lang_module['error_required_customerid'] = 'Lỗi: bạn cần nhập dữ liệu cho Khách hàng';
 $lang_module['error_required_workforceid'] = 'Lỗi: bạn cần nhập dữ liệu cho Nhân viên phụ trách';
 $lang_module['error_required_title'] = 'Lỗi: bạn cần nhập dữ liệu cho Tiêu đề';

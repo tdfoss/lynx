@@ -8,6 +8,12 @@
  */
 if (!defined('NV_IS_MOD_PROJECT')) die('Stop!!!');
 
+if ($nv_Request->isset_request('task_list', 'post')) {
+    $projectid = $nv_Request->get_int('projectid', 'post', 0);
+    $contents = nv_theme_project_task_lisk($projectid);
+    nv_htmlOutput($contents);
+}
+
 if ($nv_Request->isset_request('change_status', 'post')) {
     $id = $nv_Request->get_int('id', 'post', 0);
 
@@ -52,6 +58,8 @@ $rows['endtime'] = !empty($rows['endtime']) ? nv_date('d/m/Y', $rows['endtime'])
 $rows['realtime'] = !empty($rows['realtime']) ? nv_date('d/m/Y', $rows['realtime']) : '-';
 $rows['content'] = nv_nl2br($rows['content']);
 $rows['type_id'] = !empty($rows['type_id']) ? $array_working_type_id[$rows['type_id']]['title'] : '';
+$rows['price'] = !empty($rows['price']) ? $rows['price'] : '-';
+$rows['vat'] = !empty($rows['vat']) ? $rows['vat'] : '-';
 
 $rows['performer_str'] = array();
 $performer = !empty($rows['workforceid']) ? explode(',', $rows['workforceid']) : array();
