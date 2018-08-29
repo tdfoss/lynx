@@ -17,7 +17,7 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
     if ($id > 0 and $delete_checkss == md5($id . NV_CACHE_PREFIX . $client_info['session_id'])) {
         $title = nv_delete_email($id);
 
-        nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['delete_email_event'], sprintf($lang_module['delete_email'], $fullname, $title), $user_info['userid']);
+        nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_delete_email'], sprintf($lang_module['logs_delete_email_note'], $fullname, $title), $user_info['userid']);
 
         $nv_Cache->delMod($module_name);
         Header('Location: ' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=' . $op);
@@ -26,6 +26,7 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
 } elseif ($nv_Request->isset_request('delete_list', 'post')) {
     $listall = $nv_Request->get_title('listall', 'post', '');
     $array_id = explode(',', $listall);
+    $fullname = $workforce_list[$user_info['userid']]['fullname'];
 
     $array_title = array();
     if (!empty($array_id)) {
@@ -33,7 +34,7 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
             $array_title[] = nv_delete_email($id);
         }
 
-        nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_email'], sprintf($lang_module['delete_email'], $fullname, implode(', ', $array_title)), $user_info['userid']);
+        nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_delete_email'], sprintf($lang_module['logs_delete_email_note'], $fullname, implode(', ', $array_title)), $user_info['userid']);
 
         $nv_Cache->delMod($module_name);
         die('OK');
