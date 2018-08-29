@@ -54,7 +54,7 @@ function nv_theme_project_task_lisk($projectid)
 {
     global $db, $module_data, $module_file, $lang_module, $module_config, $module_info, $array_task_status, $workforce_list;
 
-    $array_data = $db->query('SELECT t2.* FROM ' . NV_PREFIXLANG . '_' . $module_data . '_task t1 INNER JOIN ' . NV_PREFIXLANG . '_task t2 ON t1.taskid=t2.id WHERE t1.projectid=' . $projectid . ' ORDER BY begintime')->fetchAll();
+    $array_data = $db->query('SELECT t2.*, t1.taskid FROM ' . NV_PREFIXLANG . '_' . $module_data . '_task t1 INNER JOIN ' . NV_PREFIXLANG . '_task t2 ON t1.taskid=t2.id WHERE t1.projectid=' . $projectid . ' ORDER BY begintime')->fetchAll();
 
     $xtpl = new XTemplate('detail.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
     $xtpl->assign('LANG', $lang_module);
