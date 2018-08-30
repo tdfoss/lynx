@@ -22,12 +22,18 @@ function nv_number_format($number)
 
 function nv_delete_invoice($id)
 {
-    global $db, $module_data;
+    global $db, $module_name, $module_data, $user_info, $lang_module, $workforce_list;
 
-    $count = $db->exec('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id = ' . $id);
-    if ($count) {
-        $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_detail WHERE idinvoice = ' . $id);
-        $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_transaction WHERE invoiceid = ' . $id);
+    $rows = $db->query('SELECT code, title FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
+    if ($rows) {
+        $count = $db->exec('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id = ' . $id);
+        if ($count) {
+            $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_detail WHERE idinvoice = ' . $id);
+            $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_transaction WHERE invoiceid = ' . $id);
+
+            $content = sprintf($lang_module['logs_invoice_delete_note'], $workforce_list[$user_info['userid']]['fullname'], '[' . $rows['title'] . '] ' . $rows['title']);
+            nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_invoice_delete'], $content, $user_info['userid']);
+        }
     }
 }
 
@@ -203,24 +209,29 @@ function nv_transaction_update($invoiceid)
 
 function nv_support_confirm_payment($id)
 {
-    global $db, $module_data;
+    global $db, $module_name, $module_data, $lang_module, $workforce_list, $user_info;
 
-    $count = $db->exec('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET status=1 WHERE id=' . $id);
-    if ($count) {
-        // cập nhật lịch sử giao dịch
-        $grand_total = $db->query('SELECT grand_total FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetchColumn();
-        $transaction_total = $db->query('SELECT SUM(payment_amount) FROM ' . NV_PREFIXLANG . '_' . $module_data . '_transaction WHERE invoiceid=' . $id)->fetchColumn();
-        $payment_amount = $grand_total - $transaction_total;
-        $transaction_status = 4;
-        $payment = '';
+    $rows = $db->query('SELECT code, title FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
+    if ($rows) {
+        $count = $db->exec('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET status=1 WHERE id=' . $id);
+        if ($count) {
+            // cập nhật lịch sử giao dịch
+            $grand_total = $db->query('SELECT grand_total FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetchColumn();
+            $transaction_total = $db->query('SELECT SUM(payment_amount) FROM ' . NV_PREFIXLANG . '_' . $module_data . '_transaction WHERE invoiceid=' . $id)->fetchColumn();
+            $payment_amount = $grand_total - $transaction_total;
+            $transaction_status = 4;
+            $payment = '';
 
-        $stmt = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_transaction(invoiceid, transaction_time, transaction_status, payment, payment_amount) VALUES(:invoiceid, ' . NV_CURRENTTIME . ', :transaction_status, :payment, :payment_amount)');
-        $stmt->bindParam(':invoiceid', $id, PDO::PARAM_INT);
-        $stmt->bindParam(':transaction_status', $transaction_status, PDO::PARAM_INT);
-        $stmt->bindParam(':payment', $payment, PDO::PARAM_STR);
-        $stmt->bindParam(':payment_amount', $payment_amount, PDO::PARAM_STR);
-        $stmt->execute();
-
-        nv_sendmail_confirm($id);
+            $stmt = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_transaction(invoiceid, transaction_time, transaction_status, payment, payment_amount) VALUES(:invoiceid, ' . NV_CURRENTTIME . ', :transaction_status, :payment, :payment_amount)');
+            $stmt->bindParam(':invoiceid', $id, PDO::PARAM_INT);
+            $stmt->bindParam(':transaction_status', $transaction_status, PDO::PARAM_INT);
+            $stmt->bindParam(':payment', $payment, PDO::PARAM_STR);
+            $stmt->bindParam(':payment_amount', $payment_amount, PDO::PARAM_STR);
+            if ($stmt->execute()) {
+                nv_sendmail_confirm($id);
+                $content = sprintf($lang_module['logs_invoice_confirm_note'], $workforce_list[$user_info['userid']]['fullname'], '[' . $rows['title'] . '] ' . $rows['title']);
+                nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_invoice_confirm'], $content, $user_info['userid']);
+            }
+        }
     }
 }

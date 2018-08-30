@@ -277,7 +277,13 @@ if ($nv_Request->isset_request('submit', 'post')) {
 
                     $notify_title = '#' . $row['code'] . ' - ' . $row['title'];
                     nv_invoice_new_notification($new_id, $notify_title, $row['workforceid']);
+
+                    $content = sprintf($lang_module['logs_invoice_add_note'], $workforce_list[$user_info['userid']]['fullname'], '[' . $row['title'] . '] ' . $row['title']);
+                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_invoice_add'], $content, $user_info['userid']);
                 } else {
+                    $content = sprintf($lang_module['logs_invoice_edit_note'], $workforce_list[$user_info['userid']]['fullname'], '[' . $row['title'] . '] ' . $row['title']);
+                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_invoice_edit'], $content, $user_info['userid']);
+
                     if ($row['workforceid'] != $row['workforceid_old']) {
                         $notify_title = '#' . $row['code'] . ' - ' . $row['title'];
                         nv_invoice_new_notification($new_id, $notify_title, $row['workforceid']);
@@ -409,6 +415,7 @@ $default = array(
         'itemid' => 0,
         'quantity' => 1,
         'price' => 0,
+        'unit_price' => 0,
         'vat' => 0,
         'total' => 0,
         'note' => ''
