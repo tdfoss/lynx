@@ -20,7 +20,7 @@ function nv_email_send($title, $content, $sendfrom_id, $sendto_id, $cc_id = arra
             'title' => $title,
             'cc_id' => $_cc_id,
             'content' => $content,
-            'files' => !empty($files) ? implode(',', $files) : ''
+            'files' => !empty($files) ? $files : ''
         );
         $new_id = $db->insert_id($sql, 'id', $data_insert);
 
