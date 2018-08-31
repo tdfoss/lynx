@@ -275,10 +275,10 @@ if ($nv_Request->isset_request('submit', 'post')) {
                     $stmt->bindParam(':code', $auto_code, PDO::PARAM_STR);
                     $stmt->execute();
 
-                    $notify_title = '#' . $row['code'] . ' - ' . $row['title'];
+                    $notify_title = '#' . $auto_code . ' - ' . $row['title'];
                     nv_invoice_new_notification($new_id, $notify_title, $row['workforceid']);
 
-                    $content = sprintf($lang_module['logs_invoice_add_note'], $workforce_list[$user_info['userid']]['fullname'], '[' . $row['code'] . '] ' . $row['title']);
+                    $content = sprintf($lang_module['logs_invoice_add_note'], $workforce_list[$user_info['userid']]['fullname'], '[' . $auto_code . '] ' . $row['title']);
                     nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_invoice_add'], $content, $user_info['userid']);
                 } else {
                     $content = sprintf($lang_module['logs_invoice_edit_note'], $workforce_list[$user_info['userid']]['fullname'], '[' . $row['code'] . '] ' . $row['title']);
