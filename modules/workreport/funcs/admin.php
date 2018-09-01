@@ -13,7 +13,7 @@ $array_data = array();
 $current_day = nv_date('dmY', NV_CURRENTTIME);
 $current_day = $nv_Request->get_string('time', 'get', nv_date('d/m/Y', NV_CURRENTTIME));
 
-$db->select('userid, content, addtime')
+$db->select('userid, content, addtime, time')
     ->from(NV_PREFIXLANG . '_' . $module_data)
     ->where('DATE_FORMAT(FROM_UNIXTIME(fortime),"%d%m%Y")=' . preg_replace('/[^0-9]+/', '', $current_day));
 
