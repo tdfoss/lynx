@@ -36,6 +36,7 @@ if (!empty($workforce_list)) {
     foreach ($workforce_list as $userid => $user) {
         $user['content'] = isset($array_data[$userid]) ? $array_data[$userid]['content'] : '';
         $user['addtime'] = isset($array_data[$userid]) ? $array_data[$userid]['addtime'] : '';
+        $user['time'] = isset($array_data[$userid]) ? $array_data[$userid]['time'] : '';
         $xtpl->assign('USER', $user);
         $xtpl->parse('main.user');
     }
