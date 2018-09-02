@@ -37,7 +37,13 @@ $base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DA
 $per_page = 20;
 $page = $nv_Request->get_int('page', 'post,get', 1);
 $array_search = array(
-    'q' => $nv_Request->get_title('q', 'post,get')
+    'q' => $nv_Request->get_title('q', 'postG,get'),
+    'workforceid' => $nv_Request->get_title('workforceid', 'get', 0),
+    'customerid' => $nv_Request->get_int('customerid', 'get', 0),
+    'begintime' => $nv_Request->get_string('begintime', 'get', 0),
+    'endtime' => $nv_Request->get_int('endtime', 'get', 0),
+    'realtime' => $nv_Request->get_int('realtime', 'get', 0),
+    'status' => $nv_Request->get_int('status', 'post,get', 0)
 );
 
 if (!empty($array_search['q'])) {
@@ -47,6 +53,64 @@ if (!empty($array_search['q'])) {
         OR content LIKE "%' . $array_search['q'] . '%"
     ';
 }
+if (!empty($array_search['customerid'])) {
+    $base_url .= '&amp;customerid=' . $array_search['customerid'];
+    $where .= ' AND customerid=' . $array_search['customerid'];
+}
+
+if (!empty($array_search['workforceid'])) {
+    $base_url .= '&amp;workforceid= ' . $array_search['workforceid'];
+    $where .= ' AND workforceid = ' . $array_search['workforceid'];
+}
+
+if ($array_search['status'] > 0) {
+    $base_url .= '&amp;status= ' . $array_search['status'];
+    $where .= ' AND status = ' . $array_search['status'];
+} elseif (!empty($array_config['default_status'])) {
+    $where .= ' AND status IN (' . $array_config['default_status'] . ')';
+}
+
+if (!empty($array_search['begintime'])) {
+
+    if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $nv_Request->get_string('begintime', 'get'), $m)) {
+        $_hour = 23;
+        $_min = 23;
+        $array_search['begintime'] = mktime($_hour, $_min, 59, $m[2], $m[1], $m[3]);
+    } else {
+        $array_search['begintime'] = 0;
+    }
+    $base_url .= '&amp;begintime= ' . $array_search['begintime'];
+    $where .= ' AND begintime = ' . $array_search['begintime'];
+}
+if (!empty($array_search['endtime'])) {
+
+    if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $nv_Request->get_string('endtime', 'get'), $m)) {
+
+        $_hour = 23;
+        $_min = 23;
+        $array_search['endtime'] = mktime($_hour, $_min, 59, $m[2], $m[1], $m[3]);
+    } else {
+        $array_search['endtime'] = 0;
+    }
+    $base_url .= '&amp;endtime= ' . $array_search['endtime'];
+    $where .= ' AND endtime = ' . $array_search['endtime'];
+}
+if (!empty($array_search['realtime'])) {
+
+    if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $nv_Request->get_string('realtime', 'get'), $m)) {
+
+        $_hour = 23;
+        $_min = 23;
+        $array_search['realtime'] = mktime($_hour, $_min, 59, $m[2], $m[1], $m[3]);
+    } else {
+        $array_search['realtime'] = 0;
+    }
+    $base_url .= '&amp;realtime= ' . $array_search['realtime'];
+    $where .= ' AND realtime = ' . $array_search['realtime'];
+}
+if (!empty($array_search['customerid'])) {
+    $customer_info = nv_crm_customer_info($array_search['customerid']);
+}
 
 $where .= nv_projects_premission($module_name);
 
@@ -54,10 +118,10 @@ $db->sqlreset()
     ->select('COUNT(*)')
     ->from('' . NV_PREFIXLANG . '_' . $module_data . '')
     ->where('1=1' . $where);
-
 $sth = $db->prepare($db->sql());
 $sth->execute();
 $num_items = $sth->fetchColumn();
+// var_dump($sth);die;
 
 $db->select('*')
     ->order('id DESC')
@@ -65,6 +129,11 @@ $db->select('*')
     ->offset(($page - 1) * $per_page);
 $sth = $db->prepare($db->sql());
 $sth->execute();
+
+$customer_info = array();
+if (!empty($array_search['customerid'])) {
+    $customer_info = nv_crm_customer_info($array_search['customerid']);
+}
 
 $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
 $xtpl->assign('LANG', $lang_module);
@@ -80,12 +149,13 @@ if (!empty($generate_page)) {
     $xtpl->parse('main.generate_page');
 }
 $number = $page > 1 ? ($per_page * ($page - 1)) + 1 : 1;
+$array_users = array();
 while ($view = $sth->fetch()) {
     $view['number'] = $number++;
     $view['begintime'] = (empty($view['begintime'])) ? '-' : nv_date('d/m/Y', $view['begintime']);
     $view['endtime'] = (empty($view['endtime'])) ? '-' : nv_date('d/m/Y', $view['endtime']);
     $view['realtime'] = (empty($view['realtime'])) ? '-' : nv_date('d/m/Y', $view['realtime']);
-    $view['status'] = $lang_module['status_' . $view['status']];
+    $view['status'] = $lang_module['status_select_' . $view['status']];
 
     $view['performer_str'] = array();
     $performer = !empty($view['workforceid']) ? explode(',', $view['workforceid']) : array();
@@ -116,6 +186,14 @@ while ($view = $sth->fetch()) {
     $xtpl->parse('main.loop');
 }
 
+if (!empty($workforce_list)) {
+    foreach ($workforce_list as $user) {
+        $user['selected'] = $user['userid'] == $array_search['workforceid'] ? 'selected="selected"' : '';
+        $xtpl->assign('USER', $user);
+        $xtpl->parse('main.user');
+    }
+}
+
 $array_action = array(
     'delete_list_id' => $lang_global['delete']
 );
@@ -126,6 +204,20 @@ foreach ($array_action as $key => $value) {
     ));
     $xtpl->parse('main.action_top');
     $xtpl->parse('main.action_bottom');
+}
+
+foreach ($array_status as $index => $value) {
+    $selected = $index == $array_search['status'] ? ' selected = "selected" ' : '';
+    $xtpl->assign('STATUS', array(
+        'index' => $index,
+        'value' => $value,
+        'selected' => $selected
+    ));
+    $xtpl->parse('main.status');
+}
+if (!empty($customer_info)) {
+    $xtpl->assign('CUSTOMER', $customer_info);
+    $xtpl->parse('main.customerid');
 }
 
 $xtpl->parse('main');
