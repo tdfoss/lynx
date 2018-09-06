@@ -112,7 +112,7 @@ if (!nv_function_exists('nv_projects_list')) {
         if (!empty($list)) {
             foreach ($list as $view) {
                 $view['title'] = nv_clean60($view['title'], $block_config['characters']);
-                $view['status'] = $lang_module['status_' . $view['status']];
+                $view['status'] = $lang_module['status_select_' . $view['status']];
                 $view['link_view'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $mod_data . '&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $view['id'];
                 $xtpl->assign('PROJECTS_VIEW', $view);
                 $xtpl->parse('main.projects');
