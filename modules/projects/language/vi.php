@@ -53,8 +53,8 @@ $lang_module['status_select'] = 'Chọn trạng thái';
 $lang_module['begintime_holder'] = 'Từ ngày';
 $lang_module['endtime_holder'] = 'Đến ngày';
 $lang_module['realtime_holder'] = 'Ngày hoàn thành thực tế';
-
-
+$lang_module['files'] = 'Đính kèm';
+$lang_module['files_add'] = 'Thêm đính kèm';
 $lang_module['change_status'] = '<strong>%s</strong> đã thay đổi trạng thái dự án <strong>%s</strong> thành <strong>%s</strong>';
 $lang_module['comment_project'] = '<strong>%s</strong> đã bình luận trong dự án <strong>%s</strong>';
 $lang_module['new_project'] = 'Dự án <strong>%s</strong> đã được tạo';
@@ -85,7 +85,9 @@ $lang_module['delete_project'] = 'xóa dữ liệu dự án';
 $lang_module['delete_many_project'] = 'xóa nhiều dữ liệu dự án';
 $lang_module['price'] = 'Chi phí dự án';
 $lang_module['vat'] = 'Thuế';
+$lang_module['download'] = 'Tải về';
 
 $lang_module['error_required_customerid'] = 'Lỗi: bạn cần nhập dữ liệu cho Khách hàng';
 $lang_module['error_required_workforceid'] = 'Lỗi: bạn cần nhập dữ liệu cho Nhân viên phụ trách';
 $lang_module['error_required_title'] = 'Lỗi: bạn cần nhập dữ liệu cho Tiêu đề';
+$lang_module['error_unknow'] = 'Vì lý do nào đó hệ thống không thể đáp ứng yêu cầu của bạn lúc này, vui lòng liên hệ với người quản trị để biết thêm thông tin, xin cảm ơn!';

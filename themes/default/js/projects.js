@@ -5,6 +5,52 @@
  * @Createdate Fri, 12 Jan 2018 09:14:06 GMT
  */
 
+$(document).ready(function() {
+    
+    $('#frm-submit').submit(function(e) {
+        e.preventDefault();
+        
+        for (instance in CKEDITOR.instances)
+            CKEDITOR.instances[instance].updateElement();
+        
+        var data = new FormData($(this)[0]);
+        
+        $.ajax({
+            type : 'POST',
+            url : nv_base_siteurl + 'index.php?' + nv_lang_variable + '=' + nv_lang_data + '&' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=content&nocache=' + new Date().getTime(),
+            data : data,
+            processData : false,
+            contentType : false,
+            cache : false,
+            success : function(json) {
+                if (json.error) {
+                    alert(json.msg);
+                    $('#' + json.input).focus();
+                } else {
+                    window.location.href = json.redirect;
+                }
+            }
+        });
+    });
+    
+    $('#addfile').click(function(e) {
+        e.preventDefault();
+        var html = '';
+        html += '<div class="upload_fileupload m-bottom">';
+        html += '    <input type="file" name="upload_fileupload[]" />';
+        html += '</div>';
+        $('#listfile').append(html);
+    });
+    
+    $('.open_file').click(function() {
+        var content = $('#' + $(this).data('key'));
+        content.find(':first-child').attr('src', content.data('src'));
+        modalShow('', content.html());
+        $('#sitemodal .modal-dialog').css('max-width', 900);
+    });
+    
+});
+
 function nv_task_content(taskid, projectid) {
     $.ajax({
         type : 'POST',

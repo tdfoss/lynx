@@ -54,6 +54,8 @@ while (list ($lang) = $language_query->fetch(3)) {
 
     $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_invoice_detail ADD unit_price double NOT NULL DEFAULT '0' AFTER itemid;";
 
+    $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_projects ADD files TEXT NOT NULL AFTER content;";
+
     foreach ($sql as $_sql) {
         try {
             $db->query($_sql);
@@ -61,6 +63,6 @@ while (list ($lang) = $language_query->fetch(3)) {
             //
         }
     }
-    $nv_Cache->delMod($mod);
+    $nv_Cache->delAll();
 }
 die('OK');

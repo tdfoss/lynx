@@ -36,6 +36,44 @@
             <div class="panel-body">{ROW.content}</div>
         </div>
         <!-- END: content -->
+        <!-- BEGIN: files -->
+        <div class="download-file" style="margin-top: 15px">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <ul style="list-style: none; padding: 0; margin: 0">
+                        <!-- BEGIN: loop -->
+                        <li>
+                            <!-- BEGIN: show_quick_viewpdf --> <a href="" class="open_file" data-key="{FILES.key}"> <i class="fa fa-file-pdf-o">&nbsp;</i>{FILES.title}
+                        </a> <!-- END: show_quick_viewpdf --> <!-- BEGIN: show_quick_viewimg --> <a href="javascript:void(0)" class="open_file" data-key="{FILES.key}" data-src="{FILES.src}"> <i class="fa fa-file-image-o">&nbsp;</i>{FILES.title}
+                        </a> <!-- END: show_quick_viewimg --> <!-- BEGIN: show_quick_viewpdf_url --> <a href="" class="open_file" data-key="{FILES.key}"> <i class="fa fa-file-pdf-o">&nbsp;</i>{FILES.title}
+                        </a> <!-- END: show_quick_viewpdf_url --> <!-- BEGIN: show_quick_viewimg_url --> <a href="javascript:void(0)" class="open_file" data-key="{FILES.key}" data-src="{FILES.src}"> <i class="fa fa-file-image-o">&nbsp;</i>{FILES.title}
+                        </a> <!-- END: show_quick_viewimg_url --> <!-- BEGIN: show_download --> <a href="{FILES.url}" target="_blank"> <i class="fa fa-file-image-o">&nbsp;</i>{FILES.title}
+                        </a> <!-- END: show_download -->
+                        </li>
+                        <li id="file_content" style="display: none;">
+                            <!-- BEGIN: content_quick_viewpdf_url -->
+                            <div id="{FILES.key}" data-src="{FILES.src}">
+                                <iframe frameborder="0" height="800" scrolling="yes" src="" width="900px"></iframe>
+                            </div> <!-- END: content_quick_viewpdf_url --> <!-- BEGIN: content_quick_viewdoc_url -->
+                            <div id="{FILES.key}" data-src="{FILES.urldoc}">
+                                <iframe frameborder="0" height="800" scrolling="yes" src="" width="900px"></iframe>
+                            </div> <!-- END: content_quick_viewdoc_url --> <!-- BEGIN: content_quick_viewpdf -->
+                            <div id="{FILES.key}" data-src="{FILES.urlpdf}">
+                                <iframe frameborder="0" height="800" scrolling="yes" src="" width="900px"></iframe>
+                            </div> <!-- END: content_quick_viewpdf --> <!-- BEGIN: content_quick_viewdoc -->
+                            <div id="{FILES.key}" data-src="{FILES.urldoc}">
+                                <iframe frameborder="0" height="800" scrolling="yes" src="" width="900px"></iframe>
+                            </div> <!-- END: content_quick_viewdoc --> <!-- BEGIN: content_quick_viewimg -->
+                            <div id="{FILES.key}" data-src="{FILES.src}">
+                                <img src="" style="max-width: 900px" />
+                            </div> <!-- END: content_quick_viewimg -->
+                        </li>
+                        <!-- END: loop -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- END: files -->
     </div>
     <div class="col-xs-24 col-sm-12 col-md-12">
         <!-- BEGIN: task_list -->
@@ -69,7 +107,7 @@
         </thead>
         <tbody>
             <!-- BEGIN: loop -->
-            <tr >
+            <tr>
                 <td class="text-center">{TASK.number}</td>
                 <td><a href="{TASK.link}">{TASK.title}</a></td>
                 <td>{TASK.performer_str}</td>

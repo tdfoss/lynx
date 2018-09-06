@@ -82,3 +82,36 @@ function nv_theme_project_task_lisk($projectid)
     $xtpl->parse('task_list');
     return $xtpl->text('task_list');
 }
+
+function normalizeFiles(&$files)
+{
+    $_files = [];
+    $_files_count = count($files['name']);
+    $_files_keys = array_keys($files);
+
+    for ($i = 0; $i < $_files_count; $i++)
+        foreach ($_files_keys as $key)
+            $_files[$i][$key] = $files[$key][$i];
+
+    return $_files;
+}
+
+function nv_projects_delete($id)
+{
+    global $db, $module_data, $module_upload;
+
+    $rows = $db->query('SELECT files FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
+    if ($rows) {
+        $count = $db->exec('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '  WHERE id = ' . $id);
+        if ($count) {
+            if (!empty($rows['files'])) {
+                $rows['files'] = explode(',', $rows['files']);
+                foreach ($rows['files'] as $path) {
+                    if (file_exists(NV_ROOTDIR . '/' . NV_UPLOADS_DIR . '/' . $module_upload . '/' . $path)) {
+                        nv_deletefile(NV_ROOTDIR . '/' . NV_UPLOADS_DIR . '/' . $module_upload . '/' . $path);
+                    }
+                }
+            }
+        }
+    }
+}

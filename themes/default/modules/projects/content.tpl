@@ -5,130 +5,148 @@
 <!-- BEGIN: error -->
 <div class="alert alert-warning">{ERROR}</div>
 <!-- END: error -->
-<form class="form-horizontal" action="{NV_BASE_SITEURL}index.php?{NV_LANG_VARIABLE}={NV_LANG_DATA}&amp;{NV_NAME_VARIABLE}={MODULE_NAME}&amp;{NV_OP_VARIABLE}={OP}" method="post">
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <input type="hidden" name="id" value="{ROW.id}" /> <input type="hidden" name="redirect" value="{ROW.redirect}" />
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.title}</strong> <span class="red">(*)</span></label>
-                <div class="col-sm-19 col-md-20">
-                    <input class="form-control" type="text" name="title" value="{ROW.title}" required="required" oninvalid="setCustomValidity( nv_required )" oninput="setCustomValidity('')" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.customerid}</strong> <span class="red">(*)</span></label>
-                <div class="col-sm-19 col-md-20">
-                    <select name="customerid" id="customerid" class="form-control">
-                        <!-- BEGIN: customer -->
-                        <option value="{CUSTOMER.id}" selected="selected">{CUSTOMER.fullname}</option>
-                        <!-- END: customer -->
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.workforceid}</strong> <span class="red">(*)</span></label>
-                <div class="col-sm-19 col-md-20">
-                    <select class="form-control select2" name="workforceid[]" multiple="multiple">
-                        <option value="0">---{LANG.workforceid_select}---</option>
-                        <!-- BEGIN: workforce -->
-                        <option value="{WORKFORCE.userid}"{WORKFORCE.selected}>{WORKFORCE.fullname}</option>
-                        <!-- END: workforce -->
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.typeid}</strong></label>
-                <div class="col-sm-19 col-md-20">
-                    <select class="form-control" name="type_id">
-                        <option value="">---{LANG.typeid}---</option>
-                        <!-- BEGIN: select_type_id -->
-                        <option value="{TYPEID.key}"{TYPEID.selected}>{TYPEID.title}</option>
-                        <!-- END: select_type_id -->
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.price}</strong></label>
-                <div class="col-sm-19 col-md-20">
-                    <input type="price" class="form-control" name="price" value="{ROW.price}">
-                </div>
-            </div>
-             <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.vat}</strong></label>
-                <div class="col-sm-19 col-md-20">
-                    <input type="vat" class="form-control" name="vat" value="{ROW.vat}">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.begintime}</strong></label>
-                <div class="col-sm-19 col-md-20">
-                    <div class="input-group">
-                        <input class="form-control" type="text" name="begintime" value="{ROW.begintime}" id="begintime" autocomplete="off"/> <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" id="begintime-btn">
-                                <em class="fa fa-calendar fa-fix"> </em>
-                            </button>
-                        </span>
+<form class="form-horizontal" action="{NV_BASE_SITEURL}index.php?{NV_LANG_VARIABLE}={NV_LANG_DATA}&amp;{NV_NAME_VARIABLE}={MODULE_NAME}&amp;{NV_OP_VARIABLE}={OP}" method="post" id="frm-submit" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-xs-24 col-sm-18 col-md-19">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <input type="hidden" name="id" value="{ROW.id}" /> <input type="hidden" name="redirect" value="{ROW.redirect}" />
+                    <div class="form-group">
+                        <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.title}</strong> <span class="red">(*)</span></label>
+                        <div class="col-sm-19 col-md-20">
+                            <input class="form-control" type="text" name="title" id="title" value="{ROW.title}" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.customerid}</strong> <span class="red">(*)</span></label>
+                        <div class="col-sm-19 col-md-20">
+                            <select name="customerid" id="customerid" class="form-control">
+                                <!-- BEGIN: customer -->
+                                <option value="{CUSTOMER.id}" selected="selected">{CUSTOMER.fullname}</option>
+                                <!-- END: customer -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.workforceid}</strong> <span class="red">(*)</span></label>
+                        <div class="col-sm-19 col-md-20">
+                            <select class="form-control select2" id="workforceid" name="workforceid[]" multiple="multiple">
+                                <option value="0">---{LANG.workforceid_select}---</option>
+                                <!-- BEGIN: workforce -->
+                                <option value="{WORKFORCE.userid}"{WORKFORCE.selected}>{WORKFORCE.fullname}</option>
+                                <!-- END: workforce -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.price}</strong></label>
+                        <div class="col-sm-19 col-md-20">
+                            <input type="text" class="form-control" name="price" value="{ROW.price}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.vat}</strong></label>
+                        <div class="col-sm-19 col-md-20">
+                            <input type="text" class="form-control" name="vat" value="{ROW.vat}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.content}</strong></label>
+                        <div class="col-sm-19 col-md-20">{ROW.content}</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.url_code}</strong></label>
+                        <div class="col-sm-19 col-md-20">
+                            <input type="url" class="form-control" name="url_code" value="{ROW.url_code}">
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.endtime}</strong></label>
-                <div class="col-sm-19 col-md-20">
-                    <div class="input-group">
-                        <input class="form-control" type="text" name="endtime" value="{ROW.endtime}" id="endtime" pattern="^[0-9]{2,2}\/[0-9]{2,2}\/[0-9]{1,4}$" autocomplete="off"/> <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" id="endtime-btn">
-                                <em class="fa fa-calendar fa-fix"> </em>
+            <div class="panel panel-default">
+                <div class="panel-heading">{LANG.files}</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.files}</strong></label>
+                        <div class="col-sm-19 col-md-20">
+                            <div id="view_files" class="m-bottom">
+                                <ul>
+                                    <!-- BEGIN: view_files -->
+                                    <li><span class="pointer">{FILES.basename}</span><em class="fa fa-trash-o pull-right pointer" onclick="$(this).parent().remove();">&nbsp;</em> <input type="hidden" name="files[]" value="{FILES.basename}" /></li>
+                                    <!-- END: view_files -->
+                                </ul>
+                            </div>
+                            <div class="m-bottom" id="listfile">
+                                <div class="upload_fileupload m-bottom">
+                                    <input type="file" name="upload_fileupload[]" value="{FILES.path}" />
+                                </div>
+                            </div>
+                            <button class="btn btn-primary btn-xs" id="addfile">
+                                <em class="fa fa-hand-pointer-o">&nbsp;</em>{LANG.files_add}
                             </button>
-                        </span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.realtime}</strong></label>
-                <div class="col-sm-19 col-md-20">
-                    <div class="input-group">
-                        <input class="form-control" type="text" name="realtime" value="{ROW.realtime}" id="realtime" pattern="^[0-9]{2,2}\/[0-9]{2,2}\/[0-9]{1,4}$" autocomplete="off"/> <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" id="realtime-btn">
-                                <em class="fa fa-calendar fa-fix"> </em>
-                            </button>
-                        </span>
+        </div>
+        <div class="col-xs-24 col-sm-6 col-md-5">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="control-label"><strong>{LANG.typeid}</strong></label> <select class="form-control" name="type_id">
+                            <option value="">---{LANG.typeid}---</option>
+                            <!-- BEGIN: select_type_id -->
+                            <option value="{TYPEID.key}"{TYPEID.selected}>{TYPEID.title}</option>
+                            <!-- END: select_type_id -->
+                        </select>
                     </div>
+                    <div class="form-group">
+                        <label class="control-label"><strong>{LANG.begintime}</strong></label>
+                        <div class="input-group">
+                            <input class="form-control" type="text" name="begintime" value="{ROW.begintime}" id="begintime" autocomplete="off" /> <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" id="begintime-btn">
+                                    <em class="fa fa-calendar fa-fix"> </em>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label"><strong>{LANG.endtime}</strong></label>
+                        <div class="input-group">
+                            <input class="form-control" type="text" name="endtime" value="{ROW.endtime}" id="endtime" pattern="^[0-9]{2,2}\/[0-9]{2,2}\/[0-9]{1,4}$" autocomplete="off" /> <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" id="endtime-btn">
+                                    <em class="fa fa-calendar fa-fix"> </em>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label"><strong>{LANG.realtime}</strong></label>
+                        <div class="input-group">
+                            <input class="form-control" type="text" name="realtime" value="{ROW.realtime}" id="realtime" pattern="^[0-9]{2,2}\/[0-9]{2,2}\/[0-9]{1,4}$" autocomplete="off" /> <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" id="realtime-btn">
+                                    <em class="fa fa-calendar fa-fix"> </em>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label"><strong>{LANG.status}</strong></label> <select name="status" class="form-control">
+                            <!-- BEGIN: status -->
+                            <option value="{STATUS.index}"{STATUS.selected}>{STATUS.value}</option>
+                            <!-- END: status -->
+                        </select>
+                    </div>
+                    <!-- BEGIN: sendinfo -->
+                    <div class="form-group">
+                        <label><input type="checkbox" name="sendinfo" value="1" checked="checked" />{LANG.sendinfo_note}</label>
+                    </div>
+                    <!-- END: sendinfo -->
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.content}</strong></label>
-                <div class="col-sm-19 col-md-20">
-                    {ROW.content}
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.url_code}</strong></label>
-                <div class="col-sm-19 col-md-20">
-                    <input type="url" class="form-control" name="url_code" value="{ROW.url_code}">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.status}</strong></label>
-                <div class="col-sm-19 col-md-20">
-                    <select name="status" class="form-control">
-                        <!-- BEGIN: status -->
-                        <option value="{STATUS.index}"{STATUS.selected}>{STATUS.value}</option>
-                        <!-- END: status -->
-                    </select>
-                </div>
-            </div>
-            <!-- BEGIN: sendinfo -->
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 text-right"><strong>{LANG.sendinfo}</strong></label>
-                <div class="col-sm-19 col-md-20">
-                    <label><input type="checkbox" name="sendinfo" value="1" checked="checked" />{LANG.sendinfo_note}</label>
-                </div>
-            </div>
-            <!-- END: sendinfo -->
         </div>
     </div>
     <div class="form-group text-center">
-        <input class="btn btn-primary" name="submit" type="submit" value="{LANG.save}" />
+        <input type="hidden" name="submit" value="1" /> <input class="btn btn-primary" type="submit" value="{LANG.save}" />
     </div>
 </form>
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/jquery-ui/jquery-ui.min.js"></script>
