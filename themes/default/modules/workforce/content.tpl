@@ -9,6 +9,7 @@
     <div class="panel panel-default">
         <div class="panel-body">
             <input type="hidden" name="id" value="{ROW.id}" />
+            <input type="hidden" name="redirect" value="{ROW.redirect}" />
             <div class="form-group">
                 <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.user_account}</strong> <span class="red">(*)</span></label>
                 <div class="col-sm-19 col-md-20">
