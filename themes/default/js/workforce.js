@@ -38,6 +38,7 @@ function nv_table_row_click(e, t, n) {
     var r = e.target.tagName.toLowerCase(), i = e.target.parentNode.tagName.toLowerCase(), a = e.target.parentNode.parentNode.parentNode;
     return void ("button" != r && "a" != r && "button" != i && "a" != i && "td" != i && (n ? window.open(t) : window.location.href = t))
 }
+
 function nv_chang_status(vid) {
     var nv_timer = nv_settimeout_disable('change_status_' + vid, 1000);
     var new_status = $('#change_status_' + vid).val();
