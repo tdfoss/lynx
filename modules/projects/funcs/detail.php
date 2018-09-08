@@ -36,13 +36,14 @@ if ($nv_Request->isset_request('change_status', 'post')) {
         $array_userid[] = $useradd;
     }
 
+    $url = NV_MY_DOMAIN . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=detail&id=' . $id;
+
     $name = $workforce_list[$user_info['userid']]['fullname'];
     $content = sprintf($lang_module['change_status'], $name, $title, $lang_module['status_select_' . $new_status]);
-    $url = NV_MY_DOMAIN . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=detail&id=' . $id;
     nv_send_notification($array_userid, $content, 'change_status', $module_name, $url);
 
     $content = sprintf($lang_module['logs_project_change_status_note'], $title, $lang_module['status_select_' . $status], $lang_module['status_select_' . $new_status]);
-    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_project_edit'], $content, $user_info['userid'], $redirect);
+    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_project_edit'], $content, $user_info['userid'], $url);
 
     $nv_Cache->delMod($module_name);
     die('OK_' . $id);

@@ -72,6 +72,9 @@ if (!nv_function_exists('nv_logs_event')) {
         if (!empty($array_logs)) {
             foreach ($array_logs as $logs) {
                 $xtpl->assign('LOGS', $logs);
+                if (!empty($logs['link_acess'])) {
+                    $xtpl->parse('main.loop.link');
+                }
                 $xtpl->parse('main.loop');
             }
         }
