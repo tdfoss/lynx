@@ -54,8 +54,8 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
 ) ENGINE=MyISAM";
 
 $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_econtent(
-  action varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  econtent text COLLATE utf8mb4_unicode_ci NOT NULL,
+  action varchar(100) NOT NULL,
+  econtent text NOT NULL,
   PRIMARY KEY (action)
 ) ENGINE=MyISAM";
 
@@ -89,6 +89,7 @@ $sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module,
 
 $data = array();
 $data['groups_manage'] = 1;
+$data['default_status'] = '1,2,3';
 
 foreach ($data as $config_name => $config_value) {
     $sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', " . $db->quote($module_name) . ", " . $db->quote($config_name) . ", " . $db->quote($config_value) . ")";

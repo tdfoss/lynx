@@ -26,14 +26,6 @@ if (isset($site_mods['task'])) {
         2 => $lang_module['task_status_2']
     );
 }
-$array_status = array(
-    1 => $lang_module['status_select_1'],
-    2 => $lang_module['status_select_2'],
-    3 => $lang_module['status_select_3'],
-    4 => $lang_module['status_select_4'],
-    5 => $lang_module['status_select_5'],
-    6 => $lang_module['status_select_6']
-);
 
 $_sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_types WHERE active=1 ORDER BY weight';
 $array_working_type_id = $nv_Cache->db($_sql, 'id', $module_name);

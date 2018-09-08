@@ -56,6 +56,8 @@ while (list ($lang) = $language_query->fetch(3)) {
 
     $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_projects ADD files TEXT NOT NULL AFTER content;";
 
+    $sql[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', 'projects', 'default_status', '1,2,3');";
+
     foreach ($sql as $_sql) {
         try {
             $db->query($_sql);
