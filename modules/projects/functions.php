@@ -98,9 +98,9 @@ function normalizeFiles(&$files)
 
 function nv_projects_delete($id)
 {
-    global $db, $module_data, $module_upload;
+    global $db, $module_name, $module_data, $module_upload, $lang_module, $user_info;
 
-    $rows = $db->query('SELECT files FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
+    $rows = $db->query('SELECT title, files FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
     if ($rows) {
         $count = $db->exec('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '  WHERE id = ' . $id);
         if ($count) {
@@ -112,6 +112,9 @@ function nv_projects_delete($id)
                     }
                 }
             }
+
+            $content = sprintf($lang_module['logs_project_delete_note'], $rows['title']);
+            nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_project_delete'], $content, $user_info['userid']);
         }
     }
 }

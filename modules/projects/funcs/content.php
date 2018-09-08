@@ -245,6 +245,8 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 }
             }
 
+            $redirect = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $new_id;
+
             if (empty($row['id'])) {
                 // notification
                 if ($workforceid != $user_info['userid']) {
@@ -253,7 +255,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
                         $workforceid
                     );
                     $content = sprintf($lang_module['new_project'], $row['title']);
-                    $url = NV_MY_DOMAIN . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=detail&id=' . $new_id;
+                    $url = NV_MY_DOMAIN . $redirect;
                     nv_send_notification($array_userid, $content, 'new_project', $module_name, $url);
                 }
 
@@ -274,7 +276,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
                             'VAT' => $row['vat'],
                             'CONTENT' => $row['content'],
                             'STATUS' => $lang_module['status_' . $row['status']],
-                            'URL_DETAIL' => NV_MY_DOMAIN . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $new_id
+                            'URL_DETAIL' => NV_MY_DOMAIN . $redirect
                         );
                         $message = nv_unhtmlspecialchars($message);
                         foreach ($array_replace as $index => $value) {
@@ -289,6 +291,11 @@ if ($nv_Request->isset_request('submit', 'post')) {
                         nv_email_send($subject, $message, 0, $sendto_id);
                     }
                 }
+                $content = sprintf($lang_module['logs_project_add_note'], $row['title']);
+                nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_project_add'], $content, $user_info['userid'], $redirect);
+            } else {
+                $content = sprintf($lang_module['logs_project_edit_note'], $row['title']);
+                nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_project_edit'], $content, $user_info['userid'], $redirect);
             }
 
             $nv_Cache->delMod($module_name);

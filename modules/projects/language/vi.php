@@ -86,6 +86,14 @@ $lang_module['delete_many_project'] = 'xóa nhiều dữ liệu dự án';
 $lang_module['price'] = 'Chi phí dự án';
 $lang_module['vat'] = 'Thuế';
 $lang_module['download'] = 'Tải về';
+$lang_module['logs_project_add'] = 'Khởi tạo dự án';
+$lang_module['logs_project_add_note'] = 'Khởi tạo dự án <strong>%s</strong>';
+$lang_module['logs_project_edit'] = 'Chỉnh sửa thông tin dự án';
+$lang_module['logs_project_edit_note'] = 'Chỉnh sửa thông tin dự án <strong>%s</strong>';
+$lang_module['logs_project_delete'] = 'Xóa dự án';
+$lang_module['logs_project_delete_note'] = 'Xóa dự án <strong>%s</strong>';
+$lang_module['logs_project_change_status'] = 'Thay đổi trạng thái dự án';
+$lang_module['logs_project_change_status_note'] = 'Thay đổi trạng thái dự án <strong>%s</strong> từ <strong>%s</strong> thành <strong>%s</strong>';
 
 $lang_module['error_required_customerid'] = 'Lỗi: bạn cần nhập dữ liệu cho Khách hàng';
 $lang_module['error_required_workforceid'] = 'Lỗi: bạn cần nhập dữ liệu cho Nhân viên phụ trách';

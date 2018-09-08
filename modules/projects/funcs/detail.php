@@ -17,7 +17,7 @@ if ($nv_Request->isset_request('task_list', 'post')) {
 if ($nv_Request->isset_request('change_status', 'post')) {
     $id = $nv_Request->get_int('id', 'post', 0);
 
-    list ($id, $title, $userid, $useradd) = $db->query('SELECT id, title, workforceid, useradd FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch(3);
+    list ($id, $title, $userid, $useradd, $status) = $db->query('SELECT id, title, workforceid, useradd, status FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch(3);
     if (empty($id)) {
         die('NO_' . $id);
     }
@@ -37,9 +37,12 @@ if ($nv_Request->isset_request('change_status', 'post')) {
     }
 
     $name = $workforce_list[$user_info['userid']]['fullname'];
-    $content = sprintf($lang_module['change_status'], $name, $title, $lang_module['status_' . $new_status]);
+    $content = sprintf($lang_module['change_status'], $name, $title, $lang_module['status_select_' . $new_status]);
     $url = NV_MY_DOMAIN . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=detail&id=' . $id;
     nv_send_notification($array_userid, $content, 'change_status', $module_name, $url);
+
+    $content = sprintf($lang_module['logs_project_change_status_note'], $title, $lang_module['status_select_' . $status], $lang_module['status_select_' . $new_status]);
+    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_project_edit'], $content, $user_info['userid'], $redirect);
 
     $nv_Cache->delMod($module_name);
     die('OK_' . $id);
