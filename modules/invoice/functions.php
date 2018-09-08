@@ -31,7 +31,7 @@ function nv_delete_invoice($id)
             $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_detail WHERE idinvoice = ' . $id);
             $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_transaction WHERE invoiceid = ' . $id);
 
-            $content = sprintf($lang_module['logs_invoice_delete_note'], $workforce_list[$user_info['userid']]['fullname'], '[' . $rows['code'] . '] ' . $rows['title']);
+            $content = sprintf($lang_module['logs_invoice_delete_note'], $workforce_list[$user_info['userid']]['fullname'], '[#' . $rows['code'] . '] ' . $rows['title']);
             nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_invoice_delete'], $content, $user_info['userid']);
         }
     }
@@ -229,7 +229,7 @@ function nv_support_confirm_payment($id)
             $stmt->bindParam(':payment_amount', $payment_amount, PDO::PARAM_STR);
             if ($stmt->execute()) {
                 nv_sendmail_confirm($id);
-                $content = sprintf($lang_module['logs_invoice_confirm_note'], $workforce_list[$user_info['userid']]['fullname'], '[' . $rows['code'] . '] ' . $rows['title']);
+                $content = sprintf($lang_module['logs_invoice_confirm_note'], '[#' . $rows['code'] . '] ' . $rows['title']);
                 nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_invoice_confirm'], $content, $user_info['userid']);
             }
         }

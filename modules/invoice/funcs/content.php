@@ -259,6 +259,8 @@ if ($nv_Request->isset_request('submit', 'post')) {
             }
 
             if ($new_id > 0) {
+                $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=detail&id=' . $new_id;
+
                 if ($row['id'] == 0) {
                     $i = 1;
                     $format_code = '%06s';
@@ -278,11 +280,11 @@ if ($nv_Request->isset_request('submit', 'post')) {
                     $notify_title = '#' . $auto_code . ' - ' . $row['title'];
                     nv_invoice_new_notification($new_id, $notify_title, $row['workforceid']);
 
-                    $content = sprintf($lang_module['logs_invoice_add_note'], $workforce_list[$user_info['userid']]['fullname'], '[' . $auto_code . '] ' . $row['title']);
-                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_invoice_add'], $content, $user_info['userid']);
+                    $content = sprintf($lang_module['logs_invoice_add_note'], '[#' . $auto_code . '] ' . $row['title']);
+                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_invoice_add'], $content, $user_info['userid'], $url);
                 } else {
-                    $content = sprintf($lang_module['logs_invoice_edit_note'], $workforce_list[$user_info['userid']]['fullname'], '[' . $row['code'] . '] ' . $row['title']);
-                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_invoice_edit'], $content, $user_info['userid']);
+                    $content = sprintf($lang_module['logs_invoice_edit_note'], '[#' . $row['code'] . '] ' . $row['title']);
+                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_invoice_edit'], $content, $user_info['userid'], $url);
 
                     if ($row['workforceid'] != $row['workforceid_old']) {
                         $notify_title = '#' . $row['code'] . ' - ' . $row['title'];
@@ -351,8 +353,6 @@ if ($nv_Request->isset_request('submit', 'post')) {
 
                 if (!empty($row['redirect'])) {
                     $url = nv_redirect_decrypt($row['redirect']);
-                } else {
-                    $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=detail&id=' . $new_id;
                 }
 
                 Header('Location: ' . $url);

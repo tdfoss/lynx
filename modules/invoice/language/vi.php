@@ -126,11 +126,11 @@ $lang_module['logs_transaction_add'] = '<strong>%s</strong> đã thêm giao dị
 $lang_module['logs_invoice_delete'] = 'Xóa hóa đơn';
 $lang_module['logs_invoice_delete_note'] = '<strong>%s</strong> đã xóa hóa đơn <strong>%s</strong>';
 $lang_module['logs_invoice_add'] = 'Tạo hóa đơn';
-$lang_module['logs_invoice_add_note'] = '<strong>%s</strong> đã tạo hóa đơn <strong>%s</strong>';
+$lang_module['logs_invoice_add_note'] = 'Tạo hóa đơn <strong>%s</strong>';
 $lang_module['logs_invoice_edit'] = 'Sửa thông tin hóa đơn';
-$lang_module['logs_invoice_edit_note'] = '<strong>%s</strong> đã sửa thông tin hóa đơn <strong>%s</strong>';
+$lang_module['logs_invoice_edit_note'] = 'Sửa thông tin hóa đơn <strong>%s</strong>';
 $lang_module['logs_invoice_confirm'] = 'Xác nhận thanh toán hóa đơn';
-$lang_module['logs_invoice_confirm_note'] = '<strong>%s</strong> đã xác nhận thanh toán hóa đơn <strong>%s</strong>';
+$lang_module['logs_invoice_confirm_note'] = 'Xác nhận thanh toán hóa đơn <strong>%s</strong>';
 
 $lang_module['error_unknow'] = 'Vì một lý do nào đó hệ thống không thể đáp ứng yêu cầu của bạn lúc này, vui lòng liên hệ với người quản trị để biết thêm thông tin!';
 $lang_module['error_required_invoiceid'] = 'Lỗi: không xác định được Hóa đơn';
