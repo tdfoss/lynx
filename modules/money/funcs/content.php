@@ -9,7 +9,7 @@
  */
 if (!defined('NV_IS_MOD_OFFICE')) die('Stop!!!');
 
-if ($count_groupmanager == 0){
+if ($count_groupmanager == 0) {
     $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name;
     nv_redirect_location($url);
 }
@@ -67,10 +67,10 @@ if ($nv_Request->isset_request('submit', 'post')) {
             $exc = $stmt->execute();
             if ($exc) {
                 if (empty($row['id'])) {
-                    nv_insert_logs(NV_LANG_DATA, $module_name, '[' . $lang_module['add'] . '] ' . $lang_module['money_' . $row['type']], nv_number_format($row['money']), $user_info['userid']);
-                } else {
-                    nv_insert_logs(NV_LANG_DATA, $module_name, '[' . $lang_module['edit'] . '] ' . $lang_module['money_' . $row['type']], nv_number_format($row['money']), $user_info['userid']);
+                    $content = sprintf($lang_module['money_' . $row['type'] . '_add'], nv_number_format($row['money']), $row['note']);
+                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['add'] . ' ' . $lang_module['money_' . $row['type']], $content, $user_info['userid']);
                 }
+
                 $nv_Cache->delMod($module_name);
 
                 if (!empty($row['redirect'])) {

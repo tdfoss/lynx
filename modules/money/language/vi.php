@@ -6,7 +6,6 @@
  * @Copyright (C) 2017 mynukeviet. All rights reserved
  * @Createdate Thu, 16 Nov 2017 13:27:56 GMT
  */
-
 if (!defined('NV_MAINFILE')) die('Stop!!!');
 
 $lang_translator['author'] = 'mynukeviet (contact@mynukeviet.com)';
@@ -45,6 +44,8 @@ $lang_module['perform'] = 'Thực hiện';
 $lang_module['date_from'] = 'Từ ngày...';
 $lang_module['date_to'] = '...đến ngày';
 $lang_module['addtime'] = 'Thời gian thêm';
+$lang_module['logs_money_1_add'] = 'Thêm khoản thu <strong>%s</strong>, <strong>%s</strong>';
+$lang_module['logs_money_2_add'] = 'Thêm khoản chi <strong>%s</strong>, <strong>%s</strong>';
 
 $lang_module['error_required_type'] = 'Lỗi: bạn cần nhập dữ liệu cho Loại';
 $lang_module['error_required_money'] = 'Lỗi: bạn cần nhập dữ liệu cho Giá trị';
