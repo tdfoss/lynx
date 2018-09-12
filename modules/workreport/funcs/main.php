@@ -108,7 +108,7 @@ $array_users = array();
 
 $array_search = array(
     'month' => $nv_Request->get_int('month', 'get', date('m', NV_CURRENTTIME)),
-    'userid' => $nv_Request->get_int('userid', 'get', 0)
+    'userid' => $nv_Request->get_int('userid', 'get', $user_info['userid'])
 );
 
 if (!empty($array_search['month'])) {
