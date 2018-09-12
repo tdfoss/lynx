@@ -7,21 +7,27 @@
 <!-- END: dompdf_link_sendemail -->
 <!-- BEGIN: button_funs -->
 <ul class="pull-right list-inline form-tooltip">
-    <!-- BEGIN: support -->
-    <li><a href="{CONTROL.url_support}" class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="{LANG.new_ticket}"><em class="fa fa-user">&nbsp;</em>{LANG.new_ticket}</a></li>
-    <!-- END: support -->
-    <li><a href="{CONTROL.url_export_pdf}" class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="{LANG.export_pdf}"><em class="fa fa-download">&nbsp;</em>{LANG.export_pdf}</a></li>
     <!-- BEGIN: invoice_payment_confirm -->
     <li><a href="javascript:void(0);" onclick="nv_invoice_sendmail_confirm({ROW.id}); return !1;" class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="{LANG.send_mail_note_confirm}"><em class="fa fa-check-circle">&nbsp;</em>{LANG.confirm_payment}</a></li>
     <!-- END: invoice_payment_confirm -->
     <!--     <li><a href="javascript:void(0);" onclick="nv_invoice_sendmail({ROW.id}); return !1;" class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="{LANG.send_mail_note}"><em class="fa fa-envelope">&nbsp;</em>{LANG.send_mail}</a></li> -->
     <li><a href="{CONTROL.url_sendmail}" onclick="nv_invoice_sendmail({ROW.id}); return !1;" class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="{LANG.send_mail_note}"><em class="fa fa-envelope">&nbsp;</em>{LANG.send_mail}</a></li>
-    <li><a href="{CONTROL.url_invoice}" class="btn btn-primary btn-xs" target="_blank" data-toggle="tooltip" data-original-title="{LANG.open_new_window}"><em class="fa fa-link">&nbsp;</em>{LANG.open_new_window}</a></li>
-    <li><a href="{CONTROL.url_add}" class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="{LANG.add_invoice}"><em class="fa fa-plus-square">&nbsp;</em>{LANG.add}</a></li>
-    <li><a href="{CONTROL.url_copy}" onclick="nv_invoice_copy({ROW.id}); return !1;" class="btn btn-default btn-xs" data-toggle="tooltip" data-original-title="{LANG.invoice_copy}"><em class="fa fa-copy">&nbsp;</em>{LANG.invoice_copy}</a></li>
     <li><a href="{CONTROL.url_edit}" class="btn btn-default btn-xs" data-toggle="tooltip" data-original-title="{LANG.edit_invoice}"><em class="fa fa-edit">&nbsp;</em>{LANG.edit}</a></li>
     <li><a href="{CONTROL.url_delete}" class="btn btn-danger btn-xs" onclick="return confirm(nv_is_del_confirm[0]);" data-toggle="tooltip" data-original-title="{LANG.delete_invoice}"><em class="fa fa-trash-o">&nbsp;</em>{LANG.delete}</a></li>
 </ul>
+<div class="dropdown dropdown-hover pull-right" style="padding-right: 10px">
+    <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+        <em class="fa fa-list-ul">&nbsp;</em>{LANG.other} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <li><a href="{CONTROL.url_add}"><em class="fa fa-plus-square">&nbsp;</em>{LANG.add}</a></li>
+        <li><a href="{CONTROL.url_copy}" onclick="nv_invoice_copy({ROW.id}); return !1;"><em class="fa fa-copy">&nbsp;</em>{LANG.invoice_copy}</a></li>
+        <!-- BEGIN: support -->
+        <li><a href="{CONTROL.url_support}"><em class="fa fa-user">&nbsp;</em>{LANG.new_ticket}</a></li>
+        <!-- END: support -->
+        <li><a href="{CONTROL.url_export_pdf}"><em class="fa fa-download">&nbsp;</em>{LANG.export_pdf}</a></li>
+    </ul>
+</div>
 <!-- END: button_funs -->
 <div class="clearfix"></div>
 <div class="row">
@@ -75,10 +81,10 @@
                             <tr>
                                 <th width="50" class="text-center stt">{LANG.number}</th>
                                 <th class="title_th">{LANG.title}</th>
+                                <th width="150">{LANG.unit_price}</th>
                                 <th class="quantity text-center" width="100">{LANG.quantity}</th>
                                 <th class="price_string" width="150">{LANG.price_string}</th>
                                 <th class="vat" width="150">{LANG.vat}</th>
-                                <th class="vat_price" width="300">{LANG.vat_price}</th>
                                 <th class="total">{LANG.total}</th>
                             </tr>
                         </thead>
@@ -87,11 +93,11 @@
                             <tr>
                                 <td class="text-center">{ORDERS.number}</td>
                                 <td><strong>{ORDERS.itemid}</strong> <span class="help-block">{ORDERS.note}</span></td>
+                                <td>{ORDERS.unit_price}</td>
                                 <td class="text-center">{ORDERS.quantity}</td>
-                                <td>{ORDERS.price} {LANG.vnd}</td>
-                                <td>{ORDERS.vat}</td>
-                                <td>{ORDERS.vat_price} {LANG.vnd}</td>
-                                <td>{ORDERS.total} {LANG.vnd}</td>
+                                <td>{ORDERS.price}</td>
+                                <td><!-- BEGIN: vat -->{ORDERS.vat_price} ({ORDERS.vat}%)<!-- END: vat --><!-- BEGIN: vat_empty -->-<!-- END: vat_empty --></td>
+                                <td>{ORDERS.total}</td>
                             </tr>
                             <!-- END: loop -->
                         </tbody>
@@ -99,21 +105,21 @@
                         <tfoot>
                             <tr>
                                 <td colspan="6" class="text-right"><strong>{LANG.item_total}</strong></td>
-                                <td>{ROW.item_total} {LANG.vnd}</td>
+                                <td>{ROW.item_total}</td>
                             </tr>
                             <tr>
                                 <th colspan="6" class="text-right"><strong>{LANG.vat_total}</strong></th>
-                                <td>{ROW.vat_total} {LANG.vnd}</td>
+                                <td>{ROW.vat_total}</td>
                             </tr>
                             <!-- BEGIN: discount -->
                             <tr>
                                 <td colspan="6" class="text-right"><strong>{LANG.discount}</strong></td>
-                                <td>{ROW.discount_value} {LANG.vnd} ({ROW.discount_percent}%)</td>
+                                <td>{ROW.discount_value} ({ROW.discount_percent}%)</td>
                             </tr>
                             <!-- END: discount -->
                             <tr>
                                 <td colspan="6" class="text-right"><strong>{LANG.grand_total}</strong></td>
-                                <td>{ROW.grand_total} {LANG.vnd}</td>
+                                <td>{ROW.grand_total}</td>
                             </tr>
                             <tr>
                                 <td colspan="6" class="text-right"><strong>{LANG.grand_total_string}</strong></td>

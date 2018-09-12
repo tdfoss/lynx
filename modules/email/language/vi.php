@@ -43,13 +43,13 @@ $lang_module['add_new'] = 'Gửi email mới';
 $lang_module['system'] = 'Hệ thống';
 $lang_module['send_my_cc'] = 'Nhận bản sao thư này';
 $lang_module['send_my_cc_note'] = 'Bạn sẽ nhận bản sao thư này sau khi email được gửi đi thành công';
+$lang_module['title_email'] = 'Email';
+$lang_module['content_email'] = 'gửi email';
+$lang_module['edit_email'] = 'gửi email';
+$lang_module['logs_delete_email'] = 'Xóa Email';
+$lang_module['logs_delete_email_note'] = '<strong>%s</strong> đã xóa thư <strong>%s</strong>';
+$lang_module['logs_send_mail_note'] = '<strong>%s</strong> đã gửi thư <strong>%s</strong>';
 
 $lang_module['error_required_title'] = 'Lỗi: bạn cần nhập dữ liệu cho Tiêu đề thư';
 $lang_module['error_required_content'] = 'Lỗi: bạn cần nhập dữ liệu cho Nội dung';
 $lang_module['error_empty_data'] = 'Bạn cần chọn dữ liệu để thực hiện!';
-
-$lang_module['title_email'] = 'Email';
-$lang_module['content_email'] = 'gửi email';
-$lang_module['edit_email'] = 'gửi email';
-$lang_module['delete_email'] = 'xóa email';
-$lang_module['delete_many_email'] = 'xóa nhiều thông tin email';

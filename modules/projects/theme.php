@@ -6,7 +6,6 @@
  * @Copyright (C) 2018 TDFOSS.,LTD. All rights reserved
  * @Createdate Fri, 12 Jan 2018 09:14:06 GMT
  */
-
 if (!defined('NV_IS_MOD_PROJECT')) die('Stop!!!');
 
 /**
@@ -34,12 +33,17 @@ function nv_theme_project_main($array_data)
  */
 function nv_theme_project_detail($rows, $content_comment, $array_control)
 {
-    global $global_config, $module_name, $module_file, $lang_module, $module_config, $module_info, $op, $array_status;
+    global $global_config, $module_name, $module_file, $lang_module, $module_config, $module_info, $op, $array_status, $site_mods;
 
     $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
     $xtpl->assign('LANG', $lang_module);
     $xtpl->assign('ROW', $rows);
     $xtpl->assign('CONTROL', $array_control);
+
+    if (defined('NV_TASK')) {
+        $xtpl->assign('TASK_LIST', nv_theme_project_task_lisk($rows['id']));
+        $xtpl->parse('main.task_list');
+    }
 
     if (!empty($rows['content'])) {
         $xtpl->parse('main.content');
@@ -48,6 +52,26 @@ function nv_theme_project_detail($rows, $content_comment, $array_control)
     if (!empty($content_comment)) {
         $xtpl->assign('COMMENT', $content_comment);
         $xtpl->parse('main.comment');
+    }
+
+    if (!empty($rows['files'])) {
+        foreach ($rows['files'] as $file) {
+            $xtpl->assign('FILES', $file);
+            if ($file['ext'] == 'pdf') {
+                $xtpl->parse('main.files.loop.show_quick_viewpdf');
+                $xtpl->parse('main.files.loop.content_quick_viewpdf');
+            } elseif (preg_match('/^png|jpe|jpeg|jpg|gif|bmp|ico|tiff|tif|svg|svgz$/', $file['ext'])) {
+                $xtpl->parse('main.files.loop.show_quick_viewimg');
+                $xtpl->parse('main.files.loop.content_quick_viewimg');
+            } elseif (preg_match('/^doc|docx|xls|xlsx|odt$/', $file['ext'])) {
+                $xtpl->parse('main.files.loop.show_quick_viewpdf');
+                $xtpl->parse('main.files.loop.content_quick_viewdoc');
+            } else {
+                $xtpl->parse('main.files.loop.show_download');
+            }
+            $xtpl->parse('main.files.loop');
+        }
+        $xtpl->parse('main.files');
     }
 
     foreach ($array_status as $index => $value) {
@@ -77,6 +101,24 @@ function nv_theme_project_search($array_data)
     $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
     $xtpl->assign('LANG', $lang_module);
 
+    $xtpl->parse('main');
+    return $xtpl->text('main');
+}
+
+/**
+ * nv_theme_viewpdf()
+ *
+ * @param mixed $file_url
+ * @return
+ */
+function nv_theme_viewpdf($file_url)
+{
+    global $lang_module, $lang_global;
+    $xtpl = new XTemplate('viewer.tpl', NV_ROOTDIR . '/' . NV_ASSETS_DIR . '/js/pdf.js');
+    $xtpl->assign('LANG', $lang_module);
+    $xtpl->assign('GLANG', $lang_global);
+    $xtpl->assign('PDF_JS_DIR', NV_BASE_SITEURL . NV_ASSETS_DIR . '/js/pdf.js/');
+    $xtpl->assign('PDF_URL', $file_url);
     $xtpl->parse('main');
     return $xtpl->text('main');
 }

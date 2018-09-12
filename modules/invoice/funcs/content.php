@@ -8,6 +8,43 @@
  */
 if (!defined('NV_IS_MOD_INVOICE')) die('Stop!!!');
 
+if ($nv_Request->isset_request('change_item', 'post,get')) {
+    $item_total = $vat_total = $grand_total = 0;
+    $discount_percent = $nv_Request->get_int('discount_percent', 'post', 0);
+    $array_detail = array();
+    $data = $nv_Request->get_array('detail', 'post');
+    foreach ($data as $index => $value) {
+        if ($value['itemid'] > 0 && !empty($value['module'])) {
+            $value['unit_price'] = preg_replace('/[^0-9]/', '', $value['unit_price']);
+            $value['price'] = $value['unit_price'] * $value['quantity'];
+            $value['vat_price'] = ($value['price'] * $value['vat']) / 100;
+            $value['total'] = nv_caculate_total($value['unit_price'], $value['quantity'], $value['vat']);
+            $grand_total += $value['total'];
+            $item_total += ($value['price'] * $value['quantity']);
+            $vat_total += $value['vat_price'];
+            $value['vat_price'] = number_format($value['vat_price']);
+            $value['total'] = number_format($value['total']);
+            $array_detail[] = $value;
+        }
+    }
+
+    $discount_value = 0;
+    if (!empty($discount_percent)) {
+        $discount_value = ($discount_percent * $grand_total) / 100;
+    }
+
+    $grand_total = $grand_total - $discount_value;
+
+    $return_data = array(
+        'grand_total' => number_format($grand_total),
+        'grand_total_string' => nv_convert_number_to_words($grand_total),
+        'item_total' => number_format($item_total),
+        'vat_total' => number_format($vat_total),
+        'detail' => $array_detail
+    );
+    nv_jsonOutput($return_data);
+}
+
 if ($nv_Request->isset_request('get_time_end', 'post')) {
     $createtime = $nv_Request->get_title('createtime', 'post', '');
     $cycle = $nv_Request->get_int('cycle', 'post', 0);
@@ -23,12 +60,14 @@ if ($nv_Request->isset_request('get_time_end', 'post')) {
 if ($nv_Request->isset_request('get_item_info', 'post')) {
     $itemid = $nv_Request->get_int('itemid', 'post', 0);
     $module = $nv_Request->get_title('module', 'post', '');
+    $quantity = $nv_Request->get_int('quantity', 'post', 1);
 
     if (isset($site_mods[$module])) {
-        $rows = $db->query('SELECT price, vat FROM ' . NV_PREFIXLANG . '_' . $site_mods[$module]['module_data'] . ' WHERE id=' . $itemid)->fetch();
+        $rows = $db->query('SELECT price unit_price, vat FROM ' . NV_PREFIXLANG . '_' . $site_mods[$module]['module_data'] . ' WHERE id=' . $itemid)->fetch();
         if ($rows) {
-            $rows['vat_price'] = ($rows['price'] * $rows['vat']) / 100;
-            $rows['total'] = $rows['price'] + $rows['vat_price'];
+            $rows['price'] = $rows['unit_price'] * $quantity;
+            $rows['vat_price'] = ($rows['unit_price'] * $rows['vat'] * $quantity) / 100;
+            $rows['total'] = $rows['unit_price'] + $rows['vat_price'];
             nv_jsonOutput($rows);
         }
     }
@@ -156,7 +195,8 @@ if ($nv_Request->isset_request('submit', 'post')) {
         if ($value['itemid'] > 0 && !empty($value['module'])) {
             $value['weight'] = $i;
             $value['price'] = preg_replace('/[^0-9]/', '', $value['price']);
-            $grand_total += nv_caculate_total($value['price'], $value['quantity'], $value['vat']);
+            $value['unit_price'] = preg_replace('/[^0-9]/', '', $value['unit_price']);
+            $grand_total += nv_caculate_total($value['unit_price'], $value['quantity'], $value['vat']);
             $row['detail'][$value['itemid'] . '_' . $value['module']] = $value;
             $i++;
         }
@@ -219,6 +259,8 @@ if ($nv_Request->isset_request('submit', 'post')) {
             }
 
             if ($new_id > 0) {
+                $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=detail&id=' . $new_id;
+
                 if ($row['id'] == 0) {
                     $i = 1;
                     $format_code = '%06s';
@@ -235,9 +277,15 @@ if ($nv_Request->isset_request('submit', 'post')) {
                     $stmt->bindParam(':code', $auto_code, PDO::PARAM_STR);
                     $stmt->execute();
 
-                    $notify_title = '#' . $row['code'] . ' - ' . $row['title'];
+                    $notify_title = '#' . $auto_code . ' - ' . $row['title'];
                     nv_invoice_new_notification($new_id, $notify_title, $row['workforceid']);
+
+                    $content = sprintf($lang_module['logs_invoice_add_note'], '[#' . $auto_code . '] ' . $row['title']);
+                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_invoice_add'], $content, $user_info['userid'], $url);
                 } else {
+                    $content = sprintf($lang_module['logs_invoice_edit_note'], '[#' . $row['code'] . '] ' . $row['title']);
+                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_invoice_edit'], $content, $user_info['userid'], $url);
+
                     if ($row['workforceid'] != $row['workforceid_old']) {
                         $notify_title = '#' . $row['code'] . ' - ' . $row['title'];
                         nv_invoice_new_notification($new_id, $notify_title, $row['workforceid']);
@@ -247,16 +295,17 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $detail = array_keys($row['detail']);
                 $detail_old = array_keys($row['detail_old']);
                 if ($detail != $detail_old) {
-                    $sth = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_detail (idinvoice, idcustomer, module, itemid, quantity, price, vat, total, note, weight) VALUES(:idinvoice, :idcustomer, :module, :itemid, :quantity, :price, :vat, :total, :note, :weight)');
+                    $sth = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_detail (idinvoice, idcustomer, module, itemid, unit_price, quantity, price, vat, total, note, weight) VALUES(:idinvoice, :idcustomer, :module, :itemid, :unit_price, :quantity, :price, :vat, :total, :note, :weight)');
                     foreach ($row['detail'] as $service) {
                         if (!in_array($service['itemid'] . '_' . $service['module'], array_keys($row['detail_old']), true)) {
                             $service['note'] = !empty($service['note']) ? $service['note'] : '';
-                            $total = $service['price'] * $service['quantity'];
+                            $total = $service['unit_price'] * $service['quantity'];
                             $total = $total + (($total * $service['vat']) / 100);
                             $sth->bindParam(':idinvoice', $new_id, PDO::PARAM_INT);
                             $sth->bindParam(':idcustomer', $row['customerid'], PDO::PARAM_INT);
                             $sth->bindParam(':module', $service['module'], PDO::PARAM_STR);
                             $sth->bindParam(':itemid', $service['itemid'], PDO::PARAM_INT);
+                            $sth->bindParam(':unit_price', $service['unit_price'], PDO::PARAM_STR);
                             $sth->bindParam(':quantity', $service['quantity'], PDO::PARAM_INT);
                             $sth->bindParam(':price', $service['price'], PDO::PARAM_STR);
                             $sth->bindParam(':vat', $service['vat'], PDO::PARAM_STR);
@@ -281,14 +330,15 @@ if ($nv_Request->isset_request('submit', 'post')) {
                         $sth->execute();
                     }
 
-                    $sth = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . '_detail SET quantity = :quantity, price = :price, vat = :vat, total = :total, note = :note, weight = :weight WHERE idinvoice = :idinvoice AND idcustomer = :idcustomer AND module = :module AND itemid = :itemid');
+                    $sth = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . '_detail SET unit_price = :unit_price, quantity = :quantity, price = :price, vat = :vat, total = :total, note = :note, weight = :weight WHERE idinvoice = :idinvoice AND idcustomer = :idcustomer AND module = :module AND itemid = :itemid');
                     foreach ($row['detail'] as $service) {
-                        $total = $service['price'] * $service['quantity'];
+                        $total = $service['unit_price'] * $service['quantity'];
                         $total = $total + (($total * $service['vat']) / 100);
                         $sth->bindParam(':idinvoice', $new_id, PDO::PARAM_INT);
                         $sth->bindParam(':idcustomer', $row['customerid'], PDO::PARAM_INT);
                         $sth->bindParam(':module', $service['module'], PDO::PARAM_STR);
                         $sth->bindParam(':itemid', $service['itemid'], PDO::PARAM_INT);
+                        $sth->bindParam(':unit_price', $service['unit_price'], PDO::PARAM_INT);
                         $sth->bindParam(':quantity', $service['quantity'], PDO::PARAM_INT);
                         $sth->bindParam(':price', $service['price'], PDO::PARAM_STR);
                         $sth->bindParam(':vat', $service['vat'], PDO::PARAM_STR);
@@ -303,8 +353,6 @@ if ($nv_Request->isset_request('submit', 'post')) {
 
                 if (!empty($row['redirect'])) {
                     $url = nv_redirect_decrypt($row['redirect']);
-                } else {
-                    $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=detail&id=' . $new_id;
                 }
 
                 Header('Location: ' . $url);
@@ -367,6 +415,7 @@ $default = array(
         'itemid' => 0,
         'quantity' => 1,
         'price' => 0,
+        'unit_price' => 0,
         'vat' => 0,
         'total' => 0,
         'note' => ''
@@ -383,13 +432,14 @@ $array_total = array(
 foreach ($row['detail'] as $item) {
     $item['index'] = $i;
     $item['number'] = $i + 1;
-    $item['vat_price'] = ($item['price'] * $item['vat']) / 100;
+    $item['vat_price'] = ($item['price'] * $item['vat'] * $item['quantity']) / 100;
 
     $array_total['item_total'] += ($item['price'] * $item['quantity']);
     $array_total['vat_total'] += $item['vat_price'];
 
     $item['vat_price'] = nv_number_format($item['vat_price']);
     $item['price'] = nv_number_format($item['price']);
+    $item['unit_price'] = nv_number_format($item['unit_price']);
     $item['total'] = nv_number_format($item['total']);
 
     $xtpl->assign('ITEM', $item);
@@ -413,6 +463,15 @@ foreach ($row['detail'] as $item) {
             }
         }
         $xtpl->parse('main.items.products');
+    } elseif ($item['module'] == 'projects') {
+        if (!empty($array_projects)) {
+            foreach ($array_projects as $projects) {
+                $projects['selected'] = ($item['module'] == 'projects' && $projects['id'] == $item['itemid']) ? 'selected="selected"' : '';
+                $xtpl->assign('PROJECTS', $projects);
+                $xtpl->parse('main.items.projects.loop');
+            }
+        }
+        $xtpl->parse('main.items.projects');
     }
 
     $xtpl->parse('main.items');
@@ -436,6 +495,13 @@ if (!empty($array_products)) {
     foreach ($array_products as $products) {
         $xtpl->assign('PRODUCTS', $products);
         $xtpl->parse('main.products_js');
+    }
+}
+
+if (!empty($array_projects)) {
+    foreach ($array_projects as $projects) {
+        $xtpl->assign('PROJECTS', $projects);
+        $xtpl->parse('main.projects_js');
     }
 }
 

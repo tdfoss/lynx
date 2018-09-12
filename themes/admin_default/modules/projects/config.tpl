@@ -1,5 +1,27 @@
 <!-- BEGIN: main -->
-	<form action="{NV_BASE_ADMINURL}index.php?{NV_LANG_VARIABLE}={NV_LANG_DATA}&amp;{NV_NAME_VARIABLE}={MODULE_NAME}&amp;{NV_OP_VARIABLE}={OP}" method="post">
-		<div style="text-align: center"><input name="submit" type="submit" value="{LANG.save}" /></div>
-	</form>
+<form action="" method="post" class="form-horizontal">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="col-sm-4 control-label">{LANG.config_groups_manage}</label>
+                <div class="col-sm-20" style="height: 200px; padding: 10px; border: solid 1px #ddd; overflow: scroll;">
+                    <!-- BEGIN: groups -->
+                    <label class="show"><input type="checkbox" name="groups_manage[]" value="{GROUPS.value}" {GROUPS.checked} />{GROUPS.title}</label>
+                    <!-- END: groups -->
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 text-right">{LANG.config_default_status}</label>
+                <div class="col-sm-20">
+                    <!-- BEGIN: status -->
+                    <label><input type="checkbox" name="default_status[]" value="{STATUS.index}"{STATUS.checked}>{STATUS.value}</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <!-- END: status -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+        <input type="submit" class="btn btn-primary" value="{LANG.save}" name="savesetting" />
+    </div>
+</form>
 <!-- END: main -->

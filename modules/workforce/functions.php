@@ -10,19 +10,22 @@ if (!defined('NV_SYSTEM')) die('Stop!!!');
 
 define('NV_IS_MOD_WORKFORCE', true);
 
-$array_config = array();
-$array_config['groups_admin'] = '10';
-$array_config['groups_manage'] = '10,11';
+$array_config = $module_config[$module_name];
 
 $array_gender = array(
     1 => $lang_module['male'],
     0 => $lang_module['female']
 );
 
+$array_status = array(
+    1 => $lang_module['status_1'],
+    0 => $lang_module['status_0']
+);
+
 function nv_workforce_delete($id)
 {
     global $db, $module_data;
-
+    
     $count = $db->exec('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id = ' . $id);
     if ($count) {
         //
@@ -32,7 +35,7 @@ function nv_workforce_delete($id)
 function nv_workforce_check_premission()
 {
     global $array_config, $user_info;
-
+    
     if (empty($array_config['groups_manage'])) {
         return false;
     } elseif (!empty(array_intersect(explode(',', $array_config['groups_manage']), $user_info['in_groups']))) {

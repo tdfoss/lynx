@@ -48,6 +48,7 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   idcustomer mediumint(8) unsigned NOT NULL,
   module varchar(50) NOT NULL,
   itemid mediumint(8) NOT NULL,
+  unit_price double NOT NULL DEFAULT '0',
   quantity int(11) unsigned NOT NULL COMMENT 'Số lượng',
   price double unsigned NOT NULL,
   vat smallint(4) unsigned NOT NULL DEFAULT '0',

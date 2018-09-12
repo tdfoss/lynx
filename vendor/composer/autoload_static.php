@@ -8,6 +8,8 @@ class ComposerStaticInit8c9f50366561a5497ebe188ba93ba4da
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -23,6 +25,7 @@ class ComposerStaticInit8c9f50366561a5497ebe188ba93ba4da
         ),
         'P' => 
         array (
+            'Psr\\Log\\' => 8,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
         'O' => 
@@ -32,6 +35,10 @@ class ComposerStaticInit8c9f50366561a5497ebe188ba93ba4da
         'N' => 
         array (
             'NukeViet\\' => 9,
+        ),
+        'M' => 
+        array (
+            'Mpdf\\' => 5,
         ),
         'L' => 
         array (
@@ -44,6 +51,10 @@ class ComposerStaticInit8c9f50366561a5497ebe188ba93ba4da
         'E' => 
         array (
             'Endroid\\QrCode\\' => 15,
+        ),
+        'D' => 
+        array (
+            'DeepCopy\\' => 9,
         ),
     );
 
@@ -64,6 +75,10 @@ class ComposerStaticInit8c9f50366561a5497ebe188ba93ba4da
         array (
             0 => __DIR__ . '/..' . '/symfony/finder',
         ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
         'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
@@ -76,6 +91,10 @@ class ComposerStaticInit8c9f50366561a5497ebe188ba93ba4da
         array (
             0 => __DIR__ . '/..' . '/vinades/nukeviet',
         ),
+        'Mpdf\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mpdf/mpdf/src',
+        ),
         'League\\Url\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/url/src',
@@ -87,6 +106,10 @@ class ComposerStaticInit8c9f50366561a5497ebe188ba93ba4da
         'Endroid\\QrCode\\' => 
         array (
             0 => __DIR__ . '/..' . '/endroid/qrcode/src',
+        ),
+        'DeepCopy\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
         ),
     );
 
@@ -112,7 +135,14 @@ class ComposerStaticInit8c9f50366561a5497ebe188ba93ba4da
     );
 
     public static $classMap = array (
+        'FPDF_TPL' => __DIR__ . '/..' . '/setasign/fpdi/fpdf_tpl.php',
+        'FPDI' => __DIR__ . '/..' . '/setasign/fpdi/fpdi.php',
+        'FilterASCII85' => __DIR__ . '/..' . '/setasign/fpdi/filters/FilterASCII85.php',
+        'FilterASCIIHexDecode' => __DIR__ . '/..' . '/setasign/fpdi/filters/FilterASCIIHexDecode.php',
+        'FilterLZW' => __DIR__ . '/..' . '/setasign/fpdi/filters/FilterLZW.php',
         'PclZip' => __DIR__ . '/..' . '/pclzip/pclzip/pclzip.lib.php',
+        'fpdi_pdf_parser' => __DIR__ . '/..' . '/setasign/fpdi/fpdi_pdf_parser.php',
+        'pdf_context' => __DIR__ . '/..' . '/setasign/fpdi/pdf_context.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

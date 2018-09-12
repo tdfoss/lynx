@@ -54,6 +54,8 @@ if ($nv_Request->isset_request('submit', 'post')) {
         $error[] = $lang_module['error_required_content'];
     } elseif (empty($row['id']) && $db->query('SELECT COUNT(*) FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE fortime=' . $row['fortime'] . ' AND userid=' . $user_info['userid'])->fetchColumn() > 0) {
         $error[] = $lang_module['error_required_fortime'];
+    } elseif (nv_workreport_dateDifference(date('Y/m/d', $row['fortime']), date('Y/m/d', NV_CURRENTTIME)) > $array_config['allow_days'] && !$is_admin) {
+        $error[] = sprintf($lang_module['error_allow_fortime'], date('d/m/Y', $row['fortime']));
     }
 
     if (empty($error)) {
@@ -99,14 +101,14 @@ if ($nv_Request->isset_request('submit', 'post')) {
 
 $base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name;
 $where = '';
-$per_page = 20;
+$per_page = 31;
 $page = $nv_Request->get_int('page', 'post,get', 1);
 $current_month = date('m', NV_CURRENTTIME);
 $array_users = array();
 
 $array_search = array(
     'month' => $nv_Request->get_int('month', 'get', date('m', NV_CURRENTTIME)),
-    'userid' => $nv_Request->get_int('userid', 'get', 0)
+    'userid' => $nv_Request->get_int('userid', 'get', $user_info['userid'])
 );
 
 if (!empty($array_search['month'])) {

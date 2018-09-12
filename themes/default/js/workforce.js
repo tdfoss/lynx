@@ -38,3 +38,17 @@ function nv_table_row_click(e, t, n) {
     var r = e.target.tagName.toLowerCase(), i = e.target.parentNode.tagName.toLowerCase(), a = e.target.parentNode.parentNode.parentNode;
     return void ("button" != r && "a" != r && "button" != i && "a" != i && "td" != i && (n ? window.open(t) : window.location.href = t))
 }
+
+function nv_chang_status(vid) {
+    var nv_timer = nv_settimeout_disable('change_status_' + vid, 1000);
+    var new_status = $('#change_status_' + vid).val();
+    $.post(script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=detail&nocache=' + new Date().getTime(), 'change_status=1&id=' + vid + '&new_status=' + new_status, function(res) {
+        var r_split = res.split("_");
+        if (r_split[0] != 'OK') {
+            alert(nv_is_change_act_confirm[2]);
+            clearTimeout(nv_timer);
+        }
+        return;
+    });
+    return;
+}

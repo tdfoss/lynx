@@ -27,15 +27,6 @@ if (isset($site_mods['task'])) {
     );
 }
 
-$array_status = array(
-    0 => $lang_module['status_0'],
-    1 => $lang_module['status_1'],
-    2 => $lang_module['status_2'],
-    3 => $lang_module['status_3'],
-    4 => $lang_module['status_4'],
-    5 => $lang_module['status_5']
-);
-
 $_sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_types WHERE active=1 ORDER BY weight';
 $array_working_type_id = $nv_Cache->db($_sql, 'id', $module_name);
 
@@ -54,7 +45,7 @@ function nv_theme_project_task_lisk($projectid)
 {
     global $db, $module_data, $module_file, $lang_module, $module_config, $module_info, $array_task_status, $workforce_list;
 
-    $array_data = $db->query('SELECT t2.* FROM ' . NV_PREFIXLANG . '_' . $module_data . '_task t1 INNER JOIN ' . NV_PREFIXLANG . '_task t2 ON t1.taskid=t2.id WHERE t1.projectid=' . $projectid . ' ORDER BY begintime')->fetchAll();
+    $array_data = $db->query('SELECT t2.*, t1.taskid FROM ' . NV_PREFIXLANG . '_' . $module_data . '_task t1 INNER JOIN ' . NV_PREFIXLANG . '_task t2 ON t1.taskid=t2.id WHERE t1.projectid=' . $projectid . ' ORDER BY begintime')->fetchAll();
 
     $xtpl = new XTemplate('detail.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
     $xtpl->assign('LANG', $lang_module);
@@ -82,4 +73,40 @@ function nv_theme_project_task_lisk($projectid)
 
     $xtpl->parse('task_list');
     return $xtpl->text('task_list');
+}
+
+function normalizeFiles(&$files)
+{
+    $_files = [];
+    $_files_count = count($files['name']);
+    $_files_keys = array_keys($files);
+
+    for ($i = 0; $i < $_files_count; $i++)
+        foreach ($_files_keys as $key)
+            $_files[$i][$key] = $files[$key][$i];
+
+    return $_files;
+}
+
+function nv_projects_delete($id)
+{
+    global $db, $module_name, $module_data, $module_upload, $lang_module, $user_info;
+
+    $rows = $db->query('SELECT title, files FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
+    if ($rows) {
+        $count = $db->exec('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '  WHERE id = ' . $id);
+        if ($count) {
+            if (!empty($rows['files'])) {
+                $rows['files'] = explode(',', $rows['files']);
+                foreach ($rows['files'] as $path) {
+                    if (file_exists(NV_ROOTDIR . '/' . NV_UPLOADS_DIR . '/' . $module_upload . '/' . $path)) {
+                        nv_deletefile(NV_ROOTDIR . '/' . NV_UPLOADS_DIR . '/' . $module_upload . '/' . $path);
+                    }
+                }
+            }
+
+            $content = sprintf($lang_module['logs_project_delete_note'], $rows['title']);
+            nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_project_delete'], $content, $user_info['userid']);
+        }
+    }
 }

@@ -13,6 +13,7 @@ $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lan
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_types";
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_econtent";
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_performer";
+$sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_task";
 
 $result = $db->query("SHOW TABLE STATUS LIKE '" . $db_config['prefix'] . "\_" . $lang . "\_comment'");
 $rows = $result->fetchAll();
@@ -31,8 +32,10 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   endtime int(11) unsigned NOT NULL DEFAULT '0',
   realtime int(11) unsigned NOT NULL DEFAULT '0',
   price double unsigned NOT NULL DEFAULT '0',
+  vat double unsigned NOT NULL DEFAULT '0',
   url_code text NOT NULL,
   content text NOT NULL,
+  files text NOT NULL,
   useradd smallint(4) unsigned NOT NULL COMMENT 'Nhân viên tạo',
   addtime int(11) unsigned NOT NULL,
   edittime int(11) unsigned NOT NULL DEFAULT '0',
@@ -51,8 +54,8 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
 ) ENGINE=MyISAM";
 
 $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_econtent(
-  action varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  econtent text COLLATE utf8mb4_unicode_ci NOT NULL,
+  action varchar(100) NOT NULL,
+  econtent text NOT NULL,
   PRIMARY KEY (action)
 ) ENGINE=MyISAM";
 
@@ -63,6 +66,12 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   UNIQUE KEY projectid (projectid,userid)
 ) ENGINE=MyISAM";
 $sql_create_module[] = "INSERT INTO " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_econtent (action, econtent) VALUES('new_project', '')";
+
+$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_task(
+  taskid int(11) unsigned NOT NULL,
+  projectid mediumint(8) unsigned NOT NULL,
+  UNIQUE KEY taskid(taskid, projectid)
+) ENGINE=MyISAM";
 
 $sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', '" . $module_name . "', 'auto_postcomm', '1')";
 $sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', '" . $module_name . "', 'allowed_comm', '6')";
@@ -80,6 +89,7 @@ $sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module,
 
 $data = array();
 $data['groups_manage'] = 1;
+$data['default_status'] = '1,2,3';
 
 foreach ($data as $config_name => $config_value) {
     $sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', " . $db->quote($module_name) . ", " . $db->quote($config_name) . ", " . $db->quote($config_value) . ")";

@@ -16,7 +16,7 @@ $current_month = nv_date('m/Y', strtotime("first day of previous month"));
 
 if ($nv_Request->isset_request('save_change', 'post')) {
     $data = $nv_Request->get_array('data', 'post');
-    $data['workday'] = preg_replace('/[^0-9]\./', '', $data['workday']);
+    $data['workday'] = (isset($data['workday']) && !empty($data['workday'])) ? preg_replace('/[^0-9]\./', '', $data['workday']) : '';
     $data['overtime'] = !empty($data['overtime']) ? preg_replace('/[^0-9]\./', '', $data['overtime']) : 0;
     $data['advance'] = !empty($data['advance']) ? preg_replace('/[^0-9]\./', '', $data['advance']) : 0;
     $data['bonus'] = !empty($data['bonus']) ? preg_replace('/[^0-9]\./', '', $data['bonus']) : 0;

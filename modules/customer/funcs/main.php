@@ -234,6 +234,8 @@ foreach ($array_action as $key => $value) {
 $xtpl->parse('main');
 $contents = $xtpl->text('main');
 
+$page_title = $module_info['custom_title'];
+
 include NV_ROOTDIR . '/includes/header.php';
 echo nv_site_theme($contents);
 include NV_ROOTDIR . '/includes/footer.php';
