@@ -185,7 +185,7 @@ function nv_invoice_table($id)
     $order_id = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_detail WHERE idinvoice=' . $id);
     while ($order = $order_id->fetch()) {
         $row['vat_price'] = ($order['price'] * $order['vat']) / 100;
-        $row['item_total'] += ($order['price'] * $order['quantity']);
+        $row['item_total'] += $order['price'];
         $row['vat_total'] += $row['vat_price'];
         $array_invoice_products[] = $order;
     }
