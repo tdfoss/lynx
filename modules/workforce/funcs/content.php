@@ -53,7 +53,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
     $row['salary'] = preg_replace('/[^0-9]/', '', $row['salary']);
     $row['allowance'] = $nv_Request->get_string('allowance', 'post', 0);
     $row['allowance'] = preg_replace('/[^0-9]/', '', $row['allowance']);
-    
+
     if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $nv_Request->get_string('birthday', 'post'), $m)) {
         $_hour = 23;
         $_min = 23;
@@ -61,7 +61,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
     } else {
         $row['birthday'] = 0;
     }
-    
+
     if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $nv_Request->get_string('jointime', 'post'), $m)) {
         $_hour = 23;
         $_min = 23;
@@ -69,7 +69,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
     } else {
         $row['jointime'] = 0;
     }
-    
+
     $row['main_phone'] = $nv_Request->get_title('main_phone', 'post', '');
     $row['other_phone'] = $nv_Request->get_title('other_phone', 'post', '');
     $row['main_email'] = $nv_Request->get_title('main_email', 'post', '');
@@ -78,13 +78,13 @@ if ($nv_Request->isset_request('submit', 'post')) {
     $row['knowledge'] = $nv_Request->get_string('knowledge', 'post', '');
     $row['image'] = $nv_Request->get_title('image', 'post', '');
     $row['userid'] = $nv_Request->get_int('userid', 'post', 0);
-    
+
     if (is_file(NV_DOCUMENT_ROOT . $row['image'])) {
         $row['image'] = substr($row['image'], strlen(NV_BASE_SITEURL . NV_UPLOADS_DIR . '/' . $module_upload . '/'));
     } else {
         $row['image'] = '';
     }
-    
+
     if (empty($row['userid'])) {
         $error[] = $lang_module['error_required_userid'];
     } elseif (empty($row['first_name'])) {
@@ -98,7 +98,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
     } elseif (empty($row['main_email'])) {
         $error[] = $lang_module['error_required_main_email'];
     }
-    
+
     if (empty($error)) {
         try {
             if (empty($row['id'])) {
@@ -125,19 +125,18 @@ if ($nv_Request->isset_request('submit', 'post')) {
             if ($exc) {
                 $nv_Cache->delMod($module_name);
                 $nv_Cache->delMod('users');
-              
                 if (empty($row['id'])) {
                     nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_workforce'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['content_workforce'] . " " . $row['last_name'] . " " . $row['first_name'], $workforce_list[$user_info['userid']]['fullname']);
                 } else {
                     nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_workforce'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['edit_workforce'] . " " . $row['last_name'] . " " . $row['first_name'], $workforce_list[$user_info['userid']]['fullname']);
                 }
-                
+
                 if (!empty($row['redirect'])) {
                     $url = nv_redirect_decrypt($row['redirect']);
                 } else {
                     $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name;
                 }
-                
+
                 Header('Location: ' . $url);
                 die();
             }
