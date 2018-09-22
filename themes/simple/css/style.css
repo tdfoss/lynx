@@ -2092,3 +2092,9 @@ button.close {
     padding: 4px;
     display: inline-block;
 }
+div.news_column ul.related li{
+	    display: block;
+}
+div.news_column ul.related>a>h4{
+	display:inline;
+}
