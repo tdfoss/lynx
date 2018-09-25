@@ -64,6 +64,7 @@ $lang_module['transaction_status_2'] = 'Đang tạm giữ';
 $lang_module['transaction_status_3'] = 'Thất bại';
 $lang_module['transaction_status_4'] = 'Thành công';
 $lang_module['transaction_status_5'] = 'Sai checksum (thanh toán không thành công)';
+$lang_module['general'] = 'Chung';
 
 $lang_module['config_groups_manage'] = 'Nhóm quản lý';
 $lang_module['config_groups_admin'] = 'Nhóm điều hành';

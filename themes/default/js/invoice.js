@@ -23,18 +23,56 @@ $(document).ready(function() {
             }
         });
     });
+    
+    $(".dropdown-hover").hover(function() {
+        $('.dropdown-menu', this).stop(true, true).fadeIn("fast");
+        $(this).toggleClass('open');
+        $('b', this).toggleClass("caret caret-up");
+    }, function() {
+        $('.dropdown-menu', this).stop(true, true).fadeOut("fast");
+        $(this).toggleClass('open');
+        $('b', this).toggleClass("caret caret-up");
+    });
 });
 
 function nv_item_change($this) {
     $.ajax({
         type : 'POST',
         url : script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=content&nocache=' + new Date().getTime(),
-        data : 'get_item_info=1&module=' + $this.closest('.item').data('module') + '&itemid=' + $this.val(),
+        data : 'get_item_info=1&module=' + $this.closest('.item').data('module') + '&itemid=' + $this.val() + '&quantity=' + $this.closest('.item').find('.quantity').val(),
         success : function(json) {
+            $this.closest('.item').find('.unit_price').val(json.unit_price);
             $this.closest('.item').find('.price').val(json.price);
             $this.closest('.item').find('.vat').val(json.vat);
             $this.closest('.item').find('.total').text(json.total);
-            $this.closest('.item').find('.vat_price').text(json.vat_price);
+            $this.closest('.item').find('.vat_price').val(json.vat_price);
+            nv_item_change_input();
+        }
+    });
+}
+
+function nv_item_delete($this) {
+    $this.closest('tr').remove(); $('.number').addNumber();
+    nv_item_change_input();
+}
+
+function nv_item_change_input(){
+    $.ajax({
+        type : 'POST',
+        url : nv_base_siteurl + 'index.php?' + nv_lang_variable + '=' + nv_lang_data + '&' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=content&change_item=1&nocache=' + new Date().getTime(),
+        data : $('#frm-submit').serialize(),
+        success : function(json) {
+            $('#grand_total').text(json.grand_total);
+            $('#grand_total_string').text(json.grand_total_string);
+            $('#item_total').text(json.item_total);
+            $('#vat_total').text(json.vat_total);
+            var i = 0;
+            $.each(json.detail, function(index, value){
+                $('#item-detail .item').eq(i).find('.vat_price').val(value.vat_price);
+                $('#item-detail .item').eq(i).find('.total').text(value.total);
+                $('#item-detail .item').eq(i).find('.price').val(value.price);
+                i++;
+            })
         }
     });
 }

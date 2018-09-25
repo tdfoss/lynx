@@ -32,6 +32,7 @@
                 <tr>
                     <th width="200">{LANG.performer}</th>
                     <th width="150">{LANG.addtime}</th>
+                    <th width="200">{LANG.time}</th>
                     <th>{LANG.content}</th>
                 </tr>
             </thead>
@@ -40,6 +41,7 @@
                 <tr>
                     <td>{USER.fullname}</td>
                     <td>{USER.addtime}</td>
+                    <td>{USER.time}</td>
                     <td>{USER.content}</td>
                 </tr>
                 <!-- END: user -->

@@ -44,6 +44,14 @@ if ($nv_Request->isset_request('transaction_update', 'post')) {
         ));
     }
 
+    $rows = $db->query('SELECT title, code FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $row['invoiceid'])->fetch();
+    if (!$rows) {
+        nv_jsonOutput(array(
+            'error' => 1,
+            'msg' => $lang_module['error_required_invoiceid']
+        ));
+    }
+
     $stmt = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_transaction(invoiceid, transaction_time, transaction_status, payment, payment_amount, payment_data, note) VALUES(:invoiceid, ' . $row['transaction_time'] . ', :transaction_status, :payment, :payment_amount, :payment_data, :note)');
     $stmt->bindParam(':invoiceid', $row['invoiceid'], PDO::PARAM_INT);
     $stmt->bindParam(':transaction_status', $row['transaction_status'], PDO::PARAM_INT);
@@ -55,6 +63,9 @@ if ($nv_Request->isset_request('transaction_update', 'post')) {
 
         // tính toán, cập nhật lại trạng thái hóa đơn
         nv_transaction_update($row['invoiceid']);
+
+        $content = sprintf($lang_module['logs_transaction_add'], $workforce_list[$user_info['userid']]['fullname'], $rows['code'], $rows['title'], nv_number_format($row['payment_amount']));
+        nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['transaction_add'], $content, $user_info['userid']);
 
         nv_jsonOutput(array(
             'error' => 0,
@@ -162,7 +173,7 @@ $array_invoice_products = array();
 $order_id = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_detail WHERE idinvoice=' . $id);
 while ($order = $order_id->fetch()) {
     $row['vat_price'] = ($order['price'] * $order['vat']) / 100;
-    $row['item_total'] += ($order['price'] * $order['quantity']);
+    $row['item_total'] += $order['price'];
     $row['vat_total'] += $row['vat_price'];
     $array_invoice_products[] = $order;
 }
@@ -171,7 +182,6 @@ $row['item_total'] = number_format($row['item_total']);
 $row['vat_total'] = number_format($row['vat_total']);
 
 $row['terms'] = nv_nl2br($row['terms']);
-// $row['terms'] = nv_br2nl ($row['terms']);
 $row['description'] = nv_nl2br($row['description']);
 
 $array_control = array(

@@ -33,7 +33,7 @@ function nv_theme_invoice_main($array_data)
  */
 function nv_theme_invoice_detail($row, $array_invoice_products, $array_control, $downpdf, $sendmail)
 {
-    global $global_config, $module_name, $module_file, $lang_module, $module_config, $module_info, $op, $array_services, $array_products, $site_mods;
+    global $global_config, $module_name, $module_file, $lang_module, $module_config, $module_info, $op, $array_services, $array_products, $array_projects, $site_mods;
 
     $lang_module['send_mail'] = $row['sended'] ? $lang_module['resend_mail'] : $lang_module['send_mail'];
     $templateCSS = file_exists(NV_ROOTDIR . '/themes/' . $global_config['module_theme'] . '/css/pdf.css') ? $global_config['module_theme'] : 'default';
@@ -52,15 +52,25 @@ function nv_theme_invoice_detail($row, $array_invoice_products, $array_control, 
             $orders['vat_price'] = ($orders['price'] * $orders['vat']) / 100;
             $orders['vat_price'] = number_format($orders['vat_price']);
             $orders['price'] = number_format($orders['price']);
+            $orders['unit_price'] = number_format($orders['unit_price']);
             $orders['total'] = number_format($orders['total']);
 
             if ($orders['module'] == 'services') {
                 $orders['itemid'] = $array_services[$orders['itemid']]['title'];
             } elseif ($orders['module'] == 'products') {
                 $orders['itemid'] = $array_products[$orders['itemid']]['title'];
+            }elseif ($orders['module'] == 'projects') {
+                $orders['itemid'] = $array_projects[$orders['itemid']]['title'];
             }
 
             $xtpl->assign('ORDERS', $orders);
+
+            if ($orders['vat'] > 0) {
+                $xtpl->parse('main.invoice_list.loop.vat');
+            } else {
+                $xtpl->parse('main.invoice_list.loop.vat_empty');
+            }
+
             $xtpl->parse('main.invoice_list.loop');
         }
         $xtpl->parse('main.invoice_list');

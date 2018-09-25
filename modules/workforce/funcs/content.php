@@ -43,6 +43,8 @@ if ($row['id'] > 0) {
     $row['allowance'] = 0;
 }
 
+$row['redirect'] = $nv_Request->get_string('redirect', 'get,post', '');
+
 if ($nv_Request->isset_request('submit', 'post')) {
     $row['first_name'] = $nv_Request->get_title('first_name', 'post', '');
     $row['last_name'] = $nv_Request->get_title('last_name', 'post', '');
@@ -122,14 +124,20 @@ if ($nv_Request->isset_request('submit', 'post')) {
             $exc = $stmt->execute();
             if ($exc) {
                 $nv_Cache->delMod($module_name);
-
+                $nv_Cache->delMod('users');
                 if (empty($row['id'])) {
-                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_workforce'], $workforce_list[$user_info['userid']]['fullname']  . " " . $lang_module['content_workforce']." ".$row['last_name']." ".$row['first_name'], $workforce_list[$user_info['userid']]['fullname']);
+                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_workforce'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['content_workforce'] . " " . $row['last_name'] . " " . $row['first_name'], $workforce_list[$user_info['userid']]['fullname']);
                 } else {
-                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_workforce'], $workforce_list[$user_info['userid']]['fullname']  . " " . $lang_module['edit_workforce']." ".$row['last_name']." ".$row['first_name'], $workforce_list[$user_info['userid']]['fullname']);
+                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_workforce'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['edit_workforce'] . " " . $row['last_name'] . " " . $row['first_name'], $workforce_list[$user_info['userid']]['fullname']);
                 }
 
-                Header('Location: ' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name);
+                if (!empty($row['redirect'])) {
+                    $url = nv_redirect_decrypt($row['redirect']);
+                } else {
+                    $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name;
+                }
+
+                Header('Location: ' . $url);
                 die();
             }
         } catch (PDOException $e) {

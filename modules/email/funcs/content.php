@@ -80,7 +80,7 @@ if ($row['id'] > 0) {
     $row['sendto_id_old'] = array();
     $row['send_my_cc'] = 1;
 }
-// var_dump($customer_info);die;
+
 $row['redirect'] = $nv_Request->get_string('redirect', 'post,get', '');
 
 if ($nv_Request->isset_request('submit', 'post')) {
@@ -127,11 +127,8 @@ if ($nv_Request->isset_request('submit', 'post')) {
             $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=detail&id=' . $new_id;
         }
 
-        if (empty($row['id'])) {
-            nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_email'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['content_email']." ".$row['title'], $workforce_list[$user_info['userid']]['fullname']);
-        } else {
-            nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_email'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['edit_email']." ".$row['title'], $workforce_list[$user_info['userid']]['fullname']);
-        }
+        $content = sprintf($lang_module['logs_send_mail_note'], $workforce_list[$user_info['userid']]['fullname'], $row['title']);
+        nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['save'], $content, $user_info['userid']);
 
         $contents = nv_theme_alert($message_title, $message_content, $color, $url, $lang_module['view_detail'], 3);
 

@@ -42,3 +42,13 @@ $lang_module['url_detail'] = 'URL trang thông tin dự án';
 $lang_module['status'] = 'Trạng thái';
 $lang_module['content'] = 'Mô tả dự án';
 $lang_module['site_name'] = 'Tiêu đề website';
+$lang_module['status'] = 'Trạng thái';
+$lang_module['status_select_1'] = 'Chưa thực hiện';
+$lang_module['status_select_2'] = 'Đã bắt đầu';
+$lang_module['status_select_3'] = 'Đợi phản hồi';
+$lang_module['status_select_4'] = 'Đã hoàn thành';
+$lang_module['status_select_5'] = 'Đã bàn giao';
+$lang_module['status_select_6'] = 'Đã hủy';
+
+$lang_module['config_groups_manage'] = 'Nhóm quản lý';
+$lang_module['config_default_status'] = 'Trạng thái mặc định';
