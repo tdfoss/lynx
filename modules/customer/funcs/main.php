@@ -147,6 +147,15 @@ $array_sort_url = array(
     'addtime' => $base_url . '&ordername=addtime&ordertype=' . $ordertype
 );
 
+$array_param = array(
+    'page' => $page,
+    'per_page' => $per_page,
+    'where_string' => base64_encode($where),
+    'where_md5' => md5($where . $global_config['sitekey']),
+    'ordername' => $array_search['ordername'],
+    'ordertype' => $array_search['ordertype']
+);
+
 $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
 $xtpl->assign('LANG', $lang_module);
 $xtpl->assign('MODULE_NAME', $module_name);
@@ -156,11 +165,11 @@ $xtpl->assign('ROW', $row);
 $xtpl->assign('Q', $array_search['q']);
 $xtpl->assign('URL_ADD', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=content' . ($is_contact ? '&amp;is_contact=1' : ''));
 $xtpl->assign('SORTURL', $array_sort_url);
+$xtpl->assign('URL_PARAM', http_build_query($array_param));
 
 if (class_exists('PHPExcel')) {
     $xtpl->assign('IMPORT_EXCEL', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=import&action=' . $module_name);
-} else {
-    $xtpl->parse('main.btn_disabled');
+    $xtpl->parse('main.import');
 }
 
 foreach ($array_customer_type_id as $value) {
@@ -176,6 +185,7 @@ $generate_page = nv_generate_page($base_url, $num_items, $per_page, $page);
 if (!empty($generate_page)) {
     $xtpl->assign('NV_GENERATE_PAGE', $generate_page);
     $xtpl->parse('main.generate_page');
+    $xtpl->parse('main.generate_page_top');
 }
 
 while ($view = $sth->fetch()) {

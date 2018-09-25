@@ -1,4 +1,5 @@
 <?php
+use NukeViet\Files\Download;
 
 /**
  * @Project NUKEVIET 4.x
@@ -73,3 +74,28 @@ function nv_customer_premission($module, $type = 'where')
     }
 }
 
+function nv_customer_export_csv($array_data, $filename = 'customer.csv', $array_heading = array())
+{
+    $path = NV_ROOTDIR . '/' . NV_TEMP_DIR . '/' . $filename;
+
+    // create a file pointer connected to the output stream
+    $output = fopen($path, 'w');
+
+    // output the column headings
+    if (!empty($array_heading)) {
+        fputcsv($output, $array_heading);
+    }
+
+    if (!empty($array_data)) {
+        foreach ($array_data as $data) {
+            fputcsv($output, array_values($data));
+        }
+    }
+
+    // output headers so that the file is downloaded rather than displayed
+    header("Content-type: text/csv");
+    header("Content-disposition: attachment; filename=" . $filename);
+    readfile($path);
+
+    fclose($output);
+}
