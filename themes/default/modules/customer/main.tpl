@@ -63,7 +63,7 @@
             <!-- BEGIN: import -->
             <li><a href="{IMPORT_EXCEL}"><em class="fa fa-plus-square">&nbsp;</em>{LANG.import_excel}</a></li>
             <!-- END: import -->
-            <li><a href="{IMPORT_EXCEL}" onclick="nv_customer_export_option('{URL_PARAM}', '{LANG.export_title}');"><em class="fa fa-plus-square">&nbsp;</em>{LANG.export}</a></li>
+            <li><a href="" onclick="nv_customer_export_option('{URL_PARAM}', '{LANG.export_title}'); return !1;"><em class="fa fa-plus-square">&nbsp;</em>{LANG.export}</a></li>
         </ul>
     </div>
 </form>
