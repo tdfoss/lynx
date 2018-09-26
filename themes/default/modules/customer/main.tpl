@@ -7,10 +7,11 @@
         <input type="hidden" name="{NV_NAME_VARIABLE}" value="{MODULE_NAME}" /> 
         <input type="hidden" name="{NV_OP_VARIABLE}" value="{OP}" /> 
         <input type="hidden" name="page" value="{PAGE}" />
+        <input type="hidden" name="is_contact" value="{SEARCH.is_contact}" />
         <div class="row">
             <div class="col-xs-24 col-md-4">
                 <div class="form-group">
-                    <input class="form-control" type="text" value="{Q}" name="q" maxlength="255" placeholder="{LANG.search_title}" />
+                    <input class="form-control" type="text" value="{SEARCH.q}" name="q" maxlength="255" placeholder="{LANG.search_title}" />
                 </div>
             </div>
             <div class="col-xs-24 col-md-4">

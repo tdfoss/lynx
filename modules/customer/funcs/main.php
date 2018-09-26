@@ -45,13 +45,13 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
 
 $per_page = 20;
 $page = $nv_Request->get_int('page', 'post,get', 1);
-$is_contact = $nv_Request->get_int('is_contact', 'get', 0);
 $join = $where = '';
 $array_search = array(
     'q' => $nv_Request->get_title('q', 'post,get'),
     'type_id' => $nv_Request->get_int('type_id', 'post,get', 0),
     'workforceid' => $nv_Request->get_int('workforceid', 'post,get', 0),
-    'tag_id' => $nv_Request->get_typed_array('tag_id', 'get', 'int')
+    'tag_id' => $nv_Request->get_typed_array('tag_id', 'get', 'int'),
+    'is_contact' => $nv_Request->get_int('is_contact', 'get', 0)
 );
 
 if (!class_exists('PHPExcel')) {
@@ -78,7 +78,7 @@ if ($nv_Request->isset_request('ordertype', 'get')) {
     $array_search['ordertype'] = 'asc';
 }
 
-$base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;is_contact=' . $is_contact;
+$base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;is_contact=' . $array_search['is_contact'];
 
 if (!empty($array_search['q'])) {
     $base_url .= '&q=' . $array_search['q'];
@@ -117,7 +117,7 @@ if (!empty($array_search['tag_id'])) {
 }
 
 $where .= nv_customer_premission($module_name);
-$where .= ' AND is_contacts=' . $is_contact;
+$where .= ' AND is_contacts=' . $array_search['is_contact'];
 
 $db->sqlreset()
     ->select('COUNT(*)')
@@ -136,7 +136,7 @@ $db->select('t1.*')
 $sth = $db->prepare($db->sql());
 $sth->execute();
 
-if ($is_contact) {
+if ($array_search['is_contact']) {
     $lang_module['customer_add'] = $lang_module['contact_add'];
     $lang_module['manage_customer'] = $lang_module['contact'];
 }
@@ -162,8 +162,8 @@ $xtpl->assign('MODULE_NAME', $module_name);
 $xtpl->assign('MODULE_UPLOAD', $module_upload);
 $xtpl->assign('OP', $op);
 $xtpl->assign('ROW', $row);
-$xtpl->assign('Q', $array_search['q']);
-$xtpl->assign('URL_ADD', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=content' . ($is_contact ? '&amp;is_contact=1' : ''));
+$xtpl->assign('SEARCH', $array_search);
+$xtpl->assign('URL_ADD', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=content' . ($array_search['is_contact'] ? '&amp;is_contact=1' : ''));
 $xtpl->assign('SORTURL', $array_sort_url);
 $xtpl->assign('URL_PARAM', http_build_query($array_param));
 $xtpl->assign('PAGE', $array_param['page']);
