@@ -166,6 +166,7 @@ $xtpl->assign('Q', $array_search['q']);
 $xtpl->assign('URL_ADD', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=content' . ($is_contact ? '&amp;is_contact=1' : ''));
 $xtpl->assign('SORTURL', $array_sort_url);
 $xtpl->assign('URL_PARAM', http_build_query($array_param));
+$xtpl->assign('PAGE', $array_param['page']);
 
 if (class_exists('PHPExcel')) {
     $xtpl->assign('IMPORT_EXCEL', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=import&action=' . $module_name);

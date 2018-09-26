@@ -3,7 +3,10 @@
 <link rel="stylesheet" href="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/select2/select2-bootstrap.min.css" />
 <div class="well">
     <form action="{NV_BASE_SITEURL}index.php" method="get" id="frm-search">
-        <input type="hidden" name="{NV_LANG_VARIABLE}" value="{NV_LANG_DATA}" /> <input type="hidden" name="{NV_NAME_VARIABLE}" value="{MODULE_NAME}" /> <input type="hidden" name="{NV_OP_VARIABLE}" value="{OP}" /> <input type="hidden" name="page" value="{PAGE}" />
+        <input type="hidden" name="{NV_LANG_VARIABLE}" value="{NV_LANG_DATA}" /> 
+        <input type="hidden" name="{NV_NAME_VARIABLE}" value="{MODULE_NAME}" /> 
+        <input type="hidden" name="{NV_OP_VARIABLE}" value="{OP}" /> 
+        <input type="hidden" name="page" value="{PAGE}" />
         <div class="row">
             <div class="col-xs-24 col-md-4">
                 <div class="form-group">
