@@ -38,3 +38,20 @@ function nv_table_row_click(e, t, n) {
     var r = e.target.tagName.toLowerCase(), i = e.target.parentNode.tagName.toLowerCase(), a = e.target.parentNode.parentNode.parentNode;
     return void ("button" != r && "a" != r && "button" != i && "a" != i && "td" != i && (n ? window.open(t) : window.location.href = t))
 }
+
+function nv_customer_export_option(url_param, title) {
+    var selected_id = [];
+    $("form").find("input[name='idcheck[]']:checked").each(function() {
+        selected_id.push($(this).val());
+    });
+
+    $.ajax({
+        type : 'POST',
+        url : nv_base_siteurl + 'index.php?' + nv_lang_variable + '=' + nv_lang_data + '&' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=export&nocache=' + new Date().getTime(),
+        data : 'option=1&selected_id=' + selected_id.join(',') + '&' + url_param,
+        success : function(html) {
+            modalShow(title, html);
+            $('.modal-content').css('width', '100%');
+        }
+    });
+}

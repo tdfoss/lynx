@@ -136,13 +136,16 @@ $lang_module['error_exits_email'] = 'Lỗi: Email chính <strong>%s</strong> đ�
 $lang_module['error_exits_phone'] = 'Lỗi: Số điện thoại chính <strong>%s</strong> đã được thêm trước đó';
 $lang_module['error_empty_data'] = 'Bạn cần chọn dữ liệu để thực hiện!';
 
-$lang_module['export_excel'] = 'Xuất excel';
+$lang_module['export'] = 'Xuất danh sách';
+$lang_module['export_title'] = 'Lựa chọn dữ liệu';
+$lang_module['export_type_1'] = 'Xuất dữ liệu được chọn';
+$lang_module['export_type_2'] = 'Xuất dữ liệu trang hiện tại';
+$lang_module['export_type_3'] = 'Xuất dữ liệu tất cả các trang';
 $lang_module['note_export'] = 'Trước khi sử dung chức năng xuất excel các dữ liệu đầu vào về Năm học, khối lớp, giáo viên cần được nhập đầy đủ';
 $lang_module['export_note'] = 'Đang xuất dữ liệu...';
 $lang_module['export_complete'] = 'Xuất dữ liệu thành công';
 $lang_module['required_phpexcel'] = 'Chưa có thư viện EXCEL, hãy tải về và copy vào thư mục include/class';
 $lang_module['export_customer'] = 'Xuất file mẫu danh sách khách hàng';
-$lang_module['export'] = 'Dữ liệu mẫu excel';
 $lang_module['pick_from_list'] = 'Chọn giá trị từ danh sách xổ xuống';
 $lang_module['pick_from_list_note'] = 'Chỉ được chọn giá trị trong danh sách để tránh bị lỗi dữ liệu';
 $lang_module['export_teacher'] = 'Xuất danh sách giáo viên';
@@ -173,3 +176,5 @@ $lang_module['delete_many_customer'] = 'xóa nhiều dữ liệu của khách h�
 $lang_module['choice_service'] = 'Chọn dịch vụ';
 $lang_module['tags'] = 'Tag khách hàng';
 $lang_module['tags_select'] = 'Chọn tag khách hàng';
+
+$lang_module['error_unknow'] = 'Vì lý do nào đó hệ thống không thể đáp ứng yêu cầu của bạn lúc này. Vui lòng liên hệ người quản trị để biết thêm thông tin';

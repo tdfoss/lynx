@@ -44,7 +44,7 @@ if ($nv_Request->isset_request('transaction_update', 'post')) {
         ));
     }
 
-    $rows = $db->query('SELECT title FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $row['invoiceid'])->fetch();
+    $rows = $db->query('SELECT title, code FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $row['invoiceid'])->fetch();
     if (!$rows) {
         nv_jsonOutput(array(
             'error' => 1,
@@ -64,7 +64,7 @@ if ($nv_Request->isset_request('transaction_update', 'post')) {
         // tính toán, cập nhật lại trạng thái hóa đơn
         nv_transaction_update($row['invoiceid']);
 
-        $content = sprintf($lang_module['logs_transaction_add'], $workforce_list[$user_info['userid']]['fullname'], $rows['title'], nv_number_format($row['payment_amount']));
+        $content = sprintf($lang_module['logs_transaction_add'], $workforce_list[$user_info['userid']]['fullname'], $rows['code'], $rows['title'], nv_number_format($row['payment_amount']));
         nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['transaction_add'], $content, $user_info['userid']);
 
         nv_jsonOutput(array(
