@@ -51,8 +51,9 @@ function nv_sendinfo_projects($id)
             $row['customerid']
         );
 
-        nv_email_send($subject, $message, 0, $sendto_id);
+        $return = nv_email_send($subject, $message, 0, $sendto_id);
     }
+    return $return['status'];
 }
 
 if (isset($site_mods['task'])) {
