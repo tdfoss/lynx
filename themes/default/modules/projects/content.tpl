@@ -10,7 +10,8 @@
         <div class="col-xs-24 col-sm-18 col-md-19">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <input type="hidden" name="id" value="{ROW.id}" /> <input type="hidden" name="redirect" value="{ROW.redirect}" />
+                    <input type="hidden" name="id" value="{ROW.id}" />
+                    <input type="hidden" name="redirect" value="{ROW.redirect}" />
                     <div class="form-group">
                         <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.title}</strong> <span class="red">(*)</span></label>
                         <div class="col-sm-19 col-md-20">
@@ -102,7 +103,8 @@
                     <div class="form-group">
                         <label class="control-label"><strong>{LANG.begintime}</strong></label>
                         <div class="input-group">
-                            <input class="form-control" type="text" name="begintime" value="{ROW.begintime}" id="begintime" autocomplete="off" /> <span class="input-group-btn">
+                            <input class="form-control" type="text" name="begintime" value="{ROW.begintime}" id="begintime" autocomplete="off" />
+                            <span class="input-group-btn">
                                 <button class="btn btn-default" type="button" id="begintime-btn">
                                     <em class="fa fa-calendar fa-fix"> </em>
                                 </button>
@@ -112,7 +114,8 @@
                     <div class="form-group">
                         <label class="control-label"><strong>{LANG.endtime}</strong></label>
                         <div class="input-group">
-                            <input class="form-control" type="text" name="endtime" value="{ROW.endtime}" id="endtime" pattern="^[0-9]{2,2}\/[0-9]{2,2}\/[0-9]{1,4}$" autocomplete="off" /> <span class="input-group-btn">
+                            <input class="form-control" type="text" name="endtime" value="{ROW.endtime}" id="endtime" pattern="^[0-9]{2,2}\/[0-9]{2,2}\/[0-9]{1,4}$" autocomplete="off" />
+                            <span class="input-group-btn">
                                 <button class="btn btn-default" type="button" id="endtime-btn">
                                     <em class="fa fa-calendar fa-fix"> </em>
                                 </button>
@@ -122,7 +125,8 @@
                     <div class="form-group">
                         <label class="control-label"><strong>{LANG.realtime}</strong></label>
                         <div class="input-group">
-                            <input class="form-control" type="text" name="realtime" value="{ROW.realtime}" id="realtime" pattern="^[0-9]{2,2}\/[0-9]{2,2}\/[0-9]{1,4}$" autocomplete="off" /> <span class="input-group-btn">
+                            <input class="form-control" type="text" name="realtime" value="{ROW.realtime}" id="realtime" pattern="^[0-9]{2,2}\/[0-9]{2,2}\/[0-9]{1,4}$" autocomplete="off" />
+                            <span class="input-group-btn">
                                 <button class="btn btn-default" type="button" id="realtime-btn">
                                     <em class="fa fa-calendar fa-fix"> </em>
                                 </button>
@@ -146,7 +150,8 @@
         </div>
     </div>
     <div class="form-group text-center">
-        <input type="hidden" name="submit" value="1" /> <input class="btn btn-primary" type="submit" value="{LANG.save}" />
+        <input type="hidden" name="submit" value="1" />
+        <input class="btn btn-primary" type="submit" value="{LANG.save}" />
     </div>
 </form>
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/jquery-ui/jquery-ui.min.js"></script>

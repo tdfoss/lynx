@@ -64,6 +64,9 @@ $lang_module['perform'] = 'Thực hiện';
 $lang_module['creatinvoice'] = 'Tạo hóa đơn';
 $lang_module['sendmail'] = 'Gửi Email';
 $lang_module['sendinfo'] = 'Gửi thông tin dự án';
+$lang_module['projects_sendinfo_confirm'] = 'Hành động này sẽ gửi thông tin dự án đến khách hàng, bạn có muốn tiếp tục?';
+$lang_module['projects_sendinfo_success'] = 'Thông tin dự án đã được gửi đi thành công!';
+$lang_module['projects_sendinfo_error'] = 'Thông tin dự án gửi đi không thành công!';
 $lang_module['sendinfo_note'] = 'Gửi thông tin dự án cho khách hàng qua Email';
 $lang_module['types'] = 'types';
 $lang_module['note'] = 'Ghi chú';
@@ -99,3 +102,4 @@ $lang_module['error_required_customerid'] = 'Lỗi: bạn cần nhập dữ li�
 $lang_module['error_required_workforceid'] = 'Lỗi: bạn cần nhập dữ liệu cho Nhân viên phụ trách';
 $lang_module['error_required_title'] = 'Lỗi: bạn cần nhập dữ liệu cho Tiêu đề';
 $lang_module['error_unknow'] = 'Vì lý do nào đó hệ thống không thể đáp ứng yêu cầu của bạn lúc này, vui lòng liên hệ với người quản trị để biết thêm thông tin, xin cảm ơn!';
+
