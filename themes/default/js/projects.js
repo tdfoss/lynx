@@ -121,3 +121,18 @@ function nv_chang_status(vid) {
     });
     return;
 }
+
+function nv_projects_sendinfo(id) {
+    if (confirm(projects_sendinfo_confirm)) {
+        $.ajax({
+            type : 'POST',
+            url : script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=detail&nocache=' + new Date().getTime(),
+            data : 'sendinfo=1&id=' + id,
+            success : function(data) {
+                var r_split = data.split('_');
+                alert(r_split[1]);
+                return !1;
+            }
+        });
+    }
+}

@@ -49,6 +49,14 @@ if ($nv_Request->isset_request('change_status', 'post')) {
     die('OK_' . $id);
 }
 
+if ($nv_Request->isset_request('sendinfo', 'post')) {
+    $id = $nv_Request->get_int('id', 'post', 0);
+    if (nv_sendinfo_projects($id)) {
+        die('OK_' . $lang_module['projects_sendinfo_success']);
+    }
+    die('NO_' . $lang_module['projects_sendinfo_error']);
+}
+
 $id = $nv_Request->get_int('id', 'get', 0);
 
 $rows = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();

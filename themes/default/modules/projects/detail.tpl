@@ -1,6 +1,7 @@
 <!-- BEGIN: main -->
 <ul class="pull-right list-inline">
     <li><a href="{CONTROL.url_creatinvoice}" class="btn btn-primary btn-xs"><em class="fa fa-file-text">&nbsp;</em>{LANG.creatinvoice}</a></li>
+    <li><a href="" onclick="nv_projects_sendinfo({ROW.id}); return !1;" class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="{LANG.sendinfo}"><em class="fa fa-envelope">&nbsp;</em>{LANG.sendinfo}</a></li>
     <li><a href="{CONTROL.url_sendmail}" class="btn btn-primary btn-xs"><em class="fa fa-envelope">&nbsp;</em>{LANG.sendmail}</a></li>
     <li><a href="{CONTROL.url_add}" class="btn btn-primary btn-xs"><em class="fa fa-sign-in">&nbsp;</em>{LANG.project_add}</a></li>
     <li><a href="{CONTROL.url_edit}" class="btn btn-default btn-xs"><em class="fa fa-edit">&nbsp;</em>{LANG.project_edit}</a></li>
@@ -89,6 +90,9 @@
         <!-- END: comment -->
     </div>
 </div>
+<script>
+    var projects_sendinfo_confirm = '{LANG.projects_sendinfo_confirm}';
+</script>
 <!-- END: main -->
 <!-- BEGIN: task_list -->
 <div class="panel panel-default">
@@ -109,12 +113,16 @@
             <!-- BEGIN: loop -->
             <tr>
                 <td class="text-center">{TASK.number}</td>
-                <td><a href="{TASK.link}">{TASK.title}</a></td>
+                <td>
+                    <a href="{TASK.link}">{TASK.title}</a>
+                </td>
                 <td>{TASK.performer_str}</td>
                 <td>{TASK.begintime}</td>
                 <td>{TASK.endtime}</td>
                 <td>{TASK.status}</td>
-                <td><a href="" class="btn btn-default btn-xs" onclick="nv_task_content({TASK.taskid}, {TASK.projectid});"><i class="fa fa-edit"></i></a></td>
+                <td>
+                    <a href="" class="btn btn-default btn-xs" onclick="nv_task_content({TASK.taskid}, {TASK.projectid});"><i class="fa fa-edit"></i></a>
+                </td>
             </tr>
             <!-- END: loop -->
         </tbody>

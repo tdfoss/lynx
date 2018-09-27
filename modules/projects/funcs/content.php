@@ -261,35 +261,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
 
                 if ($row['sendinfo']) {
                     // gửi mail thông báo khách hàng
-                    $message = $db->query('SELECT econtent FROM ' . NV_PREFIXLANG . '_' . $module_data . '_econtent WHERE action="new_project"')->fetchColumn();
-                    if (!empty($message)) {
-                        $customer_info = nv_crm_customer_info($row['customerid']);
-                        $array_replace = array(
-                            'SITE_NAME' => $global_config['site_name'],
-                            'CUSTOMER_FISRT_NAME' => $customer_info['first_name'],
-                            'CUSTOMER_LAST_NAME' => $customer_info['last_name'],
-                            'USER_WORK' => $workforce_list[$workforceid]['fullname'],
-                            'TITLE' => $row['title'],
-                            'BEGIN_TIME' => !empty($row['begintime']) ? nv_date('d/m/Y', $row['begintime']) : '-',
-                            'END_TIME' => !empty($row['endtime']) ? nv_date('d/m/Y', $row['endtime']) : '-',
-                            'PRICE' => !empty($row['price']) ? nv_number_format($row['price']) : '-',
-                            'VAT' => $row['vat'],
-                            'CONTENT' => $row['content'],
-                            'STATUS' => $lang_module['status_' . $row['status']],
-                            'URL_DETAIL' => NV_MY_DOMAIN . $redirect
-                        );
-                        $message = nv_unhtmlspecialchars($message);
-                        foreach ($array_replace as $index => $value) {
-                            $message = str_replace('[' . $index . ']', $value, $message);
-                        }
-                        $subject = sprintf($lang_module['new_project_title'], $global_config['site_name'], $row['title']);
-
-                        require_once NV_ROOTDIR . '/modules/email/site.functions.php';
-                        $sendto_id = array(
-                            $row['customerid']
-                        );
-                        nv_email_send($subject, $message, 0, $sendto_id);
-                    }
+                    nv_sendinfo_projects($new_id);
                 }
                 $content = sprintf($lang_module['logs_project_add_note'], $row['title']);
                 nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_project_add'], $content, $user_info['userid'], $redirect);
