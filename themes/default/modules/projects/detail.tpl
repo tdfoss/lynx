@@ -1,7 +1,7 @@
 <!-- BEGIN: main -->
 <ul class="pull-right list-inline">
     <li><a href="{CONTROL.url_creatinvoice}" class="btn btn-primary btn-xs"><em class="fa fa-file-text">&nbsp;</em>{LANG.creatinvoice}</a></li>
-    <li><a href="{CONTROL.url_sendinfo}" onclick="nv_projects_sendinfo({ROW.id}); return !1;" class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="{LANG.sendinfo}"><em class="fa fa-envelope">&nbsp;</em>{LANG.sendinfo}</a></li>
+    <li><a href="" onclick="nv_projects_sendinfo({ROW.id}); return !1;" class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="{LANG.sendinfo}"><em class="fa fa-envelope">&nbsp;</em>{LANG.sendinfo}</a></li>
     <li><a href="{CONTROL.url_sendmail}" class="btn btn-primary btn-xs"><em class="fa fa-envelope">&nbsp;</em>{LANG.sendmail}</a></li>
     <li><a href="{CONTROL.url_add}" class="btn btn-primary btn-xs"><em class="fa fa-sign-in">&nbsp;</em>{LANG.project_add}</a></li>
     <li><a href="{CONTROL.url_edit}" class="btn btn-default btn-xs"><em class="fa fa-edit">&nbsp;</em>{LANG.project_edit}</a></li>
