@@ -9,6 +9,15 @@
  */
 if (!defined('NV_IS_MOD_WORKFORCE')) die('Stop!!!');
 
+$array_part = $db->query('SELECT id FROM ' . NV_PREFIXLANG . '_' . $module_data . '_part')->fetch();
+if (empty($array_part)) {
+    $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=part';
+    $contents = nv_theme_alert($lang_module['error_data_part_title'], $lang_module['error_data_part_content'], 'danger', $url, $lang_module['part_manage']);
+    include NV_ROOTDIR . '/includes/header.php';
+    echo nv_site_theme($contents);
+    include NV_ROOTDIR . '/includes/footer.php';
+}
+
 $row = array();
 $error = array();
 $row['id'] = $nv_Request->get_int('id', 'post,get', 0);
@@ -20,6 +29,7 @@ if ($row['id'] > 0) {
         Header('Location: ' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=' . $op);
         die();
     }
+    $row['part'] = $row['part_old'] = !empty($row['part']) ? array_map('intval', explode(',', $row['part'])) : array();
 } else {
     $row['id'] = 0;
     $row['first_name'] = '';
@@ -39,6 +49,7 @@ if ($row['id'] > 0) {
     $row['status'] = 1;
     $row['userid'] = 0;
     $row['jointime'] = 0;
+    $row['part'] = $row['part_old'] = array();
     $row['salary'] = 0;
     $row['allowance'] = 0;
 }
@@ -75,6 +86,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
     $row['main_email'] = $nv_Request->get_title('main_email', 'post', '');
     $row['other_email'] = $nv_Request->get_title('other_email', 'post', '');
     $row['address'] = $nv_Request->get_title('address', 'post', '');
+    $row['part'] = $nv_Request->get_typed_array('part', 'post', 'int');
     $row['knowledge'] = $nv_Request->get_string('knowledge', 'post', '');
     $row['image'] = $nv_Request->get_title('image', 'post', '');
     $row['userid'] = $nv_Request->get_int('userid', 'post', 0);
@@ -84,6 +96,8 @@ if ($nv_Request->isset_request('submit', 'post')) {
     } else {
         $row['image'] = '';
     }
+
+    $part = !empty($row['part']) ? implode(',', $row['part']) : '';
 
     if (empty($row['userid'])) {
         $error[] = $lang_module['error_required_userid'];
@@ -102,43 +116,82 @@ if ($nv_Request->isset_request('submit', 'post')) {
     if (empty($error)) {
         try {
             if (empty($row['id'])) {
-                $stmt = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (userid, first_name, last_name, gender, birthday, main_phone, other_phone, main_email, other_email, address, knowledge, image, jointime, salary, allowance, addtime, edittime, useradd) VALUES (:userid, :first_name, :last_name, :gender, :birthday, :main_phone, :other_phone, :main_email, :other_email, :address, :knowledge, :image, :jointime, :salary, :allowance, ' . NV_CURRENTTIME . ', ' . NV_CURRENTTIME . ', ' . $user_info['userid'] . ')');
+
+                $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (userid, first_name, last_name, gender, birthday, main_phone, other_phone, main_email, other_email, address, knowledge, image, jointime, part, salary, allowance, addtime, edittime, useradd) VALUES (:userid, :first_name, :last_name, :gender, :birthday, :main_phone, :other_phone, :main_email, :other_email, :address, :knowledge, :image, :jointime, :part, :salary, :allowance, ' . NV_CURRENTTIME . ', ' . NV_CURRENTTIME . ', ' . $user_info['userid'] . ')';
+                $data_insert = array();
+                $data_insert['userid'] = $row['userid'];
+                $data_insert['first_name'] = $row['first_name'];
+                $data_insert['last_name'] = $row['last_name'];
+                $data_insert['gender'] = $row['gender'];
+                $data_insert['birthday'] = $row['birthday'];
+                $data_insert['main_phone'] = $row['main_phone'];
+                $data_insert['other_phone'] = $row['other_phone'];
+                $data_insert['main_email'] = $row['main_email'];
+                $data_insert['other_email'] = $row['other_email'];
+                $data_insert['address'] = $row['address'];
+                $data_insert['knowledge'] = $row['knowledge'];
+                $data_insert['image'] = $row['image'];
+                $data_insert['jointime'] = $row['jointime'];
+                $data_insert['part'] = $part;
+                $data_insert['salary'] = $row['salary'];
+                $data_insert['allowance'] = $row['allowance'];
+                $new_id = $db->insert_id($_sql, 'id', $data_insert);
             } else {
-                $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET userid = :userid, first_name = :first_name, last_name = :last_name, gender = :gender, birthday = :birthday, main_phone = :main_phone, other_phone = :other_phone, main_email = :main_email, other_email = :other_email, address = :address, knowledge = :knowledge, image = :image, jointime = :jointime, salary = :salary, allowance = :allowance, edittime = ' . NV_CURRENTTIME . ' WHERE id=' . $row['id']);
+                $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET userid = :userid, first_name = :first_name, last_name = :last_name, gender = :gender, birthday = :birthday, main_phone = :main_phone, other_phone = :other_phone, main_email = :main_email, other_email = :other_email, address = :address, knowledge = :knowledge, image = :image, jointime = :jointime, part = :part, salary = :salary, allowance = :allowance, edittime = ' . NV_CURRENTTIME . ' WHERE id=' . $row['id']);
+                $stmt->bindParam(':userid', $row['userid'], PDO::PARAM_INT);
+                $stmt->bindParam(':first_name', $row['first_name'], PDO::PARAM_STR);
+                $stmt->bindParam(':last_name', $row['last_name'], PDO::PARAM_STR);
+                $stmt->bindParam(':gender', $row['gender'], PDO::PARAM_INT);
+                $stmt->bindParam(':birthday', $row['birthday'], PDO::PARAM_INT);
+                $stmt->bindParam(':main_phone', $row['main_phone'], PDO::PARAM_STR);
+                $stmt->bindParam(':other_phone', $row['other_phone'], PDO::PARAM_STR);
+                $stmt->bindParam(':main_email', $row['main_email'], PDO::PARAM_STR);
+                $stmt->bindParam(':other_email', $row['other_email'], PDO::PARAM_STR);
+                $stmt->bindParam(':address', $row['address'], PDO::PARAM_STR);
+                $stmt->bindParam(':knowledge', $row['knowledge'], PDO::PARAM_STR, strlen($row['knowledge']));
+                $stmt->bindParam(':image', $row['image'], PDO::PARAM_STR);
+                $stmt->bindParam(':jointime', $row['jointime'], PDO::PARAM_INT);
+                $stmt->bindParam(':part', $part, PDO::PARAM_INT);
+                $stmt->bindParam(':salary', $row['salary'], PDO::PARAM_STR);
+                $stmt->bindParam(':allowance', $row['allowance'], PDO::PARAM_STR);
+                if ($stmt->execute()) {
+                    $new_id = $row['id'];
+                }
             }
-            $stmt->bindParam(':userid', $row['userid'], PDO::PARAM_INT);
-            $stmt->bindParam(':first_name', $row['first_name'], PDO::PARAM_STR);
-            $stmt->bindParam(':last_name', $row['last_name'], PDO::PARAM_STR);
-            $stmt->bindParam(':gender', $row['gender'], PDO::PARAM_INT);
-            $stmt->bindParam(':birthday', $row['birthday'], PDO::PARAM_INT);
-            $stmt->bindParam(':main_phone', $row['main_phone'], PDO::PARAM_STR);
-            $stmt->bindParam(':other_phone', $row['other_phone'], PDO::PARAM_STR);
-            $stmt->bindParam(':main_email', $row['main_email'], PDO::PARAM_STR);
-            $stmt->bindParam(':other_email', $row['other_email'], PDO::PARAM_STR);
-            $stmt->bindParam(':address', $row['address'], PDO::PARAM_STR);
-            $stmt->bindParam(':knowledge', $row['knowledge'], PDO::PARAM_STR, strlen($row['knowledge']));
-            $stmt->bindParam(':image', $row['image'], PDO::PARAM_STR);
-            $stmt->bindParam(':jointime', $row['jointime'], PDO::PARAM_INT);
-            $stmt->bindParam(':salary', $row['salary'], PDO::PARAM_STR);
-            $stmt->bindParam(':allowance', $row['allowance'], PDO::PARAM_STR);
-            $exc = $stmt->execute();
-            if ($exc) {
-                $nv_Cache->delMod($module_name);
-                $nv_Cache->delMod('users');
+
+            if ($new_id > 0) {
+
+                if ($row['part'] != $row['part_old']) {
+                    $sth = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_part_detail (userid, part) VALUES(:userid, :part)');
+                    foreach ($row['part'] as $partid) {
+                        if (!in_array($partid, $row['part_old'])) {
+                            $sth->bindParam(':userid', $row['userid'], PDO::PARAM_INT);
+                            $sth->bindParam(':part', $partid, PDO::PARAM_INT);
+                            $sth->execute();
+                        }
+                    }
+
+                    foreach ($row['part_old'] as $partid) {
+                        if (!in_array($partid, $row['part'])) {
+                            $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_part_detail WHERE userid = ' . $row['userid'] . ' AND part=' . $partid);
+                        }
+                    }
+                }
                 if (empty($row['id'])) {
                     nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_workforce'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['content_workforce'] . " " . $row['last_name'] . " " . $row['first_name'], $workforce_list[$user_info['userid']]['fullname']);
                 } else {
                     nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_workforce'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['edit_workforce'] . " " . $row['last_name'] . " " . $row['first_name'], $workforce_list[$user_info['userid']]['fullname']);
                 }
 
+                $nv_Cache->delMod($module_name);
+
                 if (!empty($row['redirect'])) {
+
                     $url = nv_redirect_decrypt($row['redirect']);
                 } else {
                     $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name;
                 }
-
                 Header('Location: ' . $url);
-                die();
             }
         } catch (PDOException $e) {
             trigger_error($e->getMessage());
@@ -177,6 +230,14 @@ foreach ($array_gender as $index => $value) {
         'checked' => $ck
     ));
     $xtpl->parse('main.gender');
+}
+
+foreach ($array_part_list as $partid => $rows_i) {
+    $sl = in_array($partid, $row['part']) ? ' selected="selected"' : '';
+    $xtpl->assign('pid', $rows_i[0]);
+    $xtpl->assign('ptitle', $rows_i[1]);
+    $xtpl->assign('pselect', $sl);
+    $xtpl->parse('main.parent_loop');
 }
 
 if (!empty($userinfo)) {
