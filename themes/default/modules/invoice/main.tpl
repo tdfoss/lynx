@@ -1,6 +1,7 @@
 <!-- BEGIN: main -->
 <link rel="stylesheet" href="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/select2/select2.min.css" />
 <link rel="stylesheet" href="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/select2/select2-bootstrap.min.css" />
+<link type="text/css" href="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
 <div class="well">
     <form action="{NV_BASE_SITEURL}index.php" method="get">
         <input type="hidden" name="{NV_LANG_VARIABLE}" value="{NV_LANG_DATA}" /> 
@@ -50,6 +51,32 @@
                         <option value="{USER.userid}"{USER.selected2}>{USER.fullname}</option>
                         <!-- END: user2 -->
                     </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <div class="form-group ">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input class="form-control datepicker" value="{SEARCH.from}" type="text" name="createtime" autocomplete="off" placeholder="{LANG.begintime_holder}" /> <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <em class="fa fa-calendar fa-fix">&nbsp;</em>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <div class="form-group">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input class="form-control datepicker" value="{SEARCH.from}" type="text" name="duetime" autocomplete="off" placeholder="{LANG.endtime_holder}" /> <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <em class="fa fa-calendar fa-fix">&nbsp;</em>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-xs-24 col-md-3">
@@ -132,6 +159,25 @@
 </form>
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/select2/select2.min.js"></script>
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/select2/i18n/{NV_LANG_INTERFACE}.js"></script>
+<script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/jquery-ui/jquery-ui.min.js"></script>
+<script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/language/jquery.ui.datepicker-{NV_LANG_INTERFACE}.js"></script>
+
+<script>
+    $(".datepicker").datepicker({
+        dateFormat : "dd/mm/yy",
+        changeMonth : !0,
+        changeYear : !0,
+        showOtherMonths : !0,
+        showOn : "focus",
+        yearRange : "-90:+0"
+    });
+    
+    $('.select2').select2({
+        language : '{NV_LANG_INTERFACE}',
+        theme : 'bootstrap'
+    });
+</script>
+
 <script type="text/javascript">
     //<![CDATA[
     

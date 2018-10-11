@@ -31,7 +31,7 @@
                 <div class="form-group ">
                     <div class="form-group">
                         <div class="input-group">
-                            <input class="form-control datepicker" value="{SEARCH.from}" type="text" name="begintime" placeholder="{LANG.begintime_holder}" /> <span class="input-group-btn">
+                            <input class="form-control datepicker" value="{SEARCH.from}" type="text" name="begintime" autocomplete="off" placeholder="{LANG.begintime_holder}" /> <span class="input-group-btn">
                                 <button class="btn btn-default" type="button">
                                     <em class="fa fa-calendar fa-fix">&nbsp;</em>
                                 </button>
@@ -44,7 +44,7 @@
                 <div class="form-group">
                     <div class="form-group">
                         <div class="input-group">
-                            <input class="form-control datepicker" value="{SEARCH.from}" type="text" name="endtime" placeholder="{LANG.endtime_holder}" /> <span class="input-group-btn">
+                            <input class="form-control datepicker" value="{SEARCH.from}" type="text" name="endtime" autocomplete="off" placeholder="{LANG.endtime_holder}" /> <span class="input-group-btn">
                                 <button class="btn btn-default" type="button">
                                     <em class="fa fa-calendar fa-fix">&nbsp;</em>
                                 </button>
@@ -57,7 +57,7 @@
                 <div class="form-group">
                     <div class="form-group">
                         <div class="input-group">
-                            <input class="form-control datepicker" value="{SEARCH.from}" type="text" name="realtime" placeholder="{LANG.realtime_holder}" /> <span class="input-group-btn">
+                            <input class="form-control datepicker" value="{SEARCH.from}" type="text" name="realtime" autocomplete="off" placeholder="{LANG.realtime_holder}" /> <span class="input-group-btn">
                                 <button class="btn btn-default" type="button">
                                     <em class="fa fa-calendar fa-fix">&nbsp;</em>
                                 </button>
