@@ -110,7 +110,7 @@ if (!empty($array_search['createtime'])) {
         $array_search['createtime'] = 0;
     }
     $base_url .= '&amp;createtime= ' . $array_search['createtime'];
-    $where .= ' AND createtime = ' . $array_search['createtime'];
+    $where .= ' AND createtime >= ' . $array_search['createtime'];
 }
 if (!empty($array_search['duetime'])) {
 
@@ -123,7 +123,7 @@ if (!empty($array_search['duetime'])) {
         $array_search['duetime'] = 0;
     }
     $base_url .= '&amp;duetime= ' . $array_search['duetime'];
-    $where .= ' AND duetime = ' . $array_search['duetime'];
+    $where .= ' AND duetime <= ' . $array_search['duetime'];
 }
 
 if ($array_search['status'] >= 0) {
