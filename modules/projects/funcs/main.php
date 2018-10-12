@@ -80,7 +80,7 @@ if (!empty($array_search['begintime'])) {
         $array_search['begintime'] = 0;
     }
     $base_url .= '&amp;begintime= ' . $array_search['begintime'];
-    $where .= ' AND begintime = ' . $array_search['begintime'];
+    $where .= ' AND begintime >= ' . $array_search['begintime'];
 }
 if (!empty($array_search['endtime'])) {
 
@@ -93,7 +93,7 @@ if (!empty($array_search['endtime'])) {
         $array_search['endtime'] = 0;
     }
     $base_url .= '&amp;endtime= ' . $array_search['endtime'];
-    $where .= ' AND endtime = ' . $array_search['endtime'];
+    $where .= ' AND endtime <= ' . $array_search['endtime'];
 }
 if (!empty($array_search['realtime'])) {
 
