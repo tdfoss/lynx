@@ -6,7 +6,6 @@
  * @Copyright (C) 2017 mynukeviet. All rights reserved
  * @Createdate Thu, 16 Nov 2017 13:27:56 GMT
  */
-
 if (!defined('NV_MAINFILE')) die('Stop!!!');
 
 $lang_translator['author'] = 'mynukeviet (contact@mynukeviet.com)';
@@ -30,14 +29,17 @@ $lang_module['money_value'] = 'Giá trị';
 $lang_module['money_1'] = 'Khoản thu';
 $lang_module['money_2'] = 'Khoản chi';
 $lang_module['money_1_add'] = 'Thêm khoản thu';
-$lang_module['money_1_edit'] = 'Sửa khoản thu';
+$lang_module['money_1_edit'] = 'Sửa khoản thu ngân sách công đoàn';
 $lang_module['money_2_add'] = 'Thêm khoản chi';
-$lang_module['money_2_edit'] = 'Sửa khoản chi';
-$lang_module['money_1_date'] = 'Ngày thu';
+$lang_module['money_2_edit'] = 'Sửa khoản chi ngân sách công đoàn';
+$lang_module['total_money'] = 'Còn lại';
+$lang_module['money_1_date'] = 'Ngày thu ';
 $lang_module['money_2_date'] = 'Ngày chi';
 $lang_module['money_userid'] = 'Người thêm';
 $lang_module['money_type_1'] = 'Danh sách thu';
 $lang_module['money_type_2'] = 'Danh sách chi';
+$lang_module['total_type_1'] = 'Tổng cộng chi';
+$lang_module['total_type_2'] = 'Tổng cộng thu';
 $lang_module['type'] = 'Loại';
 $lang_module['note'] = 'Ghi chú';
 $lang_module['error_empty_data'] = 'Bạn cần chọn dữ liệu để thực hiện!';

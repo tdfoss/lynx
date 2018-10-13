@@ -98,6 +98,16 @@
                 </tr>
                 <!-- END: loop -->
             </tbody>
+            <tfoot>
+                <tr>
+                    <td class="text-center" colspan="2">{LANG.total_type}</td>
+                    <td class="text-center" colspan="5">{VIEW.total}</td>
+                </tr>
+                <tr>
+                    <td class="text-center" colspan="2">{LANG.total_money}</td>
+                    <td class="text-center" colspan="5">{VIEW.total_money}</td>
+                </tr>
+            </tfoot>
         </table>
     </div>
 </form>
