@@ -75,6 +75,7 @@ $sth->execute();
 $lang_module['money_add'] = $lang_module['money_' . $array_search['type'] . '_add'];
 $lang_module['money_date'] = $lang_module['money_' . $array_search['type'] . '_date'];
 $lang_module['money_type'] = $lang_module['money_type_' . ($array_search['type'] == 1 ? 2 : 1)];
+$lang_module['total_type'] = $lang_module['total_type_' . ($array_search['type'] == 1 ? 2 : 1)];
 
 $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
 $xtpl->assign('LANG', $lang_module);
@@ -108,9 +109,18 @@ while ($view = $sth->fetch()) {
         }
     }
 
+    $thu = $db->query('SELECT SUM(money) FROM ' . NV_PREFIXLANG . '_' . $module_data . '_money WHERE type=1')->fetchColumn();
+    $chi = $db->query('SELECT SUM(money) FROM ' . NV_PREFIXLANG . '_' . $module_data . '_money WHERE type=2')->fetchColumn();
+    $total_money = $thu - $chi;
+
+    $total += $view['money'];
+
     $view['date'] = !empty($view['date']) ? nv_date('d/m/Y', $view['date']) : '';
     $view['addtime'] = !empty($view['addtime']) ? nv_date('H:i d/m/Y', $view['addtime']) : '';
     $view['money'] = nv_number_format($view['money']);
+    $view['total'] = nv_number_format($total);
+    $view['total_money'] = nv_number_format($total_money);
+
     $xtpl->assign('VIEW', $view);
 
     if (!empty($count_groupmanager)) {
