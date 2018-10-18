@@ -213,7 +213,6 @@ if ($nv_Request->isset_request('submit', 'post')) {
 
                 $nv_Cache->delMod($module_name);
                 $nv_Cache->delMod('users');
-
                 Header('Location: ' . $url);
                 die();
             }
