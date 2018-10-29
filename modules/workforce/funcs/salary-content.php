@@ -8,16 +8,18 @@
  */
 if (!defined('NV_IS_MOD_WORKFORCE')) die('Stop!!!');
 
-$maxdays = 24;
-$percent_overtime = 150;
+$maxdays = $array_config['workdays'];
+$percent_overtime = $array_config['overtime'];
 $groups_admin = $array_config['groups_admin'];
 $groups_use = $array_config['groups_use'];
+$partid = $nv_Request->get_int('partid', 'get', 0);
 $current_month = $nv_Request->get_string('month', 'get', nv_date('m/Y', NV_CURRENTTIME));
 
 if ($nv_Request->isset_request('save_change', 'post')) {
     $data = $nv_Request->get_array('data', 'post');
     $data['workday'] = (isset($data['workday']) && !empty($data['workday'])) ? preg_replace('/[^0-9]\./', '', $data['workday']) : '';
     $data['overtime'] = !empty($data['overtime']) ? preg_replace('/[^0-9]\./', '', $data['overtime']) : 0;
+    $data['holiday'] = !empty($data['holiday']) ? preg_replace('/[^0-9]\./', '', $data['holiday']) : 0;
     $data['advance'] = !empty($data['advance']) ? preg_replace('/[^0-9]\./', '', $data['advance']) : 0;
     $data['bonus'] = !empty($data['bonus']) ? preg_replace('/[^0-9]\./', '', $data['bonus']) : 0;
     $data['deduction'] = !empty($data['deduction']) ? preg_replace('/[^0-9]\./', '', $data['deduction']) : 0;
@@ -25,6 +27,8 @@ if ($nv_Request->isset_request('save_change', 'post')) {
     $data['salary'] = $workforce_list[$data['userid']]['salary'];
     $data['allowance'] = $workforce_list[$data['userid']]['allowance'];
 
+    // Lương lễ: Lương cơ bản / Số ngày công trong tháng * ngày công nghỉ, lễ
+    $data['holiday_salary'] = $data['salary'] / $maxdays * $data['holiday'];
     $data['total'] = (floatval($data['salary']) / $maxdays) * floatval($data['workday']);
 
     if ($data['overtime'] > 0) {
@@ -39,29 +43,36 @@ if ($nv_Request->isset_request('save_change', 'post')) {
         }
     }
 
-    $data['received'] = $data['total'] - floatval($data['deduction']) - floatval($data['advance']) + floatval($data['allowance']) + floatval($data['bonus']);
+    $data['received'] = $data['total'] - floatval($data['deduction']) - floatval($data['advance']) + floatval($data['allowance']) + floatval($data['bonus']) + floatval($data['holiday_salary'] - floatval($data['bhxh']));
+    $data['bhxh'] = ($data['salary'] * $array_config['insurrance']) / 100;
 
     try {
-        $stmt = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_salary (userid, salary, allowance, workday, overtime, advance, bonus, total, deduction, received, time) VALUES (:userid, :salary, :allowance, :workday, :overtime, :advance, :bonus, :total, :deduction, :received, ' . $db->quote($current_month) . ')');
+        $stmt = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_salary (userid, salary, allowance, workday, holiday, holiday_salary, overtime, advance, bonus, total, bhxh, deduction, received, time) VALUES (:userid, :salary, :allowance, :workday, :holiday, :holiday_salary, :overtime, :advance, :bonus, :total, :bhxh, :deduction, :received, ' . $db->quote($current_month) . ')');
         $stmt->bindParam(':userid', $data['userid'], PDO::PARAM_INT);
         $stmt->bindParam(':salary', $data['salary'], PDO::PARAM_STR);
         $stmt->bindParam(':allowance', $data['allowance'], PDO::PARAM_STR);
         $stmt->bindParam(':workday', $data['workday'], PDO::PARAM_STR);
+        $stmt->bindParam(':holiday', $data['holiday'], PDO::PARAM_STR);
+        $stmt->bindParam(':holiday_salary', $data['holiday_salary'], PDO::PARAM_STR);
         $stmt->bindParam(':overtime', $data['overtime'], PDO::PARAM_STR);
         $stmt->bindParam(':advance', $data['advance'], PDO::PARAM_STR);
         $stmt->bindParam(':bonus', $data['bonus'], PDO::PARAM_STR);
         $stmt->bindParam(':total', $data['total'], PDO::PARAM_STR);
+        $stmt->bindParam(':bhxh', $data['bhxh'], PDO::PARAM_STR);
         $stmt->bindParam(':deduction', $data['deduction'], PDO::PARAM_STR);
         $stmt->bindParam(':received', $data['received'], PDO::PARAM_STR);
         $stmt->execute();
     } catch (Exception $e) {
-        $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . '_salary SET workday = :workday, overtime = :overtime, advance = :advance, bonus = :bonus, total = :total, deduction = :deduction, received = :received WHERE userid=:userid AND time=' . $db->quote($current_month));
+        $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . '_salary SET workday = :workday, holiday=:holiday, holiday_salary=:holiday_salary, overtime = :overtime, advance = :advance, bonus = :bonus, total = :total, bhxh=:bhxh, deduction = :deduction, received = :received WHERE userid=:userid AND time=' . $db->quote($current_month));
         $stmt->bindParam(':userid', $data['userid'], PDO::PARAM_INT);
         $stmt->bindParam(':workday', $data['workday'], PDO::PARAM_STR);
+        $stmt->bindParam(':holiday', $data['holiday'], PDO::PARAM_STR);
+        $stmt->bindParam(':holiday_salary', $data['holiday_salary'], PDO::PARAM_STR);
         $stmt->bindParam(':overtime', $data['overtime'], PDO::PARAM_STR);
         $stmt->bindParam(':advance', $data['advance'], PDO::PARAM_STR);
         $stmt->bindParam(':bonus', $data['bonus'], PDO::PARAM_STR);
         $stmt->bindParam(':total', $data['total'], PDO::PARAM_STR);
+        $stmt->bindParam(':bhxh', $data['bhxh'], PDO::PARAM_STR);
         $stmt->bindParam(':deduction', $data['deduction'], PDO::PARAM_STR);
         $stmt->bindParam(':received', $data['received'], PDO::PARAM_STR);
         $stmt->execute();
@@ -70,7 +81,8 @@ if ($nv_Request->isset_request('save_change', 'post')) {
     nv_jsonOutput(array(
         'error' => 0,
         'total' => nv_empty_value($data['total']),
-        'received' => nv_empty_value($data['received'])
+        'received' => nv_empty_value($data['received']),
+        'holiday_salary' => nv_empty_value($data['holiday_salary'])
     ));
 }
 
@@ -89,7 +101,8 @@ if (!empty($array_search['month'])) {
     $current_month = $array_search['month'];
 }
 
-$workforce_list = nv_crm_list_workforce($groups_use);
+$array_salary = array();
+$workforce_list = nv_crm_list_workforce($groups_use, $partid);
 if (!empty($workforce_list)) {
     $bonus = $advance = $deduction = $received = $total = 0;
     $array_data = array();
@@ -104,7 +117,6 @@ if (!empty($workforce_list)) {
         $array_data[$row['userid']] = $row;
     }
 
-    $array_salary = array();
     foreach ($workforce_list as $userid => $data) {
         if (isset($array_data[$userid])) {
             $array_data[$userid]['fullname'] = $data['fullname'];
@@ -116,21 +128,22 @@ if (!empty($workforce_list)) {
                 'fullname' => $data['fullname'],
                 'position' => '',
                 'salary' => nv_empty_value($data['salary']),
-                'allowance' => nv_empty_value($data['allowance'])
+                'allowance' => nv_empty_value($data['allowance']),
+                'bhxh' => ($data['salary'] * $array_config['insurrance']) / 100
             );
         }
     }
 }
 
-$array_salary[] = array(
-    'fullname' => $lang_module['total'],
-    'total' => $total,
-    'received' => $received,
-    'deduction' => $deduction,
-    'advance' => $advance,
-    'bonus' => $bonus
+/* $array_salary[] = array(
+ 'fullname' => $lang_module['total'],
+ 'total' => $total,
+ 'received' => $received,
+ 'deduction' => $deduction,
+ 'advance' => $advance,
+ 'bonus' => $bonus
 
-);
+ ); */
 
 if (!empty($array_search['month'])) {
     $base_url .= '&month=' . $array_search['month'];
@@ -152,6 +165,14 @@ for ($i = 1; $i <= 12; $i++) {
     ));
 
     $xtpl->parse('main.month');
+}
+
+foreach ($array_part_list as $index => $rows_i) {
+    $sl = $partid == $index ? ' selected="selected"' : '';
+    $xtpl->assign('pid', $rows_i['id']);
+    $xtpl->assign('ptitle', $rows_i['title']);
+    $xtpl->assign('pselect', $sl);
+    $xtpl->parse('main.parent_loop');
 }
 
 $xtpl->parse('main');

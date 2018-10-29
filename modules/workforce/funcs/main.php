@@ -114,8 +114,6 @@ if ($array_search['status'] >= 0) {
     $where .= ' AND status=' . $array_search['status'];
 }
 
-
-
 $sth = $db->prepare($db->sql());
 
 $sth->execute();
@@ -197,7 +195,7 @@ foreach ($array_action as $key => $value) {
 foreach ($array_part_list as $key => $value) {
     $xtpl->assign('PART', array(
         'key' => $key,
-        'value' => $value[1],
+        'value' => $value['title'],
         'selected' => ($key == $array_search['part']) ? ' selected="selected"' : ''
     ));
     $xtpl->parse('main.select_part');
@@ -207,7 +205,7 @@ foreach ($array_status as $key => $value) {
     $xtpl->assign('STATUS', array(
         'key' => $key,
         'value' => $value,
-        'selected' => ($key ==  $array_search['status']) ? 'selected = "selected"' : ''
+        'selected' => ($key == $array_search['status']) ? 'selected = "selected"' : ''
     ));
     $xtpl->parse('main.select_status');
 }

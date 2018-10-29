@@ -13,6 +13,7 @@ $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lan
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_salary";
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_part";
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_part_detail";
+$sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_history_salary";
 
 $sql_create_module = $sql_drop_module;
 $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "(
@@ -31,6 +32,7 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   knowledge text NOT NULL COMMENT 'Thông tin học vấn',
   image varchar(255) NOT NULL,
   jointime int(11) unsigned NOT NULL DEFAULT '0',
+  position varchar(255) NOT NULL COMMENT 'Chức vụ',
   part varchar(100) NOT NULL COMMENT 'Thuộc bộ phận',
   salary double unsigned NOT NULL DEFAULT '0',
   allowance double unsigned NOT NULL DEFAULT '0',
@@ -45,11 +47,14 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   userid mediumint(8) unsigned NOT NULL,
   salary double unsigned NOT NULL,
   allowance double unsigned NOT NULL DEFAULT '0' COMMENT 'Phụ cấp',
-  workday double unsigned NOT NULL COMMENT 'Số ngày công',
+  workday double unsigned NOT NULL COMMENT 'Số ngày công làm việc',
+  holiday double unsigned NOT NULL COMMENT 'Số ngày công phép, lễ',
+  holiday_salary double unsigned NOT NULL COMMENT 'Lương nghỉ phép, lễ',
   overtime double unsigned NOT NULL COMMENT 'Số ngày làm thêm',
   advance double unsigned NOT NULL DEFAULT '0' COMMENT 'Tạm ứng',
   bonus double unsigned NOT NULL DEFAULT '0' COMMENT 'Thưởng',
-  total double unsigned NOT NULL COMMENT 'Tổng',
+  total double unsigned NOT NULL COMMENT 'Tổng lương',
+  bhxh double unsigned NOT NULL COMMENT 'Trừ BHXH',
   deduction double unsigned NOT NULL DEFAULT '0' COMMENT 'Tổng các khoản trừ',
   received double NOT NULL COMMENT 'Thực nhận',
   time varchar(10) NOT NULL,
@@ -77,6 +82,18 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   PRIMARY KEY (id)
 ) ENGINE=MyISAM";
 
+
+$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_history_salary(
+  id smallint(4) unsigned NOT NULL AUTO_INCREMENT,
+  userid mediumint(8) unsigned NOT NULL,
+  salary double unsigned NOT NULL,
+  allowance double unsigned NOT NULL DEFAULT '0' COMMENT 'Phụ cấp',
+  useradd mediumint(8) NOT NULL,
+  addtime varchar(10) NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY userid (userid,addtime)
+) ENGINE=MyISAM";
+
 $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_part_detail(
   userid mediumint(8) unsigned NOT NULL,
   part smallint(4) NOT NULL COMMENT 'Thuộc bộ phận',
@@ -86,6 +103,8 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
 $data = array();
 $data['groups_admin'] = '1';
 $data['groups_use'] = '4';
+$data['workdays'] = 24; // tổng số ngày công trong tháng
+$data['insurrance'] = 10.5; // hệ số tính bảo hiểm
 
 foreach ($data as $config_name => $config_value) {
     $sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', " . $db->quote($module_name) . ", " . $db->quote($config_name) . ", " . $db->quote($config_value) . ")";
