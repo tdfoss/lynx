@@ -247,6 +247,11 @@ function nv_admin_theme($contents, $head_site = 1)
 
         // Admin photo
         $xtpl->assign('ADMIN_USERNAME', $admin_info['username']);
+
+
+        $xtpl->assign('ADMIN_IP',$client_info['ip']);
+
+
         if (!empty($admin_info['photo']) and file_exists(NV_ROOTDIR . '/' . $admin_info['photo'])) {
             $xtpl->assign('ADMIN_PHOTO', NV_BASE_SITEURL . $admin_info['photo']);
         } else {
