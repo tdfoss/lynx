@@ -52,7 +52,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-5 col-md-4 text-right"><strong>Email</strong></label>
+                <label class="col-sm-5 col-md-4 text-right"><strong>{LANG.email}</strong></label>
                 <div class="col-sm-19 col-md-20">
                     <div class="row">
                         <div class="col-xs-24 col-sm-12 col-md-12">
@@ -72,12 +72,12 @@
                 <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.birthday}</strong></label>
                 <div class="col-sm-19 col-md-20">
                     <div class="input-group">
-                    <input class="form-control datepicker" value="{ROW.birthday}" type="text" name="birthday" autocomplete="off"/> <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">
-                            <em class="fa fa-calendar fa-fix">&nbsp;</em>
-                        </button>
-                    </span>
-                </div>
+                        <input class="form-control datepicker" value="{ROW.birthday}" type="text" name="birthday" autocomplete="off" /> <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">
+                                <em class="fa fa-calendar fa-fix">&nbsp;</em>
+                            </button>
+                        </span>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
@@ -101,21 +101,19 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>Facebook</strong></label>
+                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.social}</strong></label>
                 <div class="col-sm-19 col-md-20">
-                    <input class="form-control" type="text" name="facebook" value="{ROW.facebook}" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>Skype</strong></label>
-                <div class="col-sm-19 col-md-20">
-                    <input class="form-control" type="text" name="skype" value="{ROW.skype}" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>Zalo</strong></label>
-                <div class="col-sm-19 col-md-20">
-                    <input class="form-control" type="text" name="zalo" value="{ROW.zalo}" />
+                    <div class="row">
+                        <div class="col-xs-24 col-sm-12 col-md-8">
+                            <input class="form-control" type="text" name="facebook" value="{ROW.facebook}" placeholder="{LANG.facebook}" />
+                        </div>
+                        <div class="col-xs-24 col-sm-12 col-md-8">
+                            <input class="form-control" type="text" name="skype" value="{ROW.skype}" placeholder="{LANG.skype}" />
+                        </div>
+                        <div class="col-xs-24 col-sm-12 col-md-8">
+                            <input class="form-control" type="text" name="zalo" value="{ROW.zalo}" placeholder="{LANG.zalo}" />
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
@@ -130,8 +128,7 @@
                     </div>
                 </div>
             </div>
-             
-            <div class="form-group" id="cc" >
+            <div class="form-group" id="cc">
                 <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.tags}</strong></label>
                 <div class="col-sm-19 col-md-20">
                     <select class="form-control select2_tag" name="tag_id[]" multiple="multiple" style="width: 100%">
@@ -145,7 +142,6 @@
                 <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.care_staff}</strong></label>
                 <div class="col-sm-19 col-md-20">
                     <select class="form-control select2" name="care_staff">
-                        <!--                         <option value="">---{LANG.care_staff_select}---</option> -->
                         <!-- BEGIN: select_care_staff -->
                         <option value="{OPTION.key}"{OPTION.selected}>{OPTION.title}</option>
                         <!-- END: select_care_staff -->
@@ -153,37 +149,31 @@
                 </div>
             </div>
             <div class="form-group">
+                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.share}</strong></label>
+                <div class="col-sm-19 col-md-20">
+                    <div class="row">
+                        <div class="col-xs-24 col-sm-12 col-md-12">
+                            <select class="form-control select2" name="care_staff">
+                                <option value="">--- {LANG.share_people} ---</option>
+                                <!-- BEGIN: select_care_staaff -->
+                                <option value="{OPTION.key}"{OPTION.selected}>{OPTION.title}</option>
+                                <!-- END: select_care_staff -->
+                            </select>
+                        </div>
+                        <div class="col-xs-24 col-sm-12 col-md-12">
+                            <select class="form-control select2" name="care_staff">
+                                <option value="">--- {LANG.share_groups} ---</option>
+                                <!-- BEGIN: select_care_staaff -->
+                                <option value="{OPTION.key}"{OPTION.selected}>{OPTION.title}</option>
+                                <!-- END: select_care_staff -->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.note}</strong></label>
                 <div class="col-sm-19 col-md-20">{ROW.note}</div>
-            </div>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">{LANG.customer_invoice}</div>
-        <div class="panel-body">
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.trading_person}</strong></label>
-                <div class="col-sm-19 col-md-20">
-                    <input class="form-control" type="text" name="trading_person" value="{ROW.trading_person}" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.unit_name}</strong></label>
-                <div class="col-sm-19 col-md-20">
-                    <input class="form-control" type="text" name="unit_name" value="{ROW.unit_name}" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.tax_code}</strong></label>
-                <div class="col-sm-19 col-md-20">
-                    <input class="form-control" type="text" name="tax_code" value="{ROW.tax_code}" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.address_invoice}</strong></label>
-                <div class="col-sm-19 col-md-20">
-                    <input class="form-control" type="text" name="address_invoice" value="{ROW.address_invoice}" />
-                </div>
             </div>
         </div>
     </div>
