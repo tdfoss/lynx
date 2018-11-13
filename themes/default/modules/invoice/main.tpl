@@ -1,10 +1,11 @@
 <!-- BEGIN: main -->
 <link rel="stylesheet" href="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/select2/select2.min.css" />
 <link rel="stylesheet" href="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/select2/select2-bootstrap.min.css" />
+<link type="text/css" href="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
 <div class="well">
     <form action="{NV_BASE_SITEURL}index.php" method="get">
-        <input type="hidden" name="{NV_LANG_VARIABLE}" value="{NV_LANG_DATA}" /> 
-        <input type="hidden" name="{NV_NAME_VARIABLE}" value="{MODULE_NAME}" /> 
+        <input type="hidden" name="{NV_LANG_VARIABLE}" value="{NV_LANG_DATA}" />
+        <input type="hidden" name="{NV_NAME_VARIABLE}" value="{MODULE_NAME}" />
         <input type="hidden" name="{NV_OP_VARIABLE}" value="{OP}" />
         <input type="hidden" name="serviceid" value="{SEARCH.serviceid}" />
         <div class="row">
@@ -52,6 +53,34 @@
                     </select>
                 </div>
             </div>
+            <div class="col-xs-12 col-md-4">
+                <div class="form-group ">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input class="form-control datepicker" value="{SEARCH.from}" type="text" name="createtime" autocomplete="off" placeholder="{LANG.begintime_holder}" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <em class="fa fa-calendar fa-fix">&nbsp;</em>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <div class="form-group">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input class="form-control datepicker" value="{SEARCH.from}" type="text" name="duetime" autocomplete="off" placeholder="{LANG.endtime_holder}" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <em class="fa fa-calendar fa-fix">&nbsp;</em>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="col-xs-24 col-md-3">
                 <div class="form-group">
                     <select name="status" class="form-control">
@@ -84,7 +113,9 @@
         <table class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
-                    <th class="text-center" width="50"><input name="check_all[]" type="checkbox" value="yes" onclick="nv_checkAll(this.form, 'idcheck[]', 'check_all[]',this.checked);"></th>
+                    <th class="text-center" width="50">
+                        <input name="check_all[]" type="checkbox" value="yes" onclick="nv_checkAll(this.form, 'idcheck[]', 'check_all[]',this.checked);">
+                    </th>
                     <th width="100">{LANG.code}</th>
                     <th>{LANG.title}</th>
                     <th>{LANG.customerid}</th>
@@ -106,16 +137,22 @@
             <tbody>
                 <!-- BEGIN: loop -->
                 <tr onclick="nv_table_row_click(event, '{VIEW.link_view}', false);" class="pointer <!-- BEGIN: warning -->warning<!-- END: warning --> <!-- BEGIN: danger -->danger<!-- END: danger --> <!-- BEGIN: success -->success<!-- END: success -->">
-                    <td class="text-center"><input type="checkbox" onclick="nv_UncheckAll(this.form, 'idcheck[]', 'check_all[]', this.checked);" value="{VIEW.id}" name="idcheck[]" class="post"></td>
+                    <td class="text-center">
+                        <input type="checkbox" onclick="nv_UncheckAll(this.form, 'idcheck[]', 'check_all[]', this.checked);" value="{VIEW.id}" name="idcheck[]" class="post">
+                    </td>
                     <td>#{VIEW.code}</td>
                     <td>{VIEW.title}</td>
-                    <td><a href="{VIEW.customer.link}">{VIEW.customer.fullname}</a></td>
+                    <td>
+                        <a href="{VIEW.customer.link}">{VIEW.customer.fullname}</a>
+                    </td>
                     <td>{VIEW.createtime}</td>
                     <td>{VIEW.duetime}</td>
                     <td>{VIEW.addtime}</td>
                     <td>{VIEW.grand_total}</td>
                     <td>{VIEW.status_str}</td>
-                    <td class="text-center"><i class="fa fa-edit fa-lg">&nbsp;</i> <a href="{VIEW.link_edit}">{LANG.edit}</a> - <em class="fa fa-trash-o fa-lg">&nbsp;</em> <a href="{VIEW.link_delete}" onclick="return confirm(nv_is_del_confirm[0]);">{LANG.delete}</a></td>
+                    <td class="text-center">
+                        <i class="fa fa-edit fa-lg">&nbsp;</i> <a href="{VIEW.link_edit}">{LANG.edit}</a> - <em class="fa fa-trash-o fa-lg">&nbsp;</em> <a href="{VIEW.link_delete}" onclick="return confirm(nv_is_del_confirm[0]);">{LANG.delete}</a>
+                    </td>
                 </tr>
                 <!-- END: loop -->
             </tbody>
@@ -132,6 +169,23 @@
 </form>
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/select2/select2.min.js"></script>
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/select2/i18n/{NV_LANG_INTERFACE}.js"></script>
+<script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/jquery-ui/jquery-ui.min.js"></script>
+<script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/language/jquery.ui.datepicker-{NV_LANG_INTERFACE}.js"></script>
+<script>
+    $(".datepicker").datepicker({
+        dateFormat : "dd/mm/yy",
+        changeMonth : !0,
+        changeYear : !0,
+        showOtherMonths : !0,
+        showOn : "focus",
+        yearRange : "-90:+0"
+    });
+    
+    $('.select2').select2({
+        language : '{NV_LANG_INTERFACE}',
+        theme : 'bootstrap'
+    });
+</script>
 <script type="text/javascript">
     //<![CDATA[
     
