@@ -180,6 +180,6 @@ $lang_module['tags_select'] = 'Chọn tag khách hàng';
 
 $lang_module['error_unknow'] = 'Vì lý do nào đó hệ thống không thể đáp ứng yêu cầu của bạn lúc này. Vui lòng liên hệ người quản trị để biết thêm thông tin';
 $lang_module['share'] = 'Chia sẽ liên hệ';
-$lang_module['share_people'] = 'Chia sẽ cho cá nhân';
-$lang_module['share_groups'] = 'Chia sẽ cho nhóm';
+$lang_module['share_people'] = 'Chia sẽ với cá nhân';
+$lang_module['share_groups'] = 'Chia sẽ với nhóm';
 $lang_module['social'] = 'Mạng xã hội';

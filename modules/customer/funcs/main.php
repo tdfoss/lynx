@@ -116,8 +116,9 @@ if (!empty($array_search['tag_id'])) {
     $where .= ' AND t2.tid IN (' . implode(',', $array_search['tag_id']) . ')';
 }
 
+$join .= ' INNER JOIN ' . NV_PREFIXLANG . '_' . $module_data . '_share_acc t3 ON t1.id=t3.customerid';
 $where .= nv_customer_premission($module_name);
-$where .= ' AND is_contacts=' . $array_search['is_contact'];
+$where .= ' AND is_contacts=' . $array_search['is_contact'] . ' AND t3.userid=' . $user_info['userid'];
 
 $db->sqlreset()
     ->select('COUNT(*)')
@@ -129,7 +130,7 @@ $sth = $db->prepare($db->sql());
 $sth->execute();
 $num_items = $sth->fetchColumn();
 
-$db->select('t1.*')
+$db->select('t1.*, t3.permisson')
     ->order($array_search['ordername'] . ' ' . $array_search['ordertype'])
     ->limit($per_page)
     ->offset(($page - 1) * $per_page);
@@ -197,6 +198,11 @@ while ($view = $sth->fetch()) {
     $view['link_delete'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;delete_id=' . $view['id'] . '&amp;delete_checkss=' . md5($view['id'] . NV_CACHE_PREFIX . $client_info['session_id']);
     $view['type_id'] = !empty($view['type_id']) ? $array_customer_type_id[$view['type_id']]['title'] : '';
     $xtpl->assign('VIEW', $view);
+    
+    if($view['permisson'] == 1){
+        $xtpl->parse('main.loop.admin');
+    }
+    
     $xtpl->parse('main.loop');
 }
 

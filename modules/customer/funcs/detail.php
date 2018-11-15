@@ -16,16 +16,16 @@ if ($nv_Request->isset_request('change_contacts', 'post')) {
     if (empty($id)) {
         die('NO_' . $lang_module['error_no_id']);
     }
-
+    
     $query = 'UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET is_contacts=0 WHERE id=' . $id;
     $db->query($query);
-
+    
     $nv_Cache->delMod($module_name);
     die('OK_' . $lang_module['queue_success']);
 }
 
 $id = $nv_Request->get_int('id', 'post,get', 0);
-$customer_info = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id . nv_customer_premission($module_name))->fetch();
+$customer_info = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' t1 INNER JOIN ' . NV_PREFIXLANG . '_' . $module_data . '_share_acc t2 ON t1.id=t2.customerid WHERE id=' . $id . nv_customer_premission($module_name) . ' AND t2.userid=' . $user_info['userid'])->fetch();
 if (!$customer_info) {
     Header('Location: ' . NV_BASE_ADMINURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=manage_cusomer');
     die();
@@ -38,6 +38,7 @@ $customer_info['edittime'] = !empty($customer_info['edittime']) ? nv_date('H:i d
 $customer_info['care_staff'] = !empty($customer_info['care_staff']) ? $workforce_list[$customer_info['care_staff']]['fullname'] : '';
 $customer_info['type_id'] = !empty($customer_info['type_id']) ? $array_customer_type_id[$customer_info['type_id']]['title'] : '';
 $customer_info['birthday'] = !empty($customer_info['birthday']) ? nv_date('d/m/Y', $customer_info['birthday']) : '';
+$customer_info['share_groups'] = !empty($customer_info['share_groups']) ? $array_part_list[$customer_info['share_groups']]['title'] : '';
 
 $array_customer_service = array();
 $array_customer_products = array();
@@ -47,10 +48,10 @@ $current_link = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LAN
 
 if (isset($site_mods['services'])) {
     define('NV_SERVICES', true);
-
+    
     $_sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_services WHERE active=1 ORDER BY weight';
     $array_services = $nv_Cache->db($_sql, 'id', 'services');
-
+    
     $result = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_services_customer WHERE customerid=' . $id . ' ORDER BY id DESC');
     while ($row = $result->fetch()) {
         $array_customer_service[] = $row;
@@ -60,7 +61,7 @@ if (isset($site_mods['services'])) {
 
 if (isset($site_mods['projects'])) {
     define('NV_PROJECTS', true);
-
+    
     $result = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_projects WHERE customerid=' . $id . ' ORDER BY id DESC');
     while ($row = $result->fetch()) {
         $array_customer_projects[] = $row;
@@ -70,7 +71,7 @@ if (isset($site_mods['projects'])) {
 
 if (isset($site_mods['email'])) {
     define('NV_EMAIL', true);
-
+    
     $result = $db->query('SELECT t1.id, t1.title, t1.addtime, t1.useradd FROM ' . NV_PREFIXLANG . '_email t1 INNER JOIN ' . NV_PREFIXLANG . '_email_sendto t2 ON t1.id=t2.email_id WHERE t2.customer_id=' . $id . ' ORDER BY id DESC');
     while ($row = $result->fetch()) {
         $row['link_view'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=email&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $row['id'];
@@ -100,6 +101,14 @@ if (isset($site_mods['invoice'])) {
         $array_invoice[] = $row;
     }
     $customer_info['count_invoices'] = sizeof($array_invoice);
+}
+
+$customer_info['share_accs'] = array();
+if (!empty($customer_info['share_acc'])) {
+    $customer_info['share_acc'] = explode(',', $customer_info['share_acc']);
+    foreach ($customer_info['share_acc'] as $share_acc) {
+        $customer_info['share_accs'][] = $workforce_list[$share_acc]['fullname'];
+    }
 }
 
 $customer_info['tags'] = array();
@@ -168,7 +177,7 @@ if ($customer_info['is_contacts'] == 0) {
         $xtpl->parse('main.service_tab_content');
         $xtpl->parse('main.iscontacts.service_tab_title');
     }
-
+    
     if (defined('NV_SERVICES')) {
         if (!empty($array_customer_projects)) {
             $i = 1;
@@ -186,7 +195,7 @@ if ($customer_info['is_contacts'] == 0) {
         $xtpl->parse('main.projects_tab_content');
         $xtpl->parse('main.iscontacts.projects_tab_title');
     }
-
+    
     $xtpl->parse('main.iscontacts');
 } else {
     $xtpl->parse('main.iscontacts_change');
@@ -202,6 +211,17 @@ if (!empty($customer_info['tags'])) {
         $xtpl->assign('TAGS', $tags);
         $xtpl->parse('main.tags');
     }
+}
+
+if (!empty($customer_info['share_accs'])) {
+    foreach ($customer_info['share_accs'] as $share_acc) {
+        $xtpl->assign('SHAREACC', $share_acc);
+        $xtpl->parse('main.share_accs');
+    }
+}
+
+if($customer_info['permisson'] == 1){
+    $xtpl->parse('main.admin');
 }
 
 $xtpl->parse('main');

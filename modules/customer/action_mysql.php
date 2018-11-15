@@ -12,6 +12,8 @@ $sql_drop_module = array();
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data;
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_types";
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_tags";
+$sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_tags_customer";
+$sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_share_acc";
 
 $sql_create_module = $sql_drop_module;
 $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "(
@@ -42,6 +44,8 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   is_contacts tinyint(1) NOT NULL COMMENT 'Loại khách hàng',
   type_id smallint(4) unsigned NOT NULL DEFAULT '0',
   tag_id varchar(100) NOT NULL,
+  share_acc varchar(100) NOT NULL COMMENT 'share với tài khoản',
+  share_groups smallint(4) unsigned NOT NULL COMMENT 'share với group',
   PRIMARY KEY (id)
 ) ENGINE=MyISAM";
 
@@ -65,6 +69,13 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   tid smallint(4) NOT NULL,
   customerid mediumint(8) unsigned NOT NULL,
   UNIQUE KEY tid (tid, customerid)
+) ENGINE=MyISAM;";
+
+$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_share_acc(
+  userid smallint(4) NOT NULL,
+  customerid mediumint(8) unsigned NOT NULL,
+  permisson tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT 'Quyền',
+  UNIQUE KEY tid (userid, customerid, permisson)
 ) ENGINE=MyISAM;";
 
 $data = array();

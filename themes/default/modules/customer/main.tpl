@@ -3,10 +3,8 @@
 <link rel="stylesheet" href="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/select2/select2-bootstrap.min.css" />
 <div class="well">
     <form action="{NV_BASE_SITEURL}index.php" method="get" id="frm-search">
-        <input type="hidden" name="{NV_LANG_VARIABLE}" value="{NV_LANG_DATA}" /> 
-        <input type="hidden" name="{NV_NAME_VARIABLE}" value="{MODULE_NAME}" /> 
-        <input type="hidden" name="{NV_OP_VARIABLE}" value="{OP}" /> 
-<!--         <input type="hidden" name="page" value="{PAGE}" /> -->
+        <input type="hidden" name="{NV_LANG_VARIABLE}" value="{NV_LANG_DATA}" /> <input type="hidden" name="{NV_NAME_VARIABLE}" value="{MODULE_NAME}" /> <input type="hidden" name="{NV_OP_VARIABLE}" value="{OP}" />
+        <!--         <input type="hidden" name="page" value="{PAGE}" /> -->
         <input type="hidden" name="is_contact" value="{SEARCH.is_contact}" />
         <div class="row">
             <div class="col-xs-24 col-md-4">
@@ -98,15 +96,23 @@
             <tbody>
                 <!-- BEGIN: loop -->
                 <tr onclick="nv_table_row_click(event, '{VIEW.link_view}', false);">
-                    <td class="text-center"><input type="checkbox" onclick="nv_UncheckAll(this.form, 'idcheck[]', 'check_all[]', this.checked);" value="{VIEW.id}" name="idcheck[]" class="post"></td>
+                    <td class="text-center">
+                        <input type="checkbox" onclick="nv_UncheckAll(this.form, 'idcheck[]', 'check_all[]', this.checked);" value="{VIEW.id}" name="idcheck[]" class="post">
+                    </td>
                     <td>{VIEW.type_id}</td>
                     <td>{VIEW.last_name}</td>
                     <td>{VIEW.first_name}</td>
                     <td>{VIEW.main_phone}</td>
-                    <td><a href="mailto:{VIEW.main_email}">{VIEW.main_email}</a></td>
+                    <td>
+                        <a href="mailto:{VIEW.main_email}">{VIEW.main_email}</a>
+                    </td>
                     <td>{VIEW.workforce}</td>
                     <td>{VIEW.addtime}</td>
-                    <td class="text-center"><i class="fa fa-edit fa-lg">&nbsp;</i> <a href="{VIEW.link_edit}">{LANG.edit}</a> - <em class="fa fa-trash-o fa-lg">&nbsp;</em> <a href="{VIEW.link_delete}" onclick="return confirm(nv_is_del_confirm[0]);">{LANG.delete}</a></td>
+                    <td class="text-center">
+                        <!-- BEGIN: admin -->
+                        <i class="fa fa-edit fa-lg">&nbsp;</i> <a href="{VIEW.link_edit}">{LANG.edit}</a> - <em class="fa fa-trash-o fa-lg">&nbsp;</em> <a href="{VIEW.link_delete}" onclick="return confirm(nv_is_del_confirm[0]);">{LANG.delete}</a>
+                        <!-- END: admin -->
+                    </td>
                 </tr>
                 <!-- END: loop -->
             </tbody>

@@ -153,19 +153,18 @@
                 <div class="col-sm-19 col-md-20">
                     <div class="row">
                         <div class="col-xs-24 col-sm-12 col-md-12">
-                            <select class="form-control select2" name="care_staff">
-                                <option value="">--- {LANG.share_people} ---</option>
-                                <!-- BEGIN: select_care_staaff -->
-                                <option value="{OPTION.key}"{OPTION.selected}>{OPTION.title}</option>
-                                <!-- END: select_care_staff -->
+                            <select class="form-control select2" name="share_acc[]" multiple="multiple" style="width: 100%">
+                                <!-- BEGIN: share_account -->
+                                <option value="{SHAREWF.key}"{SHAREWF.selected}>{SHAREWF.title}</option>
+                                <!-- END: share_account -->
                             </select>
                         </div>
                         <div class="col-xs-24 col-sm-12 col-md-12">
-                            <select class="form-control select2" name="care_staff">
-                                <option value="">--- {LANG.share_groups} ---</option>
-                                <!-- BEGIN: select_care_staaff -->
-                                <option value="{OPTION.key}"{OPTION.selected}>{OPTION.title}</option>
-                                <!-- END: select_care_staff -->
+                            <select class="form-control" name="share_groups">
+                                <option value="0">--- {LANG.share_groups} ---</option>
+                                <!-- BEGIN: share_groups -->
+                                <option value="{PART.key}"{PART.selected}>{PART.value}</option>
+                                <!-- END: share_groups -->
                             </select>
                         </div>
                     </div>
