@@ -2099,3 +2099,19 @@ div.news_column ul.related>a>h4{
 }
 ul.nv-list-item > li{margin-bottom: 5px !important;}
 ul.nv-list-item > li > h3{display:contents;}
+.caret-down{
+	position: absolute;
+	top: 19px;
+	right: 0;
+	color: #fff;
+	font-size: 13px;
+}
+.closeup{
+	
+}
+#menu-site-default > ul:nth-child(1) > li.dropdown.open > ul{
+display:block;
+}
+#menu-site-default > ul:nth-child(1) > li.dropdown.open.close-up > ul{
+display:none;
+}

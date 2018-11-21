@@ -17,6 +17,16 @@
     }
 }
 @media (max-width:767px) {
+		.caret-down {
+    position: absolute;
+    top: 8px;
+    right: 6px;
+    color: #fff;
+    font-size: 20px;
+    width: 66px;
+    height: 25px;
+    padding-left: 31px;
+}
     .box-shadow {
         box-shadow:none;
         -webkit-box-shadow:none;
