@@ -17,7 +17,16 @@
     }
 }
 @media (max-width:767px) {
-		.caret-down {
+	.test.viewlist .panel .panel-body p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 20px;
+    -webkit-line-clamp: 2;
+    height: 40px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+	.caret-down {
     position: absolute;
     top: 8px;
     right: 6px;
