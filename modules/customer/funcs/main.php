@@ -43,7 +43,7 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
     die('NO');
 }
 
-$per_page = 5;
+$per_page = 20;
 $page = $nv_Request->get_int('page', 'post,get', 1);
 $join = $where = '';
 $array_search = array(
