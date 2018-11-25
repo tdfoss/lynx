@@ -66,10 +66,6 @@
 					<th>{LANG.zalo}</th>
 					<th>{LANG.care_staff}</th>
 					<th>{LANG.note}</th>
-					<th>{LANG.trading_person}</th>
-					<th>{LANG.unit_name}</th>
-					<th>{LANG.tax_code}</th>
-					<th>{LANG.address_invoice}</th>
 				</tr>
 				<!-- BEGIN: loop -->
 				<tr>
@@ -90,10 +86,6 @@
 					<td class="{DATA.error_skype}">{DATA.zalo}</td>
 					<td>{DATA.workforce}</td>
 					<td>{DATA.note}</td>
-					<td>{DATA.trading_person}</td>
-					<td>{DATA.unit_name}</td>
-					<td class="{DATA.error_mst}">{DATA.tax_code}</td>
-					<td>{DATA.address_invoice}</td>
 				</tr>
 				<!-- END: loop -->
 			</thead>

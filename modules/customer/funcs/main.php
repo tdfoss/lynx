@@ -92,10 +92,6 @@ if (!empty($array_search['q'])) {
         OR skype LIKE "%' . $array_search['q'] . '%"
         OR zalo LIKE "%' . $array_search['q'] . '%"
         OR address LIKE "%' . $array_search['q'] . '%"
-        OR trading_person LIKE "%' . $array_search['q'] . '%"
-        OR unit_name LIKE "%' . $array_search['q'] . '%"
-        OR tax_code LIKE "%' . $array_search['q'] . '%"
-        OR address_invoice LIKE "%' . $array_search['q'] . '%"
     )';
 }
 

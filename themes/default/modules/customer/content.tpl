@@ -158,35 +158,6 @@
             </div>
         </div>
     </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">{LANG.customer_invoice}</div>
-        <div class="panel-body">
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.trading_person}</strong></label>
-                <div class="col-sm-19 col-md-20">
-                    <input class="form-control" type="text" name="trading_person" value="{ROW.trading_person}" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.unit_name}</strong></label>
-                <div class="col-sm-19 col-md-20">
-                    <input class="form-control" type="text" name="unit_name" value="{ROW.unit_name}" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.tax_code}</strong></label>
-                <div class="col-sm-19 col-md-20">
-                    <input class="form-control" type="text" name="tax_code" value="{ROW.tax_code}" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.address_invoice}</strong></label>
-                <div class="col-sm-19 col-md-20">
-                    <input class="form-control" type="text" name="address_invoice" value="{ROW.address_invoice}" />
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="form-group text-center button_fixed_bottom">
         <input class="btn btn-primary" name="submit" type="submit" value="{LANG.save}" />
     </div>
