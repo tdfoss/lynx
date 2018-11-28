@@ -229,7 +229,7 @@ if (defined('NV_EDITOR')) {
 }
 $row['note'] = htmlspecialchars(nv_editor_br2nl($row['note']));
 if (defined('NV_EDITOR') and nv_function_exists('nv_aleditor')) {
-    $row['note'] = nv_aleditor('note', '100%', '300px', $row['note']);
+    $row['note'] = nv_aleditor('note', '100%', '300px', $row['note'], 'Basic');
 } else {
     $row['note'] = '<textarea style="width:100%;height:300px" name="note">' . $row['note'] . '</textarea>';
 }
