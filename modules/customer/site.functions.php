@@ -35,6 +35,30 @@ function nv_crm_customer_info($customerid)
     if ($customer_info) {
         $customer_info['fullname'] = nv_show_name_user($customer_info['first_name'], $customer_info['last_name']);
         $customer_info['link_view'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=customer&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $customerid;
+
+        if (!empty($customer_info['photo']) && file_exists(NV_ROOTDIR . '/' . $customer_info['photo'])) {
+            $customer_info['photo'] = NV_BASE_SITEURL . $customer_info['photo'];
+        } else {
+            $customer_info['photo'] = NV_BASE_SITEURL . 'themes/default/images/users/no_avatar.png';
+        }
+    }
+    return $customer_info;
+}
+
+function nv_crm_customer_info_by_userid($userid)
+{
+    global $db;
+
+    $customer_info = $db->query('SELECT t1.*, t1.id customer_id, t2.userid id FROM ' . NV_PREFIXLANG . '_customer t1 INNER JOIN ' . NV_USERS_GLOBALTABLE . ' t2 ON t1.userid_link=t2.userid WHERE t2.userid=' . $userid)->fetch();
+    if ($customer_info) {
+        $customer_info['fullname'] = nv_show_name_user($customer_info['first_name'], $customer_info['last_name']);
+        $customer_info['link_view'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=customer&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $customer_info['customer_id'];
+
+        if (!empty($customer_info['photo']) && file_exists(NV_ROOTDIR . '/' . $customer_info['photo'])) {
+            $customer_info['photo'] = NV_BASE_SITEURL . $customer_info['photo'];
+        } else {
+            $customer_info['photo'] = NV_BASE_SITEURL . 'themes/default/images/users/no_avatar.png';
+        }
     }
     return $customer_info;
 }
