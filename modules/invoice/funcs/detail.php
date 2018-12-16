@@ -142,7 +142,7 @@ if ($nv_Request->isset_request('confirm_payment_id', 'get')) {
 
 if ($nv_Request->isset_request('copy_id', 'get')) {
     $id = $nv_Request->get_int('id', 'get');
-    $new_id = nv_copy_invoice($id, $user_info['userid']);
+    $new_id = nv_copy_invoice($id, 0, $user_info['userid']);
     if (!empty($new_id)) {
         die('OK_' . $new_id);
     }
