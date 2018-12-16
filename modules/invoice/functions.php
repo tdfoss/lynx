@@ -46,7 +46,7 @@ function nv_caculate_total($price, $quantity, $vat = 0)
 
 function nv_sendmail_confirm($id)
 {
-    global $db, $module_name, $module_data, $row, $lang_module, $array_status, $user_info, $workforce_list;
+    global $db, $module_name, $module_data, $row, $lang_module, $array_invoice_status, $user_info, $workforce_list;
 
     $row = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
     if ($row) {
@@ -59,7 +59,7 @@ function nv_sendmail_confirm($id)
 
             $subject = 'Re: ' . sprintf($lang_module['sendmail_title'], $row['code'], $row['title']);
             $message = $db->query('SELECT econtent FROM ' . NV_PREFIXLANG . '_' . $module_data . '_econtent WHERE action="newconfirm"')->fetchColumn();
-            $row['status'] = $array_status[$row['status']];
+            $row['status'] = $array_invoice_status[$row['status']];
             $array_replace = array(
                 'FULLNAME' => $customer_info['fullname'],
                 'TITLE' => $row['title'],

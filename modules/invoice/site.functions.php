@@ -10,7 +10,7 @@ if (!defined('NV_MAINFILE')) {
     die('Stop!!!');
 }
 
-$array_status = array(
+$array_invoice_status = array(
     0 => $lang_module['status_0'],
     1 => $lang_module['status_1'],
     3 => $lang_module['status_3'],
@@ -125,7 +125,7 @@ function nv_caculate_duetime($createtime, $cycle_number)
 
 function nv_sendmail_econtent($new_id, $adduser = 0, $location_file = '')
 {
-    global $db, $module_name, $module_data, $row, $lang_module, $array_status, $user_info, $workforce_list;
+    global $db, $module_name, $module_data, $row, $lang_module, $array_invoice_status, $user_info, $workforce_list;
 
     $row = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $new_id)->fetch();
     if ($row) {
@@ -138,7 +138,7 @@ function nv_sendmail_econtent($new_id, $adduser = 0, $location_file = '')
 
             $subject = sprintf($lang_module['sendmail_title'], $row['code'], $row['title']);
             $message = $db->query('SELECT econtent FROM ' . NV_PREFIXLANG . '_' . $module_data . '_econtent WHERE action="newinvoice"')->fetchColumn();
-            $row['status'] = $array_status[$row['status']];
+            $row['status'] = $array_invoice_status[$row['status']];
             $array_replace = array(
                 'FULLNAME' => $customer_info['fullname'],
                 'TITLE' => $row['title'],
@@ -246,7 +246,7 @@ function nv_invoice_table($id)
 
 function nv_invoice_template($id)
 {
-    global $module_file, $lang_module, $module_info, $array_invoice_products, $order_id, $db, $module_data, $array_services, $array_products, $array_control, $row, $customer_info, $module_name, $workforce_list, $global_config, $array_status, $site_mods, $op, $client_info;
+    global $module_file, $lang_module, $module_info, $array_invoice_products, $order_id, $db, $module_data, $array_services, $array_products, $array_control, $row, $customer_info, $module_name, $workforce_list, $global_config, $array_invoice_status, $site_mods, $op, $client_info;
 
     $invoice_info = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
 
@@ -264,7 +264,7 @@ function nv_invoice_template($id)
     $array_replace = array(
         'FULLNAME' => $ctmid['fullname'],
         'TITLE' => $invoice_info['title'],
-        'STATUS' => $array_status[$invoice_info['status']],
+        'STATUS' => $array_invoice_status[$invoice_info['status']],
         'URL' => NV_MY_DOMAIN . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $id,
         'CODE' => $invoice_info['code'],
         'WORKFORCE' => $workforce_list[$invoice_info['workforceid']]['fullname'],

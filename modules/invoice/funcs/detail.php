@@ -159,7 +159,7 @@ if ($id > 0) {
     $row['duetime'] = (empty($row['duetime'])) ? ($lang_module['non_identify']) : nv_date('d/m/Y', $row['duetime']);
     $row['customer'] = nv_crm_customer_info($row['customerid']);
     $row['workforceid'] = !empty($row['workforceid']) ? $workforce_list[$row['workforceid']]['fullname'] : $lang_module['workforceid_empty'];
-    $row['status_str'] = $array_status[$row['status']];
+    $row['status_str'] = $array_invoice_status[$row['status']];
     $row['grand_total_string'] = nv_convert_number_to_words($row['grand_total']);
     $row['grand_total'] = number_format($row['grand_total']);
     $row['discount_value'] = number_format($row['discount_value']);

@@ -229,7 +229,7 @@ if (!empty($workforce_list)) {
     }
 }
 
-foreach ($array_status as $index => $value) {
+foreach ($array_invoice_status as $index => $value) {
     $sl = $index == $array_search['status'] ? 'selected="selected"' : '';
     $xtpl->assign('STATUS', array(
         'index' => $index,

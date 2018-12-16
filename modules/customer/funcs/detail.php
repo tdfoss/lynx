@@ -84,11 +84,8 @@ if (isset($site_mods['email'])) {
 if (isset($site_mods['invoice'])) {
     define('NV_INVOICE', true);
     $array_invoice = array();
-    $array_invoice_status = array(
-        0 => $lang_module['invoice_status_0'],
-        1 => $lang_module['invoice_status_1'],
-        2 => $lang_module['invoice_status_2']
-    );
+    require_once NV_ROOTDIR . '/modules/invoice/language/' . NV_LANG_INTERFACE . '.php';
+    require_once NV_ROOTDIR . '/modules/invoice/site.functions.php';
     $result = $db->query('SELECT id, title, code, addtime, duetime, grand_total, status FROM ' . NV_PREFIXLANG . '_invoice WHERE customerid=' . $id . ' ORDER BY id DESC');
     while ($row = $result->fetch()) {
         $row['createtime'] = !empty($row['createtime']) ? nv_date('H:i d/m/Y', $row['createtime']) : '';

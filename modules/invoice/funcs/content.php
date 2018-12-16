@@ -505,7 +505,7 @@ if (!empty($array_projects)) {
     }
 }
 
-foreach ($array_status as $index => $value) {
+foreach ($array_invoice_status as $index => $value) {
     $sl = $index == $row['status'] ? 'selected="selected"' : '';
     $xtpl->assign('STATUS', array(
         'index' => $index,
