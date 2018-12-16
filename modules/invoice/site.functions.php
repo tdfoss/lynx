@@ -273,6 +273,7 @@ function nv_invoice_template($id)
         'TERMS' => $invoice_info['terms'],
         'DESCRIPTION' => $invoice_info['description'],
         'TABLE' => nv_invoice_table($id),
+        'TABLE_TRANSACTION' => nv_transaction_list($id),
         'LOGO' => NV_BASE_SITEURL . $logo,
         'SITE_NAME' => $global_config['site_name'],
         'SITE_DESCRIPTION' => $global_config['site_description'],
