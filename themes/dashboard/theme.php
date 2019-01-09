@@ -86,6 +86,9 @@ function nv_site_theme($contents, $full = true)
     $xtpl->assign('SITE_FAVICON', $site_favicon);
     // System variables
     $xtpl->assign('THEME_PAGE_TITLE', nv_html_page_title(false));
+    if (isset($site_mods['seek'])) {
+        $xtpl->parse('main.sitemod_area');
+    }
 
     //Meta-tags
     $metatags = nv_html_meta_tags(false);

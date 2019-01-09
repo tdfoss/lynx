@@ -1,7 +1,6 @@
 	<noscript>
 		<div class="alert alert-danger">{LANG.nojs}</div>
 	</noscript>
-    
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
   <header class="main-header">
@@ -39,9 +38,7 @@
                         <span class="site_description hidden">{SITE_DESCRIPTION}</span>
                         <!-- END: site_name_span -->
 
-    <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
-      <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
       </a>
@@ -63,6 +60,7 @@
       <div class="user-panel">
       [CONTACT_DEFAULT]
       </div>
+      <!-- BEGIN: sitemod_area  -->
                 <div class="headerSearch sidebar-form">
                     <div class="input-group">
                         <input type="text" class="form-control" maxlength="{NV_MAX_SEARCH_LENGTH}" placeholder="{LANG.search}...">
@@ -71,6 +69,7 @@
                             </button></span>
                     </div>
                 </div>
+       <!-- END: sitemod_area  -->
       <ul class="sidebar-menu" data-widget="tree">
          [MENU_SITE]
          <div class="clear"></div>
