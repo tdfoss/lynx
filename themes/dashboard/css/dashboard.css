@@ -3,9 +3,10 @@
 .p-10{padding: 10px;}
 .f-s15{font-size: 15px;}
 .icon-img{width:20px;}
-.logo-img{margin-left: -8px;
-    max-height: 40px;
-    max-width: 40px;
+.logo-img{
+    margin-left: -8px;
+    height: 40px;
+    width: auto;
 }
 .info-box a{
 color:#333;
@@ -41,3 +42,6 @@ color:#333;
 .content {
     min-height: unset;
     }
+.content form{
+				background:#fff;
+}
