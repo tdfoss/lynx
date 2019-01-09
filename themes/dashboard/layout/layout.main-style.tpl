@@ -4,6 +4,14 @@
     <section class="content">
         [SOCIAL_ICONS]
         {MODULE_CONTENT}
+        <div class="row">
+        <div class="col-xs-12">
+        [HOME_LEFT]
+        </div>
+        <div class="col-xs-12">
+        [HOME_RIGHT]
+        </div>
+        </div>
     </section>
   </div>
 {FILE "footer_extended.tpl"}
