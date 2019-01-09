@@ -84,7 +84,7 @@
     </table>
 </div>
 
-<ul class="nav navbar-nav">
+<ul class="nav navbar-nav" style="display: contents;">
     <!-- BEGIN: navbar --><li><a href="{NAVBAR.href}"><em class="fa fa-caret-right margin-right-sm"></em>{NAVBAR.title}</a></li><!-- END: navbar -->
 </ul>
 <!-- END: main -->
