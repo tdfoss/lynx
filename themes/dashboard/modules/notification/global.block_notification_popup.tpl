@@ -21,7 +21,7 @@
                        <img src="{DATA.photo}" alt="" width="100%">
                       </div> 
                         <div class="col-xs-21">
-                                   <span class="show">{DATA.title}</span>
+                                   <span class="show" style="cursor: pointer">{DATA.title}</span>
 									<abbr class="timeago" title="{DATA.add_time_iso}">{DATA.add_time}</abbr>
                     </div>
                     </div>
