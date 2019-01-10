@@ -120,7 +120,7 @@ if (! nv_function_exists('nv_menu_category')) {
                 $classcurrent = array();
                 $submenu_active = array();
                 if (isset($array_menu[$id])) {
-                    $classcurrent[] = 'dropdown';
+                    $classcurrent[] = 'treeview';
                     $submenu = nv_get_category_submenu($id, $array_menu, $submenu_active, $block_theme, $item['css']);
 
                     $xtpl->assign('SUB', $submenu);

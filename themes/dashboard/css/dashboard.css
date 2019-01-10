@@ -44,4 +44,9 @@ color:#333;
     }
 .content form{
 				background:#fff;
+				border: 3px solid #fff;
 }
+.skin-blue .sidebar-menu>li.active>ul{background: #235775;}
+.skin-blue .sidebar-menu>li.active>ul>li>a{color:#fff;}
+.skin-blue .sidebar-menu>li.active>ul>li>a{color: #dcdcdc;}
+.skin-blue .sidebar-menu>li.active>ul>li>a:hover{color: #fff}
