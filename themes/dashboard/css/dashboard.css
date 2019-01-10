@@ -31,6 +31,7 @@ color:#333;
 	    bottom: 50px;
 	    background: #ccc;
 	    padding: 10px;
+	    z-index: 99999;
 }
 .bttop a{
 	color: #444;
@@ -43,10 +44,49 @@ color:#333;
     min-height: unset;
     }
 .content form{
-				background:#fff;
-				border: 3px solid #fff;
 }
 .skin-blue .sidebar-menu>li.active>ul{background: #235775;}
 .skin-blue .sidebar-menu>li.active>ul>li>a{color:#fff;}
 .skin-blue .sidebar-menu>li.active>ul>li>a{color: #dcdcdc;}
 .skin-blue .sidebar-menu>li.active>ul>li>a:hover{color: #fff}
+
+.sidebar-menu>li>div>a {
+    padding: 12px 5px 12px 15px;
+    display: block;
+}
+
+.skin-blue .sidebar-menu>li>div.active>a {
+    border-left-color: #3c8dbc;
+    background: #3c8dbc;
+}
+
+.skin-blue .sidebar-menu>li>div:hover>a, .skin-blue .sidebar-menu>li.active>a, .skin-blue .sidebar-menu>li.menu-open>a {
+    color: #fff;
+    background: #1e282c;
+}
+
+.skin-blue .sidebar-menu>li>a {
+    border-left: 3px solid transparent;
+}
+
+.sidebar-menu li>a {
+    position: relative;
+}
+body > div.login-box > div > div > div{
+			background: url(../images/loading.gif) no-repeat;
+			margin-bottom: auto;
+			margin-top: 0;
+			border: 0;
+				    background-size: cover;
+		    background-position: center;
+		    width: 100%;
+		    height: 100%;
+		    min-height: 300px;
+}
+body > div.login-box > div > div > div > div > h2{
+				color:#fff;
+}
+body > div.login-box > div > div > div > div{
+		    
+	
+}

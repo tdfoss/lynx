@@ -1,27 +1,36 @@
 <!-- BEGIN: main -->
-<div class="page panel panel-default">
-    <div class="panel-body">
-        <h2 class="margin-bottom-lg">{LANG.user_info}</h2>
-        <div class="row">
-            <figure onclick="changeAvatar('{URL_AVATAR}');" class="avatar left pointer">
-                <div style="width:80px;">
-                    <p class="text-center"><img src="{IMG.src}" alt="{USER.username}" title="{USER.username}" width="80" class="img-thumbnail bg-gainsboro m-bottom"/></p>
-                    <figcaption>{IMG.title}</figcaption>
-                </div>
-            </figure>
-        	<div>
-        		<ul class="nv-list-item xsm">
-        			<li><em class="fa fa-angle-right">&nbsp;</em> {LANG.account2}: <strong>{USER.username}</strong> ({USER.email})</li>
-        			<li><em class="fa fa-angle-right">&nbsp;</em> {USER.current_mode}</li>
-        			<li><em class="fa fa-angle-right">&nbsp;</em> {LANG.current_login}: {USER.current_login}</li>
-        			<li><em class="fa fa-angle-right">&nbsp;</em> {LANG.ip}: {USER.current_ip}</li>
-        		</ul>
-        	</div>
-        </div>
-    </div>
-</div>
+      <div class="row">
+        <div class="col-md-6">
 
-<!-- BEGIN: change_login_note -->
+          <!-- Profile Image -->
+          <div class="box box-primary">
+            <div class="box-body box-profile">
+            <div onclick="changeAvatar('{URL_AVATAR}');"  class="pointer">
+              <img class="profile-user-img img-responsive img-circle" src="{IMG.src}" alt="{USER.username}" title="{USER.username}">
+            </div>
+              <p class="text-muted text-center">{IMG.title}</p>
+              <ul class="list-group list-group-unbordered">
+                <li class="list-group-item">
+                  <b>{LANG.account2}:</b> <a class="pull-right">{USER.username}</a>
+                </li>
+                <li class="list-group-item">
+                  <b>Email :</b> <a class="pull-right">{USER.email}</a>
+                </li>
+                <li class="list-group-item">
+                  <b>Truy cập:</b> <a class="pull-right">{USER.current_login}</a>
+                </li>
+                <li class="list-group-item">
+                  <b>{LANG.ip}:</b> <a class="pull-right"> {USER.current_ip}</a>
+                </li>
+                <li class="list-group-item">
+                  <b>{USER.current_mode}</b>
+                </li>
+              </ul>
+
+              <a href="#" onclick="changeAvatar('{URL_AVATAR}');" class="btn btn-primary btn-block"><b>{IMG.title}</b></a>
+            </div>
+          </div>
+          <!-- BEGIN: change_login_note -->
 <div class="alert alert-danger">
     <em class="fa fa-exclamation-triangle ">&nbsp;</em> {USER.change_name_info}
 </div>
@@ -36,55 +45,102 @@
     <em class="fa fa-exclamation-triangle ">&nbsp;</em> {USER.question_empty_note}
 </div>
 <!-- END: question_empty_note -->
-<div class="table-responsive margin-bottom-lg">
-    <table class="table table-bordered table-striped">
-        <colgroup>
- 			<col style="width:45%"/>
-  		</colgroup>
-        <tbody>
-            <tr>
-                <td>{LANG.name}</td>
-                <td>{USER.full_name}</td>
-            </tr>
-            <tr>
-                <td>{LANG.birthday}</td>
-                <td>{USER.birthday}</td>
-            </tr>
-            <tr>
-                <td>{LANG.gender}</td>
-                <td>{USER.gender}</td>
-            </tr>
-            <tr>
-                <td>{LANG.showmail}</td>
-                <td>{USER.view_mail}</td>
-            </tr>
-            <tr>
-                <td>{LANG.regdate}</td>
-                <td>{USER.regdate}</td>
-            </tr>
-            <!-- BEGIN: group_manage -->
-            <tr>
-                <td>{LANG.group_manage_count}</td>
-                <td>{USER.group_manage} <a href="{URL_GROUPS}" title="{LANG.group_manage_list}">({LANG.group_manage_list})</a></td>
-            </tr>
-            <!-- END: group_manage -->
-            <tr>
-                <td>{LANG.st_login2}</td>
-                <td>{USER.st_login}</td>
-            </tr>
-            <tr>
-                <td>{LANG.2step_status}</td>
-                <td>{USER.active2step} (<a href="{URL_2STEP}">{LANG.2step_link}</a>)</td>
-            </tr>
-            <tr>
-                <td>{LANG.last_login}</td>
-                <td>{USER.last_login}</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
 
-<ul class="nav navbar-nav" style="display: contents;">
-    <!-- BEGIN: navbar --><li><a href="{NAVBAR.href}"><em class="fa fa-caret-right margin-right-sm"></em>{NAVBAR.title}</a></li><!-- END: navbar -->
-</ul>
+          <!-- About Me Box -->
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Thiết lập</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+            <!-- BEGIN: navbar -->
+            <a href="{NAVBAR.href}">  <strong><i class="fa fa-book margin-r-5"></i> {NAVBAR.title}</strong></a>
+              <hr>
+            <!-- END: navbar -->
+            </div>
+          </div>
+        </div>
+        <!-- /.col -->
+        <div class="col-md-18">
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#settings" data-toggle="tab">{LANG.user_info}</a></li>
+            </ul>
+            <div class="tab-content">
+              <!-- /.tab-pane -->
+              <!-- /.tab-pane -->
+
+              <div class="tab-pane active" id="settings">
+                <form class="form-horizontal">
+                  <div class="form-group">
+                    <label for="inputName" class="col-sm-12 control-label" style="text-align:left;">{LANG.name} </label>
+
+                    <div class="col-sm-12">
+                    <label for="inputName" class="control-label"> : {USER.full_name}</label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputEmail" class="col-sm-12 control-label" style="text-align:left;">{LANG.birthday}</label>
+
+                    <div class="col-sm-12">
+                    <label for="inputName" class="control-label"> : {USER.birthday}</label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputName" class="col-sm-12 control-label" style="text-align:left;">{LANG.gender}</label>
+
+                    <div class="col-sm-12">
+                    <label for="inputName" class="control-label"> : {USER.gender}</label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputExperience" class="col-sm-12 control-label" style="text-align:left;"">{LANG.showmail}</label>
+
+                    <div class="col-sm-12">
+                    <label for="inputName" class="control-label"> : {USER.view_mail}</label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputSkills" class="col-sm-12 control-label" style="text-align:left;">{LANG.regdate}</label>
+
+                    <div class="col-sm-12">
+                    <label for="inputName" class="control-label"> : {USER.regdate}</label>
+                    </div>
+                  </div>
+                  <!-- BEGIN: group_manage -->
+                   <div class="form-group">
+                    <label for="inputSkills" class="col-sm-12 control-label" style="text-align:left;">{LANG.group_manage_count}</label>
+
+                    <div class="col-sm-12">
+                    <label for="inputName" class="control-label"> : {USER.group_manage}<a href="{URL_GROUPS}" title="{LANG.group_manage_list}">({LANG.group_manage_list})</a></label>
+                    </div>
+                  </div>
+            <!-- END: group_manage -->
+            <div class="form-group">
+                    <label for="inputSkills" class="col-sm-12 control-label" style="text-align:left;">{LANG.st_login2}</label>
+
+                    <div class="col-sm-12">
+                    <label for="inputName" class="control-label"> : {USER.st_login}</label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputSkills" class="col-sm-12 control-label" style="text-align:left;">{LANG.2step_status}</label>
+
+                    <div class="col-sm-12">
+                    <label for="inputName" class="control-label"> : {USER.active2step}(<a href="{URL_2STEP}">{LANG.2step_link}</a>)</label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputSkills" class="col-sm-12 control-label" style="text-align:left;">{LANG.last_login}</label>
+
+                    <div class="col-sm-12">
+                    <label for="inputName" class="control-label"> : {USER.last_login}</label>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 <!-- END: main -->

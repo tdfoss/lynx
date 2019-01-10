@@ -209,7 +209,6 @@ if (! nv_function_exists('nv_menu_category')) {
                 }
             }
             $xtpl->parse('submenu');
-            $xtpl->parse('submenu');
         }
         return $xtpl->text('submenu');
     }
