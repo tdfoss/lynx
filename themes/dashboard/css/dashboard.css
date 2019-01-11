@@ -210,3 +210,4 @@ body>div.login-box>div>div>div>div>h2 {
 .sidebar-nav ul > li.mene-open-1.active > ul > li > a{
 			    background: #235775;
 }
+.sidebar-collapse .metismenu .sidebar-nav ul a span.title_trim{font-size: 10px;margin-left: -6px;}
