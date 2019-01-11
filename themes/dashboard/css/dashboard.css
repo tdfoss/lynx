@@ -199,3 +199,9 @@ body>div.login-box>div>div>div>div>h2 {
 .collapse-menu .metismenu .sidebar-nav ul a span.title_trim{font-size: 10px;}
 .collapse-menu .metismenu:hover .sidebar-nav ul a span.title_trim{font-size: 14px;}
 .collapse-menu .metismenu .sidebar-nav ul a{padding: 5px 10px;}
+#drawer{
+				    top: 77px !important;
+}
+.fa-thumb-tack{
+		    margin-top: 60px !important;		
+}
