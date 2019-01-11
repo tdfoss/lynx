@@ -205,3 +205,8 @@ body>div.login-box>div>div>div>div>h2 {
 .fa-thumb-tack{
 		    margin-top: 60px !important;		
 }
+.sidebar-nav ul > li.mene-open-1.active > a{    border-left-color: #3c8dbc;
+    background: #3c8dbc;}
+.sidebar-nav ul > li.mene-open-1.active > ul > li > a{
+			    background: #235775;
+}
