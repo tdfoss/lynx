@@ -1,7 +1,7 @@
 	<noscript>
 		<div class="alert alert-danger">{LANG.nojs}</div>
 	</noscript>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini collapse-menu">
 <div class="wrapper">
   <header class="main-header">
                         <!-- BEGIN: image -->

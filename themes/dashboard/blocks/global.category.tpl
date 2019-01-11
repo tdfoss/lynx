@@ -17,20 +17,32 @@
 <!-- END: submenu -->
 
 <!-- BEGIN: main -->
+<ul class="sidebar-menu">
  <!-- BEGIN: top_menu -->
-<li{TOP_MENU.current} class="treeview" role="button" aria-expanded="false" {TOP_MENU.target}>
-          <a href="{TOP_MENU.link}" title="{TOP_MENU.note}"  >
+<li{TOP_MENU.current}  rol="presentation">
+          <a href="{TOP_MENU.link}" title="{TOP_MENU.note}" >
           <!-- BEGIN: icon --><div class="icon-img"><img src="{TOP_MENU.icon}" alt="nav-cat" class="img-responsive"></div><!-- END: icon --> 
-          <span a href="{TOP_MENU.link}">{TOP_MENU.title_trim}</span>
-           <!--  BEGIN: iconsub -->
-            <span class="pull-right-container">
+          <span>{TOP_MENU.title_trim}</span>
+          </a>
+          <!--  BEGIN: iconsub -->
+            <span class="material-button-toggle ">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
-             <!--  END: iconsub -->
-          </a>
+          <!--  END: iconsub -->
+          
           <!-- BEGIN: sub -->
           {SUB}
-          <!-- BEGIN: sub -->
+          <!-- END: sub -->
         </li>
 <!-- END: top_menu -->
+  <div class="clear"></div>
+      </ul>
+<script type="text/javascript">
+$(document).ready(function () {
+    $('.material-button-toggle').on("click", function () {
+        $(this).toggleClass('open');
+        $('.expand-menu').toggleClass('close-up');
+    });
+});
+</script>
 <!-- END: main -->

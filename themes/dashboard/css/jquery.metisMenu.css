@@ -73,17 +73,16 @@
 }
 
 .metismenu .sidebar-nav {
-    border-bottom:1px solid rgba(0,0,0,0.2);
-    background:#205FA0;
-    background-image:linear-gradient(to right,#2671B5 4px,#205FA0 4px);
     background-repeat:repeat-x;
     margin:0;
+    color: #fff;
+    background: #1e282c;
 }
 
 .metismenu .sidebar-nav ul {
     padding:0;
-    margin:0;
     list-style:none;
+    margin: 0 1px;
 }
 
 .metismenu .sidebar-nav ul li,
@@ -94,8 +93,7 @@
 .metismenu .sidebar-nav ul a {
     padding:10px 20px;
     color:#fff;
-    border-top:1px solid rgba(0,0,0,0.2);
-    box-shadow:0 1px 0 rgba(255,255,255,0.05) inset;
+    /* border-top:1px solid rgba(0,0,0,0.2); */
 }
 
 .metismenu .sidebar-nav ul a:hover,
@@ -106,15 +104,13 @@
     background-image:linear-gradient(to right,#FF6600 4px,rgba(0,0,0,0) 4px);
 }
 
-.metismenu .sidebar-nav ul ul a {
-    padding:10px 30px;
-    background-color:#4189C7;
-}
+.metismenu .sidebar-nav ul ul a {background: #2c3b41;}
 
 .metismenu .sidebar-nav ul ul a:hover,
 .metismenu .sidebar-nav ul ul a:focus,
 .metismenu .sidebar-nav ul ul a:active {
-    background-color:#367CB8;
+    /* background-color: unset; */
+    color: #fff;
 }
 
 .metismenu .sidebar-nav-item {
