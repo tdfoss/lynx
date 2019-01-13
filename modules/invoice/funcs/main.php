@@ -59,6 +59,7 @@ $page = $nv_Request->get_int('page', 'post,get', 1);
 $join = $where = '';
 
 $array_search = array(
+    'search' => $nv_Request->isset_request('search', 'post,get'),
     'q' => $nv_Request->get_title('q', 'post,get'),
     'customerid' => $nv_Request->get_int('customerid', 'get', 0),
     'workforceid' => $nv_Request->get_int('workforceid', 'get', 0),
@@ -128,7 +129,7 @@ if (!empty($array_search['duetime'])) {
 if ($array_search['status'] >= 0) {
     $base_url .= '&amp;status=' . $array_search['status'];
     $where .= ' AND status=' . $array_search['status'];
-} elseif (!empty($array_config['default_status'])) {
+} elseif (!$array_search['search'] && !empty($array_config['default_status'])) {
     $where .= ' AND status IN (' . $array_config['default_status'] . ')';
 }
 
