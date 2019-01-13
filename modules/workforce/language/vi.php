@@ -78,6 +78,7 @@ $lang_module['select_part'] = 'Chọn bộ phận';
 $lang_module['select_status'] = 'Chọn trạng thái';
 $lang_module['workforce_content'] = 'Danh sách nhận sự đang trống. Click vào <a href="%s" title=""><strong>đây</strong></a> để thêm mới nhân sự.';
 $lang_module['workinfo'] = 'Thông tin công việc';
+$lang_module['remider_birthday'] = 'Hôm nay là sinh nhật của <trong>%s</strong>';
 
 $lang_module['createinfoaccount'] = 'Tạo tài khoản nếu chưa có';
 $lang_module['infoaccount'] = 'Thông tin tài khoản';

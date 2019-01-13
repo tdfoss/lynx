@@ -75,3 +75,5 @@ $data['groups_use'] = '4';
 foreach ($data as $config_name => $config_value) {
     $sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', " . $db->quote($module_name) . ", " . $db->quote($config_name) . ", " . $db->quote($config_value) . ")";
 }
+
+$sql_create_module[] = "INSERT INTO " . NV_CRONJOBS_GLOBALTABLE . " (start_time, inter_val, run_file, run_func, params, del, is_sys, act, last_time, last_result, vi_cron_name) VALUES(1547340000, 1440, 'workforce_birthday_reminder.php', 'cron_workforce_birthday_reminder', '', 0, 0, 1, 0, 0, 'Nhắc nhở sinh nhật nhân viên');";
