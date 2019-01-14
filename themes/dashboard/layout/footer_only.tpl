@@ -29,5 +29,21 @@ function fadeMenuWrap() {
     } 
 } 
 </script>
+<script>
+// $('.collapse-menu').hover(
+//         function(){ $(this).addClass('collapse-menu-hover') },
+//         function(){ $(this).removeClass('collapse-menu-hover') }
+//  )
+$(function(){
+    $(".collapse-menu").hover(
+      function () {
+        $(this).toggleClass('collapse-menu-hover');
+      }, 
+      function () {
+        $(this).toggleClass('collapse-menu-hover');
+      }
+    );
+});
+</script>
 	</body>
 </html>

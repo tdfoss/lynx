@@ -14,6 +14,27 @@
         </div>
     </section>
   </div>
+<!--   <button class="btn btn-default"> -->
+<!--              Save -->
+<!--         </button> -->
+        <script>
+        $(function(){
+            $("#EDM").hover(
+              function () {
+                $(this).toggleClass('hovered');
+              }, 
+              function () {
+                $(this).toggleClass('hovered');
+              }
+            );
+        });
+        </script>
 {FILE "footer_extended.tpl"}
 {FILE "footer_only.tpl"}
 <!-- END: main -->
+<script >
+        $('#EDM').hover(
+                function(){ $(this).addClass('menu-hover') },
+                function(){ $(this).removeClass('menu-hover') }
+         )
+        </script>
