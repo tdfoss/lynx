@@ -229,6 +229,6 @@ body>div.login-box>div>div>div>div>h2 {
 }
 .sidebar-collapse .metismenu .sidebar-nav ul a span.title_trim{font-size: 10px;margin-left: -6px;}
  .sidebar-mini .panel-body ul{list-style: none !important;}
-#drawer {top:149px;}
+#drawer {top:149px; !important}
 .panel-info .collapse  div{ display:none;}
 .panel-info .collapse.in  div{ display:block;}

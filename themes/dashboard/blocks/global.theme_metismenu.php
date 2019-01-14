@@ -92,8 +92,9 @@ if (defined('NV_SYSTEM')) {
 
                 if (!empty($row['icon']) and file_exists(NV_UPLOADS_REAL_DIR . '/menu/' . $row['icon'])) {
                     $row['icon'] = NV_BASE_SITEURL . NV_UPLOADS_DIR . '/menu/' . $row['icon'];
+
                 } else {
-                    $row['icon'] = '';
+                    $row['icon'] = NV_BASE_SITEURL.'themes/' . $global_config['module_theme'] . '/images/icons/200396.png';
                 }
                 $list_cats[$row['id']] = array(
                     'id' => $row['id'],
