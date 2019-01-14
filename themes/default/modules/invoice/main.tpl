@@ -15,6 +15,7 @@
                     <input class="form-control" type="text" value="{SEARCH.q}" name="q" maxlength="255" placeholder="{LANG.search_title}" />
                 </div>
             </div>
+            <!-- BEGIN: admin -->
             <div class="col-xs-24 col-md-3">
                 <div class="form-group">
                     <select name="customerid" id="customerid" class="form-control">
@@ -82,6 +83,7 @@
                     </div>
                 </div>
             </div>
+            <!-- END: admin -->
             <div class="col-xs-24 col-md-3">
                 <div class="form-group">
                     <select name="status" class="form-control">
@@ -100,6 +102,7 @@
         </div>
     </form>
 </div>
+<!-- BEGIN: admin2 -->
 <form class="form-inline m-bottom">
     <select class="form-control" id="action-top">
         <!-- BEGIN: action_top -->
@@ -109,6 +112,7 @@
     <button class="btn btn-primary" onclick="nv_list_action( $('#action-top').val(), '{BASE_URL}', '{LANG.error_empty_data}' ); return false;">{LANG.perform}</button>
     <a class="btn btn-primary" href="{URL_ADD}">{LANG.add}</a>
 </form>
+<!-- END: admin2 -->
 <form action="{NV_BASE_SITEURL}index.php?{NV_LANG_VARIABLE}={NV_LANG_DATA}&amp;{NV_NAME_VARIABLE}={MODULE_NAME}&amp;{NV_OP_VARIABLE}={OP}" method="post">
     <div class="table-responsive">
         <table class="table table-striped table-bordered table-hover">
@@ -125,7 +129,9 @@
                     <th width="150">{LANG.addtime}</th>
                     <th>{LANG.grand_total}</th>
                     <th>{LANG.status}</th>
+                    <!-- BEGIN: admin4 -->
                     <th width="150">&nbsp;</th>
+                    <!-- END: admin4 -->
                 </tr>
             </thead>
             <!-- BEGIN: generate_page -->
@@ -151,15 +157,18 @@
                     <td>{VIEW.addtime}</td>
                     <td>{VIEW.grand_total}</td>
                     <td>{VIEW.status_str}</td>
+                    <!-- BEGIN: admin3 -->
                     <td class="text-center">
                         <i class="fa fa-edit fa-lg">&nbsp;</i> <a href="{VIEW.link_edit}">{LANG.edit}</a> - <em class="fa fa-trash-o fa-lg">&nbsp;</em> <a href="{VIEW.link_delete}" onclick="return confirm(nv_is_del_confirm[0]);">{LANG.delete}</a>
                     </td>
+                    <!-- END: admin3 -->
                 </tr>
                 <!-- END: loop -->
             </tbody>
         </table>
     </div>
 </form>
+<!-- BEGIN: admin1 -->
 <form class="form-inline m-bottom">
     <select class="form-control" id="action-bottom">
         <!-- BEGIN: action_bottom -->
@@ -248,4 +257,5 @@
 
     //]]>
 </script>
+<!-- END: admin1 -->
 <!-- END: main -->

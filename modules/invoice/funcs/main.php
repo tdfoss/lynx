@@ -178,6 +178,10 @@ if (!empty($generate_page)) {
     $xtpl->parse('main.generate_page');
 }
 
+if (defined('NV_INVOICE_ADMIN')) {
+    $xtpl->parse('main.admin4');
+}
+
 $array_users = array();
 while ($view = $sth->fetch()) {
     if (!isset($array_users[$view['customerid']])) {
@@ -215,19 +219,11 @@ while ($view = $sth->fetch()) {
         $xtpl->parse('main.loop.success');
     }
 
-    $xtpl->parse('main.loop');
-}
-
-if (!empty($workforce_list)) {
-    foreach ($workforce_list as $user) {
-        $user['selected'] = $user['userid'] == $array_search['workforceid'] ? 'selected="selected"' : '';
-        $user['selected1'] = $user['userid'] == $array_search['presenterid'] ? 'selected="selected"' : '';
-        $user['selected2'] = $user['userid'] == $array_search['performerid'] ? 'selected="selected"' : '';
-        $xtpl->assign('USER', $user);
-        $xtpl->parse('main.user');
-        $xtpl->parse('main.user1');
-        $xtpl->parse('main.user2');
+    if (defined('NV_INVOICE_ADMIN')) {
+        $xtpl->parse('main.loop.admin3');
     }
+
+    $xtpl->parse('main.loop');
 }
 
 foreach ($array_invoice_status as $index => $value) {
@@ -240,22 +236,39 @@ foreach ($array_invoice_status as $index => $value) {
     $xtpl->parse('main.status');
 }
 
-if (!empty($customer_info)) {
-    $xtpl->assign('CUSTOMER', $customer_info);
-    $xtpl->parse('main.customer');
-}
+if (defined('NV_INVOICE_ADMIN')) {
+    if (!empty($workforce_list)) {
+        foreach ($workforce_list as $user) {
+            $user['selected'] = $user['userid'] == $array_search['workforceid'] ? 'selected="selected"' : '';
+            $user['selected1'] = $user['userid'] == $array_search['presenterid'] ? 'selected="selected"' : '';
+            $user['selected2'] = $user['userid'] == $array_search['performerid'] ? 'selected="selected"' : '';
+            $xtpl->assign('USER', $user);
+            $xtpl->parse('main.admin.user');
+            $xtpl->parse('main.admin.user1');
+            $xtpl->parse('main.admin.user2');
+        }
+    }
 
-$array_action = array(
-    'delete_list_id' => $lang_global['delete'],
-    'confirm_payment' => $lang_module['confirm_payment']
-);
-foreach ($array_action as $key => $value) {
-    $xtpl->assign('ACTION', array(
-        'key' => $key,
-        'value' => $value
-    ));
-    $xtpl->parse('main.action_top');
-    $xtpl->parse('main.action_bottom');
+    if (!empty($customer_info)) {
+        $xtpl->assign('CUSTOMER', $customer_info);
+        $xtpl->parse('main.admin.customer');
+    }
+
+    $array_action = array(
+        'delete_list_id' => $lang_global['delete'],
+        'confirm_payment' => $lang_module['confirm_payment']
+    );
+    foreach ($array_action as $key => $value) {
+        $xtpl->assign('ACTION', array(
+            'key' => $key,
+            'value' => $value
+        ));
+        $xtpl->parse('main.admin2.action_top');
+        $xtpl->parse('main.admin1.action_bottom');
+    }
+    $xtpl->parse('main.admin');
+    $xtpl->parse('main.admin1');
+    $xtpl->parse('main.admin2');
 }
 
 $xtpl->parse('main');

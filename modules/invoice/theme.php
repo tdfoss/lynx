@@ -59,7 +59,7 @@ function nv_theme_invoice_detail($row, $array_invoice_products, $array_control, 
                 $orders['itemid'] = $array_services[$orders['itemid']]['title'];
             } elseif ($orders['module'] == 'products') {
                 $orders['itemid'] = $array_products[$orders['itemid']]['title'];
-            }elseif ($orders['module'] == 'projects') {
+            } elseif ($orders['module'] == 'projects') {
                 $orders['itemid'] = $array_projects[$orders['itemid']]['title'];
             }
 
@@ -92,15 +92,18 @@ function nv_theme_invoice_detail($row, $array_invoice_products, $array_control, 
         $xtpl->parse('main.discount');
     }
 
-    if (isset($site_mods['support'])) {
-        $xtpl->parse('main.button_funs.support');
-    }
+    if (defined('NV_INVOICE_ADMIN')) {
+        if (isset($site_mods['support'])) {
+            $xtpl->parse('main.button_funs.support');
+        }
 
-    if (empty($downpdf) && empty($sendmail)) {
-        $xtpl->parse('main.button_funs');
-        $xtpl->parse('main.non_title_pdf');
-    } else {
-        $xtpl->parse('main.dompdf_link');
+        if (empty($downpdf) && empty($sendmail)) {
+            $xtpl->parse('main.admin.button_funs');
+            $xtpl->parse('main.admin.non_title_pdf');
+        } else {
+            $xtpl->parse('main.admin.dompdf_link');
+        }
+        $xtpl->parse('main.admin');
     }
 
     $xtpl->parse('main');

@@ -24,6 +24,12 @@ function nv_delete_invoice($id)
 {
     global $db, $module_name, $module_data, $user_info, $lang_module, $workforce_list;
 
+    nv_invoice_premission($module_name);
+
+    if (!defined('NV_IS_ADMIN')) {
+        return false;
+    }
+
     $rows = $db->query('SELECT code, title FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
     if ($rows) {
         $count = $db->exec('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id = ' . $id);
@@ -112,15 +118,18 @@ function nv_invoice_premission($module, $type = 'where')
     $array_userid = array(); // mảng chứa userid mà người này được quản lý
     $groups_admin = explode(',', $array_config['groups_admin']);
 
-    if (!empty(array_intersect($groups_admin, $user_info['in_groups']))) {
-        return '';
-    }
-
-    // nhóm quản lý thấy tất cả
     $group_manage = !empty($array_config['groups_manage']) ? explode(',', $array_config['groups_manage']) : array();
     $group_manage = array_map('intval', $group_manage);
 
-    if (!empty(array_intersect($group_manage, $user_info['in_groups']))) {
+    if (!empty(array_intersect($groups_admin, $user_info['in_groups']))) {
+        if (!defined('NV_INVOICE_ADMIN')) {
+            define('NV_INVOICE_ADMIN', true);
+        }
+        return '';
+    } elseif (!empty(array_intersect($group_manage, $user_info['in_groups']))) {
+        if (!defined('NV_INVOICE_ADMIN')) {
+            define('NV_INVOICE_ADMIN', true);
+        }
         // kiểm tra tư cách trong nhóm (trưởng nhóm / thành viên nhóm)
         $result = $db->query('SELECT * FROM ' . NV_USERS_GLOBALTABLE . '_groups_users WHERE is_leader=1 AND approved=1 AND userid=' . $user_info['userid']);
         while ($row = $result->fetch()) {
@@ -145,7 +154,8 @@ function nv_invoice_premission($module, $type = 'where')
             return $array_userid;
         }
     } else {
-        return '';
+        // khách hàng
+        return ' AND customerid=' . $user_info['userid'];
     }
 }
 

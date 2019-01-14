@@ -1,4 +1,5 @@
 <!-- BEGIN: main -->
+<!-- BEGIN: admin -->
 <!-- BEGIN: dompdf_link -->
 <link rel="StyleSheet" href="{NV_BASE_SITEURL}themes/{TEMPLATE_CSS}/css/invoice_pdf.css" type="text/css" />
 <!-- END: dompdf_link -->
@@ -29,6 +30,7 @@
     </ul>
 </div>
 <!-- END: button_funs -->
+<!-- END: admin -->
 <div class="clearfix"></div>
 <div class="row">
     <div class="col-xs-24 col-sm-24 col-md-24">
