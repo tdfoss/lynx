@@ -30,20 +30,16 @@ function fadeMenuWrap() {
 } 
 </script>
 <script>
-// $('.collapse-menu').hover(
-//         function(){ $(this).addClass('collapse-menu-hover') },
-//         function(){ $(this).removeClass('collapse-menu-hover') }
-//  )
-$(function(){
-    $(".collapse-menu").hover(
-      function () {
-        $(this).toggleClass('collapse-menu-hover');
-      }, 
-      function () {
-        $(this).toggleClass('collapse-menu-hover');
-      }
-    );
-});
-</script>
+        $(function(){
+            $("#EDM").hover(
+              function () {
+                $(this).toggleClass('hovered');
+              }, 
+              function () {
+                $(this).toggleClass('hovered');
+              }
+            );
+        });
+        </script>
 	</body>
 </html>
