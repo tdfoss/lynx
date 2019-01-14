@@ -119,7 +119,7 @@ if ($nv_Request->isset_request('get_user_json', 'post, get')) {
     exit();
 }
 
-if (!defined('NV_IS_ADMIN')) {
+if (!defined('NV_INVOICE_ADMIN')) {
     nv_redirect_location(NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name);
 }
 
