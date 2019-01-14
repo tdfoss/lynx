@@ -134,7 +134,10 @@
         </div>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <span class="pull-left">{LANG.transaction_history}</span> <span class="pull-right"><button data-invoiceid="{ROW.id}" data-lang-add="{LANG.transaction_add}" id="btn-transaction-add" class="btn btn-primary btn-xs">{LANG.transaction_add}</button></span>
+                <span class="pull-left">{LANG.transaction_history}</span>
+                <!-- BEGIN: transaction_add --> 
+                <span class="pull-right"><button data-invoiceid="{ROW.id}" data-lang-add="{LANG.transaction_add}" id="btn-transaction-add" class="btn btn-primary btn-xs">{LANG.transaction_add}</button></span>
+                <!-- END: transaction_add -->
                 <div class="clearfix"></div>
             </div>
             <div id="transaction-body">{TRANSACTION}</div>

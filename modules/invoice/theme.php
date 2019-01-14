@@ -104,6 +104,7 @@ function nv_theme_invoice_detail($row, $array_invoice_products, $array_control, 
             $xtpl->parse('main.admin.dompdf_link');
         }
         $xtpl->parse('main.admin');
+        $xtpl->parse('main.transaction_add');
     }
 
     $xtpl->parse('main');
