@@ -48,7 +48,7 @@
 }
 
 .bttop:hover {
-				background: #00a65a;
+				background: #3c8dbc;
 }
 
 .bttop {
@@ -172,7 +172,7 @@ body>div.login-box>div>div>div>div>h2 {
 				z-index: 850;
 }
 
-.collapse-menu .main-header .navbar, .collapse-menu .content-wrapper,.main-footer {
+.collapse-menu .main-header .navbar, .collapse-menu .content-wrapper,.collapse-menu  .main-footer {
 				margin-left: 50px;
 }
 .collapse-menu .main-header:hover .navbar{
@@ -199,11 +199,8 @@ body>div.login-box>div>div>div>div>h2 {
 .collapse-menu .metismenu .sidebar-nav ul a span.title_trim{font-size: 10px;}
 .collapse-menu .metismenu:hover .sidebar-nav ul a span.title_trim{font-size: 14px;}
 .collapse-menu .metismenu .sidebar-nav ul a{padding: 5px 10px;}
-#drawer{
-				    top: 77px !important;
-}
-.fa-thumb-tack{
-		    margin-top: 60px !important;		
+#drawer .fa-thumb-tack{
+		    margin-top: 11px !important;		
 }
 .sidebar-nav ul > li.mene-open-1.active > a{    border-left-color: #3c8dbc;
     background: #3c8dbc;}
@@ -211,3 +208,7 @@ body>div.login-box>div>div>div>div>h2 {
 			    background: #235775;
 }
 .sidebar-collapse .metismenu .sidebar-nav ul a span.title_trim{font-size: 10px;margin-left: -6px;}
+ .sidebar-mini .panel-body ul{list-style: none !important;}
+#drawer {top:149px;}
+.panel-info .collapse  div{ display:none;}
+.panel-info .collapse.in  div{ display:block;}
