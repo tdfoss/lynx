@@ -17,6 +17,8 @@
 .icon-img {
 				width: 23px;
 				margin-left: -6px;
+				position: relative;
+				top: 3px;
 }
 
 .logo-img {
@@ -227,8 +229,8 @@ body>div.login-box>div>div>div>div>h2 {
 .sidebar-nav ul > li.mene-open-1.active > ul > li > a{
 			    background: #235775;
 }
-.sidebar-collapse .metismenu .sidebar-nav ul a span.title_trim{font-size: 10px;margin-left: -6px;}
+.sidebar-collapse .metismenu .sidebar-nav ul a span.title_trim{display: none;}
  .sidebar-mini .panel-body ul{list-style: none !important;}
-#drawer {top:149px; !important}
+#drawer {top: 149px !important;}
 .panel-info .collapse  div{ display:none;}
 .panel-info .collapse.in  div{ display:block;}
