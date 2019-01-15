@@ -84,17 +84,17 @@ function nv_theme_invoice_detail($row, $array_invoice_products, $array_control, 
         $xtpl->parse('main.description');
     }
 
-    if ($row['status'] == 0 || $row['status'] == 3 || $row['status'] == 4) {
-        $xtpl->parse('main.button_funs.invoice_payment_confirm');
-    }
-
     if (!empty($row['discount_percent']) && !empty($row['discount_value'])) {
         $xtpl->parse('main.discount');
     }
 
     if (defined('NV_INVOICE_ADMIN')) {
+        if ($row['status'] == 0 || $row['status'] == 3 || $row['status'] == 4) {
+            $xtpl->parse('main.admin.button_funs.invoice_payment_confirm');
+        }
+
         if (isset($site_mods['support'])) {
-            $xtpl->parse('main.button_funs.support');
+            $xtpl->parse('main.admin.button_funs.support');
         }
 
         if (empty($downpdf) && empty($sendmail)) {
