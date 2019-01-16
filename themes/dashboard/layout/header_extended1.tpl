@@ -55,8 +55,8 @@
 
     </nav>
   </header>
-  <aside class="main-sidebar">
-    <section class="sidebar" id="EDM">
+  <aside class="main-sidebar" id="EDM">
+    <section class="sidebar" >
       <div class="user-panel">
       [CONTACT_DEFAULT]
       </div>

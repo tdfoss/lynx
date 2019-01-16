@@ -162,9 +162,6 @@ body>div.login-box>div>div>div>div>h2 {
 				display: none;
 }
 
-.sidebar-collapse  ul>li>a>.icon-img {
-				margin-left: -7px;
-}
 
 .collapse-menu .main-sidebar {
 				-webkit-transform: translate(0, 0);
@@ -172,35 +169,33 @@ body>div.login-box>div>div>div>div>h2 {
 				-o-transform: translate(0, 0);
 				transform: translate(0, 0);
 				width: 2px;
-				z-index: 850;
+				z-index: 800;
+				width: 50px;
 }
 
-.collapse-menu .main-header .navbar, .collapse-menu .content-wrapper,.collapse-menu  .main-footer {
+/* .collapse-menu .main-header .navbar,  */
+.collapse-menu .content-wrapper,.collapse-menu  .main-footer {
 				margin-left: 50px;
 }
 .collapse-menu .main-header:hover .navbar{
-				margin-left: 230px;
+/* 				margin-left: 230px; */
 }
 
-.collapse-menu  .main-header .logo {
+.collapse-menu .main-header .logo{
 				width: 50px;
 }
-.collapse-menu  .main-header:hover .logo {
-				width: 230px;
-}
-.collapse-menu  .main-header:hover .logo {
-}
-
- .collapse-menu .main-sidebar:hover {
+ .collapse-menu .hovered {
 				    width: 230px;
-				
 }
-
-.collapse-menu li.mene-open-1.active:hover>ul,.collapse-menu .metismenu .arrow,.sidebar-collapse  ul>li>a>span.title_trim{
+.collapse-menu .main-header .navbar{
+				margin-left: 50px;
+}
+.collapse-menu .metismenu .arrow{display:none;}
+.collapse-menu .hovered .arrow{display:block;}
+.collapse-menu .user-panel{display: none;}
+.collapse-menu li.mene-open-1.active:hover>ul,.sidebar-collapse  ul>li>a>span.title_trim{
 				display: block;
 }
-.collapse-menu .metismenu .sidebar-nav ul a span.title_trim{font-size:0}
-.collapse-menu .hovered .sidebar-nav ul a span.title_trim{ font-size:14px; }
 .collapse-menu .metismenu .sidebar-nav ul li.mene-open-1.active a{
     overflow: hidden;
     width: 50px;
@@ -211,26 +206,31 @@ body>div.login-box>div>div>div>div>h2 {
     width: unset;
     height: unset;
 }
-.collapse-menu .metismenu .sidebar-nav ul li.mene-open- a{
+.collapse-menu .metismenu .sidebar-nav ul li.mene-open- a,.collapse-menu  .metismenu .sidebar-nav ul a span.title_trim{
 			   overflow: hidden;
 			   width: 50px;
 			   height: 50px;
+			   font-size: 0;
 }
-.collapse-menu .hovered .sidebar-nav ul li.mene-open- a{
+.collapse-menu .hovered .sidebar-nav ul li.mene-open- a,.collapse-menu .hovered .sidebar-nav ul a span.title_trim{
 	overflow: unset;
     width: unset;
     height: unset;
+    font-size:14px;
 }
-#drawer .fa-thumb-tack{
-		    margin-top: 11px !important;		
-}
-.sidebar-nav ul > li.mene-open-1.active > a{    border-left-color: #3c8dbc;
-    background: #3c8dbc;}
+.sidebar-nav ul > li.mene-open-1.active > a{border-left-color: #3c8dbc;background: #3c8dbc;}
 .sidebar-nav ul > li.mene-open-1.active > ul > li > a{
 			    background: #235775;
 }
 .sidebar-collapse .metismenu .sidebar-nav ul a span.title_trim{display: none;}
  .sidebar-mini .panel-body ul{list-style: none !important;}
+.sidebar-collapse  ul>li>a>.icon-img {
+				margin-left: -7px;
+}
 #drawer {top: 149px !important;}
+#drawer .fa-thumb-tack{
+		    margin-top: 11px !important;		
+}
 .panel-info .collapse  div{ display:none;}
 .panel-info .collapse.in  div{ display:block;}
+#EDM{}
