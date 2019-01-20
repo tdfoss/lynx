@@ -26,7 +26,7 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   facebook varchar(255) NOT NULL,
   skype varchar(50) NOT NULL,
   zalo varchar(255) NOT NULL,
-  gender tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT 'Giới tính',
+  gender tinyint(1) unsigned NOT NULL DEFAULT '2' COMMENT 'Giới tính',
   address varchar(255) NOT NULL COMMENT 'Địa chỉ',
   unit varchar(255) NOT NULL COMMENT 'Đơn vị công tác',
   care_staff smallint(4) unsigned NOT NULL COMMENT 'Nhân viên chăm sóc KH',

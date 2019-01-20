@@ -122,6 +122,7 @@ $lang_module['invoice_status_1'] = 'Đã thanh toán';
 $lang_module['invoice_status_2'] = 'Đã hủy';
 $lang_module['system'] = 'Hệ thống';
 $lang_module['add_support'] = 'Tạo phiếu hỗ trợ';
+$lang_module['unknow'] = 'Không khai báo';
 
 $lang_module['error_required_userid'] = 'Lỗi: bạn cần chọn Tài khoản thành viên';
 $lang_module['error_required_first_name'] = 'Lỗi: bạn cần nhập dữ liệu cho Tên';

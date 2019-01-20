@@ -27,6 +27,7 @@ $_sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_tags ORDER BY 
 $array_customer_tags = $nv_Cache->db($_sql, 'tid', $module_name);
 
 $array_gender = array(
+    2 => $lang_module['unknow'],
     1 => $lang_module['male'],
     0 => $lang_module['female']
 );

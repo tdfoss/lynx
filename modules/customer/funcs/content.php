@@ -34,7 +34,7 @@ if ($row['id'] > 0) {
     $row['facebook'] = '';
     $row['skype'] = '';
     $row['zalo'] = '';
-    $row['gender'] = 1;
+    $row['gender'] = 2;
     $row['address'] = '';
     $row['unit'] = '';
     $row['care_staff'] = $row['care_staff_old'] = $user_info['userid'];
@@ -60,7 +60,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
     $row['facebook'] = $nv_Request->get_title('facebook', 'post', '');
     $row['skype'] = $nv_Request->get_title('skype', 'post', '');
     $row['zalo'] = $nv_Request->get_title('zalo', 'post', '');
-    $row['gender'] = $nv_Request->get_int('gender', 'post', 0);
+    $row['gender'] = $nv_Request->get_int('gender', 'post', 2);
     $row['address'] = $nv_Request->get_title('address', 'post', '');
     $row['unit'] = $nv_Request->get_title('unit', 'post', '');
     $row['care_staff'] = $nv_Request->get_int('care_staff', 'post', 0);

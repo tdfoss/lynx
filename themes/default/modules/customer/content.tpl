@@ -84,7 +84,7 @@
                 <label class="col-sm-5 col-md-4 text-right"><strong>{LANG.gender}</strong></label>
                 <div class="col-sm-19 col-md-20">
                     <!-- BEGIN: gender -->
-                    <label><input type="radio" name="gender" value="{GENDER.index}"{GENDER.checked} >{GENDER.value}</label>
+                    <label><input type="radio" name="gender" value="{GENDER.index}"{GENDER.checked} >{GENDER.value}&nbsp;&nbsp;&nbsp;&nbsp;</label>
                     <!-- END: gender -->
                 </div>
             </div>
