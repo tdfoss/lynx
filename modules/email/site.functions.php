@@ -8,7 +8,7 @@
  */
 if (!defined('NV_MAINFILE')) die('Stop!!!');
 
-function nv_email_send($title, $content, $sendfrom_id, $sendto_id, $cc_id = array(), $files = array(), $is_cc = 0, $sendfrom_email = array())
+function nv_email_send($title, $content, $sendfrom_id, $sendto_id, $cc_id = array(), $files = array(), $is_cc = 0, $sendfrom_email = array(), $is_template = true)
 {
     global $db, $workforce_list, $global_config, $module_upload;
 
@@ -61,7 +61,7 @@ function nv_email_send($title, $content, $sendfrom_id, $sendto_id, $cc_id = arra
                     $mail->addReplyTo($sendfrom_email['email'], $sendfrom_email['title']);
                 }
 
-                if (function_exists("nv_mailHTML")) {
+                if ($is_template && function_exists("nv_mailHTML")) {
                     $content = nv_mailHTML($title, $content);
                     $mail->AddEmbeddedImage(NV_ROOTDIR . '/' . $global_config['site_logo'], 'sitelogo', basename(NV_ROOTDIR . '/' . $global_config['site_logo']));
                 }
