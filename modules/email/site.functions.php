@@ -61,6 +61,18 @@ function nv_email_send($title, $content, $sendfrom_id, $sendto_id, $cc_id = arra
                     $mail->addReplyTo($sendfrom_email['email'], $sendfrom_email['title']);
                 }
 
+                // Chuyển đường dẫn ảnh thành tuyệt đối
+                $array_images = array();
+                if (preg_match_all("/\<img[^\>]*src=\"([^\"]*)\"[^\>]*\>/is", $content, $match)) {
+                    foreach ($match[0] as $key => $_m) {
+                        $image_url = $image_url_tmp = $match[1][$key];
+                        if (!in_array($image_url, $array_images)) {
+                            $content = str_replace($image_url_tmp, NV_MY_DOMAIN . $image_url, $content);
+                            $array_images[] = $image_url_tmp;
+                        }
+                    }
+                }
+
                 if ($is_template && function_exists("nv_mailHTML")) {
                     $content = nv_mailHTML($title, $content);
                     $mail->AddEmbeddedImage(NV_ROOTDIR . '/' . $global_config['site_logo'], 'sitelogo', basename(NV_ROOTDIR . '/' . $global_config['site_logo']));
