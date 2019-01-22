@@ -2296,3 +2296,12 @@ button.close {
 .sum-voting {
 	margin-top:5px;
 }
+
+.navbar-nav>.notifications-menu>.dropdown-menu img{
+    background-color: #ddd;    
+}
+
+.navbar-nav>.notifications-menu>.dropdown-menu{
+    width: 375px;
+    border-color: #ddd;
+}
