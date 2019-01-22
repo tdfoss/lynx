@@ -13,53 +13,29 @@
 <script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/adminlte.min.js"></script>
 <script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/demo.js"></script>
 <script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery.sparkline.min.js"></script>
-<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery-jvectormap-1.2.2.min.js"></script>
-<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery-jvectormap-world-mill-en.js"></script>
-<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/Chart.js"></script>
-<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/dashboard2.js"></script>
 <script>
-jQuery(document).ready(function() { 
-    fadeMenuWrap(); 
-    jQuery(window).scroll(fadeMenuWrap);
-});
-
-function fadeMenuWrap() { 
-    var scrollPos = window.pageYOffset || document.documentElement.scrollTop; 
-    if (scrollPos > 300) { 
-        jQuery('.bttop').fadeIn(300); 
-    } else { 
-        jQuery('.bttop').fadeOut(300); 
-    } 
-} 
+    jQuery(document).ready(function() {
+        fadeMenuWrap();
+        jQuery(window).scroll(fadeMenuWrap);
+    });
+    
+    function fadeMenuWrap() {
+        var scrollPos = window.pageYOffset || document.documentElement.scrollTop;
+        if (scrollPos > 300) {
+            jQuery('.bttop').fadeIn(300);
+        } else {
+            jQuery('.bttop').fadeOut(300);
+        }
+    }
 </script>
 <script>
-        $(function(){
-            $(".edm").hover(
-              function () {
-                $(this).toggleClass('menu-open');
-              }, 
-              function () {
-                $(this).toggleClass('menu-open');
-              }
-            );
+    $(function() {
+        $(".edm").hover(function() {
+            $(this).toggleClass('menu-open');
+        }, function() {
+            $(this).toggleClass('menu-open');
         });
-        </script>
-<script type="text/javascript">
-// $(document).ready(function () {
-//     $('.material-button-toggle').on("click", function () {
-//         $(this).toggleClass('open');
-//         $('.dropdown.open').toggleClass('close-up');
-//     });
-//     });
-
+    });
 </script>
-<script>
-// $(document).ready(function () {
-// $('.button-push-menu').on('click',function(){
-//     $('.button-skin').removeClass('sidebar-collapse');
-//     $(this).addClass('sidebar-collapse');
-// });
-// });
-        </script>
 </body>
 </html>
