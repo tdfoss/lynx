@@ -99,11 +99,11 @@
                     <th class="text-center" width="50"><input name="check_all[]" type="checkbox" value="yes" onclick="nv_checkAll(this.form, 'idcheck[]', 'check_all[]',this.checked);"></th>
                     <th>{LANG.title}</th>
                     <th>{LANG.workforceid}</th>
-                    <th width="200">{LANG.customerid}</th>
-                    <th width="150">{LANG.begintime}</th>
-                    <th width="150">{LANG.endtime}</th>
-                    <th width="190">{LANG.realtime}</th>
-                    <th width="150">{LANG.status}</th>
+                    <th>{LANG.customerid}</th>
+                    <th width="110" class="text-center">{LANG.begintime}</th>
+                    <th width="110" class="text-center">{LANG.endtime}</th>
+                    <th width="110" class="text-center">{LANG.realtime}</th>
+                    <th width="100">{LANG.status}</th>
                     <th width="70">&nbsp;</th>
                 </tr>
             </thead>
@@ -122,9 +122,9 @@
                     </td>
                     <td>{VIEW.performer_str}</td>
                     <td><a href="{VIEW.customer.link}">{VIEW.customer.fullname}</a></td>
-                    <td>{VIEW.begintime}</td>
-                    <td>{VIEW.endtime}</td>
-                    <td>{VIEW.realtime}</td>
+                    <td class="text-center">{VIEW.begintime}</td>
+                    <td class="text-center">{VIEW.endtime}</td>
+                    <td class="text-center">{VIEW.realtime}</td>
                     <td>{VIEW.status}</td>
                     <td class="text-center form-tooltip"><a href="{VIEW.link_edit}" class="btn btn-default btn-xs" data-toggle="tooltip" data-original-title="{LANG.edit}"><i class="fa fa-edit"></i></a> <a href="{VIEW.link_delete}" onclick="return confirm(nv_is_del_confirm[0]);" class="btn btn-default btn-xs" data-toggle="tooltip" data-original-title="{LANG.delete}"><em class="fa fa-trash-o"></em></a></td>
                 </tr>
