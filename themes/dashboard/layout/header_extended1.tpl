@@ -2,7 +2,7 @@
 <noscript>
     <div class="alert alert-danger">{LANG.nojs}</div>
 </noscript>
-<body class="hold-transition skin-blue sidebar-mini sidebar-collapse">
+<body class="hold-transition skin-blue sidebar-mini sidebar-collapse  menu-hover">
     <div class="wrapper">
         <header class="main-header">
             <!-- BEGIN: image -->
@@ -37,7 +37,7 @@
             <!-- BEGIN: site_name_span -->
             <span class="site_name hidden">{SITE_NAME}</span> <span class="site_description hidden">{SITE_DESCRIPTION}</span>
             <!-- END: site_name_span -->
-            <nav class="navbar navbar-static-top">
+            <nav class="navbar navbar-static-top button-push-menu">
                 <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button"> <span class="sr-only">Toggle navigation</span>
                 </a>
                 <div class="navbar-custom-menu">
