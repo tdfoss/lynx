@@ -2304,3 +2304,7 @@ button.close {
     width: 375px;
     border-color: #ddd;
 }
+
+.post:last-of-type{
+    border-bottom: solid 1px #aaaaaa;
+}
