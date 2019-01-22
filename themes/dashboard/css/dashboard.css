@@ -1,3 +1,71 @@
+.sidebar-menu .menu-expand .pull-right-container>.fa-angle-left, .sidebar-menu .menu-expand .pull-right-container>.fa-angle-left {
+				width: auto;
+				height: auto;
+				padding: 0;
+				margin-right: 10px;
+				-webkit-transition: transform .5s ease;
+				-o-transition: transform .5s ease;
+				transition: transform .5s ease;
+}
+.sidebar-menu .active>.treeview-menu {
+	display:unset;			
+}
+.sidebar-mini:not (.sidebar-mini-expand-feature ).sidebar-collapse .sidebar-menu>li:hover>a>span:not (.pull-right ), .sidebar-mini:not (.sidebar-mini-expand-feature ).sidebar-collapse .sidebar-menu>li:hover>.treeview-menu {
+				width: 263px;
+				left: 50px;
+}
+.sidebar-mini:not (.sidebar-mini-expand-feature ).sidebar-collapse .sidebar-menu>li:hover>a>span {
+				top: 5px;
+}
+.sidebar-mini:not (.sidebar-mini-expand-feature ).sidebar-collapse .sidebar-menu>li:hover>a>.pull-right-container {
+				left: 260px !important;
+				left: 260px !important;
+				top: -18px !important;
+}
+.sidebar-mini:not (.sidebar-mini-expand-feature ).sidebar-collapse .sidebar-menu>li:hover>.treeview-menu {
+				top: 48px;
+}
+.sidebar-menu .menu-expand>.pull-right-container {
+				color: #fff;
+				padding: 7px;
+}
+.navbar-nav>.user-menu>.dropdown-menu>li.user-header {
+				height: 155px;
+				text-align: center;
+}
+.navbar-nav>.user-menu>.dropdown-menu>li.user-header>img {
+				height: auto;
+}
+.navbar-nav>.user-menu>.dropdown-menu>li.user-header>p {
+font-size: 14px;				
+}
+.navbar-custom-menu>.navbar-nav>li>.dropdown-menu {
+				left: auto;
+				border: 1px solid #ddd;
+				box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+}
+.box {
+				background: #fefefe;
+				box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+.box-body {
+				border: 1px solid #e1e1e1;
+}
+.nav-tabs-custom>.nav-tabs>li:first-of-type.active>a {
+				border-left-color: #e1e1e1;
+}
+.nav-tabs-custom>.tab-content {
+				border: 1px solid #e1e1e1;
+}
+.table-bordered {
+border:0				
+}
+
+.dropdown-menu>li>a.edituser:hover {
+				background: unset;
+}
+
+
 .user-a {
 				color: #fff
 }
