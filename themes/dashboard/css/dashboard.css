@@ -232,4 +232,9 @@ body>div.login-box>div>div>div>div>h2 {
 				-o-transition: transform .5s ease;
 				transition: transform .5s ease;
 }
-
+.skin-blue .sidebar-menu>li>.treeview-menu{
+				display:none;
+}
+.skin-blue .sidebar-menu>li.menu-open:hover>.treeview-menu{
+				display:block;
+}

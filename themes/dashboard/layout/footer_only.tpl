@@ -34,15 +34,32 @@ function fadeMenuWrap() {
 </script>
 <script>
         $(function(){
-            $("#EDM").hover(
+            $(".edm").hover(
               function () {
-                $(this).toggleClass('hovered');
+                $(this).toggleClass('menu-open');
               }, 
               function () {
-                $(this).toggleClass('hovered');
+                $(this).toggleClass('menu-open');
               }
             );
         });
+        </script>
+<script type="text/javascript">
+// $(document).ready(function () {
+//     $('.material-button-toggle').on("click", function () {
+//         $(this).toggleClass('open');
+//         $('.dropdown.open').toggleClass('close-up');
+//     });
+//     });
+
+</script>
+<script>
+// $(document).ready(function () {
+// $('.button-push-menu').on('click',function(){
+//     $('.button-skin').removeClass('sidebar-collapse');
+//     $(this).addClass('sidebar-collapse');
+// });
+// });
         </script>
 </body>
 </html>

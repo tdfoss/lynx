@@ -10,7 +10,7 @@
 <!-- BEGIN: main -->
 <ul class="sidebar-menu" data-widget="tree">
     <!-- BEGIN: top_menu -->
-    <li class="treeview"><a href="#">
+    <li class="treeview edm" ><a href="#">
     <i class="{TOP_MENU.css}"></i>
      <!-- BEGIN: icon -->
 <!--             <div class="icon-img"> -->
