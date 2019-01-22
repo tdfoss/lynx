@@ -41,7 +41,6 @@ if ($global_config['allowuserlogin']) {
 
     $xtpl = new XTemplate('block.user_theme_button.tpl', NV_ROOTDIR . '/themes/' . $block_theme . '/blocks');
 
-    if ($site_mods[$block_config['module']]['module_file'] != $module_file) {
         if (file_exists(NV_ROOTDIR . '/modules/users/language/' . NV_LANG_INTERFACE . '.php')) {
             include NV_ROOTDIR . '/modules/users/language/' . NV_LANG_INTERFACE . '.php';
         } else {
@@ -50,9 +49,6 @@ if ($global_config['allowuserlogin']) {
         if (!empty($block_css)) {
             $my_head .= '<link rel="StyleSheet" href="' . NV_BASE_SITEURL . 'themes/' . $block_css . '/css/users.css">';
         }
-    } else {
-        global $lang_module;
-    }
 
     $xtpl->assign('LANG', $lang_module);
     $xtpl->assign('GLANG', $lang_global);
