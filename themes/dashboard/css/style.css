@@ -2295,24 +2295,3 @@ button.close {
 .sum-voting {
 	margin-top:5px;
 }
-    
-.navbar-nav>.notifications-menu>.dropdown-menu img{
-    background-color: #ddd;    
-}
-
-.navbar-nav>.notifications-menu>.dropdown-menu{
-    width: 375px;
-    border-color: #ddd;
-}
-
-.post:last-of-type{
-    border-bottom: solid 1px #aaaaaa;
-}
-
-.content-wrapper{
-    background-color: #fff
-}
-
-.navbar-nav>.notifications-menu>.dropdown-menu>li .menu{
-    margin: 10px
-}
