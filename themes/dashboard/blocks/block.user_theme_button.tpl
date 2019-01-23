@@ -14,7 +14,6 @@
               <!-- Menu Body -->
               <li class="user-body">
                 <div class="row">
-                  {FILE "login_form.tpl"}
                 </div>
               </li>
               <!-- Menu Footer-->
