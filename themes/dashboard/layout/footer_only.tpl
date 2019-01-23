@@ -37,5 +37,16 @@
         });
     });
 </script>
+<script>
+$(window).resize(function() {
+	console.log('remove class');
+	var width = $(window).width();
+	if (width >= 0 && width <= 1024) {
+		$('.remove_class').removeClass('sidebar-collapse').addClass('');
+	} else {
+		$('.remove_class').removeClass('').addClass('sidebar-collapse');
+	}
+}).resize();//trigger the resize event on page load.
+</script>
 </body>
 </html>

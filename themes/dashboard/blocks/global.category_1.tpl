@@ -8,7 +8,7 @@
 </ul>
 <!-- END: submenu -->
 <!-- BEGIN: main -->
-<ul class="sidebar-menu" data-widget="tree">
+<ul class="sidebar-menu hidden-xs hidden-sm" data-widget="tree">
     <!-- BEGIN: top_menu -->
     <li class="treeview edm" ><a href="#">
     <i class="{TOP_MENU.css}"></i>
