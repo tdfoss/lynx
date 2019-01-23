@@ -126,6 +126,10 @@ function nv_site_theme($contents, $full = true)
         );
         $html_links[] = array(
             'rel' => 'StyleSheet',
+            'href' => NV_BASE_SITEURL . 'themes/' . $global_config['module_theme'] . '/css/Tdcolor.css'
+        );
+        $html_links[] = array(
+            'rel' => 'StyleSheet',
             'href' => NV_BASE_SITEURL . 'themes/' . $global_config['module_theme'] . '/css/jquery-jvectormap.css'
         );
         $html_links[] = array(

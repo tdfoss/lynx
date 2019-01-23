@@ -44,6 +44,18 @@
                     <ul class="nav navbar-nav">
                         <li class="dropdown notifications-menu">[NOTIFICATION]</li>
                         <li class="dropdown user user-menu ">[PERSONALAREA]</li>
+                        <li><a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a></li>
+                        <aside class="control-sidebar control-sidebar-dark control-positon">
+                            <!-- Create the tabs -->
+                            <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <!-- Home tab content -->
+                                <div class="tab-pane" id="control-sidebar-home-tab">
+                                </div>
+                                <!-- /.tab-pane -->
+                        </aside>
                     </ul>
                 </div>
             </nav>

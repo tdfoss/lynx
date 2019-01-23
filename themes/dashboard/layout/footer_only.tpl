@@ -11,7 +11,7 @@
 <script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery.slimscroll.min.js"></script>
 <script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/fastclick.js"></script>
 <script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/adminlte.min.js"></script>
-<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/demo.js"></script>
+<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/TDconfig.js"></script>
 <script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery.sparkline.min.js"></script>
 <script>
     jQuery(document).ready(function() {

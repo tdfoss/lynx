@@ -1,3 +1,8 @@
+.wrapper {
+				overflow-x:unset;
+				overflow-y:unset
+				}
+.control-sidebar-bg, .control-sidebar {width: 340px;right: -340px;}
 .sidebar-menu .menu-expand .pull-right-container>.fa-angle-left, .sidebar-menu .menu-expand .pull-right-container>.fa-angle-left {
     width: auto;
     height: auto;
@@ -172,19 +177,19 @@
     
 }
 
-.skin-blue .sidebar-menu>li.active>ul {
+.menu-hover .sidebar-menu>li.active>ul {
     background: #235775;
 }
 
-.skin-blue .sidebar-menu>li.active>ul>li>a {
+.menu-hover .sidebar-menu>li.active>ul>li>a {
     color: #fff;
 }
 
-.skin-blue .sidebar-menu>li.active>ul>li>a {
+.menu-hover .sidebar-menu>li.active>ul>li>a {
     color: #dcdcdc;
 }
 
-.skin-blue .sidebar-menu>li.active>ul>li>a:hover {
+.menu-hover .sidebar-menu>li.active>ul>li>a:hover {
     color: #fff
 }
 
@@ -193,17 +198,21 @@
     display: block;
 }
 
-.skin-blue .sidebar-menu>li>div.active>a {
+.menu-hover .sidebar-menu>li>div.active>a {
     border-left-color: #3c8dbc;
     background: #3c8dbc;
 }
-
-.skin-blue .sidebar-menu>li>div:hover>a, .skin-blue .sidebar-menu>li.active>a, .skin-blue .sidebar-menu>li.menu-open>a {
+/* .menu-hover .sidebar-menu>li.menu-open>a  */
+.menu-hover .sidebar-menu>li>div:hover>a, .menu-hover .sidebar-menu>li.active>{
     color: #fff;
     background: #1e282c;
 }
+.skin-pink .sidebar-menu>li.menu-open>a{
+				background: #e2e2e2;
+				border-bottom: 1px solid;
+}
 
-.skin-blue .sidebar-menu>li>a {
+.menu-hover .sidebar-menu>li>a {
     border-left: 3px solid transparent;
 }
 
@@ -245,11 +254,11 @@ body>div.login-box>div>div>div>div>h2 {
     transition: transform .5s ease;
 }
 
-.skin-blue .sidebar-menu>li>.treeview-menu {
+.menu-hover .sidebar-menu>li>.treeview-menu {
     display: none;
 }
 
-.skin-blue .sidebar-menu>li.menu-open:hover>.treeview-menu {
+.menu-hover .sidebar-menu>li.menu-open:hover>.treeview-menu {
     display: block;
 }
 
@@ -289,4 +298,12 @@ body>div.login-box>div>div>div>div>h2 {
 
 .sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>.treeview-menu{
     top: 43px
+}
+.control-positon{
+				    padding-top: 0;
+    margin-top: 50px;
+}
+.m-t10{margin-top:10px;font-size: 12px;}
+.navbar-nav>.notifications-menu>.dropdown-menu>li .menu .row{
+    padding: 5px
 }
