@@ -2,7 +2,7 @@
 <noscript>
     <div class="alert alert-danger">{LANG.nojs}</div>
 </noscript>
-<body class="hold-transition skin-blue sidebar-mini sidebar-collapse  menu-hover">
+<body class="hold-transition skin-blue sidebar-mini sidebar-collapse remove_class  menu-hover">
     <div class="wrapper">
         <header class="main-header">
             <!-- BEGIN: image -->
