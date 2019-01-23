@@ -307,3 +307,6 @@ body>div.login-box>div>div>div>div>h2 {
 .navbar-nav>.notifications-menu>.dropdown-menu>li .menu .row{
     padding: 5px
 }
+.panel-info .collapse  div{ display:none;}
+.panel-info .collapse.in  div{ display:block;}
+#drawer {top: 149px !important;}
