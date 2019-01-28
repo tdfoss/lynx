@@ -123,7 +123,7 @@ function nv_caculate_duetime($createtime, $cycle_number)
     return strtotime('+' . $cycle_number . ' month', $createtime);
 }
 
-function nv_sendmail_econtent($new_id, $adduser = 0, $location_file = '')
+function nv_sendmail_econtent($new_id, $adduser = 0, $location_file = array())
 {
     global $db, $module_name, $module_data, $row, $lang_module, $array_invoice_status, $user_info, $workforce_list;
 
@@ -164,10 +164,8 @@ function nv_sendmail_econtent($new_id, $adduser = 0, $location_file = '')
             }
 
             $result = nv_email_send($subject, $message, $adduser, $sendto_id, $cc_id, $location_file);
-            if ($result['status']) {
-                if (empty($row['sended'])) {
-                    $db->query('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET sended=1 WHERE id=' . $new_id);
-                }
+            if (!$result['status']) {
+                $db->query('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET sended=sended+1 WHERE id=' . $new_id);
             }
         }
     }

@@ -116,12 +116,14 @@ if ($nv_Request->isset_request('sendmail', 'post')) {
     $location = NV_ROOTDIR . '/' . NV_TEMP_DIR . '/#' . $code . '.pdf';
     $contents = nv_invoice_template($id);
 
-    $mpdf = new \Mpdf\Mpdf();
-    $mpdf->WriteHTML($contents);
-    $mpdf->Output($location, \Mpdf\Output\Destination::FILE);
-
     $location_file = array();
-    $location_file[] = str_replace(NV_ROOTDIR . '/', '', $location);
+    if(class_exists('Mpdf')){
+        $mpdf = new \Mpdf\Mpdf();
+        $mpdf->WriteHTML($contents);
+        $mpdf->Output($location, \Mpdf\Output\Destination::FILE);
+
+        $location_file[] = str_replace(NV_ROOTDIR . '/', '', $location);
+    }
 
     $result = nv_sendmail_econtent($id, $user_info['userid'], $location_file);
     if ($result['status']) {

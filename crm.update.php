@@ -62,6 +62,8 @@ while (list ($lang) = $language_query->fetch(3)) {
 
     $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_invoice ADD paytime INT(11) UNSIGNED NOT NULL DEFAULT '0' AFTER duetime;";
 
+    $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_invoice CHANGE sended sended SMALLINT(4) UNSIGNED NOT NULL DEFAULT '0' COMMENT 'Số lượt gửi thông tin hóa đơn';";
+
     foreach ($sql as $_sql) {
         try {
             $db->query($_sql);

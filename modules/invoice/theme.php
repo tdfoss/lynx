@@ -35,7 +35,7 @@ function nv_theme_invoice_detail($row, $array_invoice_products, $array_control, 
 {
     global $global_config, $module_name, $module_file, $lang_module, $module_config, $module_info, $op, $array_services, $array_products, $array_projects, $site_mods;
 
-    $lang_module['send_mail'] = $row['sended'] ? $lang_module['resend_mail'] : $lang_module['send_mail'];
+    $lang_module['send_mail'] = $row['sended'] > 0 ? (sprintf($lang_module['resend_mail'], $row['sended'] + 1)) : $lang_module['send_mail'];
     $templateCSS = file_exists(NV_ROOTDIR . '/themes/' . $global_config['module_theme'] . '/css/pdf.css') ? $global_config['module_theme'] : 'default';
 
     $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
