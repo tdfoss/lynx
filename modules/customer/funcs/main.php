@@ -62,18 +62,18 @@ if (!class_exists('PHPExcel')) {
 
 if ($nv_Request->isset_request('ordername', 'get')) {
     $array_search['ordername'] = $nv_Request->get_title('ordername', 'get');
-    $nv_Request->set_Cookie('ordername', $array_search['ordername']);
-} elseif ($nv_Request->isset_request('ordername', 'cookie')) {
-    $array_search['ordername'] = $nv_Request->get_title('ordername', 'cookie');
+    $nv_Request->set_Cookie($module_data . '_' . $op . '_ordername', $array_search['ordername']);
+} elseif ($nv_Request->isset_request($module_data . '_' . $op . 'ordername', 'cookie')) {
+    $array_search['ordername'] = $nv_Request->get_title($module_data . '_' . $op . 'ordername', 'cookie');
 } else {
     $array_search['ordername'] = 'first_name';
 }
 
 if ($nv_Request->isset_request('ordertype', 'get')) {
     $array_search['ordertype'] = $nv_Request->get_title('ordertype', 'get');
-    $nv_Request->set_Cookie('ordertype', $array_search['ordertype']);
-} elseif ($nv_Request->isset_request('ordername', 'cookie')) {
-    $array_search['ordertype'] = $nv_Request->get_title('ordertype', 'cookie');
+    $nv_Request->set_Cookie($module_data . '_' . $op . 'ordertype', $array_search['ordertype']);
+} elseif ($nv_Request->isset_request($module_data . '_' . $op . 'ordername', 'cookie')) {
+    $array_search['ordertype'] = $nv_Request->get_title($module_data . '_' . $op . 'ordertype', 'cookie');
 } else {
     $array_search['ordertype'] = 'asc';
 }
