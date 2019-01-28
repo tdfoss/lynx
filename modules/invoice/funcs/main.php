@@ -45,7 +45,7 @@ if ($nv_Request->isset_request('confirm_payment', 'post')) {
 
     if (!empty($array_id)) {
         foreach ($array_id as $id) {
-            nv_support_confirm_payment($id);
+            nv_invoice_confirm_payment($id);
         }
         $nv_Cache->delMod($module_name);
         die('OK');

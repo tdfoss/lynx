@@ -134,7 +134,7 @@ if ($nv_Request->isset_request('sendmail', 'post')) {
 if ($nv_Request->isset_request('confirm_payment_id', 'get')) {
     $id = $nv_Request->get_int('id', 'get');
     if ($id > 0) {
-        nv_support_confirm_payment($id);
+        nv_invoice_confirm_payment($id);
         die('OK');
     }
     die('NO_' . $lang_module['error_unknow']);

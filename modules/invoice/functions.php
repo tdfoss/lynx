@@ -217,13 +217,13 @@ function nv_transaction_update($invoiceid)
     }
 }
 
-function nv_support_confirm_payment($id)
+function nv_invoice_confirm_payment($id)
 {
     global $db, $module_name, $module_data, $lang_module, $workforce_list, $user_info;
 
     $rows = $db->query('SELECT code, title FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
     if ($rows) {
-        $count = $db->exec('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET status=1 WHERE id=' . $id);
+        $count = $db->exec('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET status=1, paytime=' . NV_CURRENTTIME . ' WHERE id=' . $id);
         if ($count) {
             // cập nhật lịch sử giao dịch
             $grand_total = $db->query('SELECT grand_total FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetchColumn();

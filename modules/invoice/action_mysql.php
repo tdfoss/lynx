@@ -22,6 +22,7 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   customerid mediumint(8) unsigned NOT NULL,
   createtime int(11) unsigned NOT NULL DEFAULT '0',
   duetime int(11) unsigned NOT NULL DEFAULT '0',
+  paytime int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'Thời gian xác nhận thanh toán',
   cycle tinyint(1) unsigned NOT NULL DEFAULT '0',
   status tinyint(1) unsigned NOT NULL DEFAULT '0',
   workforceid smallint(4) unsigned NOT NULL,

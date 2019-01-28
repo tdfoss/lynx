@@ -60,6 +60,8 @@ while (list ($lang) = $language_query->fetch(3)) {
 
     $sql[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', 'notification', 'slack_tocken', '');";
 
+    $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_invoice ADD paytime INT(11) UNSIGNED NOT NULL DEFAULT '0' AFTER duetime;";
+
     foreach ($sql as $_sql) {
         try {
             $db->query($_sql);
