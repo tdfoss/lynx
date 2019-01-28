@@ -14,8 +14,10 @@
     <!-- BEGIN: support -->
     <li><a href="{URL_ADD_SUPPORT}" class="btn btn-primary btn-xs"><em class="fa fa-user">&nbsp;</em>{LANG.add_support}</a></li>
     <!-- END: support -->
+    <!-- BEGIN: admin -->
     <li><a href="{URL_EDIT}" class="btn btn-default btn-xs"><em class="fa fa-edit">&nbsp;</em>{LANG.customer_edit}</a></li>
     <li><a href="{URL_DELETE}" class="btn btn-danger btn-xs" onclick="return confirm(nv_is_del_confirm[0]);"><em class="fa fa-trash-o">&nbsp;</em>{LANG.delete}</a></li>
+    <!-- END: admin -->
 </ul>
 <div class="clearfix"></div>
 <div class="panel with-nav-tabs panel-success">
@@ -103,6 +105,16 @@
                                 <label class="label label-default">{TAGS}</label>
                                 <!-- END: tags -->
                             </td>
+                        </tr>
+                        <tr>
+                            <th>{LANG.share_people}</th>
+                            <td>
+                                <!-- BEGIN: share_accs -->
+                                <label class="label label-primary">{SHAREACC}</label>
+                                <!-- END: share_accs -->
+                            </td>
+                            <th><label class="control-label"><strong>{LANG.share_groups}</strong></label></th>
+                            <td>{CUSTOMER.share_groups}</td>
                         </tr>
                         <tr>
                             <th>{LANG.note}</th>
