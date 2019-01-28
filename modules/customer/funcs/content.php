@@ -41,13 +41,9 @@ if ($row['id'] > 0) {
     $row['facebook'] = '';
     $row['skype'] = '';
     $row['zalo'] = '';
-    $row['gender'] = 1;
+    $row['gender'] = 2;
     $row['address'] = '';
     $row['unit'] = '';
-    $row['trading_person'] = '';
-    $row['unit_name'] = '';
-    $row['tax_code'] = '';
-    $row['address_invoice'] = '';
     $row['care_staff'] = $row['care_staff_old'] = $user_info['userid'];
     $row['image'] = '';
     $row['note'] = '';
@@ -73,13 +69,9 @@ if ($nv_Request->isset_request('submit', 'post')) {
     $row['facebook'] = $nv_Request->get_title('facebook', 'post', '');
     $row['skype'] = $nv_Request->get_title('skype', 'post', '');
     $row['zalo'] = $nv_Request->get_title('zalo', 'post', '');
-    $row['gender'] = $nv_Request->get_int('gender', 'post', 0);
+    $row['gender'] = $nv_Request->get_int('gender', 'post', 2);
     $row['address'] = $nv_Request->get_title('address', 'post', '');
     $row['unit'] = $nv_Request->get_title('unit', 'post', '');
-    $row['trading_person'] = $nv_Request->get_title('trading_person', 'post', '');
-    $row['unit_name'] = $nv_Request->get_title('unit_name', 'post', '');
-    $row['tax_code'] = $nv_Request->get_title('tax_code', 'post', '');
-    $row['address_invoice'] = $nv_Request->get_title('address_invoice', 'post', '');
     $row['care_staff'] = $nv_Request->get_int('care_staff', 'post', 0);
     $row['image'] = $nv_Request->get_title('image', 'post', '');
     $row['note'] = $nv_Request->get_editor('note', '', NV_ALLOWED_HTML_TAGS);
@@ -129,6 +121,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
         try {
             $new_id = 0;
             if (empty($row['id'])) {
+
                 $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (note, first_name, last_name, main_phone, other_phone, main_email, other_email, birthday, facebook, skype, zalo, gender, address, unit, trading_person, unit_name, tax_code, address_invoice, care_staff, image, addtime, userid, is_contacts, type_id, tag_id,share_acc,share_groups) VALUES (:note, :first_name, :last_name, :main_phone, :other_phone, :main_email, :other_email, :birthday, :facebook, :skype, :zalo, :gender, :address, :unit, :trading_person, :unit_name, :tax_code, :address_invoice, :care_staff, :image, ' . NV_CURRENTTIME . ', ' . $user_info['userid'] . ', :is_contacts, :type_id, :tag_id, :share_acc , :share_groups)';
                 $data_insert = array();
                 $data_insert['first_name'] = $row['first_name'];
@@ -144,10 +137,6 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $data_insert['gender'] = $row['gender'];
                 $data_insert['address'] = $row['address'];
                 $data_insert['unit'] = $row['unit'];
-                $data_insert['trading_person'] = $row['trading_person'];
-                $data_insert['unit_name'] = $row['unit_name'];
-                $data_insert['tax_code'] = $row['tax_code'];
-                $data_insert['address_invoice'] = $row['address_invoice'];
                 $data_insert['care_staff'] = $row['care_staff'];
                 $data_insert['image'] = $row['image'];
                 $data_insert['note'] = $row['note'];
@@ -158,7 +147,9 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $data_insert['share_groups'] = $row['share_groups'];
                 $new_id = $db->insert_id($_sql, 'id', $data_insert);
             } else {
+
                 $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET first_name = :first_name, last_name = :last_name, main_phone = :main_phone, other_phone = :other_phone, main_email = :main_email, other_email = :other_email, birthday = :birthday, facebook = :facebook, skype = :skype, zalo = :zalo, gender = :gender, address = :address, unit = :unit, trading_person = :trading_person, unit_name = :unit_name, tax_code = :tax_code, address_invoice = :address_invoice, care_staff = :care_staff, image = :image, edittime=' . NV_CURRENTTIME . ', note = :note, type_id = :type_id, tag_id = :tag_id, share_acc = :share_acc, share_groups = :share_groups WHERE id=' . $row['id']);
+
                 $stmt->bindParam(':first_name', $row['first_name'], PDO::PARAM_STR);
                 $stmt->bindParam(':last_name', $row['last_name'], PDO::PARAM_STR);
                 $stmt->bindParam(':main_phone', $row['main_phone'], PDO::PARAM_STR);
@@ -172,10 +163,6 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $stmt->bindParam(':gender', $row['gender'], PDO::PARAM_INT);
                 $stmt->bindParam(':address', $row['address'], PDO::PARAM_STR);
                 $stmt->bindParam(':unit', $row['unit'], PDO::PARAM_STR);
-                $stmt->bindParam(':trading_person', $row['trading_person'], PDO::PARAM_STR);
-                $stmt->bindParam(':unit_name', $row['unit_name'], PDO::PARAM_STR);
-                $stmt->bindParam(':tax_code', $row['tax_code'], PDO::PARAM_STR);
-                $stmt->bindParam(':address_invoice', $row['address_invoice'], PDO::PARAM_STR);
                 $stmt->bindParam(':care_staff', $row['care_staff'], PDO::PARAM_INT);
                 $stmt->bindParam(':image', $row['image'], PDO::PARAM_STR);
                 $stmt->bindParam(':note', $row['note'], PDO::PARAM_STR, strlen($row['note']));
@@ -292,7 +279,7 @@ if (defined('NV_EDITOR')) {
 }
 $row['note'] = htmlspecialchars(nv_editor_br2nl($row['note']));
 if (defined('NV_EDITOR') and nv_function_exists('nv_aleditor')) {
-    $row['note'] = nv_aleditor('note', '100%', '300px', $row['note']);
+    $row['note'] = nv_aleditor('note', '100%', '300px', $row['note'], 'Basic');
 } else {
     $row['note'] = '<textarea style="width:100%;height:300px" name="note">' . $row['note'] . '</textarea>';
 }

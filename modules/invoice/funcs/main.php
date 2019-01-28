@@ -7,8 +7,7 @@
  * @License GNU/GPL version 2 or any later version
  * @Createdate Mon, 26 Feb 2018 06:08:20 GMT
  */
-if (! defined('NV_IS_MOD_INVOICE'))
-    die('Stop!!!');
+if (!defined('NV_IS_MOD_INVOICE')) die('Stop!!!');
 
 $redirect = $nv_Request->get_string('redirect', 'get', '');
 
@@ -18,7 +17,7 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
     if ($id > 0 and $delete_checkss == md5($id . NV_CACHE_PREFIX . $client_info['session_id'])) {
         nv_delete_invoice($id);
         $nv_Cache->delMod($module_name);
-        if (! empty($redirect)) {
+        if (!empty($redirect)) {
             $url = nv_redirect_decrypt($redirect);
         } else {
             $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=' . $op;
@@ -30,7 +29,7 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
     $listall = $nv_Request->get_title('listall', 'post', '');
     $array_id = explode(',', $listall);
 
-    if (! empty($array_id)) {
+    if (!empty($array_id)) {
         foreach ($array_id as $id) {
             nv_delete_invoice($id);
         }
@@ -44,9 +43,9 @@ if ($nv_Request->isset_request('confirm_payment', 'post')) {
     $listall = $nv_Request->get_title('listall', 'post', '');
     $array_id = explode(',', $listall);
 
-    if (! empty($array_id)) {
+    if (!empty($array_id)) {
         foreach ($array_id as $id) {
-            nv_support_confirm_payment($id);
+            nv_invoice_confirm_payment($id);
         }
         $nv_Cache->delMod($module_name);
         die('OK');
@@ -60,6 +59,7 @@ $page = $nv_Request->get_int('page', 'post,get', 1);
 $join = $where = '';
 
 $array_search = array(
+    'search' => $nv_Request->isset_request('search', 'post,get'),
     'q' => $nv_Request->get_title('q', 'post,get'),
     'customerid' => $nv_Request->get_int('customerid', 'get', 0),
     'workforceid' => $nv_Request->get_int('workforceid', 'get', 0),
@@ -68,10 +68,10 @@ $array_search = array(
     'serviceid' => $nv_Request->get_int('serviceid', 'get', 0),
     'createtime' => $nv_Request->get_string('createtime', 'get', 0),
     'duetime' => $nv_Request->get_int('duetime', 'get', 0),
-    'status' => $nv_Request->get_int('status', 'post,get', - 1)
+    'status' => $nv_Request->get_int('status', 'post,get', -1)
 );
 
-if (! empty($array_search['q'])) {
+if (!empty($array_search['q'])) {
     $base_url .= '&amp;q=' . $array_search['q'];
     $where .= ' AND (title LIKE "%' . $array_search['q'] . '%"
         OR code LIKE "%' . $array_search['q'] . '%"
@@ -80,22 +80,22 @@ if (! empty($array_search['q'])) {
     )';
 }
 
-if (! empty($array_search['customerid'])) {
+if (!empty($array_search['customerid'])) {
     $base_url .= '&amp;customerid=' . $array_search['customerid'];
     $where .= ' AND customerid=' . $array_search['customerid'];
 }
 
-if (! empty($array_search['workforceid'])) {
+if (!empty($array_search['workforceid'])) {
     $base_url .= '&amp;workforceid=' . $array_search['workforceid'];
     $where .= ' AND workforceid=' . $array_search['workforceid'];
 }
 
-if (! empty($array_search['presenterid'])) {
+if (!empty($array_search['presenterid'])) {
     $base_url .= '&amp;presenterid=' . $array_search['presenterid'];
     $where .= ' AND presenterid=' . $array_search['presenterid'];
 }
 
-if (! empty($array_search['performerid'])) {
+if (!empty($array_search['performerid'])) {
     $base_url .= '&amp;workforceid=' . $array_search['performerid'];
     $where .= ' AND performerid=' . $array_search['performerid'];
 }
@@ -129,7 +129,7 @@ if (!empty($array_search['duetime'])) {
 if ($array_search['status'] >= 0) {
     $base_url .= '&amp;status=' . $array_search['status'];
     $where .= ' AND status=' . $array_search['status'];
-} elseif (! empty($array_config['default_status'])) {
+} elseif (!$array_search['search'] && !empty($array_config['default_status'])) {
     $where .= ' AND status IN (' . $array_config['default_status'] . ')';
 }
 
@@ -159,7 +159,7 @@ $sth = $db->prepare($db->sql());
 $sth->execute();
 
 $customer_info = array();
-if (! empty($array_search['customerid'])) {
+if (!empty($array_search['customerid'])) {
     $customer_info = nv_crm_customer_info($array_search['customerid']);
 }
 
@@ -173,14 +173,18 @@ $xtpl->assign('BASE_URL', $base_url);
 $xtpl->assign('URL_ADD', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=content');
 
 $generate_page = nv_generate_page($base_url, $num_items, $per_page, $page);
-if (! empty($generate_page)) {
+if (!empty($generate_page)) {
     $xtpl->assign('NV_GENERATE_PAGE', $generate_page);
     $xtpl->parse('main.generate_page');
 }
 
+if (defined('NV_INVOICE_ADMIN')) {
+    $xtpl->parse('main.admin4');
+}
+
 $array_users = array();
 while ($view = $sth->fetch()) {
-    if (! isset($array_users[$view['customerid']])) {
+    if (!isset($array_users[$view['customerid']])) {
         $users = nv_crm_customer_info($view['customerid']);
         if ($users) {
             $view['customer'] = array(
@@ -215,22 +219,14 @@ while ($view = $sth->fetch()) {
         $xtpl->parse('main.loop.success');
     }
 
+    if (defined('NV_INVOICE_ADMIN')) {
+        $xtpl->parse('main.loop.admin3');
+    }
+
     $xtpl->parse('main.loop');
 }
 
-if (! empty($workforce_list)) {
-    foreach ($workforce_list as $user) {
-        $user['selected'] = $user['userid'] == $array_search['workforceid'] ? 'selected="selected"' : '';
-        $user['selected1'] = $user['userid'] == $array_search['presenterid'] ? 'selected="selected"' : '';
-        $user['selected2'] = $user['userid'] == $array_search['performerid'] ? 'selected="selected"' : '';
-        $xtpl->assign('USER', $user);
-        $xtpl->parse('main.user');
-        $xtpl->parse('main.user1');
-        $xtpl->parse('main.user2');
-    }
-}
-
-foreach ($array_status as $index => $value) {
+foreach ($array_invoice_status as $index => $value) {
     $sl = $index == $array_search['status'] ? 'selected="selected"' : '';
     $xtpl->assign('STATUS', array(
         'index' => $index,
@@ -240,22 +236,39 @@ foreach ($array_status as $index => $value) {
     $xtpl->parse('main.status');
 }
 
-if (! empty($customer_info)) {
-    $xtpl->assign('CUSTOMER', $customer_info);
-    $xtpl->parse('main.customer');
-}
+if (defined('NV_INVOICE_ADMIN')) {
+    if (!empty($workforce_list)) {
+        foreach ($workforce_list as $user) {
+            $user['selected'] = $user['userid'] == $array_search['workforceid'] ? 'selected="selected"' : '';
+            $user['selected1'] = $user['userid'] == $array_search['presenterid'] ? 'selected="selected"' : '';
+            $user['selected2'] = $user['userid'] == $array_search['performerid'] ? 'selected="selected"' : '';
+            $xtpl->assign('USER', $user);
+            $xtpl->parse('main.admin.user');
+            $xtpl->parse('main.admin.user1');
+            $xtpl->parse('main.admin.user2');
+        }
+    }
 
-$array_action = array(
-    'delete_list_id' => $lang_global['delete'],
-    'confirm_payment' => $lang_module['confirm_payment']
-);
-foreach ($array_action as $key => $value) {
-    $xtpl->assign('ACTION', array(
-        'key' => $key,
-        'value' => $value
-    ));
-    $xtpl->parse('main.action_top');
-    $xtpl->parse('main.action_bottom');
+    if (!empty($customer_info)) {
+        $xtpl->assign('CUSTOMER', $customer_info);
+        $xtpl->parse('main.admin.customer');
+    }
+
+    $array_action = array(
+        'delete_list_id' => $lang_global['delete'],
+        'confirm_payment' => $lang_module['confirm_payment']
+    );
+    foreach ($array_action as $key => $value) {
+        $xtpl->assign('ACTION', array(
+            'key' => $key,
+            'value' => $value
+        ));
+        $xtpl->parse('main.admin2.action_top');
+        $xtpl->parse('main.admin1.action_bottom');
+    }
+    $xtpl->parse('main.admin');
+    $xtpl->parse('main.admin1');
+    $xtpl->parse('main.admin2');
 }
 
 $xtpl->parse('main');

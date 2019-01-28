@@ -27,7 +27,7 @@ if ($nv_Request->isset_request('change_contacts', 'post')) {
 $id = $nv_Request->get_int('id', 'post,get', 0);
 $customer_info = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' t1 INNER JOIN ' . NV_PREFIXLANG . '_' . $module_data . '_share_acc t2 ON t1.id=t2.customerid WHERE id=' . $id . nv_customer_premission($module_name) . ' AND t2.userid=' . $user_info['userid'])->fetch();
 if (!$customer_info) {
-    Header('Location: ' . NV_BASE_ADMINURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=manage_cusomer');
+    Header('Location: ' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=manage_cusomer');
     die();
 }
 
@@ -85,11 +85,8 @@ if (isset($site_mods['email'])) {
 if (isset($site_mods['invoice'])) {
     define('NV_INVOICE', true);
     $array_invoice = array();
-    $array_invoice_status = array(
-        0 => $lang_module['invoice_status_0'],
-        1 => $lang_module['invoice_status_1'],
-        2 => $lang_module['invoice_status_2']
-    );
+    require_once NV_ROOTDIR . '/modules/invoice/language/' . NV_LANG_INTERFACE . '.php';
+    require_once NV_ROOTDIR . '/modules/invoice/site.functions.php';
     $result = $db->query('SELECT id, title, code, addtime, duetime, grand_total, status FROM ' . NV_PREFIXLANG . '_invoice WHERE customerid=' . $id . ' ORDER BY id DESC');
     while ($row = $result->fetch()) {
         $row['createtime'] = !empty($row['createtime']) ? nv_date('H:i d/m/Y', $row['createtime']) : '';

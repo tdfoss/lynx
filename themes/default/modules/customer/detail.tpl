@@ -62,7 +62,7 @@
                         </tr>
                         <tr>
                             <th>{LANG.main_email}</th>
-                            <td>{CUSTOMER.main_email}</td>
+                            <td><a href="mailto:{CUSTOMER.main_email}">{CUSTOMER.main_email}</a></td>
                             <th>{LANG.other_email}</th>
                             <td>{CUSTOMER.other_email}</td>
                         </tr>
@@ -74,9 +74,9 @@
                         </tr>
                         <tr>
                             <th>Facebook</th>
-                            <td>{CUSTOMER.facebook}</td>
+                            <td><a href="{CUSTOMER.facebook}">{CUSTOMER.facebook}</a></td>
                             <th>Skype</th>
-                            <td>{CUSTOMER.skype}</td>
+                            <td><a href="skype:{CUSTOMER.skype}">{CUSTOMER.skype}</a></td>
                         </tr>
                         <tr>
                             <th>Zalo</th>

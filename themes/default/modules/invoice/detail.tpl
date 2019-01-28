@@ -1,4 +1,5 @@
 <!-- BEGIN: main -->
+<!-- BEGIN: admin -->
 <!-- BEGIN: dompdf_link -->
 <link rel="StyleSheet" href="{NV_BASE_SITEURL}themes/{TEMPLATE_CSS}/css/invoice_pdf.css" type="text/css" />
 <!-- END: dompdf_link -->
@@ -29,6 +30,7 @@
     </ul>
 </div>
 <!-- END: button_funs -->
+<!-- END: admin -->
 <div class="clearfix"></div>
 <div class="row">
     <div class="col-xs-24 col-sm-24 col-md-24">
@@ -132,7 +134,10 @@
         </div>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <span class="pull-left">{LANG.transaction_history}</span> <span class="pull-right"><button data-invoiceid="{ROW.id}" data-lang-add="{LANG.transaction_add}" id="btn-transaction-add" class="btn btn-primary btn-xs">{LANG.transaction_add}</button></span>
+                <span class="pull-left">{LANG.transaction_history}</span>
+                <!-- BEGIN: transaction_add --> 
+                <span class="pull-right"><button data-invoiceid="{ROW.id}" data-lang-add="{LANG.transaction_add}" id="btn-transaction-add" class="btn btn-primary btn-xs">{LANG.transaction_add}</button></span>
+                <!-- END: transaction_add -->
                 <div class="clearfix"></div>
             </div>
             <div id="transaction-body">{TRANSACTION}</div>

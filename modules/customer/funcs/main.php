@@ -43,7 +43,7 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
     die('NO');
 }
 
-$per_page = 5;
+$per_page = 20;
 $page = $nv_Request->get_int('page', 'post,get', 1);
 $join = $where = '';
 $array_search = array(
@@ -92,10 +92,6 @@ if (!empty($array_search['q'])) {
         OR skype LIKE "%' . $array_search['q'] . '%"
         OR zalo LIKE "%' . $array_search['q'] . '%"
         OR address LIKE "%' . $array_search['q'] . '%"
-        OR trading_person LIKE "%' . $array_search['q'] . '%"
-        OR unit_name LIKE "%' . $array_search['q'] . '%"
-        OR tax_code LIKE "%' . $array_search['q'] . '%"
-        OR address_invoice LIKE "%' . $array_search['q'] . '%"
     )';
 }
 

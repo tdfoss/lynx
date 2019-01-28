@@ -54,6 +54,7 @@ $array_replace = array(
     'DESCRIPTION' => $lang_module['description'],
     'STATUS' => $lang_module['status'],
     'TABLE' => $lang_module['list_pro_ser'],
+    'TABLE_TRANSACTION' => $lang_module['transaction_history'],
     'URL' => $lang_module['url'],
     'LOGO' => $lang_module['logo_site'],
     'SITE_NAME' => $lang_module['site_name'],

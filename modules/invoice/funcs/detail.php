@@ -116,12 +116,14 @@ if ($nv_Request->isset_request('sendmail', 'post')) {
     $location = NV_ROOTDIR . '/' . NV_TEMP_DIR . '/#' . $code . '.pdf';
     $contents = nv_invoice_template($id);
 
-    $mpdf = new \Mpdf\Mpdf();
-    $mpdf->WriteHTML($contents);
-    $mpdf->Output($location, \Mpdf\Output\Destination::FILE);
-
     $location_file = array();
-    $location_file[] = str_replace(NV_ROOTDIR . '/', '', $location);
+    if(class_exists('Mpdf')){
+        $mpdf = new \Mpdf\Mpdf();
+        $mpdf->WriteHTML($contents);
+        $mpdf->Output($location, \Mpdf\Output\Destination::FILE);
+
+        $location_file[] = str_replace(NV_ROOTDIR . '/', '', $location);
+    }
 
     $result = nv_sendmail_econtent($id, $user_info['userid'], $location_file);
     if ($result['status']) {
@@ -134,7 +136,7 @@ if ($nv_Request->isset_request('sendmail', 'post')) {
 if ($nv_Request->isset_request('confirm_payment_id', 'get')) {
     $id = $nv_Request->get_int('id', 'get');
     if ($id > 0) {
-        nv_support_confirm_payment($id);
+        nv_invoice_confirm_payment($id);
         die('OK');
     }
     die('NO_' . $lang_module['error_unknow']);
@@ -142,7 +144,7 @@ if ($nv_Request->isset_request('confirm_payment_id', 'get')) {
 
 if ($nv_Request->isset_request('copy_id', 'get')) {
     $id = $nv_Request->get_int('id', 'get');
-    $new_id = nv_copy_invoice($id, $user_info['userid']);
+    $new_id = nv_copy_invoice($id, 0, $user_info['userid']);
     if (!empty($new_id)) {
         die('OK_' . $new_id);
     }
@@ -159,7 +161,7 @@ if ($id > 0) {
     $row['duetime'] = (empty($row['duetime'])) ? ($lang_module['non_identify']) : nv_date('d/m/Y', $row['duetime']);
     $row['customer'] = nv_crm_customer_info($row['customerid']);
     $row['workforceid'] = !empty($row['workforceid']) ? $workforce_list[$row['workforceid']]['fullname'] : $lang_module['workforceid_empty'];
-    $row['status_str'] = $array_status[$row['status']];
+    $row['status_str'] = $array_invoice_status[$row['status']];
     $row['grand_total_string'] = nv_convert_number_to_words($row['grand_total']);
     $row['grand_total'] = number_format($row['grand_total']);
     $row['discount_value'] = number_format($row['discount_value']);

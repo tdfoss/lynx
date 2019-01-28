@@ -34,7 +34,7 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
 
 $where = '';
 $base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op;
-$per_page = 2;
+$per_page = 10;
 $page = $nv_Request->get_int('page', 'post,get', 1);
 $array_search = array(
     'q' => $nv_Request->get_title('q', 'postG,get'),

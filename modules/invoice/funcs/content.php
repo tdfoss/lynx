@@ -8,6 +8,9 @@
  */
 if (!defined('NV_IS_MOD_INVOICE')) die('Stop!!!');
 
+// hàm xác định quyền
+nv_invoice_premission($module_name);
+
 if ($nv_Request->isset_request('change_item', 'post,get')) {
     $item_total = $vat_total = $grand_total = 0;
     $discount_percent = $nv_Request->get_int('discount_percent', 'post', 0);
@@ -114,6 +117,10 @@ if ($nv_Request->isset_request('get_user_json', 'post, get')) {
     ob_start('ob_gzhandler');
     echo json_encode($array_data);
     exit();
+}
+
+if (!defined('NV_INVOICE_ADMIN')) {
+    nv_redirect_location(NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name);
 }
 
 $row = array();
@@ -505,7 +512,7 @@ if (!empty($array_projects)) {
     }
 }
 
-foreach ($array_status as $index => $value) {
+foreach ($array_invoice_status as $index => $value) {
     $sl = $index == $row['status'] ? 'selected="selected"' : '';
     $xtpl->assign('STATUS', array(
         'index' => $index,

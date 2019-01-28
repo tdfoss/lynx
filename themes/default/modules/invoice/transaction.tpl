@@ -64,33 +64,33 @@
 </div>
 <!-- END: empty -->
 <!-- BEGIN: data -->
-<table class="table table-striped table-bordered table-hover">
-    <thead>
-        <tr>
-            <th width="200">{LANG.transaction_time}</th>
-            <th width="200">{LANG.transaction_status}</th>
-            <th width="200">{LANG.transaction_amount}</th>
-            <th>{LANG.note}</th>
+<table class="table table-striped table-bordered table-hover table-middle" style="-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; border-collapse: collapse; border-spacing: 0; background-color: transparent; width: 100%; max-width: 100%; margin-bottom: 18px; border-width: 1px; border-style: solid; border-color: #ddd;">
+    <thead style="-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; text-align: left;">
+        <tr style="-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;">
+            <th style="-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; text-align: left; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; vertical-align: bottom; border-bottom-style: solid; border-bottom-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd; border-bottom-width: 2px;" width="200">{LANG.transaction_time}</th>
+            <th style="-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; text-align: left; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; vertical-align: bottom; border-bottom-style: solid; border-bottom-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd; border-bottom-width: 2px;"width="200">{LANG.transaction_status}</th>
+            <th style="-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; text-align: left; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; vertical-align: bottom; border-bottom-style: solid; border-bottom-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd; border-bottom-width: 2px;" width="200">{LANG.transaction_amount}</th>
+            <th style="-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; text-align: left; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; vertical-align: bottom; border-bottom-style: solid; border-bottom-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd; border-bottom-width: 2px;">{LANG.note}</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody style="-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;">
         <!-- BEGIN: loop -->
-        <tr>
-            <td>{DATA.transaction_time}</td>
-            <td>{DATA.transaction_status}</td>
-            <td>{DATA.payment_amount}</td>
-            <td>{DATA.note}</td>
+        <tr style="-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;">
+            <td style="-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; vertical-align: top; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd;">{DATA.transaction_time}</td>
+            <td style="-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; vertical-align: top; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd;">{DATA.transaction_status}</td>
+            <td style="-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; vertical-align: top; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd;">{DATA.payment_amount}</td>
+            <td style="-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; vertical-align: top; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd;">{DATA.note}</td>
         </tr>
         <!-- END: loop -->
     </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="2" align="right"><strong>{LANG.total}</strong></td>
-            <td colspan="2"><strong>{TOTAL}</strong></td>
+    <tfoot style="-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;">
+        <tr style="-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;">
+            <td colspan="2" align="right" style="-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; text-align: right; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; vertical-align: top; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd;"><strong style="-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; font-weight: bold;"><strong>{LANG.total}</strong></td>
+            <td colspan="2" style="-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; vertical-align: top; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd;"><strong>{TOTAL}</strong></td>
         </tr>
-        <tr>
-            <td colspan="2" align="right"><strong>{LANG.rest}</strong></td>
-            <td colspan="2"><strong>{REST}</strong></td>
+        <tr style="-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;">
+            <td colspan="2" align="right" style="-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; text-align: right; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; vertical-align: top; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd;"><strong style="-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; font-weight: bold;"><strong>{LANG.rest}</strong></td>
+            <td colspan="2" style="-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; vertical-align: top; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd;"><strong>{REST}</strong></td>
         </tr>
     </tfoot>
 </table>
