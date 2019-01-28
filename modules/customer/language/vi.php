@@ -31,6 +31,7 @@ $lang_module['phone'] = 'Số điện thoại';
 $lang_module['main_phone'] = 'Số điện thoại chính';
 $lang_module['other_phone'] = 'Số điện thoại khác';
 $lang_module['main_email'] = 'Email chính';
+$lang_module['email'] = 'Email';
 $lang_module['other_email'] = 'Email khác';
 $lang_module['gender'] = 'Giới tính';
 $lang_module['address'] = 'Địa chỉ';
@@ -175,3 +176,7 @@ $lang_module['tags'] = 'Tag khách hàng';
 $lang_module['tags_select'] = 'Chọn tag khách hàng';
 
 $lang_module['error_unknow'] = 'Vì lý do nào đó hệ thống không thể đáp ứng yêu cầu của bạn lúc này. Vui lòng liên hệ người quản trị để biết thêm thông tin';
+$lang_module['share'] = 'Chia sẽ liên hệ';
+$lang_module['share_people'] = 'Chia sẽ với cá nhân';
+$lang_module['share_groups'] = 'Chia sẽ với nhóm';
+$lang_module['social'] = 'Mạng xã hội';
