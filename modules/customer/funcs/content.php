@@ -22,6 +22,7 @@ if ($row['id'] > 0) {
     }
     $row['care_staff_old'] = $row['care_staff'];
     $row['tag_id'] = $row['tag_id_old'] = !empty($row['tag_id']) ? explode(',', $row['tag_id']) : array();
+    $row['unit'] = $row['unit_old'] = !empty($row['unit']) ? explode(',', $row['unit']) : array();
     $row['share_acc'] = $row['share_acc_old'] = array();
     $result = $db->query('SELECT userid FROM ' . NV_PREFIXLANG . '_' . $module_data . '_share_acc WHERE customerid=' . $row['id'] . ' AND permisson=2');
     while (list ($userid) = $result->fetch(3)) {
@@ -43,7 +44,7 @@ if ($row['id'] > 0) {
     $row['zalo'] = '';
     $row['gender'] = 2;
     $row['address'] = '';
-    $row['unit'] = '';
+    $row['unit'] = $row['unit_old'] = array();
     $row['care_staff'] = $row['care_staff_old'] = $user_info['userid'];
     $row['image'] = '';
     $row['note'] = '';
@@ -71,7 +72,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
     $row['zalo'] = $nv_Request->get_title('zalo', 'post', '');
     $row['gender'] = $nv_Request->get_int('gender', 'post', 2);
     $row['address'] = $nv_Request->get_title('address', 'post', '');
-    $row['unit'] = $nv_Request->get_title('unit', 'post', '');
+    $row['unit'] = $nv_Request->get_array('unit', 'post');
     $row['care_staff'] = $nv_Request->get_int('care_staff', 'post', 0);
     $row['image'] = $nv_Request->get_title('image', 'post', '');
     $row['note'] = $nv_Request->get_editor('note', '', NV_ALLOWED_HTML_TAGS);
@@ -92,7 +93,22 @@ if ($nv_Request->isset_request('submit', 'post')) {
             }
         }
     }
-    $tag_id = !empty($row['tag_id']) ? implode(',', $row['tag_id']) : '';
+    $tag_id = !empty($row['tag_id']) ? implode(',', $row['tag_id']) : '';    
+    
+    if (!empty($row['unit'])) {
+        foreach ($row['unit'] as $index => $value) {
+            if (!is_numeric($value)) {
+                $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_units(title) VALUES (:title)';
+                $data_insert = array(
+                    'title' => $value
+                );
+                $row['unit'][$index] = $db->insert_id($_sql, 'id', $data_insert);
+            }
+        }
+    }
+    $unit = !empty($row['unit']) ? implode(',', $row['unit']) : '';
+    
+    
     $share_acc = !empty($row['share_acc']) ? implode(',', $row['share_acc']) : '';
     
     if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $nv_Request->get_string('birthday', 'post'), $m)) {
@@ -122,7 +138,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
             $new_id = 0;
             if (empty($row['id'])) {
 
-                $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (note, first_name, last_name, main_phone, other_phone, main_email, other_email, birthday, facebook, skype, zalo, gender, address, unit, trading_person, unit_name, tax_code, address_invoice, care_staff, image, addtime, userid, is_contacts, type_id, tag_id,share_acc,share_groups) VALUES (:note, :first_name, :last_name, :main_phone, :other_phone, :main_email, :other_email, :birthday, :facebook, :skype, :zalo, :gender, :address, :unit, :trading_person, :unit_name, :tax_code, :address_invoice, :care_staff, :image, ' . NV_CURRENTTIME . ', ' . $user_info['userid'] . ', :is_contacts, :type_id, :tag_id, :share_acc , :share_groups)';
+                $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (note, first_name, last_name, main_phone, other_phone, main_email, other_email, birthday, facebook, skype, zalo, gender, address, unit, care_staff, image, addtime, userid, is_contacts, type_id, tag_id,share_acc,share_groups) VALUES (:note, :first_name, :last_name, :main_phone, :other_phone, :main_email, :other_email, :birthday, :facebook, :skype, :zalo, :gender, :address, :unit, :care_staff, :image, ' . NV_CURRENTTIME . ', ' . $user_info['userid'] . ', :is_contacts, :type_id, :tag_id, :share_acc , :share_groups)';
                 $data_insert = array();
                 $data_insert['first_name'] = $row['first_name'];
                 $data_insert['last_name'] = $row['last_name'];
@@ -136,7 +152,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $data_insert['zalo'] = $row['zalo'];
                 $data_insert['gender'] = $row['gender'];
                 $data_insert['address'] = $row['address'];
-                $data_insert['unit'] = $row['unit'];
+                $data_insert['unit'] = $unit;
                 $data_insert['care_staff'] = $row['care_staff'];
                 $data_insert['image'] = $row['image'];
                 $data_insert['note'] = $row['note'];
@@ -148,7 +164,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $new_id = $db->insert_id($_sql, 'id', $data_insert);
             } else {
 
-                $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET first_name = :first_name, last_name = :last_name, main_phone = :main_phone, other_phone = :other_phone, main_email = :main_email, other_email = :other_email, birthday = :birthday, facebook = :facebook, skype = :skype, zalo = :zalo, gender = :gender, address = :address, unit = :unit, trading_person = :trading_person, unit_name = :unit_name, tax_code = :tax_code, address_invoice = :address_invoice, care_staff = :care_staff, image = :image, edittime=' . NV_CURRENTTIME . ', note = :note, type_id = :type_id, tag_id = :tag_id, share_acc = :share_acc, share_groups = :share_groups WHERE id=' . $row['id']);
+                $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET first_name = :first_name, last_name = :last_name, main_phone = :main_phone, other_phone = :other_phone, main_email = :main_email, other_email = :other_email, birthday = :birthday, facebook = :facebook, skype = :skype, zalo = :zalo, gender = :gender, address = :address, unit = :unit, care_staff = :care_staff, image = :image, edittime=' . NV_CURRENTTIME . ', note = :note, type_id = :type_id, tag_id = :tag_id, share_acc = :share_acc, share_groups = :share_groups WHERE id=' . $row['id']);
 
                 $stmt->bindParam(':first_name', $row['first_name'], PDO::PARAM_STR);
                 $stmt->bindParam(':last_name', $row['last_name'], PDO::PARAM_STR);
@@ -162,7 +178,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $stmt->bindParam(':zalo', $row['zalo'], PDO::PARAM_STR);
                 $stmt->bindParam(':gender', $row['gender'], PDO::PARAM_INT);
                 $stmt->bindParam(':address', $row['address'], PDO::PARAM_STR);
-                $stmt->bindParam(':unit', $row['unit'], PDO::PARAM_STR);
+                $stmt->bindParam(':unit', $unit, PDO::PARAM_STR);
                 $stmt->bindParam(':care_staff', $row['care_staff'], PDO::PARAM_INT);
                 $stmt->bindParam(':image', $row['image'], PDO::PARAM_STR);
                 $stmt->bindParam(':note', $row['note'], PDO::PARAM_STR, strlen($row['note']));
@@ -189,6 +205,23 @@ if ($nv_Request->isset_request('submit', 'post')) {
                     foreach ($row['tag_id_old'] as $tag_id_old) {
                         if (!in_array($tag_id_old, $row['tag_id'])) {
                             $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_tags_customer WHERE tid=' . $tag_id_old . ' AND customerid=' . $new_id);
+                        }
+                    }
+                }
+                
+                if ($row['unit'] != $row['unit_old']) {
+                    $sth = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_units_customer (tid, customerid) VALUES(:tid, :customerid)');
+                    foreach ($row['unit'] as $tag_id) {
+                        if (!in_array($tag_id, $row['unit_old'])) {
+                            $sth->bindParam(':tid', $tag_id, PDO::PARAM_INT);
+                            $sth->bindParam(':customerid', $new_id, PDO::PARAM_INT);
+                            $sth->execute();
+                        }
+                    }
+                    
+                    foreach ($row['unit_old'] as $tag_id_old) {
+                        if (!in_array($tag_id_old, $row['unit'])) {
+                            $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_units_customer WHERE tid=' . $tag_id_old . ' AND customerid=' . $new_id);
                         }
                     }
                 }
@@ -331,6 +364,15 @@ foreach ($array_customer_tags as $value) {
         'selected' => in_array($value['tid'], $row['tag_id']) ? ' selected="selected"' : ''
     ));
     $xtpl->parse('main.tags');
+}
+
+foreach ($array_customer_units as $value) {
+    $xtpl->assign('UNITS', array(
+        'key' => $value['tid'],
+        'title' => $value['title'],
+        'selected' => in_array($value['tid'], $row['unit']) ? ' selected="selected"' : ''
+    ));
+    $xtpl->parse('main.units');
 }
 
 foreach ($workforce_list as $value) {

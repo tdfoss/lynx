@@ -63,7 +63,6 @@ while (list ($lang) = $language_query->fetch(3)) {
     
     $sql[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', 'projects', 'default_status', '1,2,3');";
 
-
     $sql[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', 'notification', 'slack_tocken', '');";
 
     $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_invoice ADD paytime INT(11) UNSIGNED NOT NULL DEFAULT '0' AFTER duetime;";
@@ -86,7 +85,7 @@ while (list ($lang) = $language_query->fetch(3)) {
            PRIMARY KEY (tid)
          ) ENGINE=MyISAM;";
     
-    $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "customer_units_customer(
+    $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_customer_units_customer(
            tid smallint(4) NOT NULL,
            customerid mediumint(8) unsigned NOT NULL,
            UNIQUE KEY tid (tid, customerid)
