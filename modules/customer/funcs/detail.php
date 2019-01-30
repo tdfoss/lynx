@@ -121,7 +121,6 @@ if (!empty($customer_info['unit'])) {
     $customer_info['unit'] = explode(',', $customer_info['unit']);
     foreach ($customer_info['unit'] as $units) {
         $customer_info['units'][] = $array_customer_units[$units]['title'];
-        
     }
 }
 
@@ -232,7 +231,7 @@ if (!empty($customer_info['share_accs'])) {
     }
 }
 
-if($customer_info['permisson'] == 1){
+if ($customer_info['permisson'] == 1) {
     $xtpl->parse('main.admin');
 }
 
