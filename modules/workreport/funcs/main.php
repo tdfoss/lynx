@@ -10,12 +10,11 @@
 if (!defined('NV_IS_MOD_WORKREPORT')) die('Stop!!!');
 
 if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_request('delete_checkss', 'get')) {
+    
     $id = $nv_Request->get_int('delete_id', 'get');
     $delete_checkss = $nv_Request->get_string('delete_checkss', 'get');
     $redirect = $nv_Request->get_string('redirect', 'get', '');
-    
     $addtime = $db->query('SELECT addtime FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetchColumn();
-    
     if ($id > 0 and $delete_checkss == md5($id . NV_CACHE_PREFIX . $client_info['session_id']) and nv_check_action($addtime)) {
         $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '  WHERE id = ' . $db->quote($id));
         $nv_Cache->delMod($module_name);
@@ -41,7 +40,13 @@ if ($nv_Request->isset_request('submit', 'post')) {
     } else {
         $row['fortime'] = 0;
     }
-    $row['content'] = $nv_Request->get_editor('content', '', NV_ALLOWED_HTML_TAGS);
+    
+    if (intval($array_config['type_content']) == 1) {
+        $row['content'] = $nv_Request->get_textarea('content', '', NV_ALLOWED_HTML_TAGS);
+    } elseif (intval($array_config['type_content']) == 2) {
+        $row['content'] = $nv_Request->get_editor('content', '', NV_ALLOWED_HTML_TAGS);
+    }
+    
     $row['time'] = $nv_Request->get_string('time', 'post', 0);
     $row['time'] = preg_replace('/\,/', '.', $row['time']);
     $row['time'] = preg_replace('/[^0-9\.]/', '', $row['time']);
@@ -146,24 +151,26 @@ $sth->execute();
 //tinh tong thoi gian lam viec
 
 $row['fortime'] = !empty($row['fortime']) ? nv_date('d/m/Y', $row['fortime']) : '';
-
-if (defined('NV_EDITOR')) {
-    require_once NV_ROOTDIR . '/' . NV_EDITORSDIR . '/' . NV_EDITOR . '/nv.php';
-} elseif (!nv_function_exists('nv_aleditor') and file_exists(NV_ROOTDIR . '/' . NV_EDITORSDIR . '/ckeditor/ckeditor.js')) {
-    define('NV_EDITOR', true);
-    define('NV_IS_CKEDITOR', true);
-    $my_head .= '<script type="text/javascript" src="' . NV_BASE_SITEURL . NV_EDITORSDIR . '/ckeditor/ckeditor.js"></script>';
-    
-    function nv_aleditor($textareaname, $width = '100%', $height = '450px', $val = '', $customtoolbar = '')
-    {
-        global $module_data;
-        $return = '<textarea style="width: ' . $width . '; height:' . $height . ';" id="' . $module_data . '_' . $textareaname . '" name="' . $textareaname . '">' . $val . '</textarea>';
-        $return .= "<script type=\"text/javascript\">
+if (intval($array_config['type_content']) == 2) {
+    if (defined('NV_EDITOR')) {
+        require_once NV_ROOTDIR . '/' . NV_EDITORSDIR . '/' . NV_EDITOR . '/nv.php';
+    } elseif (!nv_function_exists('nv_aleditor') and file_exists(NV_ROOTDIR . '/' . NV_EDITORSDIR . '/ckeditor/ckeditor.js')) {
+        define('NV_EDITOR', true);
+        define('NV_IS_CKEDITOR', true);
+        $my_head .= '<script type="text/javascript" src="' . NV_BASE_SITEURL . NV_EDITORSDIR . '/ckeditor/ckeditor.js"></script>';
+        
+        function nv_aleditor($textareaname, $width = '100%', $height = '450px', $val = '', $customtoolbar = '')
+        {
+            global $module_data;
+            $return = '<textarea style="width: ' . $width . '; height:' . $height . ';" id="' . $module_data . '_' . $textareaname . '" name="' . $textareaname . '">' . $val . '</textarea>';
+            $return .= "<script type=\"text/javascript\">
 		CKEDITOR.replace( '" . $module_data . "_" . $textareaname . "', {" . (!empty($customtoolbar) ? 'toolbar : "' . $customtoolbar . '",' : '') . " width: '" . $width . "',height: '" . $height . "',});
 		</script>";
-        return $return;
+            return $return;
+        }
     }
 }
+
 $row['content'] = htmlspecialchars(nv_editor_br2nl($row['content']));
 if (defined('NV_EDITOR') and nv_function_exists('nv_aleditor') && intval($array_config['type_content']) == 2) {
     $row['content'] = nv_aleditor('content', '100%', '300px', $row['content'], 'Basic');
@@ -193,7 +200,7 @@ while ($view = $sth->fetch()) {
     if (nv_check_action($view['addtime'])) {
         $allow_action = 1;
         $view['link_edit'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;id=' . $view['id'] . '&amp;redirect=' . nv_redirect_encrypt($client_info['selfurl']);
-        $view['link_delete'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;delete_id=' . $view['id'] . '&amp;delete_checkss=' . md5($view['id'] . NV_CACHE_PREFIX . $client_info['session_id'] . '&amp;redirect=' . nv_redirect_encrypt($client_info['selfurl']));
+        $view['link_delete'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;delete_id=' . $view['id'] . '&amp;delete_checkss=' . md5($view['id'] . NV_CACHE_PREFIX . $client_info['session_id']);
     }
     
     $view['day_in_weeks'] = nv_date('l', $view['fortime']);
