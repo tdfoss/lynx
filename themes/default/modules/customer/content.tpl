@@ -94,11 +94,11 @@
                     <input class="form-control" type="text" name="address" value="{ROW.address}" />
                 </div>
             </div>
-           
-            <div class="form-group" >
+            <div class="form-group">
                 <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.unit}</strong></label>
                 <div class="col-sm-19 col-md-20">
-                    <select class="form-control select2_tag" name="unit[]" multiple="multiple" style="width: 100%">
+                    <select class="form-control select2_tag" name="unit" style="width: 100%">
+                        <option value="">---{LANG.choice_units}---</option>
                         <!-- BEGIN: units -->
                         <option value="{UNITS.key}"{UNITS.selected}>{UNITS.title}</option>
                         <!-- END: units -->
