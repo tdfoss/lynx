@@ -2295,3 +2295,6 @@ button.close {
 .sum-voting {
 	margin-top:5px;
 }
+.comment-list {
+    padding-left: 50px !important;
+}
