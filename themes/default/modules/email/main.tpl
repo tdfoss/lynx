@@ -8,6 +8,15 @@
                     <input class="form-control" type="text" value="{Q}" name="q" maxlength="255" placeholder="{LANG.search_title}" />
                 </div>
             </div>
+            <div class="col-xs-24 col-md-6">
+                <div class="form-group">
+                    <select class="form-control" name="status">
+                        <!-- BEGIN: status -->
+                        <option value="{STATUS.key}"{STATUS.selected}>{STATUS.value}</option>
+                        <!-- END: status -->
+                    </select>
+                </div>
+            </div>
             <div class="col-xs-12 col-md-3">
                 <div class="form-group">
                     <input class="btn btn-primary" type="submit" value="{LANG.search_submit}" />
@@ -47,11 +56,15 @@
             <tbody>
                 <!-- BEGIN: loop -->
                 <tr onclick="nv_table_row_click(event, '{VIEW.link_view}', false);" class="pointer">
-                    <td class="text-center"><input type="checkbox" onclick="nv_UncheckAll(this.form, 'idcheck[]', 'check_all[]', this.checked);" value="{VIEW.id}" name="idcheck[]" class="post"></td>
+                    <td class="text-center">
+                        <input type="checkbox" onclick="nv_UncheckAll(this.form, 'idcheck[]', 'check_all[]', this.checked);" value="{VIEW.id}" name="idcheck[]" class="post">
+                    </td>
                     <td>{VIEW.title}</td>
                     <td>{VIEW.useradd}</td>
                     <td>{VIEW.addtime}</td>
-                    <td class="text-center"><em class="fa fa-trash-o fa-lg">&nbsp;</em> <a href="{VIEW.link_delete}" onclick="return confirm(nv_is_del_confirm[0]);">{LANG.delete}</a></td>
+                    <td class="text-center">
+                        <em class="fa fa-trash-o fa-lg">&nbsp;</em> <a href="{VIEW.link_delete}" onclick="return confirm(nv_is_del_confirm[0]);">{LANG.delete}</a>
+                    </td>
                 </tr>
                 <!-- END: loop -->
             </tbody>

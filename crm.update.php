@@ -69,7 +69,8 @@ while (list ($lang) = $language_query->fetch(3)) {
 
     $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_invoice CHANGE sended sended SMALLINT(4) UNSIGNED NOT NULL DEFAULT '0' COMMENT 'Số lượt gửi thông tin hóa đơn';";
 
-
+    $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_email ADD status tinyint(1) unsigned NOT NULL DEFAULT '1' AFTER addtime;";
+    
     
     $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_customer_share_acc(
            userid smallint(4) NOT NULL,
