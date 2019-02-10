@@ -118,8 +118,7 @@ foreach ($performer as $userid) {
 }
 $rows['performer_str'] = !empty($rows['performer_str']) ? implode(', ', $rows['performer_str']) : '';
 
-require_once NV_ROOTDIR . '/modules/projects/auto-link.php';
-$rows['content'] = autolink($rows['content'], 0, ' target="_blank"');
+$rows['content'] = nv_projects_makeLinks($rows['content']);
 $rows['customer'] = nv_crm_customer_info($rows['customerid']);
 
 if (!empty($rows['files'])) {
