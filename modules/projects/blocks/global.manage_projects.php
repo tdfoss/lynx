@@ -103,10 +103,11 @@ if (!nv_function_exists('nv_projects_list')) {
             $my_footer .= '<script type="text/javascript" src="' . NV_BASE_SITEURL . 'themes/' . $block_theme . '/js/projects.js"></script>';
         }
 
-        $sql = 'SELECT id, title, status, addtime, edittime FROM ' . NV_PREFIXLANG . '_' . $mod_data . ' WHERE status IN (' . implode(',', $block_config['type']) . ')  ORDER BY ' . $block_config['updown'] . ' DESC  LIMIT ' . $block_config['numrow'];
+        $sql = 'SELECT id, title, status, addtime, edittime, workforceid FROM ' . NV_PREFIXLANG . '_' . $mod_data . ' WHERE status IN (' . implode(',', $block_config['type']) . ')  ORDER BY ' . $block_config['updown'] . ' DESC  LIMIT ' . $block_config['numrow'];
         $list = $nv_Cache->db($sql, 'id', $module);
 
         $xtpl = new XTemplate('block.manage_projects.tpl', NV_ROOTDIR . '/themes/' . $block_theme . '/modules/projects');
+        $xtpl->assign('LANG', $lang_module);
         $xtpl->assign('BLOCK_THEME', $block_theme);
 
         if (!empty($list)) {
