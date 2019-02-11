@@ -4,11 +4,11 @@
     <div class="table-responsive">
         <table class="table table-striped table-bordered table-hover">
             <colgroup>
-                <col width="50"/>
+                <col width="100" />
                 <col />
                 <col />
-                <col width="50" /> 
-                <col width="180" />
+                <col width="100" />
+                <col width="150" />
             </colgroup>
             <thead>
                 <tr>
@@ -29,14 +29,13 @@
             <tbody>
                 <!-- BEGIN: loop -->
                 <tr>
-                    <td>
-                    <select class="form-control" id="id_weight_{VIEW.id}" onchange="nv_change_weight('{VIEW.id}');">
-                        <!-- BEGIN: weight_loop -->
-                        <option value="{WEIGHT.key}"{WEIGHT.selected}>{WEIGHT.title}</option>
-                        <!-- END: weight_loop -->
+                    <td><select class="form-control" id="id_weight_{VIEW.id}" onchange="nv_change_weight('{VIEW.id}');">
+                            <!-- BEGIN: weight_loop -->
+                            <option value="{WEIGHT.key}"{WEIGHT.selected}>{WEIGHT.title}</option>
+                            <!-- END: weight_loop -->
                     </select></td>
-                    <td> <a href="{VIEW.link_view}" title="{VIEW.title}">{VIEW.title}</a> <span class="red">({VIEW.numsub})</span> </td>
-                    <td> {VIEW.email} </td>
+                    <td><a href="{VIEW.link_view}" title="{VIEW.title}">{VIEW.title}</a> <span class="red">({VIEW.numsub})</span></td>
+                    <td>{VIEW.email}</td>
                     <td class="text-center"><input type="checkbox" name="status" id="change_status_{VIEW.id}" value="{VIEW.id}" {CHECK} onclick="nv_change_status({VIEW.id});" /></td>
                     <td class="text-center"><i class="fa fa-edit fa-lg">&nbsp;</i><a href="{VIEW.link_edit}#edit">{LANG.edit}</a> - <em class="fa fa-trash-o fa-lg">&nbsp;</em><a href="{VIEW.link_delete}" onclick="return confirm(nv_is_del_confirm[0]);">{LANG.delete}</a></td>
                 </tr>
@@ -46,17 +45,13 @@
     </div>
 </form>
 <!-- END: view -->
-
 <h3>{LANG.part_add}</h3>
-
 <!-- BEGIN: error -->
-<div class="alert alert-warning">
-    {ERROR}
-</div>
+<div class="alert alert-warning">{ERROR}</div>
 <!-- END: error -->
-<div class="panel panel-default">
-    <div class="panel-body">
-        <form class="form-horizontal" action="{NV_BASE_SITEURL}index.php?{NV_LANG_VARIABLE}={NV_LANG_DATA}&amp;{NV_NAME_VARIABLE}={MODULE_NAME}&amp;{NV_OP_VARIABLE}={OP}" method="post">
+<form class="form-horizontal" action="{NV_BASE_SITEURL}index.php?{NV_LANG_VARIABLE}={NV_LANG_DATA}&amp;{NV_NAME_VARIABLE}={MODULE_NAME}&amp;{NV_OP_VARIABLE}={OP}" method="post">
+    <div class="panel panel-default">
+        <div class="panel-body">
             <input type="hidden" name="id" value="{ROW.id}" />
             <div class="form-group">
                 <label class="col-sm-3 control-label"><strong>{LANG.title}</strong> <span class="red">*</span></label>
@@ -68,11 +63,11 @@
                 <label class="col-sm-5 col-md-3 control-label"><strong>{LANG.alias}</strong></label>
                 <div class="col-sm-14 col-md-21">
                     <div class="input-group">
-                        <input class="form-control" type="text" name="alias" value="{ROW.alias}" id="id_alias" />
-                        <span class="input-group-btn">
+                        <input class="form-control" type="text" name="alias" value="{ROW.alias}" id="id_alias" /> <span class="input-group-btn">
                             <button class="btn btn-default" type="button">
                                 <i class="fa fa-refresh fa-lg" onclick="nv_get_alias('id_alias');">&nbsp;</i>
-                            </button> </span>
+                            </button>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -81,7 +76,7 @@
                 <div class="col-sm-21">
                     <select class="form-control" name="parentid">
                         <!-- BEGIN: parent_loop -->
-                        <option value="{pid}" {pselect}>{ptitle}</option>
+                        <option value="{pid}"{pselect}>{ptitle}</option>
                         <!-- END: parent_loop -->
                     </select>
                 </div>
@@ -124,16 +119,14 @@
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label"><strong>{LANG.description}</strong></label>
-                <div class="col-sm-21">
-                    {ROW.note}
-                </div>
+                <div class="col-sm-21">{ROW.note}</div>
             </div>
-            <div class="form-group" style="text-align: center"><input class="btn btn-primary" name="submit" type="submit" value="{LANG.save}" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
+    <div class="text-center button_fixed_bottom">
+        <input class="btn btn-primary" name="submit" type="submit" value="{LANG.save}" />
+    </div>
+</form>
 <script type="text/javascript">
     //<![CDATA[
     function nv_change_weight(id) {
@@ -179,7 +172,6 @@
     }
     //]]>
 </script>
-
 <!-- BEGIN: auto_get_alias -->
 <script type="text/javascript">
     //<![CDATA[
@@ -189,5 +181,4 @@
     //]]>
 </script>
 <!-- END: auto_get_alias -->
-
 <!-- END: main -->
