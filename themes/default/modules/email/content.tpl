@@ -15,7 +15,7 @@
                     <input class="form-control" type="text" name="title" value="{ROW.title}" required="required" oninvalid="setCustomValidity( nv_required )" oninput="setCustomValidity('')" />
                 </div>
             </div>
-            <div class="form-group" id="customer">
+            <div class="form-group">
                 <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.sendto}</strong> <span class="red">(*)</span></label>
                 <div class="col-sm-19 col-md-20">
                     <select name="sendto_id[]" id="selectid" class="form-control" multiple="multiple">
@@ -35,7 +35,7 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group" id="content">
+            <div class="form-group">
                 <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.content}</strong> <span class="red">(*)</span></label>
                 <div class="col-sm-19 col-md-20">{ROW.content}</div>
             </div>
@@ -58,7 +58,7 @@
                 </div>
             </div>
             <div class="form-group text-center">
-                <input class="btn btn-warning loading" name="draft" type="submit" value="{LANG.draft}" onclick="subdraft();" /> <input class="btn btn-primary" name="submit" type="submit" id="btn-submit" value="{LANG.save}" />
+                <input class="btn btn-warning loading" name="draft" type="submit" value="{LANG.draft}" /> <input class="btn btn-primary" name="submit" type="submit" id="btn-submit" value="{LANG.save}" />
             </div>
         </div>
     </div>
@@ -68,7 +68,6 @@
 <script type="text/javascript">
     //<![CDATA[
     $(document).ready(function() {
-
         $(".select2").select2({
             language : "{NV_LANG_INTERFACE}",
             theme : "bootstrap",
@@ -121,10 +120,6 @@
     function formatRepoSelection(repo) {
         return repo.fullname || repo.text;
     }
-
-   
-   
-    
     //]]>
 </script>
 <!-- END: main -->

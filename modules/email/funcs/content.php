@@ -90,11 +90,15 @@ if ($nv_Request->isset_request('submit', 'post') or $draft) {
     $row['cc_id_save'] = !empty($row['cc_id']) ? implode(',', $row['cc_id']) : '';
     $row['send_my_cc'] = $nv_Request->get_int('send_my_cc', 'post', 0);
     
+    if (empty($row['title'])) {
+        $error[] = $lang_module['error_required_title'];
+    }
+    
     if (!$draft) {
-        if (empty($row['title'])) {
-            $error[] = $lang_module['error_required_title'];
-        } elseif (empty($row['content'])) {
+        if (empty($row['content'])) {
             $error[] = $lang_module['error_required_content'];
+        }elseif (empty($row['sendto_id'])){
+            $error[] = $lang_module['error_required_sendto_id'];
         }
     }
     
@@ -116,7 +120,7 @@ if ($nv_Request->isset_request('submit', 'post') or $draft) {
     if (!$draft) {
         
         if (empty($error)) {
-            $result = nv_email_send($row['title'], $row['content'], $user_info['userid'], $row['sendto_id'], $row['cc_id'], $row['files'], $row['send_my_cc'], array(), true, $row['id'], $row['status']);
+            $result = nv_email_send($row['title'], $row['content'], $user_info['userid'], $row['sendto_id'], $row['cc_id'], $row['files'], $row['send_my_cc'], array(), true, $row['id'], $row['status']=1);
             $status = $result['status'];
             $new_id = $result['new_id'];
             $nv_Cache->delMod($module_name);

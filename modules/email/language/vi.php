@@ -59,6 +59,7 @@ $lang_module['logs_send_mail_note'] = '<strong>%s</strong> đã gửi thư <stro
 
 $lang_module['error_required_title'] = 'Lỗi: bạn cần nhập dữ liệu cho Tiêu đề thư';
 $lang_module['error_required_content'] = 'Lỗi: bạn cần nhập dữ liệu cho Nội dung';
+$lang_module['error_required_sendto_id'] = 'Lỗi: bạn cần chọn dữ liệu Người nhận';
 $lang_module['error_empty_data'] = 'Bạn cần chọn dữ liệu để thực hiện!';
 $lang_module['status'] = 'Trạng thái';
 $lang_module['status_0'] = 'Thư nháp';
