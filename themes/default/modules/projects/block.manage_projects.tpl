@@ -3,7 +3,7 @@
   <thead>
 		<tr>
 			<th>{LANG.title}</th>
-			<th>{LANG.status}</th>
+			<th width="130">{LANG.status}</th>
 		</tr>
 	</thead>
 	<tbody>
