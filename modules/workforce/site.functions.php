@@ -42,7 +42,7 @@ function nv_crm_list_workforce($in_groups = '', $partid = 0)
         $where .= ' AND part IN (' . implode(',', $array_partid) . ')';
     }
     $sql = 'SELECT t1.userid, t2.first_name, t2.last_name, t1.username, t1.photo, t2.main_email email, salary, allowance, part, position FROM ' . NV_USERS_GLOBALTABLE . ' t1 INNER JOIN ' . NV_PREFIXLANG . '_workforce t2 ON t1.userid=t2.userid WHERE t1.active=1' . $where;
-    
+
     $array_data = $nv_Cache->db($sql, 'userid', 'users');
     if (!empty($array_data)) {
         foreach ($array_data as $index => $value) {
@@ -53,12 +53,16 @@ function nv_crm_list_workforce($in_groups = '', $partid = 0)
             }
             $array_data[$index]['fullname'] = nv_show_name_user($value['first_name'], $value['last_name'], $value['username']);
 
-            $value['part'] = explode(',', $value['part']);
-            $array_part = array();
-            foreach ($value['part'] as $partid) {
-                $array_part[] = $array_part_list[$partid]['title'];
+            if (!empty($array_part_list) && $value['part']) {
+                $value['part'] = explode(',', $value['part']);
+                $array_part = array();
+                foreach ($value['part'] as $partid) {
+                    $array_part[] = $array_part_list[$partid]['title'];
+                }
+                $array_data[$index]['part'] = implode(', ', $array_part);
+            } else {
+                $array_data[$index]['part'] = '';
             }
-            $array_data[$index]['part'] = implode(', ', $array_part);
         }
     }
     return $array_data;
