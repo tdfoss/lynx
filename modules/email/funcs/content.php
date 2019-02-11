@@ -90,10 +90,12 @@ if ($nv_Request->isset_request('submit', 'post') or $draft) {
     $row['cc_id_save'] = !empty($row['cc_id']) ? implode(',', $row['cc_id']) : '';
     $row['send_my_cc'] = $nv_Request->get_int('send_my_cc', 'post', 0);
     
-    if (empty($row['title'])) {
-        $error[] = $lang_module['error_required_title'];
-    } elseif (empty($row['content'])) {
-        $error[] = $lang_module['error_required_content'];
+    if (!$draft) {
+        if (empty($row['title'])) {
+            $error[] = $lang_module['error_required_title'];
+        } elseif (empty($row['content'])) {
+            $error[] = $lang_module['error_required_content'];
+        }
     }
     
     $row['files'] = '';
