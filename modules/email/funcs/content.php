@@ -120,7 +120,7 @@ if ($nv_Request->isset_request('submit', 'post') or $draft) {
     if (!$draft) {
         
         if (empty($error)) {
-            $result = nv_email_send($row['title'], $row['content'], $user_info['userid'], $row['sendto_id'], $row['cc_id'], $row['files'], $row['send_my_cc'], array(), true, $row['id'], $row['status']=1);
+            $result = nv_email_send($row['title'], $row['content'], $user_info['userid'], $row['sendto_id'], $row['cc_id'], $row['files'], $row['send_my_cc'], array(), true, $row['id']);
             $status = $result['status'];
             $new_id = $result['new_id'];
             $nv_Cache->delMod($module_name);
