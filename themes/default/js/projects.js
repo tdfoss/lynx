@@ -136,3 +136,26 @@ function nv_projects_sendinfo(id) {
         });
     }
 }
+
+function fix_news_image(stringid) {
+    var news = $('#' + stringid), newsW, w, h;
+    if (news.length) {
+        var newsW = news.innerWidth();
+        $.each($('img', news), function() {
+            if (typeof $(this).data('width') == "undefined") {
+                w = $(this).innerWidth();
+                h = $(this).innerHeight();
+                $(this).data('width', w);
+                $(this).data('height', h);
+            } else {
+                w = $(this).data('width');
+                h = $(this).data('height');
+            }
+            
+            if (w > newsW) {
+                $(this).prop('width', newsW - 30);
+                $(this).prop('height', h * newsW / w);
+            }
+        });
+    }
+}

@@ -32,7 +32,7 @@
             </div>
         </div>
         <!-- BEGIN: content -->
-        <div class="panel panel-default">
+        <div class="panel panel-default" id="description">
             <div class="panel-heading">{LANG.content}</div>
             <div class="panel-body">{ROW.content}</div>
         </div>
@@ -92,6 +92,7 @@
 </div>
 <script>
     var projects_sendinfo_confirm = '{LANG.projects_sendinfo_confirm}';
+    fix_news_image('description');
 </script>
 <!-- END: main -->
 <!-- BEGIN: task_list -->
