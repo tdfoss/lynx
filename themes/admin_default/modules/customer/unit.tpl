@@ -75,7 +75,7 @@
 <form class="form-horizontal box-center" action="{NV_BASE_ADMINURL}index.php?{NV_LANG_VARIABLE}={NV_LANG_DATA}&amp;{NV_NAME_VARIABLE}={MODULE_NAME}&amp;{NV_OP_VARIABLE}={OP}" method="post">
     <div class="panel panel-default col-md-24">
         <div class="panel-body">
-            <input type="hidden" name="id" value="{ROW.id}" />
+            <input type="hidden" name="id" value="{ROW.tid}" />
             <div class="form-group">
                 <div class="col-sm-24 col-md-24">
                     <label class="control-label"><strong>{LANG.title}</strong> <span class="red">(*)</span></label> <input class="form-control" type="text" name="title" value="{ROW.title}" required="required" oninvalid="setCustomValidity( nv_required )" oninput="setCustomValidity('')" />

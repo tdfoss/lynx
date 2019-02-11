@@ -51,6 +51,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
             } else {
                 $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . '_units SET title = :title, note = :note WHERE tid=' . $row['id']);
             }
+
             $stmt->bindParam(':title', $row['title'], PDO::PARAM_STR);
             $stmt->bindParam(':note', $row['note'], PDO::PARAM_STR, strlen($row['note']));
             
@@ -146,7 +147,6 @@ if ($show_view) {
     }
     $number = $page > 1 ? ($per_page * ($page - 1)) + 1 : 1;
     while ($view = $sth->fetch()) {
-        for ($i = 1; $i <= $num_items; ++$i) {}
         $view['link_edit'] = NV_BASE_ADMINURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;id=' . $view['tid'];
         $view['link_delete'] = NV_BASE_ADMINURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;delete_id=' . $view['tid'] . '&amp;delete_checkss=' . md5($view['tid'] . NV_CACHE_PREFIX . $client_info['session_id']);
         $xtpl->assign('VIEW', $view);
