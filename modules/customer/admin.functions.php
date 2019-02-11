@@ -16,6 +16,7 @@ $array_config = $module_config[$module_name];
 $allow_func = array(
     'main',
     'types',
+    'unit',
     'tags',
     'config'
 );
