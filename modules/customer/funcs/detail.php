@@ -116,6 +116,14 @@ if (!empty($customer_info['tag_id'])) {
     }
 }
 
+$customer_info['units'] = array();
+if (!empty($customer_info['unit'])) {
+    $customer_info['unit'] = explode(',', $customer_info['unit']);
+    foreach ($customer_info['unit'] as $units) {
+        $customer_info['units'][] = $array_customer_units[$units]['title'];
+    }
+}
+
 $other_phone = !empty($customer_info['other_phone']) ? explode('|', $customer_info['other_phone']) : array();
 $customer_info['other_phone'] = nv_theme_crm_label($other_phone);
 
@@ -209,6 +217,12 @@ if (!empty($customer_info['tags'])) {
         $xtpl->parse('main.tags');
     }
 }
+if (!empty($customer_info['units'])) {
+    foreach ($customer_info['units'] as $units) {
+        $xtpl->assign('UNITS', $units);
+        $xtpl->parse('main.unit');
+    }
+}
 
 if (!empty($customer_info['share_accs'])) {
     foreach ($customer_info['share_accs'] as $share_acc) {
@@ -217,7 +231,7 @@ if (!empty($customer_info['share_accs'])) {
     }
 }
 
-if($customer_info['permisson'] == 1){
+if ($customer_info['permisson'] == 1) {
     $xtpl->parse('main.admin');
 }
 

@@ -54,11 +54,20 @@ $array_control = array(
     'url_delete' => NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;delete_id=' . $row['id'] . '&amp;delete_checkss=' . md5($row['id'] . NV_CACHE_PREFIX . $client_info['session_id'])
 );
 
+
+$status = $row['status'];
+$row['status'] = $array_email_status[$row['status']];
+
 $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
 $xtpl->assign('LANG', $lang_module);
 $xtpl->assign('MODULE_NAME', $module_name);
 $xtpl->assign('EMAILIF', $row);
 $xtpl->assign('CONTROL', $array_control);
+
+
+if($status == 0){
+    $xtpl->parse('main.send');
+}
 
 if (!empty($row['cc_id'])) {
     $xtpl->parse('main.cc');

@@ -11,7 +11,7 @@ if (!defined('NV_IS_MOD_EMAIL')) die('Stop!!!');
 
 if ($nv_Request->isset_request('get_user_json', 'post, get')) {
     $q = $nv_Request->get_title('q', 'post, get', '');
-
+    
     $db->sqlreset()
         ->select('id, first_name, last_name, main_phone, main_email')
         ->from(NV_PREFIXLANG . '_customer')
@@ -29,10 +29,9 @@ if ($nv_Request->isset_request('get_user_json', 'post, get')) {
         )')
         ->order('first_name ASC')
         ->limit(20);
-
     $sth = $db->prepare($db->sql());
     $sth->execute();
-
+    
     $array_data = array();
     while (list ($customerid, $first_name, $last_name, $main_phone, $main_email) = $sth->fetch(3)) {
         $array_data[] = array(
@@ -42,10 +41,10 @@ if ($nv_Request->isset_request('get_user_json', 'post, get')) {
             'email' => $main_email
         );
     }
-
+    
     header('Cache-Control: no-cache, must-revalidate');
     header('Content-type: application/json');
-
+    
     ob_start('ob_gzhandler');
     echo json_encode($array_data);
     exit();
@@ -55,6 +54,7 @@ $row = array();
 $error = array();
 $row['id'] = $nv_Request->get_int('id', 'post,get', 0);
 $workforce_list = nv_crm_list_workforce();
+$draft = $nv_Request->isset_request('draft', 'post');
 
 if ($row['id'] > 0) {
     $row = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $row['id'])->fetch();
@@ -62,7 +62,7 @@ if ($row['id'] > 0) {
         Header('Location: ' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=' . $op);
         die();
     }
-
+    
     $row['sendto_id'] = $row['sendto_id_old'] = array();
     $result = $db->query('SELECT customer_id FROM ' . NV_PREFIXLANG . '_' . $module_data . '_sendto WHERE email_id=' . $row['id']);
     while (list ($customer_id) = $result->fetch(3)) {
@@ -78,25 +78,24 @@ if ($row['id'] > 0) {
     $row['files'] = '';
     $row['sendto_id'] = array();
     $row['sendto_id_old'] = array();
-    $row['send_my_cc'] = 1;
 }
-
+$row['send_my_cc'] = 1;
 $row['redirect'] = $nv_Request->get_string('redirect', 'post,get', '');
 
-if ($nv_Request->isset_request('submit', 'post')) {
+if ($nv_Request->isset_request('submit', 'post') or $draft) {
     $row['title'] = $nv_Request->get_title('title', 'post', '');
     $row['cc_id'] = $nv_Request->get_typed_array('cc_id', 'post', 'int');
     $row['content'] = $nv_Request->get_editor('content', '', NV_ALLOWED_HTML_TAGS);
     $row['sendto_id'] = $nv_Request->get_typed_array('sendto_id', 'post', 'int');
     $row['cc_id_save'] = !empty($row['cc_id']) ? implode(',', $row['cc_id']) : '';
     $row['send_my_cc'] = $nv_Request->get_int('send_my_cc', 'post', 0);
-
+    
     if (empty($row['title'])) {
         $error[] = $lang_module['error_required_title'];
     } elseif (empty($row['content'])) {
         $error[] = $lang_module['error_required_content'];
     }
-
+    
     $row['files'] = '';
     if (isset($_FILES['upload_fileupload']) and is_uploaded_file($_FILES['upload_fileupload']['tmp_name'])) {
         $upload = new NukeViet\Files\Upload($global_config['file_allowed_ext'], $global_config['forbid_extensions'], $global_config['forbid_mimes'], $global_config['nv_max_size'], NV_MAX_WIDTH, NV_MAX_HEIGHT);
@@ -111,38 +110,67 @@ if ($nv_Request->isset_request('submit', 'post')) {
         }
         unset($upload, $upload_info);
     }
-
-    if (empty($error)) {
-        $result = nv_email_send($row['title'], $row['content'], $user_info['userid'], $row['sendto_id'], $row['cc_id'], $row['files'], $row['send_my_cc']);
-        $status = $result['status'];
-        $new_id = $result['new_id'];
-        $nv_Cache->delMod($module_name);
-        $message_title = $status ? $lang_module['email_title_success'] : $lang_module['email_title_error'];
-        $message_content = $status ? $lang_module['email_content_success'] : $lang_module['email_content_error'];
-        $color = $status ? 'success' : 'danger';
-
-        if (!empty($row['redirect'])) {
-            $url = nv_redirect_decrypt($row['redirect']);
-        } else {
-            $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=detail&id=' . $new_id;
+    
+    if (!$draft) {
+        
+        if (empty($error)) {
+            $result = nv_email_send($row['title'], $row['content'], $user_info['userid'], $row['sendto_id'], $row['cc_id'], $row['files'], $row['send_my_cc'], array(), true, $row['id'], $row['status']);
+            $status = $result['status'];
+            $new_id = $result['new_id'];
+            $nv_Cache->delMod($module_name);
+            $message_title = $status ? $lang_module['email_title_success'] : $lang_module['email_title_error'];
+            $message_content = $status ? $lang_module['email_content_success'] : $lang_module['email_content_error'];
+            $color = $status ? 'success' : 'danger';
+            
+            if (!empty($row['redirect'])) {
+                $url = nv_redirect_decrypt($row['redirect']);
+            } else {
+                $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=detail&id=' . $new_id;
+            }
+            
+            $content = sprintf($lang_module['logs_send_mail_note'], $workforce_list[$user_info['userid']]['fullname'], $row['title']);
+            nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['save'], $content, $user_info['userid']);
+            $contents = nv_theme_alert($message_title, $message_content, $color, $url, $lang_module['view_detail'], 3);
+            
+            include NV_ROOTDIR . '/includes/header.php';
+            echo nv_site_theme($contents);
+            include NV_ROOTDIR . '/includes/footer.php';
         }
-
-        $content = sprintf($lang_module['logs_send_mail_note'], $workforce_list[$user_info['userid']]['fullname'], $row['title']);
-        nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['save'], $content, $user_info['userid']);
-
-        $contents = nv_theme_alert($message_title, $message_content, $color, $url, $lang_module['view_detail'], 3);
-
-        include NV_ROOTDIR . '/includes/header.php';
-        echo nv_site_theme($contents);
-        include NV_ROOTDIR . '/includes/footer.php';
+    } else {
+        if (empty($error)) {
+            $result = nv_save_draft($row['id'], $row['title'], $row['content'], $user_info['userid'], $row['sendto_id'], $row['sendto_id_old'], $row['cc_id'], $row['files']);
+            $new_id = $result['new_id'];
+            $status = $result['status'];
+            $nv_Cache->delMod($module_name);
+            $message_title = $lang_module['email_draft_success'];
+            $message_content = $lang_module['email_content_draft'];
+            $color = $status ? 'warning' : 'success';
+            if (!empty($row['redirect'])) {
+                $url = nv_redirect_decrypt($row['redirect']);
+            } else {
+                $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=detail&id=' . $new_id;
+            }
+            
+            $content = sprintf($lang_module['logs_send_mail_note'], $workforce_list[$user_info['userid']]['fullname'], $row['title']);
+            nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['save'], $content, $user_info['userid']);
+            $contents = nv_theme_alert($message_title, $message_content, $color, $url, $lang_module['view_detail'], 3);
+            
+            include NV_ROOTDIR . '/includes/header.php';
+            echo nv_site_theme($contents);
+            include NV_ROOTDIR . '/includes/footer.php';
+        }
     }
 }
 
-$customer_info = array();
-if (defined('CRM_WORKFORCE')) {
-    if (!empty($row['customerid'])) {
-        $customer_info = nv_crm_customer_info($row['customerid']);
-    }
+$aray_sendto = array();
+$result = $db->query('SELECT customer_id FROM ' . NV_PREFIXLANG . '_' . $module_data . '_sendto  WHERE email_id=' . $row['id']);
+while (list ($customerid) = $result->fetch(3)) {
+    $customer_info = nv_crm_customer_info($customerid);
+    $aray_sendto[$customerid] = array(
+        'customerid' => $customerid,
+        'fullname' => $customer_info['fullname']
+    
+    );
 }
 
 if (defined('NV_EDITOR')) {
@@ -151,7 +179,7 @@ if (defined('NV_EDITOR')) {
     define('NV_EDITOR', true);
     define('NV_IS_CKEDITOR', true);
     $my_head .= '<script type="text/javascript" src="' . NV_BASE_SITEURL . NV_EDITORSDIR . '/ckeditor/ckeditor.js"></script>';
-
+    
     function nv_aleditor($textareaname, $width = '100%', $height = '450px', $val = '', $customtoolbar = '')
     {
         global $module_data;
@@ -180,15 +208,14 @@ $xtpl->assign('ROW', $row);
 
 if (!empty($workforce_list)) {
     foreach ($workforce_list as $user) {
-
         $xtpl->assign('USER', $user);
         $xtpl->parse('main.user');
     }
 }
 
-if (defined('CRM_WORKFORCE')) {
-    if (!empty($customer_info)) {
-        $xtpl->assign('CUSTOMER', $customer_info);
+if (!empty($aray_sendto)) {
+    foreach ($aray_sendto as $customer) {
+        $xtpl->assign('CUSTOMER', $customer);
         $xtpl->parse('main.customer');
     }
 }

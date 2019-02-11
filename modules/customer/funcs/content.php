@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @Project NUKEVIET 4.x
  * @Author VINADES.,JSC <contact@vinades.vn>
@@ -12,7 +11,6 @@ if (!defined('NV_IS_MOD_CUSTOMER')) die('Stop!!!');
 $row = array();
 $error = array();
 $row['id'] = $nv_Request->get_int('id', 'post,get', 0);
-
 if ($row['id'] > 0) {
     $lang_module['customer_add'] = $lang_module['customer_edit'];
     $row = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' t1 INNER JOIN ' . NV_PREFIXLANG . '_' . $module_data . '_share_acc t2 ON t1.id=t2.customerid WHERE id=' . $row['id'] . ' AND t2.userid=' . $user_info['userid'] . ' AND permisson=1')->fetch();
@@ -43,7 +41,7 @@ if ($row['id'] > 0) {
     $row['zalo'] = '';
     $row['gender'] = 2;
     $row['address'] = '';
-    $row['unit'] = '';
+    $row['unit'] = 0;
     $row['care_staff'] = $row['care_staff_old'] = $user_info['userid'];
     $row['image'] = '';
     $row['note'] = '';
@@ -54,9 +52,7 @@ if ($row['id'] > 0) {
     $row['share_acc'] = $row['share_acc_old'] = array();
     $row['share_groups'] = 0;
 }
-
 $row['redirect'] = $nv_Request->get_string('redirect', 'post,get', '');
-
 if ($nv_Request->isset_request('submit', 'post')) {
     $row['first_name'] = $nv_Request->get_title('first_name', 'post', '');
     $row['last_name'] = $nv_Request->get_title('last_name', 'post', '');
@@ -71,7 +67,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
     $row['zalo'] = $nv_Request->get_title('zalo', 'post', '');
     $row['gender'] = $nv_Request->get_int('gender', 'post', 2);
     $row['address'] = $nv_Request->get_title('address', 'post', '');
-    $row['unit'] = $nv_Request->get_title('unit', 'post', '');
+    $row['unit'] = $nv_Request->get_title('unit', 'post');
     $row['care_staff'] = $nv_Request->get_int('care_staff', 'post', 0);
     $row['image'] = $nv_Request->get_title('image', 'post', '');
     $row['note'] = $nv_Request->get_editor('note', '', NV_ALLOWED_HTML_TAGS);
@@ -93,6 +89,17 @@ if ($nv_Request->isset_request('submit', 'post')) {
         }
     }
     $tag_id = !empty($row['tag_id']) ? implode(',', $row['tag_id']) : '';
+    
+    if (!empty($row['unit'])) {
+        if (!is_numeric($row['unit'])) {
+            $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_units(title) VALUES (:title)';
+            $data_insert = array(
+                'title' => $row['unit']
+            );
+            $row['unit'] = $db->insert_id($_sql, 'id', $data_insert);
+        }
+    }
+    
     $share_acc = !empty($row['share_acc']) ? implode(',', $row['share_acc']) : '';
     
     if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $nv_Request->get_string('birthday', 'post'), $m)) {
@@ -121,8 +128,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
         try {
             $new_id = 0;
             if (empty($row['id'])) {
-
-                $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (note, first_name, last_name, main_phone, other_phone, main_email, other_email, birthday, facebook, skype, zalo, gender, address, unit, trading_person, unit_name, tax_code, address_invoice, care_staff, image, addtime, userid, is_contacts, type_id, tag_id,share_acc,share_groups) VALUES (:note, :first_name, :last_name, :main_phone, :other_phone, :main_email, :other_email, :birthday, :facebook, :skype, :zalo, :gender, :address, :unit, :trading_person, :unit_name, :tax_code, :address_invoice, :care_staff, :image, ' . NV_CURRENTTIME . ', ' . $user_info['userid'] . ', :is_contacts, :type_id, :tag_id, :share_acc , :share_groups)';
+                $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (note, first_name, last_name, main_phone, other_phone, main_email, other_email, birthday, facebook, skype, zalo, gender, address, unit, care_staff, image, addtime, userid, is_contacts, type_id, tag_id,share_acc,share_groups) VALUES (:note, :first_name, :last_name, :main_phone, :other_phone, :main_email, :other_email, :birthday, :facebook, :skype, :zalo, :gender, :address, :unit, :care_staff, :image, ' . NV_CURRENTTIME . ', ' . $user_info['userid'] . ', :is_contacts, :type_id, :tag_id, :share_acc , :share_groups)';
                 $data_insert = array();
                 $data_insert['first_name'] = $row['first_name'];
                 $data_insert['last_name'] = $row['last_name'];
@@ -147,9 +153,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $data_insert['share_groups'] = $row['share_groups'];
                 $new_id = $db->insert_id($_sql, 'id', $data_insert);
             } else {
-
-                $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET first_name = :first_name, last_name = :last_name, main_phone = :main_phone, other_phone = :other_phone, main_email = :main_email, other_email = :other_email, birthday = :birthday, facebook = :facebook, skype = :skype, zalo = :zalo, gender = :gender, address = :address, unit = :unit, trading_person = :trading_person, unit_name = :unit_name, tax_code = :tax_code, address_invoice = :address_invoice, care_staff = :care_staff, image = :image, edittime=' . NV_CURRENTTIME . ', note = :note, type_id = :type_id, tag_id = :tag_id, share_acc = :share_acc, share_groups = :share_groups WHERE id=' . $row['id']);
-
+                $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET first_name = :first_name, last_name = :last_name, main_phone = :main_phone, other_phone = :other_phone, main_email = :main_email, other_email = :other_email, birthday = :birthday, facebook = :facebook, skype = :skype, zalo = :zalo, gender = :gender, address = :address, unit = :unit, care_staff = :care_staff, image = :image, edittime=' . NV_CURRENTTIME . ', note = :note, type_id = :type_id, tag_id = :tag_id, share_acc = :share_acc, share_groups = :share_groups WHERE id=' . $row['id']);
                 $stmt->bindParam(':first_name', $row['first_name'], PDO::PARAM_STR);
                 $stmt->bindParam(':last_name', $row['last_name'], PDO::PARAM_STR);
                 $stmt->bindParam(':main_phone', $row['main_phone'], PDO::PARAM_STR);
@@ -255,11 +259,9 @@ if ($nv_Request->isset_request('submit', 'post')) {
         }
     }
 }
-
 if (!empty($row['image']) and is_file(NV_UPLOADS_REAL_DIR . '/' . $module_upload . '/' . $row['image'])) {
     $row['image'] = NV_BASE_SITEURL . NV_UPLOADS_DIR . '/' . $module_upload . '/' . $row['image'];
 }
-
 if (defined('NV_EDITOR')) {
     require_once NV_ROOTDIR . '/' . NV_EDITORSDIR . '/' . NV_EDITOR . '/nv.php';
 } elseif (!nv_function_exists('nv_aleditor') and file_exists(NV_ROOTDIR . '/' . NV_EDITORSDIR . '/ckeditor/ckeditor.js')) {
@@ -283,20 +285,16 @@ if (defined('NV_EDITOR') and nv_function_exists('nv_aleditor')) {
 } else {
     $row['note'] = '<textarea style="width:100%;height:300px" name="note">' . $row['note'] . '</textarea>';
 }
-
 if ($row['is_contacts']) {
     $lang_module['customer_add'] = $lang_module['contact_add'];
 }
-
 $row['birthday'] = !empty($row['birthday']) ? nv_date('d/m/Y', $row['birthday']) : '';
-
 $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
 $xtpl->assign('LANG', $lang_module);
 $xtpl->assign('MODULE_NAME', $module_name);
 $xtpl->assign('MODULE_UPLOAD', $module_upload);
 $xtpl->assign('OP', $op);
 $xtpl->assign('ROW', $row);
-
 foreach ($array_part_list as $key => $value) {
     $xtpl->assign('PART', array(
         'key' => $key,
@@ -305,7 +303,6 @@ foreach ($array_part_list as $key => $value) {
     ));
     $xtpl->parse('main.share_groups');
 }
-
 foreach ($workforce_list as $value) {
     $xtpl->assign('SHAREWF', array(
         'key' => $value['userid'],
@@ -314,7 +311,6 @@ foreach ($workforce_list as $value) {
     ));
     $xtpl->parse('main.share_account');
 }
-
 foreach ($array_customer_type_id as $value) {
     $xtpl->assign('TYPEID', array(
         'key' => $value['id'],
@@ -323,7 +319,6 @@ foreach ($array_customer_type_id as $value) {
     ));
     $xtpl->parse('main.select_type_id');
 }
-
 foreach ($array_customer_tags as $value) {
     $xtpl->assign('TAGS', array(
         'key' => $value['tid'],
@@ -332,7 +327,14 @@ foreach ($array_customer_tags as $value) {
     ));
     $xtpl->parse('main.tags');
 }
-
+foreach ($array_customer_units as $value) {
+    $xtpl->assign('UNITS', array(
+        'key' => $value['tid'],
+        'title' => $value['title'],
+        'selected' => $value['tid'] == $row['unit']? ' selected="selected"' : ''
+    ));
+    $xtpl->parse('main.units');
+}
 foreach ($workforce_list as $value) {
     $xtpl->assign('OPTION', array(
         'key' => $value['userid'],
@@ -341,7 +343,6 @@ foreach ($workforce_list as $value) {
     ));
     $xtpl->parse('main.select_care_staff');
 }
-
 foreach ($array_gender as $index => $value) {
     $ck = $index == $row['gender'] ? 'checked="checked"' : '';
     $xtpl->assign('GENDER', array(
@@ -351,7 +352,6 @@ foreach ($array_gender as $index => $value) {
     ));
     $xtpl->parse('main.gender');
 }
-
 if (!empty($row['other_phone'])) {
     $row['other_phone'] = explode('|', $row['other_phone']);
     foreach ($row['other_phone'] as $phone) {
@@ -359,7 +359,6 @@ if (!empty($row['other_phone'])) {
         $xtpl->parse('main.other_phone');
     }
 }
-
 if (!empty($row['other_email'])) {
     $row['other_email'] = explode('|', $row['other_email']);
     foreach ($row['other_email'] as $mail) {
@@ -367,20 +366,16 @@ if (!empty($row['other_email'])) {
         $xtpl->parse('main.other_email');
     }
 }
-
 if (!empty($error)) {
     $xtpl->assign('ERROR', implode('<br />', $error));
     $xtpl->parse('main.error');
 }
-
 $xtpl->parse('main');
 $contents = $xtpl->text('main');
-
 $page_title = $lang_module['customer_add'];
 $array_mod_title[] = array(
     'title' => $page_title
 );
-
 include NV_ROOTDIR . '/includes/header.php';
 echo nv_site_theme($contents);
 include NV_ROOTDIR . '/includes/footer.php';

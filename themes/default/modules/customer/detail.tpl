@@ -62,7 +62,9 @@
                         </tr>
                         <tr>
                             <th>{LANG.main_email}</th>
-                            <td><a href="mailto:{CUSTOMER.main_email}">{CUSTOMER.main_email}</a></td>
+                            <td>
+                                <a href="mailto:{CUSTOMER.main_email}">{CUSTOMER.main_email}</a>
+                            </td>
                             <th>{LANG.other_email}</th>
                             <td>{CUSTOMER.other_email}</td>
                         </tr>
@@ -74,9 +76,13 @@
                         </tr>
                         <tr>
                             <th>Facebook</th>
-                            <td><a href="{CUSTOMER.facebook}">{CUSTOMER.facebook}</a></td>
+                            <td>
+                                <a href="{CUSTOMER.facebook}">{CUSTOMER.facebook}</a>
+                            </td>
                             <th>Skype</th>
-                            <td><a href="skype:{CUSTOMER.skype}">{CUSTOMER.skype}</a></td>
+                            <td>
+                                <a href="skype:{CUSTOMER.skype}">{CUSTOMER.skype}</a>
+                            </td>
                         </tr>
                         <tr>
                             <th>Zalo</th>
@@ -88,8 +94,11 @@
                             <th>{LANG.gender}</th>
                             <td>{CUSTOMER.gender}</td>
                             <th>{LANG.unit}</th>
-                            <td>{CUSTOMER.unit}</td>
-                        </tr>
+                           <td>
+                                <!-- BEGIN: unit -->
+                                <label class="label label-default">{UNITS}</label>
+                                <!-- END: unit -->
+                            </td>
                         <tr>
                             <th>{LANG.addtime}</th>
                             <td>{CUSTOMER.addtime}</td>

@@ -63,20 +63,33 @@ while (list ($lang) = $language_query->fetch(3)) {
     
     $sql[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', 'projects', 'default_status', '1,2,3');";
 
-
     $sql[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', 'notification', 'slack_tocken', '');";
 
     $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_invoice ADD paytime INT(11) UNSIGNED NOT NULL DEFAULT '0' AFTER duetime;";
 
     $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_invoice CHANGE sended sended SMALLINT(4) UNSIGNED NOT NULL DEFAULT '0' COMMENT 'Số lượt gửi thông tin hóa đơn';";
 
-
+    $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_email ADD status tinyint(1) unsigned NOT NULL DEFAULT '1' AFTER addtime;";
+    
     
     $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_customer_share_acc(
            userid smallint(4) NOT NULL,
            customerid mediumint(8) unsigned NOT NULL,
            permisson tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT 'Quyền',
            UNIQUE KEY tid (userid, customerid)
+         ) ENGINE=MyISAM;";
+    
+    $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_customer_units(
+           tid smallint(4) NOT NULL AUTO_INCREMENT,
+           title varchar(255) NOT NULL COMMENT 'Tiêu đề',
+           note text NOT NULL COMMENT 'Ghi chú',
+           PRIMARY KEY (tid)
+         ) ENGINE=MyISAM;";
+    
+    $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_customer_units_customer(
+           tid smallint(4) NOT NULL,
+           customerid mediumint(8) unsigned NOT NULL,
+           UNIQUE KEY tid (tid, customerid)
          ) ENGINE=MyISAM;";
     
 

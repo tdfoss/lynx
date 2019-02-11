@@ -20,7 +20,7 @@
                 <div class="col-sm-19 col-md-20">
                     <select name="sendto_id[]" id="selectid" class="form-control" multiple="multiple">
                         <!-- BEGIN: customer -->
-                        <option value="{CUSTOMER.id}" selected="selected">{CUSTOMER.fullname}</option>
+                        <option value="{CUSTOMER.customerid}" selected="selected">{CUSTOMER.fullname}</option>
                         <!-- END: customer -->
                     </select> <span class="help-block pointer" id="email_cc" style="margin-bottom: 0">{LANG.sendcc}</span>
                 </div>
@@ -43,8 +43,7 @@
                 <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.files}</strong></label>
                 <div class="col-sm-19 col-md-20">
                     <div class="input-group">
-                        <input type="file" name="upload_fileupload" id="upload_fileupload" style="display: none" />
-                        <input type="text" class="form-control" id="file_name" disabled> <span class="input-group-btn">
+                        <input type="file" name="upload_fileupload" id="upload_fileupload" style="display: none" /> <input type="text" class="form-control" id="file_name" disabled> <span class="input-group-btn">
                             <button class="btn btn-default" onclick="$('#upload_fileupload').click();" type="button">
                                 <em class="fa fa-folder-open-o fa-fix">&nbsp;</em> {LANG.file_selectfile}
                             </button>
@@ -54,10 +53,12 @@
             </div>
             <div class="form-group">
                 <label class="col-sm-5 col-md-4 text-right"><strong>{LANG.send_my_cc}</strong></label>
-                <div class="col-sm-19 col-md-20"><label><input type="checkbox" name="send_my_cc" value="1" {ROW.send_my_cc_checked} />{LANG.send_my_cc_note}</label></div>
+                <div class="col-sm-19 col-md-20">
+                    <label><input type="checkbox" name="send_my_cc" value="1" {ROW.send_my_cc_checked} />{LANG.send_my_cc_note}</label>
+                </div>
             </div>
             <div class="form-group text-center">
-                <input class="btn btn-primary" name="submit" type="submit" id="btn-submit" value="{LANG.save}" />
+                <input class="btn btn-warning loading" name="draft" type="submit" value="{LANG.draft}" /> <input class="btn btn-primary" name="submit" type="submit" id="btn-submit" value="{LANG.save}" />
             </div>
         </div>
     </div>

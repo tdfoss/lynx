@@ -97,7 +97,12 @@
             <div class="form-group">
                 <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.unit}</strong></label>
                 <div class="col-sm-19 col-md-20">
-                    <input class="form-control" type="text" name="unit" value="{ROW.unit}" />
+                    <select class="form-control select2_tag" name="unit" style="width: 100%">
+                        <option value="">---{LANG.choice_units}---</option>
+                        <!-- BEGIN: units -->
+                        <option value="{UNITS.key}"{UNITS.selected}>{UNITS.title}</option>
+                        <!-- END: units -->
+                    </select>
                 </div>
             </div>
             <div class="form-group">
@@ -149,7 +154,6 @@
                 </div>
             </div>
             <div class="form-group">
-
                 <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.share}</strong></label>
                 <div class="col-sm-19 col-md-20">
                     <div class="row">
@@ -172,7 +176,6 @@
                 </div>
             </div>
             <div class="form-group">
-
                 <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.note}</strong></label>
                 <div class="col-sm-19 col-md-20">{ROW.note}</div>
             </div>
