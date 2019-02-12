@@ -179,7 +179,6 @@ while ($order = $order_id->fetch()) {
     $row['vat_price'] = ($order['price'] * $order['vat']) / 100;
     $row['item_total'] += $order['price'];
     $row['vat_total'] += $row['vat_price'];
-    $row['money_unit'] =0;
     $array_invoice_products[] = $order;
 }
 
