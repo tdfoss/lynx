@@ -10,7 +10,7 @@
 <!-- BEGIN: main -->
 <ul class="sidebar-menu hidden-xs hidden-sm" data-widget="tree">
     <!-- BEGIN: top_menu -->
-    <li class="edm" ><a href="{TOP_MENU.link}" title="TOP_MENU.title">
+    <li class="edm" ><a href="{TOP_MENU.link}" title="{TOP_MENU.title}">
     <i class="{TOP_MENU.css}"></i>
 <span>{TOP_MENU.title_trim}</span> <!--  BEGIN: iconsub --> <span class="pull-right-container material-button-toggle"> <i class="fa fa-angle-left pull-right"></i>
         </span> <!--  END: iconsub -->
