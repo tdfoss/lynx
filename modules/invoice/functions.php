@@ -221,7 +221,7 @@ function nv_invoice_confirm_payment($id)
 {
     global $db, $module_name, $module_data, $lang_module, $workforce_list, $user_info;
 
-    $rows = $db->query('SELECT code, title FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
+    $rows = $db->query('SELECT code, title, sended FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
     if ($rows) {
         $count = $db->exec('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET status=1, paytime=' . NV_CURRENTTIME . ' WHERE id=' . $id);
         if ($count) {
@@ -238,7 +238,11 @@ function nv_invoice_confirm_payment($id)
             $stmt->bindParam(':payment', $payment, PDO::PARAM_STR);
             $stmt->bindParam(':payment_amount', $payment_amount, PDO::PARAM_STR);
             if ($stmt->execute()) {
-                nv_sendmail_confirm($id);
+                // nếu trước đó có gửi thông tin hóa đơn cho khách đã thì mới gửi thông báo xác nhận thanh toán
+                if ($rows['sended']) {
+                    nv_sendmail_confirm($id);
+                }
+
                 $content = sprintf($lang_module['logs_invoice_confirm_note'], '[#' . $rows['code'] . '] ' . $rows['title']);
                 nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_invoice_confirm'], $content, $user_info['userid']);
             }
