@@ -36,6 +36,17 @@
                 </div>
             </div>
             <div class="form-group">
+                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.price_unit}</strong></label>
+                <div class="col-sm-19 col-md-20">
+                    <select name="price_unit" class="form-control">
+                        <option value="0">---{LANG.price_type_select}---</option>
+                        <!-- BEGIN: price -->
+                        <option value="{PRICE.id}"{PRICE.selected}>{PRICE.title}</option>
+                        <!-- END: price -->
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.url}</strong></label>
                 <div class="col-sm-19 col-md-20">
                     <input class="form-control" type="url" name="url" value="{ROW.url}" />

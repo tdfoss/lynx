@@ -224,7 +224,7 @@ if ($show_view) {
     }
     $xtpl->parse('main.view');
 }
-
+ 
 if (!empty($array_price_unit)) {
     foreach ($array_price_unit as $price_type) {
         $price_type['selected'] = $price_type['id'] == $row['price_unit'] ? 'selected="selected"' : '';

@@ -84,6 +84,7 @@
                                 <th width="50" class="text-center stt">{LANG.number}</th>
                                 <th class="title_th">{LANG.title}</th>
                                 <th width="150">{LANG.unit_price}</th>
+                                <th width="150">{LANG.money_unit}</th>
                                 <th class="quantity text-center" width="100">{LANG.quantity}</th>
                                 <th class="price_string" width="150">{LANG.price_string}</th>
                                 <th class="vat" width="150">{LANG.vat}</th>
@@ -96,6 +97,7 @@
                                 <td class="text-center">{ORDERS.number}</td>
                                 <td><strong>{ORDERS.itemid}</strong> <span class="help-block">{ORDERS.note}</span></td>
                                 <td>{ORDERS.unit_price}</td>
+                                <td>{ORDERS.money_unit}</td>
                                 <td class="text-center">{ORDERS.quantity}</td>
                                 <td>{ORDERS.price}</td>
                                 <td><!-- BEGIN: vat -->{ORDERS.vat_price} ({ORDERS.vat}%)<!-- END: vat --><!-- BEGIN: vat_empty -->-<!-- END: vat_empty --></td>
@@ -106,25 +108,25 @@
                         <!--  END: invoice_list -->
                         <tfoot>
                             <tr>
-                                <td colspan="6" class="text-right"><strong>{LANG.item_total}</strong></td>
+                                <td colspan="7" class="text-right"><strong>{LANG.item_total}</strong></td>
                                 <td>{ROW.item_total}</td>
                             </tr>
                             <tr>
-                                <th colspan="6" class="text-right"><strong>{LANG.vat_total}</strong></th>
+                                <th colspan="7" class="text-right"><strong>{LANG.vat_total}</strong></th>
                                 <td>{ROW.vat_total}</td>
                             </tr>
                             <!-- BEGIN: discount -->
                             <tr>
-                                <td colspan="6" class="text-right"><strong>{LANG.discount}</strong></td>
+                                <td colspan="7" class="text-right"><strong>{LANG.discount}</strong></td>
                                 <td>{ROW.discount_value} ({ROW.discount_percent}%)</td>
                             </tr>
                             <!-- END: discount -->
                             <tr>
-                                <td colspan="6" class="text-right"><strong>{LANG.grand_total}</strong></td>
+                                <td colspan="7" class="text-right"><strong>{LANG.grand_total}</strong></td>
                                 <td>{ROW.grand_total}</td>
                             </tr>
                             <tr>
-                                <td colspan="6" class="text-right"><strong>{LANG.grand_total_string}</strong></td>
+                                <td colspan="7" class="text-right"><strong>{LANG.grand_total_string}</strong></td>
                                 <td>{ROW.grand_total_string}</td>
                             </tr>
                         </tfoot>
