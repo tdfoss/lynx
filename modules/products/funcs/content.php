@@ -36,12 +36,22 @@ if ($nv_Request->isset_request('submit', 'post')) {
     $row['catid'] = $nv_Request->get_title('catid', 'post', '');
     $row['price'] = $nv_Request->get_title('price', 'post', '');
     $row['vat'] = $nv_Request->get_float('vat', 'post', 0);
-    $row['price_unit'] = $nv_Request->get_int('price_unit', 'post', 0);
+    $row['price_unit'] = $nv_Request->get_title('price_unit', 'post', 0);
     $row['url'] = $nv_Request->get_title('url', 'post', '');
     $row['note'] = $nv_Request->get_textarea('note', '', NV_ALLOWED_HTML_TAGS);
     
     if (empty($row['title'])) {
         $error[] = $lang_module['error_required_title'];
+    }
+    
+    if (!empty($row['price_unit'])) {
+        if (!is_numeric($row['price_unit'])) {
+            $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_price_unit(title) VALUES (:title)';
+            $data_insert = array(
+                'title' => $row['price_unit']
+            );
+            $row['price_unit'] = $db->insert_id($_sql, 'id', $data_insert);
+        }
     }
     
     if (empty($error)) {
