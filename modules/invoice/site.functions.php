@@ -164,7 +164,7 @@ function nv_sendmail_econtent($new_id, $adduser = 0, $location_file = array())
             }
 
             $result = nv_email_send($subject, $message, $adduser, $sendto_id, $cc_id, $location_file);
-            if (!$result['status']) {
+            if ($result['status']) {
                 $db->query('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET sended=sended+1 WHERE id=' . $new_id);
             }
         }
