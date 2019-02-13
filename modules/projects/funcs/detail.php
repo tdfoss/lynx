@@ -124,16 +124,16 @@ $rows['customer'] = nv_crm_customer_info($rows['customerid']);
 if (!empty($rows['files'])) {
     $files = explode(',', $rows['files']);
     $rows['files'] = array();
-    foreach ($files as $id => $file) {
+    foreach ($files as $file_id => $file) {
         $file_title = (!preg_match("/^http*/", $file)) ? basename($file) : $lang_module['click_to_download'];
         $rows['files'][] = array(
             'title' => $file_title,
-            'key' => md5($id . $file_title),
+            'key' => md5($file_id . $file_title),
             'ext' => nv_getextension($file_title),
-            'titledown' => $lang_module['download'] . ' ' . (count($files) > 1 ? $id + 1 : ''),
+            'titledown' => $lang_module['download'] . ' ' . (count($files) > 1 ? $file_id + 1 : ''),
             'src' => NV_BASE_SITEURL . NV_UPLOADS_DIR . '/' . $module_upload . '/' . $file,
-            'url' => (!preg_match("/^http*/", $file)) ? NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=download&amp;id=' . $rows['id'] . '&amp;index=' . $id . '&amp;table=answer' : $file,
-            'urlpdf' => $client_info['selfurl'] . '&amp;pdf=1&amp;fileid=' . $id,
+            'url' => (!preg_match("/^http*/", $file)) ? NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=download&amp;id=' . $rows['id'] . '&amp;index=' . $file_id . '&amp;table=answer' : $file,
+            'urlpdf' => $client_info['selfurl'] . '&amp;pdf=1&amp;fileid=' . $file_id,
             'urldoc' => (preg_match("/^http*/", $file)) ? $file : 'https://docs.google.com/viewer?embedded=true&url=' . NV_MY_DOMAIN . '/' . NV_UPLOADS_DIR . '/' . $module_upload . '/' . $file
         );
     }
