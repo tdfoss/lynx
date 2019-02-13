@@ -113,10 +113,9 @@ if ($nv_Request->isset_request('sendmail', 'post')) {
     $id = $nv_Request->get_int('id', 'post', 0);
     $code = $db->query('SELECT code FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetchColumn();
 
-    $contents = nv_invoice_template($id);
-
     $location_file = array();
     if (class_exists('Mpdf')) {
+        $contents = nv_invoice_template($id);
         $location = NV_ROOTDIR . '/' . NV_TEMP_DIR . '/#' . $code . '.pdf';
         $mpdf = new \Mpdf\Mpdf();
         $mpdf->WriteHTML($contents);

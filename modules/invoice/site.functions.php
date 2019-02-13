@@ -150,7 +150,8 @@ function nv_sendmail_econtent($new_id, $adduser = 0, $location_file = array())
                 'DUETIME' => (empty($row['duetime'])) ? ($lang_module['non_identify']) : nv_date('d/m/Y', $row['duetime']),
                 'TERMS' => $row['terms'],
                 'DESCRIPTION' => $row['description'],
-                'TABLE' => nv_invoice_table($new_id)
+                'TABLE' => nv_invoice_table($new_id),
+                'TABLE_TRANSACTION' => nv_transaction_list($new_id)
             );
 
             $message = nv_unhtmlspecialchars($message);
