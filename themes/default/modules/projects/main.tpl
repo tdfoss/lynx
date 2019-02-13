@@ -98,7 +98,6 @@
                 <tr>
                     <th class="text-center" width="50"><input name="check_all[]" type="checkbox" value="yes" onclick="nv_checkAll(this.form, 'idcheck[]', 'check_all[]',this.checked);"></th>
                     <th>{LANG.title}</th>
-                    <th>{LANG.workforceid}</th>
                     <th>{LANG.customerid}</th>
                     <th width="110" class="text-center">{LANG.begintime}</th>
                     <th width="110" class="text-center">{LANG.endtime}</th>
@@ -118,9 +117,9 @@
                 <!-- BEGIN: loop -->
                 <tr onclick="nv_table_row_click(event, '{VIEW.link_view}', false);" class="pointer">
                     <td class="text-center"><input type="checkbox" onclick="nv_UncheckAll(this.form, 'idcheck[]', 'check_all[]', this.checked);" value="{VIEW.id}" name="idcheck[]" class="post"></td>
-                    <td>{VIEW.title} <!-- BEGIN: files --> <em class="fa fa-paperclip pull-right">&nbsp;</em> <!-- END: files -->
+                    <td><strong>{VIEW.title}</strong> <!-- BEGIN: files --> <em class="fa fa-paperclip pull-right">&nbsp;</em> <!-- END: files -->
+                    <span class="help-block">{VIEW.performer_str}</span>
                     </td>
-                    <td>{VIEW.performer_str}</td>
                     <td><a href="{VIEW.customer.link}">{VIEW.customer.fullname}</a></td>
                     <td class="text-center">{VIEW.begintime}</td>
                     <td class="text-center">{VIEW.endtime}</td>
