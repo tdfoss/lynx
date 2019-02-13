@@ -113,21 +113,22 @@ if ($nv_Request->isset_request('sendmail', 'post')) {
     $id = $nv_Request->get_int('id', 'post', 0);
     $code = $db->query('SELECT code FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetchColumn();
 
-    $location = NV_ROOTDIR . '/' . NV_TEMP_DIR . '/#' . $code . '.pdf';
     $contents = nv_invoice_template($id);
 
     $location_file = array();
-    if(class_exists('Mpdf')){
+    if (class_exists('Mpdf')) {
+        $location = NV_ROOTDIR . '/' . NV_TEMP_DIR . '/#' . $code . '.pdf';
         $mpdf = new \Mpdf\Mpdf();
         $mpdf->WriteHTML($contents);
         $mpdf->Output($location, \Mpdf\Output\Destination::FILE);
-
         $location_file[] = str_replace(NV_ROOTDIR . '/', '', $location);
     }
 
     $result = nv_sendmail_econtent($id, $user_info['userid'], $location_file);
     if ($result['status']) {
-        unlink($location);
+        if (file_exists($location)) {
+            unlink($location);
+        }
         die('OK_' . $lang_module['invoice_sendmail_success']);
     }
     die('NO_' . $lang_module['invoice_sendmail_error']);

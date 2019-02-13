@@ -143,7 +143,7 @@ function nv_sendmail_econtent($new_id, $adduser = 0, $location_file = array())
                 'FULLNAME' => $customer_info['fullname'],
                 'TITLE' => $row['title'],
                 'STATUS' => $row['status'],
-                'URL' => NV_MY_DOMAIN . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=invoice&amp;id=' . $id . '&amp;checksum=' . md5($new_id . $global_config['sitekey'] . $client_info['session_id']),
+                'URL' => NV_MY_DOMAIN . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=invoice&amp;id=' . $new_id . '&amp;checksum=' . md5($new_id . $global_config['sitekey'] . $client_info['session_id']),
                 'CODE' => $row['code'],
                 'WORKFORCE' => $workforce_list[$row['workforceid']]['fullname'],
                 'CREATETIME' => date('d/m/Y', $row['createtime']),
