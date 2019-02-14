@@ -70,6 +70,8 @@ while (list ($lang) = $language_query->fetch(3)) {
 
     $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_email ADD status tinyint(1) unsigned NOT NULL DEFAULT '1' AFTER addtime;";
 
+    $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_products ADD price_unit tinyint(1) NOT NULL AFTER vat";
+    
     $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_customer_share_acc(
            userid smallint(4) NOT NULL,
            customerid mediumint(8) unsigned NOT NULL,
@@ -88,6 +90,14 @@ while (list ($lang) = $language_query->fetch(3)) {
            tid smallint(4) NOT NULL,
            customerid mediumint(8) unsigned NOT NULL,
            UNIQUE KEY tid (tid, customerid)
+         ) ENGINE=MyISAM;";
+    
+    $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_products_price_unit(
+           id tinyint(2) NOT NULL AUTO_INCREMENT,
+           title varchar(255) NOT NULL,
+           active tinyint(1) unsigned NOT NULL DEFAULT '1',
+           weight tinyint(2) NOT NULL DEFAULT '0',
+           PRIMARY KEY (id)
          ) ENGINE=MyISAM;";
 
     $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_customer CHANGE care_staff care_staff MEDIUMINT(8) UNSIGNED NOT NULL COMMENT 'Nhân viên chăm sóc KH';";

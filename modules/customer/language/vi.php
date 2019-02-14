@@ -180,3 +180,4 @@ $lang_module['share'] = 'Chia sẽ liên hệ';
 $lang_module['share_people'] = 'Chia sẽ với cá nhân';
 $lang_module['share_groups'] = 'Chia sẽ với nhóm';
 $lang_module['social'] = 'Mạng xã hội';
+$lang_module['choice_units'] = 'Chọn hoặc điền tên đơn vị';

@@ -84,12 +84,22 @@ $row['id'] = $nv_Request->get_int('id', 'post,get', 0);
 if ($nv_Request->isset_request('submit', 'post')) {
     $row['title'] = $nv_Request->get_title('title', 'post', '');
     $row['price'] = $nv_Request->get_title('price', 'post', '');
-    $row['price_unit'] = $nv_Request->get_int('price_unit', 'post', 0);
+    $row['price_unit'] = $nv_Request->get_title('price_unit', 'post', 0);
     $row['vat'] = $nv_Request->get_float('vat', 'post', 0);
     $row['note'] = $nv_Request->get_textarea('note', '', NV_ALLOWED_HTML_TAGS);
     
     if (empty($row['title'])) {
         $error[] = $lang_module['error_required_title'];
+    }
+    
+    if (!empty($row['price_unit'])) {
+        if (!is_numeric($row['price_unit'])) {
+            $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_price_unit(title) VALUES (:title)';
+            $data_insert = array(
+                'title' => $row['price_unit']
+            );
+            $row['price_unit'] = $db->insert_id($_sql, 'id', $data_insert);
+        }
     }
     
     if (empty($error)) {
@@ -224,7 +234,7 @@ if ($show_view) {
     }
     $xtpl->parse('main.view');
 }
-
+ 
 if (!empty($array_price_unit)) {
     foreach ($array_price_unit as $price_type) {
         $price_type['selected'] = $price_type['id'] == $row['price_unit'] ? 'selected="selected"' : '';

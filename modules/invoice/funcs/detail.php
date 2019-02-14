@@ -172,7 +172,9 @@ if ($id > 0) {
 
 $row['vat_price'] = $row['item_total'] = $row['vat_total'] = 0;
 $array_invoice_products = array();
+
 $order_id = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_detail WHERE idinvoice=' . $id);
+
 while ($order = $order_id->fetch()) {
     $row['vat_price'] = ($order['price'] * $order['vat']) / 100;
     $row['item_total'] += $order['price'];
