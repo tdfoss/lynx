@@ -3,9 +3,9 @@
 /**
  * @Project NUKEVIET 4.x
  * @Author VINADES.,JSC <contact@vinades.vn>
- * @Copyright (C) 2018 VINADES.,JSC. All rights reserved
+ * @Copyright (C) 2019 VINADES.,JSC. All rights reserved
  * @License GNU/GPL version 2 or any later version
- * @Createdate Sat, 24 Nov 2018 06:42:29 GMT
+ * @Createdate Fri, 01 Mar 2019 03:18:34 GMT
  */
 
 if (!defined('NV_MAINFILE')) {
@@ -144,7 +144,7 @@ $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'gzip_method', '1')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'authors_detail_main', '0')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'spadmin_add_admin', '1')";
-$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'timestamp', '110')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'timestamp', '124')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'captcha_type', '1')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'version', '4.3.03')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'cookie_httponly', '1')";
@@ -177,7 +177,7 @@ $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'define', 'nv_allowed_html_tags', 'embed, object, param, a, b, blockquote, br, caption, col, colgroup, div, em, h1, h2, h3, h4, h5, h6, hr, i, img, li, p, span, strong, s, sub, sup, table, tbody, td, th, tr, u, ul, ol, iframe, figure, figcaption, video, audio, source, track, code, pre')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'define', 'nv_debug', '1')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'site_domain', '')";
-$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'site_logo', 'uploads/logo.png')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'site_logo', 'uploads/tdfoss-logo-small_256_256.png')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'site_banner', '')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'site_favicon', 'uploads/logo-xs.png')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'site_description', '')";
@@ -195,7 +195,7 @@ $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'autologosize3', '30')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'autologomod', '')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'name_show', '0')";
-$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'cronjobs_next_time', '1543041999')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'cronjobs_next_time', '1551410360')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'disable_site_content', 'Vì lý do kỹ thuật website tạm ngưng hoạt động. Thành thật xin lỗi các bạn vì sự bất tiện này!')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'seotools', 'prcservice', '')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'about', 'auto_postcomm', '1')";
@@ -334,7 +334,7 @@ $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'customer', 'groups_manage', '')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'invoice', 'groups_manage', '1')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'invoice', 'groups_admin', '')";
-$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'invoice', 'default_status', '0,1,3,2,4')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'invoice', 'default_status', '0,3')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'workforce', 'groups_admin', '1,2')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'groups_use', 'groups_use', '1')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'workforce', 'groups_use', '1,2')";
@@ -344,6 +344,8 @@ $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'workforce', 'workdays', '24')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'workforce', 'insurrance', '10.5')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'workforce', 'overtime', '150')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'notification', 'slack_tocken', 'xoxp-394518171601-394826981332-439361755639-e95b3484794530509b4d4f06c257ca7c')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'workreport', 'type_content', '1')";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_cronjobs`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_cronjobs` (
@@ -361,16 +363,17 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_cronjobs` (
   `vi_cron_name` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `is_sys` (`is_sys`)
-) ENGINE=MyISAM  AUTO_INCREMENT=10  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (1, 1514880771, 5, 'online_expired_del.php', 'cron_online_expired_del', '', 0, 1, 1, 1543041699, 1, 'Xóa các dòng ghi trạng thái online đã cũ trong CSDL')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (2, 1514880771, 1440, 'dump_autobackup.php', 'cron_dump_autobackup', '', 0, 1, 1, 1543040208, 1, 'Tự động lưu CSDL')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (3, 1514880771, 60, 'temp_download_destroy.php', 'cron_auto_del_temp_download', '', 0, 1, 1, 1543040208, 1, 'Xóa các file tạm trong thư mục tmp')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (4, 1514880771, 30, 'ip_logs_destroy.php', 'cron_del_ip_logs', '', 0, 1, 1, 1543040208, 1, 'Xóa IP log files, Xóa các file nhật ký truy cập')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (5, 1514880771, 1440, 'error_log_destroy.php', 'cron_auto_del_error_log', '', 0, 1, 1, 1543040208, 1, 'Xóa các file error_log quá hạn')";
+) ENGINE=MyISAM  AUTO_INCREMENT=14  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (1, 1514880771, 5, 'online_expired_del.php', 'cron_online_expired_del', '', 0, 1, 1, 1550148899, 1, 'Xóa các dòng ghi trạng thái online đã cũ trong CSDL')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (2, 1514880771, 1440, 'dump_autobackup.php', 'cron_dump_autobackup', '', 0, 1, 1, 1551347812, 1, 'Tự động lưu CSDL')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (3, 1514880771, 60, 'temp_download_destroy.php', 'cron_auto_del_temp_download', '', 0, 1, 1, 1550242612, 1, 'Xóa các file tạm trong thư mục tmp')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (4, 1514880771, 30, 'ip_logs_destroy.php', 'cron_del_ip_logs', '', 0, 1, 1, 1550192399, 1, 'Xóa IP log files, Xóa các file nhật ký truy cập')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (5, 1514880771, 1440, 'error_log_destroy.php', 'cron_auto_del_error_log', '', 0, 1, 1, 1551347812, 1, 'Xóa các file error_log quá hạn')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (6, 1514880771, 360, 'error_log_sendmail.php', 'cron_auto_sendmail_error_log', '', 0, 1, 0, 0, 0, 'Gửi email các thông báo lỗi cho admin')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (7, 1514880771, 60, 'ref_expired_del.php', 'cron_ref_expired_del', '', 0, 1, 1, 1543040208, 1, 'Xóa các referer quá hạn')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (8, 1514880771, 60, 'check_version.php', 'cron_auto_check_version', '', 0, 1, 1, 1543040208, 1, 'Kiểm tra phiên bản NukeViet')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (9, 1514880771, 1440, 'notification_autodel.php', 'cron_notification_autodel', '', 0, 1, 1, 1543040208, 1, 'Xóa thông báo cũ')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (7, 1514880771, 60, 'ref_expired_del.php', 'cron_ref_expired_del', '', 0, 1, 1, 1550242612, 1, 'Xóa các referer quá hạn')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (8, 1514880771, 60, 'check_version.php', 'cron_auto_check_version', '', 0, 1, 1, 1550242612, 1, 'Kiểm tra phiên bản NukeViet')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (9, 1514880771, 1440, 'notification_autodel.php', 'cron_notification_autodel', '', 0, 1, 1, 1551347812, 1, 'Xóa thông báo cũ')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (13, 1547522880, 1, 'workforce_birthday_reminder.php', 'cron_workforce_birthday_reminder', '', 0, 0, 0, 1550140559, 1, 'Nhắc nhở sinh nhật nhân viên')";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_extension_files`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_extension_files` (
@@ -485,7 +488,7 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_notification` 
   `add_time` int(11) unsigned NOT NULL,
   `view` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  AUTO_INCREMENT=1555  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+) ENGINE=MyISAM  AUTO_INCREMENT=1586  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (118, 1, 0, 0, 'vi', 'task', 0, 'comment_task', 'a:2:{s:7:\"content\";s:192:\"<strong>xuantrieuphong</strong> đã bình luận tại công việc <strong>Thêm bài viết giới thiệu dịch vụ “Dịch vụ quản lý fanpage Facebook” trên tdfoss.vn</strong>\";s:3:\"url\";s:78:\"https://client.tdfoss.vn/index.php?language=vi&nv=task&op=detail&id=40#cid_184\";}', 1520560102, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (115, 2, 0, 0, 'vi', 'task', 0, 'comment_task', 'a:2:{s:7:\"content\";s:183:\"<strong>admin</strong> đã bình luận tại công việc <strong>Thêm bài viết giới thiệu dịch vụ “Dịch vụ quản lý fanpage Facebook” trên tdfoss.vn</strong>\";s:3:\"url\";s:78:\"https://client.tdfoss.vn/index.php?language=vi&nv=task&op=detail&id=40#cid_181\";}', 1520556598, 0)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (116, 1, 0, 0, 'vi', 'task', 0, 'comment_task', 'a:2:{s:7:\"content\";s:192:\"<strong>xuantrieuphong</strong> đã bình luận tại công việc <strong>Thêm bài viết giới thiệu dịch vụ “Dịch vụ quản lý fanpage Facebook” trên tdfoss.vn</strong>\";s:3:\"url\";s:78:\"https://client.tdfoss.vn/index.php?language=vi&nv=task&op=detail&id=40#cid_182\";}', 1520560003, 1)";
@@ -1942,6 +1945,37 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1552, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:78:\"Bạn có công việc <strong>Sản phẩm mới</strong> cần thực hiện\";s:3:\"url\";s:65:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=31\";}', 1532253267, 0)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1553, 1, 0, 0, 'vi', 'task', 0, 'new_task', 'a:2:{s:7:\"content\";s:71:\"Bạn có công việc <strong>22222222222</strong> cần thực hiện\";s:3:\"url\";s:65:\"http://site-lynx.vn/index.php?language=vi&nv=task&op=detail&id=32\";}', 1532413513, 0)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1554, 0, 0, 0, 'vi', 'invoice', 0, 'new_invoice', 'a:2:{s:7:\"content\";s:72:\"Bạn có hóa đơn <strong># - Highcharts Demo</strong> cần xử lý\";s:3:\"url\";s:67:\"http://site-lynx.vn/index.php?language=vi&nv=invoice&op=detail&id=1\";}', 1532747590, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1555, 0, 0, 0, 'vi', 'invoice', 0, 'new_invoice', 'a:2:{s:7:\"content\";s:78:\"Bạn có hóa đơn <strong>#000003 - Highcharts Demo</strong> cần xử lý\";s:3:\"url\";s:67:\"http://site-lynx.vn/index.php?language=vi&nv=invoice&op=detail&id=3\";}', 1544925780, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1556, 12, 0, 0, 'vi', 'customer', 0, 'new_care_staff', 'a:2:{s:7:\"content\";s:124:\"Bạn được giao chăm sóc khách hàng <strong>Ho Ngoc Trien</strong>, thêm bởi <strong>Hồ Ngọc Triển</strong>\";s:3:\"url\";s:68:\"http://site-lynx.vn/index.php?language=vi&nv=customer&op=detail&id=4\";}', 1546527889, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1557, 1, 0, 0, 'vi', 'customer', 0, 'new_care_staff', 'a:2:{s:7:\"content\";s:124:\"Bạn được giao chăm sóc khách hàng <strong>Ho Ngoc Trien</strong>, thêm bởi <strong>Hồ Ngọc Triển</strong>\";s:3:\"url\";s:68:\"http://site-lynx.vn/index.php?language=vi&nv=customer&op=detail&id=4\";}', 1546527896, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1558, 12, 0, 0, 'vi', 'customer', 0, 'new_care_staff', 'a:2:{s:7:\"content\";s:124:\"Bạn được giao chăm sóc khách hàng <strong>Ho Ngoc Trien</strong>, thêm bởi <strong>Hồ Ngọc Triển</strong>\";s:3:\"url\";s:68:\"http://site-lynx.vn/index.php?language=vi&nv=customer&op=detail&id=4\";}', 1546527957, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1559, 1, 0, 0, 'vi', 'customer', 0, 'new_care_staff', 'a:2:{s:7:\"content\";s:124:\"Bạn được giao chăm sóc khách hàng <strong>Ho Ngoc Trien</strong>, thêm bởi <strong>Hồ Ngọc Triển</strong>\";s:3:\"url\";s:68:\"http://site-lynx.vn/index.php?language=vi&nv=customer&op=detail&id=4\";}', 1546527964, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1560, 12, 0, 0, 'vi', 'customer', 0, 'new_care_staff', 'a:2:{s:7:\"content\";s:124:\"Bạn được giao chăm sóc khách hàng <strong>Ho Ngoc Trien</strong>, thêm bởi <strong>Hồ Ngọc Triển</strong>\";s:3:\"url\";s:68:\"http://site-lynx.vn/index.php?language=vi&nv=customer&op=detail&id=4\";}', 1546527990, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1561, 1, 0, 0, 'vi', 'customer', 0, 'new_care_staff', 'a:2:{s:7:\"content\";s:124:\"Bạn được giao chăm sóc khách hàng <strong>Ho Ngoc Trien</strong>, thêm bởi <strong>Hồ Ngọc Triển</strong>\";s:3:\"url\";s:68:\"http://site-lynx.vn/index.php?language=vi&nv=customer&op=detail&id=4\";}', 1546528022, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1562, 12, 0, 0, 'vi', 'customer', 0, 'new_care_staff', 'a:2:{s:7:\"content\";s:124:\"Bạn được giao chăm sóc khách hàng <strong>Ho Ngoc Trien</strong>, thêm bởi <strong>Hồ Ngọc Triển</strong>\";s:3:\"url\";s:68:\"http://site-lynx.vn/index.php?language=vi&nv=customer&op=detail&id=4\";}', 1546528056, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1563, 1, 0, 0, 'vi', 'customer', 0, 'new_care_staff', 'a:2:{s:7:\"content\";s:124:\"Bạn được giao chăm sóc khách hàng <strong>Ho Ngoc Trien</strong>, thêm bởi <strong>Hồ Ngọc Triển</strong>\";s:3:\"url\";s:68:\"http://site-lynx.vn/index.php?language=vi&nv=customer&op=detail&id=4\";}', 1546528061, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1564, 12, 0, 0, 'vi', 'customer', 0, 'new_care_staff', 'a:2:{s:7:\"content\";s:124:\"Bạn được giao chăm sóc khách hàng <strong>Ho Ngoc Trien</strong>, thêm bởi <strong>Hồ Ngọc Triển</strong>\";s:3:\"url\";s:68:\"http://site-lynx.vn/index.php?language=vi&nv=customer&op=detail&id=4\";}', 1546528153, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1565, 1, 0, 0, 'vi', 'customer', 0, 'new_care_staff', 'a:2:{s:7:\"content\";s:124:\"Bạn được giao chăm sóc khách hàng <strong>Ho Ngoc Trien</strong>, thêm bởi <strong>Hồ Ngọc Triển</strong>\";s:3:\"url\";s:68:\"http://site-lynx.vn/index.php?language=vi&nv=customer&op=detail&id=4\";}', 1546528158, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1566, 12, 0, 0, 'vi', 'customer', 0, 'new_care_staff', 'a:2:{s:7:\"content\";s:124:\"Bạn được giao chăm sóc khách hàng <strong>Ho Ngoc Trien</strong>, thêm bởi <strong>Hồ Ngọc Triển</strong>\";s:3:\"url\";s:68:\"http://site-lynx.vn/index.php?language=vi&nv=customer&op=detail&id=4\";}', 1546528358, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1567, 1, 0, 0, 'vi', 'customer', 0, 'new_care_staff', 'a:2:{s:7:\"content\";s:124:\"Bạn được giao chăm sóc khách hàng <strong>Ho Ngoc Trien</strong>, thêm bởi <strong>Hồ Ngọc Triển</strong>\";s:3:\"url\";s:68:\"http://site-lynx.vn/index.php?language=vi&nv=customer&op=detail&id=4\";}', 1546528363, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1568, 12, 0, 0, 'vi', 'customer', 0, 'new_care_staff', 'a:2:{s:7:\"content\";s:124:\"Bạn được giao chăm sóc khách hàng <strong>Ho Ngoc Trien</strong>, thêm bởi <strong>Hồ Ngọc Triển</strong>\";s:3:\"url\";s:68:\"http://site-lynx.vn/index.php?language=vi&nv=customer&op=detail&id=4\";}', 1546528441, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1569, 1, 0, 0, 'vi', 'customer', 0, 'new_care_staff', 'a:2:{s:7:\"content\";s:124:\"Bạn được giao chăm sóc khách hàng <strong>Ho Ngoc Trien</strong>, thêm bởi <strong>Hồ Ngọc Triển</strong>\";s:3:\"url\";s:68:\"http://site-lynx.vn/index.php?language=vi&nv=customer&op=detail&id=4\";}', 1546528446, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1570, 12, 0, 0, 'vi', 'customer', 0, 'new_care_staff', 'a:2:{s:7:\"content\";s:124:\"Bạn được giao chăm sóc khách hàng <strong>Ho Ngoc Trien</strong>, thêm bởi <strong>Hồ Ngọc Triển</strong>\";s:3:\"url\";s:68:\"http://site-lynx.vn/index.php?language=vi&nv=customer&op=detail&id=4\";}', 1546528648, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1571, 1, 0, 0, 'vi', 'customer', 0, 'new_care_staff', 'a:2:{s:7:\"content\";s:124:\"Bạn được giao chăm sóc khách hàng <strong>Ho Ngoc Trien</strong>, thêm bởi <strong>Hồ Ngọc Triển</strong>\";s:3:\"url\";s:68:\"http://site-lynx.vn/index.php?language=vi&nv=customer&op=detail&id=4\";}', 1546528653, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1572, 12, 0, 0, 'vi', 'customer', 0, 'new_care_staff', 'a:2:{s:7:\"content\";s:124:\"Bạn được giao chăm sóc khách hàng <strong>Ho Ngoc Trien</strong>, thêm bởi <strong>Hồ Ngọc Triển</strong>\";s:3:\"url\";s:68:\"http://site-lynx.vn/index.php?language=vi&nv=customer&op=detail&id=4\";}', 1546529137, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1573, 1, 0, 0, 'vi', 'customer', 0, 'new_care_staff', 'a:2:{s:7:\"content\";s:124:\"Bạn được giao chăm sóc khách hàng <strong>Ho Ngoc Trien</strong>, thêm bởi <strong>Hồ Ngọc Triển</strong>\";s:3:\"url\";s:68:\"http://site-lynx.vn/index.php?language=vi&nv=customer&op=detail&id=4\";}', 1546529143, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1574, 12, 0, 0, 'vi', 'customer', 0, 'new_care_staff', 'a:2:{s:7:\"content\";s:124:\"Bạn được giao chăm sóc khách hàng <strong>Ho Ngoc Trien</strong>, thêm bởi <strong>Hồ Ngọc Triển</strong>\";s:3:\"url\";s:68:\"http://site-lynx.vn/index.php?language=vi&nv=customer&op=detail&id=4\";}', 1546529154, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1575, 1, 0, 0, 'vi', 'customer', 0, 'new_care_staff', 'a:2:{s:7:\"content\";s:124:\"Bạn được giao chăm sóc khách hàng <strong>Ho Ngoc Trien</strong>, thêm bởi <strong>Hồ Ngọc Triển</strong>\";s:3:\"url\";s:68:\"http://site-lynx.vn/index.php?language=vi&nv=customer&op=detail&id=4\";}', 1546529158, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1576, 12, 0, 0, 'vi', 'customer', 0, 'new_care_staff', 'a:2:{s:7:\"content\";s:124:\"Bạn được giao chăm sóc khách hàng <strong>Ho Ngoc Trien</strong>, thêm bởi <strong>Hồ Ngọc Triển</strong>\";s:3:\"url\";s:68:\"http://site-lynx.vn/index.php?language=vi&nv=customer&op=detail&id=4\";}', 1546529549, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1577, 1, 0, 0, 'vi', 'workforce', 0, 'remider_birthday', 'a:2:{s:7:\"content\";s:60:\"Hôm nay là sinh nhật của <trong>ho ngoc trien</strong>\";s:3:\"url\";s:0:\"\";}', 1547347270, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1578, 12, 0, 0, 'vi', 'workforce', 0, 'remider_birthday', 'a:2:{s:7:\"content\";s:60:\"Hôm nay là sinh nhật của <trong>ho ngoc trien</strong>\";s:3:\"url\";s:0:\"\";}', 1547347270, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1579, 0, 0, 0, 'vi', 'invoice', 0, 'new_invoice', 'a:2:{s:7:\"content\";s:67:\"Bạn có hóa đơn <strong>#000007 - test</strong> cần xử lý\";s:3:\"url\";s:67:\"http://site-lynx.vn/index.php?language=vi&nv=invoice&op=detail&id=7\";}', 1548665663, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1580, 0, 0, 0, 'vi', 'invoice', 0, 'new_invoice', 'a:2:{s:7:\"content\";s:67:\"Bạn có hóa đơn <strong>#000008 - test</strong> cần xử lý\";s:3:\"url\";s:67:\"http://site-lynx.vn/index.php?language=vi&nv=invoice&op=detail&id=8\";}', 1550044240, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1581, 1, 0, 0, 'vi', 'workforce', 0, 'remider_birthday', 'a:2:{s:7:\"content\";s:61:\"Hôm nay là sinh nhật của <trong>Ho Ngoc Trien1</strong>\";s:3:\"url\";s:0:\"\";}', 1551347739, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1582, 12, 0, 0, 'vi', 'workforce', 0, 'remider_birthday', 'a:2:{s:7:\"content\";s:61:\"Hôm nay là sinh nhật của <trong>Ho Ngoc Trien1</strong>\";s:3:\"url\";s:0:\"\";}', 1551347739, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1583, 1, 0, 0, 'vi', 'workforce', 0, 'remider_birthday', 'a:2:{s:7:\"content\";s:61:\"Hôm nay là sinh nhật của <trong>Ho Ngoc Trien1</strong>\";s:3:\"url\";s:0:\"\";}', 1551347859, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1584, 12, 0, 0, 'vi', 'workforce', 0, 'remider_birthday', 'a:2:{s:7:\"content\";s:61:\"Hôm nay là sinh nhật của <trong>Ho Ngoc Trien1</strong>\";s:3:\"url\";s:0:\"\";}', 1551347859, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_notification` (`id`, `send_to`, `send_from`, `area`, `language`, `module`, `obid`, `type`, `content`, `add_time`, `view`) VALUES (1585, 1, 0, 0, 'vi', 'workforce', 0, 'remider_birthday', 'a:2:{s:7:\"content\";s:61:\"Hôm nay là sinh nhật của <trong>Ho Ngoc Trien1</strong>\";s:3:\"url\";s:0:\"\";}', 1551347920, 0)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_plugin`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_plugin` (
@@ -2005,6 +2039,10 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_setup_language
   PRIMARY KEY (`lang`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_language` (`lang`, `setup`, `weight`) VALUES ('vi', 1, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users` (`userid`, `group_id`, `username`, `md5username`, `password`, `email`, `first_name`, `last_name`, `gender`, `photo`, `birthday`, `sig`, `regdate`, `question`, `answer`, `passlostkey`, `view_mail`, `remember`, `in_groups`, `active`, `active2step`, `secretkey`, `checknum`, `last_login`, `last_ip`, `last_agent`, `last_openid`, `idsite`, `safemode`, `safekey`, `email_verification_time`) VALUES (9, 4, 'hongoctrien', 'f71134e87477db1d7b5d94f07a9668c8', '{SSHA512}jhgZm4HCp4XgVc+Czn9Oe7GlbMncsl65X96KlHRyvHxrKGuZwMoS9di3n5H6w0Si867zYXV3aASdZcCaMDyDczY3Y2E=', 'hongoctrien@tdfoss.vn', 'Trien', 'Ho Ngoc', 'M', '', 0, '', 1543735480, '', '', '', 0, 1, '', 1, 0, '', '', 0, '', '', '', 0, 0, '', -1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users` (`userid`, `group_id`, `username`, `md5username`, `password`, `email`, `first_name`, `last_name`, `gender`, `photo`, `birthday`, `sig`, `regdate`, `question`, `answer`, `passlostkey`, `view_mail`, `remember`, `in_groups`, `active`, `active2step`, `secretkey`, `checknum`, `last_login`, `last_ip`, `last_agent`, `last_openid`, `idsite`, `safemode`, `safekey`, `email_verification_time`) VALUES (11, 4, 'hongoctrien1', '951ffb90e5c95e748c4da613846c47f1', '{SSHA512}eto8sofLvSjqvxHItfU9sFze1XPtIG5u95BRJoV4X5kAQgv77qYum2Po5Q/4xu0HMhJAt9gHlqcWtN0J6JzZ6WYxODU=', 'hongoctrien1@tdfoss.vn', 'Trien', 'Ho Ngoc', 'M', '', 0, '', 1543735983, '', '', '', 0, 1, '', 1, 0, '', '', 0, '', '', '', 0, 0, '', -1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users` (`userid`, `group_id`, `username`, `md5username`, `password`, `email`, `first_name`, `last_name`, `gender`, `photo`, `birthday`, `sig`, `regdate`, `question`, `answer`, `passlostkey`, `view_mail`, `remember`, `in_groups`, `active`, `active2step`, `secretkey`, `checknum`, `last_login`, `last_ip`, `last_agent`, `last_openid`, `idsite`, `safemode`, `safekey`, `email_verification_time`) VALUES (12, 4, 'admin01', '18c6d818ae35a3e8279b5330eda01498', '{SSHA512}Gi4QBI5pt0uChI5Dsj97CtFgQlkwAD02WovQgr0zsSEiU5Bjy/ZsRDDK3kssQEVppKQxRgDxf7hmQi20eIprSGE2YTY=', 'hongoctrien11@tdfoss.vn', 'Trien1', 'Ho Ngoc', '1', '', 0, NULL, 1546527875, '', '', '', 0, 1, '1,2', 1, 0, '', '8ada774375a58c5fbdb83135723f5c48', 1546529186, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', '', 0, 0, '', 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users` (`userid`, `group_id`, `username`, `md5username`, `password`, `email`, `first_name`, `last_name`, `gender`, `photo`, `birthday`, `sig`, `regdate`, `question`, `answer`, `passlostkey`, `view_mail`, `remember`, `in_groups`, `active`, `active2step`, `secretkey`, `checknum`, `last_login`, `last_ip`, `last_agent`, `last_openid`, `idsite`, `safemode`, `safekey`, `email_verification_time`) VALUES (13, 4, 'admin02', '6e60a28384bc05fa5b33cc579d040c56', '{SSHA512}OmPEpOQm0LvOpp7dN2hEIZ156rKXllzWEmKErnuZLwQt7ZvFIoeJujNvz5FMmKOHfE3mSVt1hzAWgB84D2YwgDFkNDE=', 'admin02@ail.com', '', '', '', '', 0, '', 1547388030, '', '', '', 0, 1, '', 1, 0, '', '9ed7c727c47ecf33fc9bce2606c7a2ba', 1547427259, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', '', 0, 0, '', 0)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_users_backupcodes`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_users_backupcodes` (
@@ -2058,7 +2096,7 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_users_field` (
   `system` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`fid`),
   UNIQUE KEY `field` (`field`)
-) ENGINE=MyISAM  AUTO_INCREMENT=8  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+) ENGINE=MyISAM  AUTO_INCREMENT=10  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_field` (`fid`, `field`, `weight`, `field_type`, `field_choices`, `sql_choices`, `match_type`, `match_regex`, `func_callback`, `min_length`, `max_length`, `required`, `show_register`, `user_editable`, `show_profile`, `class`, `language`, `default_value`, `system`) VALUES (1, 'first_name', 1, 'textbox', '', '', 'none', '', '', 0, 100, 0, 0, 1, 1, 'input', 'a:1:{s:2:\"vi\";a:2:{i:0;s:4:\"Tên\";i:1;s:0:\"\";}}', '', 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_field` (`fid`, `field`, `weight`, `field_type`, `field_choices`, `sql_choices`, `match_type`, `match_regex`, `func_callback`, `min_length`, `max_length`, `required`, `show_register`, `user_editable`, `show_profile`, `class`, `language`, `default_value`, `system`) VALUES (2, 'last_name', 2, 'textbox', '', '', 'none', '', '', 0, 100, 0, 0, 1, 1, 'input', 'a:1:{s:2:\"vi\";a:2:{i:0;s:20:\"Họ và tên đệm\";i:1;s:0:\"\";}}', '', 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_field` (`fid`, `field`, `weight`, `field_type`, `field_choices`, `sql_choices`, `match_type`, `match_regex`, `func_callback`, `min_length`, `max_length`, `required`, `show_register`, `user_editable`, `show_profile`, `class`, `language`, `default_value`, `system`) VALUES (3, 'gender', 3, 'select', 'a:3:{s:1:\"N\";s:3:\"N/A\";s:1:\"M\";s:3:\"Nam\";s:1:\"F\";s:4:\"Nữ\";}', '', 'none', '', '', 0, 255, 0, 0, 1, 1, 'input', 'a:1:{s:2:\"vi\";a:2:{i:0;s:12:\"Giới tính\";i:1;s:0:\"\";}}', '2', 1)";
@@ -2066,6 +2104,8 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_field` (`
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_field` (`fid`, `field`, `weight`, `field_type`, `field_choices`, `sql_choices`, `match_type`, `match_regex`, `func_callback`, `min_length`, `max_length`, `required`, `show_register`, `user_editable`, `show_profile`, `class`, `language`, `default_value`, `system`) VALUES (5, 'sig', 5, 'textarea', '', '', 'none', '', '', 0, 1000, 0, 0, 1, 1, 'input', 'a:1:{s:2:\"vi\";a:2:{i:0;s:9:\"Chữ ký\";i:1;s:0:\"\";}}', '', 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_field` (`fid`, `field`, `weight`, `field_type`, `field_choices`, `sql_choices`, `match_type`, `match_regex`, `func_callback`, `min_length`, `max_length`, `required`, `show_register`, `user_editable`, `show_profile`, `class`, `language`, `default_value`, `system`) VALUES (6, 'question', 6, 'textbox', '', '', 'none', '', '', 3, 255, 0, 0, 1, 1, 'input', 'a:1:{s:2:\"vi\";a:2:{i:0;s:22:\"Câu hỏi bảo mật\";i:1;s:0:\"\";}}', '', 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_field` (`fid`, `field`, `weight`, `field_type`, `field_choices`, `sql_choices`, `match_type`, `match_regex`, `func_callback`, `min_length`, `max_length`, `required`, `show_register`, `user_editable`, `show_profile`, `class`, `language`, `default_value`, `system`) VALUES (7, 'answer', 7, 'textbox', '', '', 'none', '', '', 3, 255, 0, 0, 1, 1, 'input', 'a:1:{s:2:\"vi\";a:2:{i:0;s:22:\"Trả lời câu hỏi\";i:1;s:0:\"\";}}', '', 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_field` (`fid`, `field`, `weight`, `field_type`, `field_choices`, `sql_choices`, `match_type`, `match_regex`, `func_callback`, `min_length`, `max_length`, `required`, `show_register`, `user_editable`, `show_profile`, `class`, `language`, `default_value`, `system`) VALUES (8, 'slack_id', 9, 'textbox', '', '', 'none', '', '', 0, 255, 0, 0, 1, 0, 'input', 'a:1:{s:2:\"vi\";a:2:{i:0;s:8:\"Slack ID\";i:1;s:0:\"\";}}', '', 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_field` (`fid`, `field`, `weight`, `field_type`, `field_choices`, `sql_choices`, `match_type`, `match_regex`, `func_callback`, `min_length`, `max_length`, `required`, `show_register`, `user_editable`, `show_profile`, `class`, `language`, `default_value`, `system`) VALUES (9, 'notify_type', 8, 'checkbox', 'a:2:{s:4:\"push\";s:18:\"Thông báo đẩy\";s:5:\"slack\";s:5:\"Slack\";}', '', 'none', '', '', 0, 255, 0, 0, 1, 0, 'input', 'a:1:{s:2:\"vi\";a:2:{i:0;s:24:\"Kênh nhận thông báo\";i:1;s:0:\"\";}}', '1', 0)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_users_groups`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_users_groups` (
@@ -2092,10 +2132,10 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_users_groups` 
   UNIQUE KEY `ktitle` (`title`,`idsite`),
   KEY `exp_time` (`exp_time`)
 ) ENGINE=MyISAM  AUTO_INCREMENT=17  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups` (`group_id`, `title`, `email`, `description`, `content`, `group_type`, `group_color`, `group_avatar`, `require_2step_admin`, `require_2step_site`, `is_default`, `add_time`, `exp_time`, `weight`, `act`, `idsite`, `numbers`, `siteus`, `config`) VALUES (1, 'Super admin', '', 'Super Admin', '', 0, '', '', 0, 0, 0, 1514880771, 0, 1, 1, 0, 1, 0, 'a:7:{s:17:\"access_groups_add\";i:1;s:17:\"access_groups_del\";i:1;s:12:\"access_addus\";i:0;s:14:\"access_waiting\";i:0;s:13:\"access_editus\";i:0;s:12:\"access_delus\";i:0;s:13:\"access_passus\";i:0;}')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups` (`group_id`, `title`, `email`, `description`, `content`, `group_type`, `group_color`, `group_avatar`, `require_2step_admin`, `require_2step_site`, `is_default`, `add_time`, `exp_time`, `weight`, `act`, `idsite`, `numbers`, `siteus`, `config`) VALUES (2, 'General admin', '', 'General Admin', '', 0, '', '', 0, 0, 0, 1514880771, 0, 2, 1, 0, 0, 0, 'a:7:{s:17:\"access_groups_add\";i:1;s:17:\"access_groups_del\";i:1;s:12:\"access_addus\";i:0;s:14:\"access_waiting\";i:0;s:13:\"access_editus\";i:0;s:12:\"access_delus\";i:0;s:13:\"access_passus\";i:0;}')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups` (`group_id`, `title`, `email`, `description`, `content`, `group_type`, `group_color`, `group_avatar`, `require_2step_admin`, `require_2step_site`, `is_default`, `add_time`, `exp_time`, `weight`, `act`, `idsite`, `numbers`, `siteus`, `config`) VALUES (1, 'Super admin', '', 'Super Admin', '', 0, '', '', 0, 0, 0, 1514880771, 0, 1, 1, 0, 2, 0, 'a:7:{s:17:\"access_groups_add\";i:1;s:17:\"access_groups_del\";i:1;s:12:\"access_addus\";i:0;s:14:\"access_waiting\";i:0;s:13:\"access_editus\";i:0;s:12:\"access_delus\";i:0;s:13:\"access_passus\";i:0;}')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups` (`group_id`, `title`, `email`, `description`, `content`, `group_type`, `group_color`, `group_avatar`, `require_2step_admin`, `require_2step_site`, `is_default`, `add_time`, `exp_time`, `weight`, `act`, `idsite`, `numbers`, `siteus`, `config`) VALUES (2, 'General admin', '', 'General Admin', '', 0, '', '', 0, 0, 0, 1514880771, 0, 2, 1, 0, 1, 0, 'a:7:{s:17:\"access_groups_add\";i:1;s:17:\"access_groups_del\";i:1;s:12:\"access_addus\";i:0;s:14:\"access_waiting\";i:0;s:13:\"access_editus\";i:0;s:12:\"access_delus\";i:0;s:13:\"access_passus\";i:0;}')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups` (`group_id`, `title`, `email`, `description`, `content`, `group_type`, `group_color`, `group_avatar`, `require_2step_admin`, `require_2step_site`, `is_default`, `add_time`, `exp_time`, `weight`, `act`, `idsite`, `numbers`, `siteus`, `config`) VALUES (3, 'Module admin', '', 'Module Admin', '', 0, '', '', 0, 0, 0, 1514880771, 0, 3, 1, 0, 0, 0, 'a:7:{s:17:\"access_groups_add\";i:1;s:17:\"access_groups_del\";i:1;s:12:\"access_addus\";i:0;s:14:\"access_waiting\";i:0;s:13:\"access_editus\";i:0;s:12:\"access_delus\";i:0;s:13:\"access_passus\";i:0;}')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups` (`group_id`, `title`, `email`, `description`, `content`, `group_type`, `group_color`, `group_avatar`, `require_2step_admin`, `require_2step_site`, `is_default`, `add_time`, `exp_time`, `weight`, `act`, `idsite`, `numbers`, `siteus`, `config`) VALUES (4, 'Users', '', 'Users', '', 0, '', '', 0, 0, 0, 1514880771, 0, 4, 1, 0, 2, 0, 'a:7:{s:17:\"access_groups_add\";i:1;s:17:\"access_groups_del\";i:1;s:12:\"access_addus\";i:0;s:14:\"access_waiting\";i:0;s:13:\"access_editus\";i:0;s:12:\"access_delus\";i:0;s:13:\"access_passus\";i:0;}')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups` (`group_id`, `title`, `email`, `description`, `content`, `group_type`, `group_color`, `group_avatar`, `require_2step_admin`, `require_2step_site`, `is_default`, `add_time`, `exp_time`, `weight`, `act`, `idsite`, `numbers`, `siteus`, `config`) VALUES (4, 'Users', '', 'Users', '', 0, '', '', 0, 0, 0, 1514880771, 0, 4, 1, 0, 12, 0, 'a:7:{s:17:\"access_groups_add\";i:1;s:17:\"access_groups_del\";i:1;s:12:\"access_addus\";i:0;s:14:\"access_waiting\";i:0;s:13:\"access_editus\";i:0;s:12:\"access_delus\";i:0;s:13:\"access_passus\";i:0;}')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups` (`group_id`, `title`, `email`, `description`, `content`, `group_type`, `group_color`, `group_avatar`, `require_2step_admin`, `require_2step_site`, `is_default`, `add_time`, `exp_time`, `weight`, `act`, `idsite`, `numbers`, `siteus`, `config`) VALUES (7, 'New Users', '', 'New Users', '', 0, '', '', 0, 0, 0, 1514880771, 0, 5, 1, 0, 0, 0, 'a:7:{s:17:\"access_groups_add\";i:1;s:17:\"access_groups_del\";i:1;s:12:\"access_addus\";i:0;s:14:\"access_waiting\";i:0;s:13:\"access_editus\";i:0;s:12:\"access_delus\";i:0;s:13:\"access_passus\";i:0;}')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups` (`group_id`, `title`, `email`, `description`, `content`, `group_type`, `group_color`, `group_avatar`, `require_2step_admin`, `require_2step_site`, `is_default`, `add_time`, `exp_time`, `weight`, `act`, `idsite`, `numbers`, `siteus`, `config`) VALUES (5, 'Guest', '', 'Guest', '', 0, '', '', 0, 0, 0, 1514880771, 0, 6, 1, 0, 0, 0, 'a:7:{s:17:\"access_groups_add\";i:1;s:17:\"access_groups_del\";i:1;s:12:\"access_addus\";i:0;s:14:\"access_waiting\";i:0;s:13:\"access_editus\";i:0;s:12:\"access_delus\";i:0;s:13:\"access_passus\";i:0;}')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups` (`group_id`, `title`, `email`, `description`, `content`, `group_type`, `group_color`, `group_avatar`, `require_2step_admin`, `require_2step_site`, `is_default`, `add_time`, `exp_time`, `weight`, `act`, `idsite`, `numbers`, `siteus`, `config`) VALUES (6, 'All', '', 'All', '', 0, '', '', 0, 0, 0, 1514880771, 0, 7, 1, 0, 0, 0, 'a:7:{s:17:\"access_groups_add\";i:1;s:17:\"access_groups_del\";i:1;s:12:\"access_addus\";i:0;s:14:\"access_waiting\";i:0;s:13:\"access_editus\";i:0;s:12:\"access_delus\";i:0;s:13:\"access_passus\";i:0;}')";
@@ -2120,13 +2160,18 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups_us
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups_users` (`group_id`, `userid`, `is_leader`, `approved`, `data`) VALUES (10, 1, 1, 1, '0')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups_users` (`group_id`, `userid`, `is_leader`, `approved`, `data`) VALUES (14, 1, 0, 1, '0')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups_users` (`group_id`, `userid`, `is_leader`, `approved`, `data`) VALUES (13, 1, 1, 1, '0')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups_users` (`group_id`, `userid`, `is_leader`, `approved`, `data`) VALUES (1, 12, 0, 1, '0')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups_users` (`group_id`, `userid`, `is_leader`, `approved`, `data`) VALUES (2, 12, 0, 1, '0')";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_users_info`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_users_info` (
   `userid` mediumint(8) unsigned NOT NULL,
+  `slack_id` varchar(255) NOT NULL DEFAULT '',
+  `notify_type` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`userid`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_info` (`userid`) VALUES (1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_info` (`userid`, `slack_id`, `notify_type`) VALUES (1, 'UBLQAUV9S', 'push,slack')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_info` (`userid`, `slack_id`, `notify_type`) VALUES (13, '', '')";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_users_openid`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_users_openid` (
@@ -4944,7 +4989,7 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_comment` (
   PRIMARY KEY (`cid`),
   KEY `mod_id` (`module`,`area`,`id`),
   KEY `post_time` (`post_time`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+) ENGINE=MyISAM  AUTO_INCREMENT=3  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_contact_department`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_contact_department` (
@@ -5078,24 +5123,37 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_customer` (
   `facebook` varchar(255) NOT NULL,
   `skype` varchar(50) NOT NULL,
   `zalo` varchar(255) NOT NULL,
-  `gender` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT 'Giới tính',
+  `gender` tinyint(1) unsigned NOT NULL DEFAULT '2' COMMENT 'Giới tính',
   `address` varchar(255) NOT NULL COMMENT 'Địa chỉ',
   `unit` varchar(255) NOT NULL COMMENT 'Đơn vị công tác',
   `trading_person` varchar(255) NOT NULL COMMENT 'Người giao dịch',
   `unit_name` varchar(255) NOT NULL COMMENT 'Đơn vị',
   `tax_code` varchar(30) NOT NULL COMMENT 'Mã số thuế',
   `address_invoice` varchar(255) NOT NULL COMMENT 'Địa chỉ đơn vị',
-  `care_staff` smallint(4) unsigned NOT NULL COMMENT 'Nhân viên chăm sóc KH',
+  `care_staff` mediumint(8) unsigned NOT NULL COMMENT 'Nhân viên chăm sóc KH',
   `image` varchar(255) NOT NULL,
   `addtime` int(11) unsigned NOT NULL COMMENT 'Thời gian thêm',
   `edittime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'Thời gian sửa',
+  `userid_link` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT 'Tài khoản liên kết',
   `userid` mediumint(8) unsigned NOT NULL COMMENT 'Người thêm',
   `note` text NOT NULL COMMENT 'Ghi chú',
   `is_contacts` tinyint(1) NOT NULL COMMENT 'Loại khách hàng',
   `type_id` smallint(4) unsigned NOT NULL DEFAULT '0',
   `tag_id` varchar(100) NOT NULL,
+  `share_acc` varchar(100) NOT NULL COMMENT 'share với tài khoản',
+  `share_groups` smallint(4) unsigned NOT NULL COMMENT 'share với group',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  AUTO_INCREMENT=3  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+) ENGINE=MyISAM  AUTO_INCREMENT=9  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_customer` (`id`, `first_name`, `last_name`, `main_phone`, `other_phone`, `main_email`, `other_email`, `birthday`, `facebook`, `skype`, `zalo`, `gender`, `address`, `unit`, `trading_person`, `unit_name`, `tax_code`, `address_invoice`, `care_staff`, `image`, `addtime`, `edittime`, `userid_link`, `userid`, `note`, `is_contacts`, `type_id`, `tag_id`, `share_acc`, `share_groups`) VALUES (8, 'Trien', 'Ho Ngoc', '', '', 'hongoctrien@tdfoss.vn', '', 0, '', '', '', 2, 'Ton That Thuyet', '', '', '', '', '', 1, '', 1550043792, 0, 0, 1, '', 0, 0, '', '', 0)";
+
+$sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_customer_share_acc`";
+$sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_customer_share_acc` (
+  `userid` smallint(4) NOT NULL,
+  `customerid` mediumint(8) unsigned NOT NULL,
+  `permisson` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT 'Quyền',
+  UNIQUE KEY `tid` (`userid`,`customerid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_customer_share_acc` (`userid`, `customerid`, `permisson`) VALUES (1, 8, 1)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_customer_tags`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_customer_tags` (
@@ -5124,6 +5182,23 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_customer_ty
 ) ENGINE=MyISAM  AUTO_INCREMENT=2  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_customer_types` (`id`, `title`, `note`, `weight`, `active`) VALUES (1, 'drgdrg drg', '', 1, 1)";
 
+$sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_customer_units`";
+$sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_customer_units` (
+  `tid` smallint(4) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL COMMENT 'Tiêu đề',
+  `note` text NOT NULL COMMENT 'Ghi chú',
+  PRIMARY KEY (`tid`)
+) ENGINE=MyISAM  AUTO_INCREMENT=5  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_customer_units` (`tid`, `title`, `note`) VALUES (1, 'fhr hfh fh', '')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_customer_units` (`tid`, `title`, `note`) VALUES (2, 'd gtg ftgh ftg', '')";
+
+$sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_customer_units_customer`";
+$sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_customer_units_customer` (
+  `tid` smallint(4) NOT NULL,
+  `customerid` mediumint(8) unsigned NOT NULL,
+  UNIQUE KEY `tid` (`tid`,`customerid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_email`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_email` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -5133,79 +5208,13 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_email` (
   `content` text NOT NULL,
   `files` varchar(255) NOT NULL,
   `addtime` int(11) NOT NULL,
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  AUTO_INCREMENT=12  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_email` (`id`, `title`, `useradd`, `cc_id`, `content`, `files`, `addtime`) VALUES (4, '[lynx] Thông tin dự án g g h', 0, '', 'Xin chào <strong>Hồ Thị Hoa Phượng</strong>. Dự án&nbsp;<strong>g g h</strong> đã được khởi tạo tại <strong>lynx</strong>. Dưới đây là thông tin chi tiết về dự án.
+) ENGINE=MyISAM  AUTO_INCREMENT=20  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_email` (`id`, `title`, `useradd`, `cc_id`, `content`, `files`, `addtime`, `status`) VALUES (18, 'fthg fth fth', 1, '', '', '', 1549878375, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_email` (`id`, `title`, `useradd`, `cc_id`, `content`, `files`, `addtime`, `status`) VALUES (19, '[lynx] Thông tin dự án test', 0, '', 'Xin chào <strong>Ho Ngoc Trien</strong>. Dự án&nbsp;<strong>test</strong> đã được khởi tạo tại <strong>lynx</strong>. Dưới đây là thông tin chi tiết về dự án.
 <ul>
-	<li><strong>Tên dự án:</strong>&nbsp;g g h</li>
-	<li><strong>Thời gian bắt đầu: </strong>-</li>
-	<li><strong>Thời gian hoàn thành (dự kiến):</strong>&nbsp;-</li>
-	<li><strong>Trạng thái:&nbsp;</strong>Chưa thực hiện</li>
-</ul>
-<br  />
-<br  />
-Mọi thông tin, hoạt động đến dự án sẽ được thông báo qua thư này.<br  />
-Chúc quý khách hàng một ngày làm làm việc hiệu quả!', '', 1534580678)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_email` (`id`, `title`, `useradd`, `cc_id`, `content`, `files`, `addtime`) VALUES (5, 'Hóa đơn \"#000002 - Highcharts Demo\" vừa được tạo', 1, '', '<div style=\"line-height: 27px\">Kính gửi <strong>Hồ Thị Hoa Phượng!</strong><br /> Cảm ơn bạn đã tin tưởng sử dụng dịch vụ của <strong>TDFOSS.,LTD</strong> trong thời gian qua.<br /> <br /> Hôm nay, chúng tôi gửi email này để thông báo về việc khởi tạo hóa đơn&nbsp;mới cho các dịch vụ của chúng tôi mà bạn đang (hoặc bắt đầu) sử dụng. Bạn cần thanh toán (theo thông tin chi tiết bên duới) để không làm dán đoạn dịch vụ.<br /> <br /> <strong>THÔNG TIN HÓA ĐƠN</strong> <ul> <li><strong>Mã:</strong> #000002</li> <li><strong>Ngày tạo:</strong> 28/07/2018</li> <li><strong>Ngày hết hạn thanh toán:</strong> Không xác định</li> <li><strong>Trạng thái thanh toán:</strong> Đã thanh toán đủ</li> </ul> <strong>CHI TIẾT HÓA ĐƠN</strong><br /> <link rel=\"StyleSheet\" href=\"/themes/default/css/invoice_pdf.css\" type=\"text/css\" />
-<table class=\"table table-striped table-bordered table-hover table-middle\" style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; border-collapse: collapse; border-spacing: 0; background-color: transparent; width: 100%; max-width: 100%; margin-bottom: 18px; border-width: 1px; border-style: solid; border-color: #ddd;\">
-        <thead style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; text-align: left;\">
-        <tr style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;\">
-            <th width=\"50\" style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; text-align: left; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; vertical-align: bottom; border-bottom-style: solid; border-bottom-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd; border-bottom-width: 2px;\">STT</th>
-            <th width=\"200\" style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; text-align: left; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; vertical-align: bottom; border-bottom-style: solid; border-bottom-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd; border-bottom-width: 2px;\">Tiêu đề</th>
-            <th width=\"80\" style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; text-align: left; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; vertical-align: bottom; border-bottom-style: solid; border-bottom-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd; border-bottom-width: 2px;\">Số lượng</th>
-            <th width=\"150\" style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; text-align: left; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; vertical-align: bottom; border-bottom-style: solid; border-bottom-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd; border-bottom-width: 2px;\">Thành tiền</th>
-            <th width=\"80\" style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; text-align: left; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; vertical-align: bottom; border-bottom-style: solid; border-bottom-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd; border-bottom-width: 2px;\">Thuế (%)</th>
-            <th width=\"150\" style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; text-align: left; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; vertical-align: bottom; border-bottom-style: solid; border-bottom-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd; border-bottom-width: 2px;\">Thuế (thành tiền)</th>
-            <th width=\"150\" style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; text-align: left; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; vertical-align: bottom; border-bottom-style: solid; border-bottom-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd; border-bottom-width: 2px;\">Tổng</th>
-        </tr>
-    </thead>
-    <tbody id=\"item-detail\" style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;\">
-                <tr style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;\">
-            <td style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; vertical-align: top; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd; text-align: center\">1</td>
-            <td style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; vertical-align: top; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd;\"><strong>re  hrth</strong><br><span style=\"display: block; margin-top: 5px; margin-bottom: 10px; color: #737373; font-size: 13px\"></span></td>
-            <td style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; vertical-align: top; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd; text-align:center\">1</td>
-            <td style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; vertical-align: top; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd;\">10,000 VNĐ</td>
-            <td style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; vertical-align: top; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd; text-align:center\">5</td>
-            <td style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; vertical-align: top; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd;\">500 VNĐ</td>
-            <td style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; vertical-align: top; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd;\">10,500 VNĐ</td>
-        </tr>
-        
-        <tr style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;\">
-            <td style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; vertical-align: top; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd; text-align: center\">2</td>
-            <td style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; vertical-align: top; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd;\"><strong>ger eg e</strong><br><span style=\"display: block; margin-top: 5px; margin-bottom: 10px; color: #737373; font-size: 13px\"></span></td>
-            <td style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; vertical-align: top; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd; text-align:center\">2</td>
-            <td style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; vertical-align: top; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd;\">20,000 VNĐ</td>
-            <td style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; vertical-align: top; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd; text-align:center\">10</td>
-            <td style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; vertical-align: top; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd;\">4,000 VNĐ</td>
-            <td style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; vertical-align: top; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd;\">44,000 VNĐ</td>
-        </tr>
-        
-    </tbody>
-    
-    <tfoot style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;\">
-        <tr style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;\">
-            <td colspan=\"6\" class=\"text-right\" style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; text-align: right; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; vertical-align: top; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd;\"><strong style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; font-weight: bold;\">Tổng tiền</strong></td>
-            <td style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; vertical-align: top; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd;\">50,000 VNĐ</td>
-        </tr>
-        <tr style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;\">
-            <td colspan=\"6\" class=\"text-right\" style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; text-align: right; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; vertical-align: top; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd;\"><strong style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; font-weight: bold;\">Tổng thuế</strong></td>
-            <td style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; vertical-align: top; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd;\">2,500 VNĐ</td>
-        </tr>
-        
-        <tr style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;\">
-            <td colspan=\"6\" class=\"text-right\" style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; text-align: right; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; vertical-align: top; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd;\"><strong style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; font-weight: bold;\">Tổng cộng</strong></td>
-            <td style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; vertical-align: top; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd;\">54,500 VNĐ</td>
-        </tr>
-        <tr style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;\">
-            <td colspan=\"6\" class=\"text-right\" style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; text-align: right; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; vertical-align: top; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd;\"><strong style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; font-weight: bold;\">Bằng chữ</strong></td>
-            <td style=\"-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding-top: 8px; padding-bottom: 8px; padding-right: 8px; padding-left: 8px; line-height: 1.42857143; vertical-align: top; border-top-width: 1px; border-top-style: solid; border-top-color: #ddd; border-width: 1px; border-style: solid; border-color: #ddd;\">Năm mươi bốn nghìn năm trăm đồng</td>
-        </tr>
-    </tfoot>
-</table>
-<br /> <br /> <strong>HƯỚNG DẪN THANH TOÁN</strong> <ul> <li>Vui lòng xem tại&nbsp;<a href=\"https://tdfoss.vn/huong-dan-thanh-toan.html\">https://tdfoss.vn/huong-dan-thanh-toan.html</a></li> <li>Nội dung thanh toán (nếu có) ghi rõ <strong>Thanh toan hoa don #000002</strong></li> </ul> <br /> Xin chân thành cảm ơn!</div>', '', 1534644995)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_email` (`id`, `title`, `useradd`, `cc_id`, `content`, `files`, `addtime`) VALUES (6, '[lynx] Thông tin dự án gr drg', 0, '', 'Xin chào <strong>Hồ Thị Hoa Phượng</strong>. Dự án&nbsp;<strong>gr drg</strong> đã được khởi tạo tại <strong>lynx</strong>. Dưới đây là thông tin chi tiết về dự án.
-<ul>
-	<li><strong>Tên dự án:</strong>&nbsp;gr drg</li>
+	<li><strong>Tên dự án:</strong>&nbsp;test</li>
 	<li><strong>Thời gian bắt đầu: </strong>-</li>
 	<li><strong>Thời gian hoàn thành (dự kiến):</strong>&nbsp;-</li>
 	<li><strong>Trạng thái:&nbsp;</strong></li>
@@ -5213,62 +5222,8 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_email` (`id`
 <br  />
 <br  />
 Mọi thông tin, hoạt động đến dự án sẽ được thông báo qua thư này.<br  />
-Chúc quý khách hàng một ngày làm làm việc hiệu quả!', '', 1536223937)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_email` (`id`, `title`, `useradd`, `cc_id`, `content`, `files`, `addtime`) VALUES (7, '[lynx] Thông tin dự án AZtest - Gói cơ bản', 0, '', 'Xin chào <strong>Hồ Thị Hoa Phượng</strong>. Dự án&nbsp;<strong>AZtest - Gói cơ bản</strong> đã được khởi tạo tại <strong>lynx</strong>. Dưới đây là thông tin chi tiết về dự án.
-<ul>
-	<li><strong>Tên dự án:</strong>&nbsp;AZtest - Gói cơ bản</li>
-	<li><strong>Thời gian bắt đầu: </strong>-</li>
-	<li><strong>Thời gian hoàn thành (dự kiến):</strong>&nbsp;-</li>
-	<li><strong>Trạng thái:&nbsp;</strong></li>
-</ul>
-<br  />
-<br  />
-Mọi thông tin, hoạt động đến dự án sẽ được thông báo qua thư này.<br  />
-Chúc quý khách hàng một ngày làm làm việc hiệu quả!', '', 1536225250)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_email` (`id`, `title`, `useradd`, `cc_id`, `content`, `files`, `addtime`) VALUES (8, '[lynx] Thông tin dự án th fth', 0, '', 'Xin chào <strong>Hồ Thị Hoa Phượng</strong>. Dự án&nbsp;<strong>th fth</strong> đã được khởi tạo tại <strong>lynx</strong>. Dưới đây là thông tin chi tiết về dự án.
-<ul>
-	<li><strong>Tên dự án:</strong>&nbsp;th fth</li>
-	<li><strong>Thời gian bắt đầu: </strong>-</li>
-	<li><strong>Thời gian hoàn thành (dự kiến):</strong>&nbsp;-</li>
-	<li><strong>Trạng thái:&nbsp;</strong></li>
-</ul>
-sd rdgf&nbsp;<br  />
-<br  />
-Mọi thông tin, hoạt động đến dự án sẽ được thông báo qua thư này.<br  />
-Chúc quý khách hàng một ngày làm làm việc hiệu quả!', '', 1536376492)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_email` (`id`, `title`, `useradd`, `cc_id`, `content`, `files`, `addtime`) VALUES (9, '[lynx] Thông tin dự án Highcharts Demo', 0, '', 'Xin chào <strong>Hồ Thị Hoa Phượng</strong>. Dự án&nbsp;<strong>Highcharts Demo</strong> đã được khởi tạo tại <strong>lynx</strong>. Dưới đây là thông tin chi tiết về dự án.
-<ul>
-	<li><strong>Tên dự án:</strong>&nbsp;Highcharts Demo</li>
-	<li><strong>Thời gian bắt đầu: </strong>-</li>
-	<li><strong>Thời gian hoàn thành (dự kiến):</strong>&nbsp;-</li>
-	<li><strong>Trạng thái:&nbsp;</strong></li>
-</ul>
-<br  />
-<br  />
-Mọi thông tin, hoạt động đến dự án sẽ được thông báo qua thư này.<br  />
-Chúc quý khách hàng một ngày làm làm việc hiệu quả!', '', 1538013135)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_email` (`id`, `title`, `useradd`, `cc_id`, `content`, `files`, `addtime`) VALUES (10, '[lynx] Thông tin dự án Highcharts Demo', 0, '', 'Xin chào <strong>Hồ Thị Hoa Phượng</strong>. Dự án&nbsp;<strong>Highcharts Demo</strong> đã được khởi tạo tại <strong>lynx</strong>. Dưới đây là thông tin chi tiết về dự án.
-<ul>
-	<li><strong>Tên dự án:</strong>&nbsp;Highcharts Demo</li>
-	<li><strong>Thời gian bắt đầu: </strong>-</li>
-	<li><strong>Thời gian hoàn thành (dự kiến):</strong>&nbsp;-</li>
-	<li><strong>Trạng thái:&nbsp;</strong></li>
-</ul>
-<br  />
-<br  />
-Mọi thông tin, hoạt động đến dự án sẽ được thông báo qua thư này.<br  />
-Chúc quý khách hàng một ngày làm làm việc hiệu quả!', '', 1538013150)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_email` (`id`, `title`, `useradd`, `cc_id`, `content`, `files`, `addtime`) VALUES (11, '[lynx] Thông tin dự án Highcharts Demo', 0, '', 'Xin chào <strong>Hồ Thị Hoa Phượng</strong>. Dự án&nbsp;<strong>Highcharts Demo</strong> đã được khởi tạo tại <strong>lynx</strong>. Dưới đây là thông tin chi tiết về dự án.
-<ul>
-	<li><strong>Tên dự án:</strong>&nbsp;Highcharts Demo</li>
-	<li><strong>Thời gian bắt đầu: </strong>-</li>
-	<li><strong>Thời gian hoàn thành (dự kiến):</strong>&nbsp;-</li>
-	<li><strong>Trạng thái:&nbsp;</strong></li>
-</ul>
-<br  />
-<br  />
-Mọi thông tin, hoạt động đến dự án sẽ được thông báo qua thư này.<br  />
-Chúc quý khách hàng một ngày làm làm việc hiệu quả!', '', 1538013158)";
+Chúc quý khách hàng một ngày làm làm việc hiệu quả!', '', 1551351572, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_email` (`id`, `title`, `useradd`, `cc_id`, `content`, `files`, `addtime`, `status`) VALUES (17, 'drg drg', 1, '', 'n 56 tg', '', 1549854535, 0)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_email_sendto`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_email_sendto` (
@@ -5276,14 +5231,8 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_email_sendt
   `customer_id` mediumint(8) unsigned NOT NULL,
   UNIQUE KEY `email_id` (`email_id`,`customer_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_email_sendto` (`email_id`, `customer_id`) VALUES (4, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_email_sendto` (`email_id`, `customer_id`) VALUES (5, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_email_sendto` (`email_id`, `customer_id`) VALUES (6, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_email_sendto` (`email_id`, `customer_id`) VALUES (7, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_email_sendto` (`email_id`, `customer_id`) VALUES (8, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_email_sendto` (`email_id`, `customer_id`) VALUES (9, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_email_sendto` (`email_id`, `customer_id`) VALUES (10, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_email_sendto` (`email_id`, `customer_id`) VALUES (11, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_email_sendto` (`email_id`, `customer_id`) VALUES (17, 4)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_email_sendto` (`email_id`, `customer_id`) VALUES (19, 8)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_email_template`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_email_template` (
@@ -5345,6 +5294,7 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_invoice` (
   `customerid` mediumint(8) unsigned NOT NULL,
   `createtime` int(11) unsigned NOT NULL DEFAULT '0',
   `duetime` int(11) unsigned NOT NULL DEFAULT '0',
+  `paytime` int(11) unsigned NOT NULL DEFAULT '0',
   `cycle` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `status` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `workforceid` smallint(4) unsigned NOT NULL,
@@ -5355,15 +5305,19 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_invoice` (
   `grand_total` double unsigned NOT NULL DEFAULT '0',
   `discount_percent` tinyint(2) unsigned NOT NULL DEFAULT '0',
   `discount_value` double unsigned NOT NULL DEFAULT '0',
-  `sended` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `sended` smallint(4) unsigned NOT NULL DEFAULT '0' COMMENT 'Số lượt gửi thông tin hóa đơn',
   `addtime` int(11) unsigned NOT NULL,
   `updatetime` int(11) unsigned NOT NULL DEFAULT '0',
   `useradd` mediumint(8) unsigned NOT NULL,
   `reminder` tinyint(1) unsigned NOT NULL DEFAULT '1',
   `auto_create` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  AUTO_INCREMENT=3  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_invoice` (`id`, `title`, `code`, `customerid`, `createtime`, `duetime`, `cycle`, `status`, `workforceid`, `presenterid`, `performerid`, `terms`, `description`, `grand_total`, `discount_percent`, `discount_value`, `sended`, `addtime`, `updatetime`, `useradd`, `reminder`, `auto_create`) VALUES (2, 'Highcharts Demo', '000002', 1, 1532795039, 0, 0, 1, 0, 0, 0, '', '', '54500', 0, '0', 0, 1534644995, 0, 0, 1, 0)";
+) ENGINE=MyISAM  AUTO_INCREMENT=9  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_invoice` (`id`, `title`, `code`, `customerid`, `createtime`, `duetime`, `paytime`, `cycle`, `status`, `workforceid`, `presenterid`, `performerid`, `terms`, `description`, `grand_total`, `discount_percent`, `discount_value`, `sended`, `addtime`, `updatetime`, `useradd`, `reminder`, `auto_create`) VALUES (2, 'Highcharts Demo', '000002', 1, 1532795039, 0, 0, 0, 1, 0, 0, 0, '', '', '54500', 0, '0', 0, 1534644995, 0, 0, 1, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_invoice` (`id`, `title`, `code`, `customerid`, `createtime`, `duetime`, `paytime`, `cycle`, `status`, `workforceid`, `presenterid`, `performerid`, `terms`, `description`, `grand_total`, `discount_percent`, `discount_value`, `sended`, `addtime`, `updatetime`, `useradd`, `reminder`, `auto_create`) VALUES (4, 'Highcharts Demo', '000004', 4, 1544977439, 0, 0, 0, 1, 0, 0, 0, '', '', '0', 0, '0', 0, 1544962102, 0, 0, 1, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_invoice` (`id`, `title`, `code`, `customerid`, `createtime`, `duetime`, `paytime`, `cycle`, `status`, `workforceid`, `presenterid`, `performerid`, `terms`, `description`, `grand_total`, `discount_percent`, `discount_value`, `sended`, `addtime`, `updatetime`, `useradd`, `reminder`, `auto_create`) VALUES (5, 'Highcharts Demo', '000005', 4, 1544977439, 0, 0, 0, 1, 0, 0, 0, '', '', '0', 0, '0', 0, 1544964547, 0, 0, 1, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_invoice` (`id`, `title`, `code`, `customerid`, `createtime`, `duetime`, `paytime`, `cycle`, `status`, `workforceid`, `presenterid`, `performerid`, `terms`, `description`, `grand_total`, `discount_percent`, `discount_value`, `sended`, `addtime`, `updatetime`, `useradd`, `reminder`, `auto_create`) VALUES (6, 'Highcharts Demo', '000006', 4, 1544977439, 0, 0, 0, 1, 0, 0, 0, '', '', '0', 0, '0', 0, 1544964863, 0, 1, 1, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_invoice` (`id`, `title`, `code`, `customerid`, `createtime`, `duetime`, `paytime`, `cycle`, `status`, `workforceid`, `presenterid`, `performerid`, `terms`, `description`, `grand_total`, `discount_percent`, `discount_value`, `sended`, `addtime`, `updatetime`, `useradd`, `reminder`, `auto_create`) VALUES (8, 'test', '000008', 8, 1550075039, 0, 0, 0, 3, 0, 0, 0, '', '', '10000000', 0, '0', 0, 1550044240, 0, 1, 1, 0)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_invoice_detail`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_invoice_detail` (
@@ -5381,9 +5335,13 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_invoice_det
   `weight` mediumint(8) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `idinvoice` (`idinvoice`,`idcustomer`,`module`,`itemid`)
-) ENGINE=MyISAM  AUTO_INCREMENT=5  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+) ENGINE=MyISAM  AUTO_INCREMENT=11  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_invoice_detail` (`id`, `idinvoice`, `idcustomer`, `module`, `itemid`, `unit_price`, `quantity`, `price`, `vat`, `total`, `note`, `weight`) VALUES (3, 2, 1, 'services', 1, '0', 1, '10000', 5, '10500', '', 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_invoice_detail` (`id`, `idinvoice`, `idcustomer`, `module`, `itemid`, `unit_price`, `quantity`, `price`, `vat`, `total`, `note`, `weight`) VALUES (4, 2, 1, 'services', 2, '0', 2, '20000', 10, '44000', '', 2)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_invoice_detail` (`id`, `idinvoice`, `idcustomer`, `module`, `itemid`, `unit_price`, `quantity`, `price`, `vat`, `total`, `note`, `weight`) VALUES (10, 8, 8, 'services', 3, '10000000', 1, '10000000', 0, '10000000', '', 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_invoice_detail` (`id`, `idinvoice`, `idcustomer`, `module`, `itemid`, `unit_price`, `quantity`, `price`, `vat`, `total`, `note`, `weight`) VALUES (6, 4, 4, 'services', 1, '0', 1, '1000000', 10, '0', '', 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_invoice_detail` (`id`, `idinvoice`, `idcustomer`, `module`, `itemid`, `unit_price`, `quantity`, `price`, `vat`, `total`, `note`, `weight`) VALUES (7, 5, 4, 'services', 1, '0', 1, '1000000', 10, '0', '', 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_invoice_detail` (`id`, `idinvoice`, `idcustomer`, `module`, `itemid`, `unit_price`, `quantity`, `price`, `vat`, `total`, `note`, `weight`) VALUES (8, 6, 4, 'services', 1, '0', 1, '1000000', 10, '0', '', 1)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_invoice_econtent`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_invoice_econtent` (
@@ -5405,7 +5363,11 @@ Hôm nay, chúng tôi gửi email này để thông báo về việc khởi tạ
 </ul>
 <strong>CHI TIẾT HÓA ĐƠN</strong><br  />
 &#91;TABLE&#93;
-<h3><strong>HƯỚNG DẪN THANH TOÁN</strong></h3>
+<h3><strong>LỊCH SỬ GIAO DỊCH</strong><br  />
+<br  />
+&#91;TABLE_TRANSACTION&#93;<br  />
+<br  />
+<strong>HƯỚNG DẪN THANH TOÁN</strong></h3>
 
 <ul>
 	<li>Vui lòng xem tại&nbsp;<a href=\"https://tdfoss.vn/huong-dan-thanh-toan.html\">https://tdfoss.vn/huong-dan-thanh-toan.html</a></li>
@@ -5463,6 +5425,9 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_invoice_econ
 <h3><strong>CHI TIẾT HÓA ĐƠN</strong></h3>
 &#91;TABLE&#93;
 
+<h3><strong>LỊCH SỬ GIAO DỊCH</strong></h3>
+&#91;TABLE_TRANSACTION&#93;
+
 <h3><strong>HƯỚNG DẪN THANH TOÁN</strong></h3>
 
 <ul>
@@ -5481,7 +5446,9 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_invoice_tra
   `payment_data` text NOT NULL,
   `note` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+) ENGINE=MyISAM  AUTO_INCREMENT=5  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_invoice_transaction` (`id`, `invoiceid`, `transaction_time`, `transaction_status`, `payment`, `payment_amount`, `payment_data`, `note`) VALUES (4, 8, 1550077199, 4, '', '5000000', '', '')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_invoice_transaction` (`id`, `invoiceid`, `transaction_time`, `transaction_status`, `payment`, `payment_amount`, `payment_data`, `note`) VALUES (3, 6, 1547384905, 4, '', '0', '', '')";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_menu`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_menu` (
@@ -5489,8 +5456,8 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_menu` (
   `title` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `title` (`title`)
-) ENGINE=MyISAM  AUTO_INCREMENT=2  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu` (`id`, `title`) VALUES (1, 'Top Menu')";
+) ENGINE=MyISAM  AUTO_INCREMENT=3  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu` (`id`, `title`) VALUES (1, 'Menu chính')";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_menu_rows`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_menu_rows` (
@@ -5515,7 +5482,7 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_menu_rows` 
   `status` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `parentid` (`parentid`,`mid`)
-) ENGINE=MyISAM  AUTO_INCREMENT=53  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+) ENGINE=MyISAM  AUTO_INCREMENT=67  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (29, 0, 1, 'Dự án', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=projects', '', '', '', 3, 10, 0, '34', '14', '0', '', 1, '', 0, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (26, 46, 1, 'Nhân sự', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=workforce', '', '', '', 2, 3, 1, '', '14', 'crm', 'workforce', 1, '', 0, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (25, 0, 1, 'Khách hàng', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=customer', '', '', '', 2, 6, 0, '33,42,43', '10,11,12', 'crm', 'manage_customer', 1, '', 0, 1)";
@@ -5523,7 +5490,7 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (31, 0, 1, 'Báo cáo công việc', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=workreport', '', '', '', 6, 16, 0, '', '14', 'workreport', '', 1, '', 0, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (46, 0, 1, 'Văn phòng', '#', '', '', '', 1, 1, 0, '26,51,47,52', '14', '0', '', 1, '', 0, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (34, 29, 1, 'Thêm dự án', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=projects&op=content', '', '', '', 1, 11, 1, '', '6', 'projects', 'main', 1, '', 0, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (44, 0, 1, 'Hóa đơn', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=invoice', '', '', '', 4, 12, 0, '45', '10,11,16', 'invoice', '', 1, '', 0, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (44, 0, 1, 'Hóa đơn', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=invoice', '', '', '', 4, 12, 0, '45', '4', 'invoice', '', 1, '', 0, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (51, 46, 1, 'Dịch vụ', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=services', '', '', '', 4, 5, 1, '', '6', 'services', '', 1, '', 0, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (40, 0, 1, 'Quản lý Email', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=email', '', '', '', 5, 14, 0, '41', '14', 'email', '', 1, '', 0, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_menu_rows` (`id`, `parentid`, `mid`, `title`, `link`, `icon`, `image`, `note`, `weight`, `sort`, `lev`, `subitem`, `groups_view`, `module_name`, `op`, `target`, `css`, `active_type`, `status`) VALUES (41, 40, 1, 'Gửi Email mới', '" . NV_BASE_SITEURL . "index.php?language=vi&nv=email&op=content', '', '', '', 1, 15, 1, '', '6', 'email', 'content', 1, '', 0, 1)";
@@ -5784,6 +5751,8 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modthemes` (
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modthemes` (`func_id`, `layout`, `theme`) VALUES (138, 'left-main-right', 'default')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modthemes` (`func_id`, `layout`, `theme`) VALUES (138, 'main', 'mobile_default')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modthemes` (`func_id`, `layout`, `theme`) VALUES (138, 'main', 'simple')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modthemes` (`func_id`, `layout`, `theme`) VALUES (151, 'left-main-right', 'default')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modthemes` (`func_id`, `layout`, `theme`) VALUES (151, 'main', 'mobile_default')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modthemes` (`func_id`, `layout`, `theme`) VALUES (151, 'main', 'simple')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modthemes` (`func_id`, `layout`, `theme`) VALUES (152, 'main', 'simple')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modthemes` (`func_id`, `layout`, `theme`) VALUES (153, 'main', 'simple')";
@@ -5828,11 +5797,11 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`t
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`, `gid`) VALUES ('comment', 'comment', 'comment', 'comment', 'comment', 'Bình luận', '', 'Quản lý bình luận', 1514880771, 0, 1, '', '', '', '', '6', 8, 1, '', 0, 1, 0)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`, `gid`) VALUES ('two-step-verification', 'two-step-verification', 'two_step_verification', 'two_step_verification', 'two-step-verification', 'Xác thực hai bước', '', '', 1514880771, 1, 0, '', '', '', '', '6', 9, 1, '', 0, 1, 0)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`, `gid`) VALUES ('services', 'services', 'services', 'services', 'services', 'Quản lý dịch vụ', '', '', 1516096780, 1, 1, '', '', '', '', '10,11', 11, 1, '', 0, 0, 0)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`, `gid`) VALUES ('notification', 'notification', 'notification', 'notification', 'notification', 'Thông báo', '', '', 1517809311, 1, 0, '', '', '', '', '6', 12, 1, '', 0, 0, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`, `gid`) VALUES ('notification', 'notification', 'notification', 'notification', 'notification', 'Thông báo', '', '', 1517809311, 1, 1, '', '', '', '', '6', 12, 1, '', 0, 0, 0)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`, `gid`) VALUES ('home', 'home', 'home', 'home', 'home', 'Home', '', '', 1517879767, 1, 0, '', '', '', '', '6', 13, 1, '', 0, 0, 0)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`, `gid`) VALUES ('email', 'email', 'email', 'email', 'email', 'Email', '', '', 1518147700, 1, 1, '', '', '', '', '6', 14, 1, '', 1, 1, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`, `gid`) VALUES ('email', 'email', 'email', 'email', 'email', 'Email', '', '', 1518147700, 1, 0, '', '', '', '', '6', 14, 1, '', 1, 1, 0)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`, `gid`) VALUES ('products', 'products', 'products', 'products', 'products', 'Sản phẩm', '', '', 1519719768, 1, 1, '', '', '', '', '6', 15, 1, '', 0, 0, 0)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`, `gid`) VALUES ('invoice', 'invoice', 'invoice', 'invoice', 'invoice', 'Hóa đơn', '', '', 1519719779, 1, 1, '', '', '', '', '10,11,16', 16, 1, '', 0, 0, 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`, `gid`) VALUES ('invoice', 'invoice', 'invoice', 'invoice', 'invoice', 'Hóa đơn', '', '', 1519719779, 1, 1, '', '', '', '', '4', 16, 1, '', 0, 0, 0)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`, `gid`) VALUES ('workreport', 'workreport', 'workreport', 'workreport', 'workreport', 'Báo cáo công việc', '', '', 1521274444, 1, 1, '', '', '', '', '6', 17, 1, '', 0, 0, 0)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`, `gid`) VALUES ('customer', 'customer', 'customer', 'customer', 'customer', 'Khách hàng', '', '', 1525527263, 1, 1, '', '', '', '', '6', 1, 1, '', 0, 0, 0)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`, `gid`) VALUES ('workforce', 'workforce', 'workforce', 'workforce', 'workforce', 'Nhân sự', '', '', 1525568597, 1, 1, '', '', '', '', '6', 18, 1, '', 0, 0, 0)";
@@ -6619,6 +6588,7 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_notificatio
   `endpoint` varchar(100) NOT NULL,
   UNIQUE KEY `userid` (`userid`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_notification_register` (`userid`, `endpoint`) VALUES (1, ' err e eg')";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_page`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_page` (
@@ -6667,13 +6637,13 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_products` (
   `catid` smallint(4) unsigned NOT NULL,
   `price` double unsigned NOT NULL,
   `vat` double unsigned NOT NULL DEFAULT '0',
+  `price_unit` tinyint(1) NOT NULL,
   `url` text NOT NULL,
   `active` tinyint(1) unsigned NOT NULL DEFAULT '1',
   `note` text NOT NULL,
   `weight` smallint(4) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  AUTO_INCREMENT=2  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_products` (`id`, `title`, `catid`, `price`, `vat`, `url`, `active`, `note`, `weight`) VALUES (1, 'fthfth', 1, '1000000', '0', 'https://ngoisao.net/rss/hau-truong.rss', 1, '', 0)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_products_cat`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_products_cat` (
@@ -6684,6 +6654,15 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_products_ca
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  AUTO_INCREMENT=2  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_products_cat` (`id`, `title`, `note`, `weight`) VALUES (1, 'drg rg', '', 1)";
+
+$sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_products_price_unit`";
+$sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_products_price_unit` (
+  `id` tinyint(2) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `active` tinyint(1) unsigned NOT NULL DEFAULT '1',
+  `weight` tinyint(2) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_projects`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_projects` (
@@ -6705,9 +6684,8 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_projects` (
   `status` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `type_id` smallint(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  AUTO_INCREMENT=7  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+) ENGINE=MyISAM  AUTO_INCREMENT=9  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_projects` (`id`, `customerid`, `workforceid`, `title`, `begintime`, `endtime`, `realtime`, `price`, `vat`, `url_code`, `content`, `files`, `useradd`, `addtime`, `edittime`, `status`, `type_id`) VALUES (2, 1, '1', 'g g h', 0, 0, 0, '1000000', '0', '', 'aaaaa', 'bao-gia-san-bat-dong-san.8a210a2a178ef65bf3b0801e205eb012.pdf', 1, 1534580678, 1536394338, 6, 0)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_projects` (`id`, `customerid`, `workforceid`, `title`, `begintime`, `endtime`, `realtime`, `price`, `vat`, `url_code`, `content`, `files`, `useradd`, `addtime`, `edittime`, `status`, `type_id`) VALUES (6, 1, '1', 'Highcharts Demo', 0, 0, 0, '0', '0', '', '', '', 1, 1538013135, 0, 1, 0)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_projects_econtent`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_projects_econtent` (
@@ -6726,6 +6704,49 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_projects_eco
 <br  />
 Mọi thông tin, hoạt động đến dự án sẽ được thông báo qua thư này.<br  />
 Chúc quý khách hàng một ngày làm làm việc hiệu quả!')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_projects_econtent` (`action`, `econtent`) VALUES ('print', '<div style=\"line-height: 27px\">
+<div style=\"text-align: center;\"><span style=\"font-size:18px;\"><strong>THÔNG TIN DỰ ÁN</strong></span></div>
+
+<div style=\"text-align: center;\"><strong>&#91;TITLE&#93;</strong></div>
+<br  />
+Danh mục dự án:&nbsp;<strong>&#91;CAT&#93;</strong><br  />
+Họ tên khách hàng:&nbsp;<strong>&#91;CUSTOMER_FULLNAME&#93;</strong><br  />
+Thời gian bắt đầu:&nbsp;<strong>&#91;BEGIN_TIME&#93;</strong><br  />
+Thời gian hoàn thành dự kiến:&nbsp;<strong>&#91;END_TIME&#93;</strong><br  />
+Thời gian hoàn thành thực tế:&nbsp;<strong>&#91;REAL_TIME&#93;</strong><br  />
+Chi phí:&nbsp;<strong>&#91;PRICE&#93;</strong><br  />
+Thuế:&nbsp;<strong>&#91;VAT&#93;%</strong><br  />
+<strong>&#91;STATUS&#93;</strong>: Trạng thái<br  />
+<br  />
+&#91;CONTENT&#93;</div>')";
+
+$sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_projects_field`";
+$sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_projects_field` (
+  `fid` mediumint(8) NOT NULL AUTO_INCREMENT,
+  `field` varchar(25) NOT NULL,
+  `weight` int(10) unsigned NOT NULL DEFAULT '1',
+  `field_type` enum('number','date','textbox','textarea','editor','select','radio','checkbox','multiselect') NOT NULL DEFAULT 'textbox',
+  `field_choices` text NOT NULL,
+  `sql_choices` text NOT NULL,
+  `match_type` enum('none','alphanumeric','email','url','regex','callback') NOT NULL DEFAULT 'none',
+  `match_regex` varchar(250) NOT NULL DEFAULT '',
+  `func_callback` varchar(75) NOT NULL DEFAULT '',
+  `min_length` int(11) NOT NULL DEFAULT '0',
+  `max_length` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `required` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `show_profile` tinyint(4) NOT NULL DEFAULT '1',
+  `class` varchar(50) NOT NULL DEFAULT '',
+  `language` text NOT NULL,
+  `default_value` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`fid`),
+  UNIQUE KEY `field` (`field`)
+) ENGINE=MyISAM  AUTO_INCREMENT=4  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+
+$sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_projects_info`";
+$sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_projects_info` (
+  `rows_id` mediumint(8) unsigned NOT NULL,
+  PRIMARY KEY (`rows_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_projects_performer`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_projects_performer` (
@@ -6740,6 +6761,8 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_projects_per
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_projects_performer` (`projectid`, `userid`, `follow`) VALUES (4, 1, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_projects_performer` (`projectid`, `userid`, `follow`) VALUES (5, 1, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_projects_performer` (`projectid`, `userid`, `follow`) VALUES (6, 1, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_projects_performer` (`projectid`, `userid`, `follow`) VALUES (7, 1, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_projects_performer` (`projectid`, `userid`, `follow`) VALUES (8, 1, 1)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_projects_task`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_projects_task` (
@@ -6761,7 +6784,8 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_projects_ty
   `weight` smallint(4) unsigned NOT NULL,
   `active` tinyint(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+) ENGINE=MyISAM  AUTO_INCREMENT=2  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_projects_types` (`id`, `title`, `note`, `weight`, `active`) VALUES (1, 'dsfsdfsf', '', 1, 1)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_referer_stats`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_referer_stats` (
@@ -6817,9 +6841,7 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_services` (
   `note` text NOT NULL,
   `weight` smallint(4) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  AUTO_INCREMENT=3  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_services` (`id`, `title`, `price`, `price_unit`, `vat`, `active`, `note`, `weight`) VALUES (1, 'Thiết kế website', '0', 0, '10', 1, '', 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_services` (`id`, `title`, `price`, `price_unit`, `vat`, `active`, `note`, `weight`) VALUES (2, 'Bảo trì website', '3000000', 0, '10', 1, '', 2)";
+) ENGINE=MyISAM  AUTO_INCREMENT=4  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_services_customer`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_services_customer` (
@@ -7099,8 +7121,8 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_workforce` 
   `useradd` mediumint(8) unsigned NOT NULL,
   `status` tinyint(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  AUTO_INCREMENT=2  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_workforce` (`id`, `partid`, `jobtitleid`, `userid`, `first_name`, `last_name`, `gender`, `birthday`, `main_phone`, `other_phone`, `main_email`, `other_email`, `address`, `knowledge`, `image`, `jointime`, `position`, `part`, `salary`, `allowance`, `addtime`, `edittime`, `useradd`, `status`) VALUES (1, 0, 0, 1, 'Triển', 'Hồ Ngọc', 1, 716574239, '0905908430', '', 'hongoctrien@tdfoss.vn', '', '', '', '', 0, '', '1', '0', '0', 1531403229, 1540976219, 1, 1)";
+) ENGINE=MyISAM  AUTO_INCREMENT=4  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_workforce` (`id`, `partid`, `jobtitleid`, `userid`, `first_name`, `last_name`, `gender`, `birthday`, `main_phone`, `other_phone`, `main_email`, `other_email`, `address`, `knowledge`, `image`, `jointime`, `position`, `part`, `salary`, `allowance`, `addtime`, `edittime`, `useradd`, `status`) VALUES (1, 0, 0, 1, 'Triển', 'Hồ Ngọc', 1, 716574239, '0905908430', '', 'hongoctrien@tdfoss.vn', '', '', '', '', 0, '', '2', '0', '0', 1531403229, 1549856248, 1, 1)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_workforce_history_salary`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_workforce_history_salary` (
@@ -7134,8 +7156,8 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_workforce_p
   `weight` smallint(4) unsigned NOT NULL DEFAULT '0',
   `status` tinyint(1) NOT NULL COMMENT 'Trạng thái',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  AUTO_INCREMENT=2  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_workforce_part` (`id`, `parentid`, `title`, `alias`, `office`, `address`, `phone`, `fax`, `website`, `email`, `note`, `lev`, `numsub`, `subid`, `sort`, `weight`, `status`) VALUES (1, 0, 'Phòng kỹ thuật', 'Phong-ky-thuat', '', '', '', '', '', '', '', 0, 0, '', 1, 1, 1)";
+) ENGINE=MyISAM  AUTO_INCREMENT=3  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_workforce_part` (`id`, `parentid`, `title`, `alias`, `office`, `address`, `phone`, `fax`, `website`, `email`, `note`, `lev`, `numsub`, `subid`, `sort`, `weight`, `status`) VALUES (2, 0, 'Ban điều hành', 'Ban-dieu-hanh', '', '', '', '', '', '', '', 0, 0, '', 1, 1, 1)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_workforce_part_detail`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_workforce_part_detail` (
@@ -7143,7 +7165,7 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_workforce_p
   `part` smallint(4) NOT NULL COMMENT 'Thuộc bộ phận',
   UNIQUE KEY `userid` (`userid`,`part`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_workforce_part_detail` (`userid`, `part`) VALUES (1, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_workforce_part_detail` (`userid`, `part`) VALUES (1, 2)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_workforce_salary`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_workforce_salary` (
