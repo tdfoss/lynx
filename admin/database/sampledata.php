@@ -24,6 +24,12 @@ $array_ignore_save = array(
     $db_config['prefix'] . '_upload_dir',
     $db_config['prefix'] . '_upload_file'
 );
+
+// lynx
+$array_ignore_save[] = NV_NOTIFICATION_GLOBALTABLE;
+$array_ignore_save[] = NV_PREFIXLANG . '_email';
+$array_ignore_save[] = NV_PREFIXLANG . '_email_sendto';
+
 $array_ignore_drop = array(
     $db_config['prefix'] . '_config',
     NV_USERS_GLOBALTABLE
