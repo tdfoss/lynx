@@ -7,22 +7,19 @@
                 <li role="presentation"><a href="#{ROW.action}" aria-controls="{ROW.action}" role="tab" data-toggle="tab">{ROW.title}</a></li>
                 <!-- END: title -->
             </ul>
-
             <div class="tab-content">
                 <!-- BEGIN: content -->
                 <div role="tabpanel" class="tab-pane" id="{ROW.action}">
                     <div class="m-bottom">{ROW.econtent}</div>
                 </div>
-                
-    			<div class="row">
-    				<!-- BEGIN: new_project -->
-    				<div class="col-xs-24 col-sm-12 col-md-8">
-    					<strong>[{NOTE.index}]</strong>: {NOTE.value}
-    				</div>
-    				<!-- END: new_project -->
-    			</div>
-                
                 <!-- END: content -->
+            </div>
+            <div class="row">
+                <!-- BEGIN: note -->
+                <div class="col-xs-24 col-sm-12 col-md-8">
+                    <strong>[{NOTE.index}]</strong>: {NOTE.value}
+                </div>
+                <!-- END: note -->
             </div>
         </div>
     </div>

@@ -128,6 +128,8 @@ while (list ($lang) = $language_query->fetch(3)) {
     	PRIMARY KEY (rows_id)
     ) ENGINE=MyISAM";
 
+    $sql[] = 'INSERT INTO ' . $db_config['prefix'] . '_' . $lang . '_projects_econtent (action, econtent) VALUES("print", "<div style=\"line-height: 27px\"> <div style=\"text-align: center;\"><span style=\"font-size:18px;\"><strong>THÔNG TIN DỰ ÁN</strong></span></div> <div style=\"text-align: center;\"><strong>[TITLE]</strong></div> <br /> Danh mục dự án:&nbsp;<strong>[CAT]</strong><br /> Họ tên khách hàng:&nbsp;<strong>[CUSTOMER_FULLNAME]</strong><br /> Thời gian bắt đầu:&nbsp;<strong>[BEGIN_TIME]</strong><br /> Thời gian hoàn thành dự kiến:&nbsp;<strong>[END_TIME]</strong><br /> Thời gian hoàn thành thực tế:&nbsp;<strong>[REAL_TIME]</strong><br /> Chi phí:&nbsp;<strong>[PRICE]</strong><br /> Thuế:&nbsp;<strong>[VAT]%</strong><br /> <strong>[STATUS]</strong>: Trạng thái<br /> <br /> [CONTENT]</div>")';
+
     foreach ($sql as $_sql) {
         try {
             $db->query($_sql);

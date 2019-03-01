@@ -64,6 +64,44 @@ if (!$rows) {
     nv_redirect_location(NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name);
 }
 
+if ($nv_Request->isset_request('print', 'get')) {
+    $message = $db->query('SELECT econtent FROM ' . NV_PREFIXLANG . '_' . $module_data . '_econtent WHERE action="print"')->fetchColumn();
+    if (!empty($message)) {
+        $customer_info = nv_crm_customer_info($rows['customerid']);
+        $array_replace = array(
+            'SITE_NAME' => $global_config['site_name'],
+            'CAT' => !empty($rows['type_id']) ? $array_working_type_id[$rows['type_id']]['title'] : '',
+            'CUSTOMER_FISRT_NAME' => $customer_info['first_name'],
+            'CUSTOMER_LAST_NAME' => $customer_info['last_name'],
+            'CUSTOMER_FULLNAME' => $customer_info['fullname'],
+            'USER_WORK' => $workforce_list[$rows['workforceid']]['fullname'],
+            'TITLE' => $rows['title'],
+            'BEGIN_TIME' => !empty($rows['begintime']) ? nv_date('d/m/Y', $rows['begintime']) : '-',
+            'END_TIME' => !empty($rows['endtime']) ? nv_date('d/m/Y', $rows['endtime']) : '-',
+            'REAL_TIME' => !empty($rows['realtime']) ? nv_date('d/m/Y', $rows['realtime']) : '-',
+            'PRICE' => !empty($rows['price']) ? nv_number_format($rows['price']) : '-',
+            'VAT' => $rows['vat'],
+            'CONTENT' => $rows['content'],
+            'STATUS' => $lang_module['status_select_' . $rows['status']],
+            'URL_DETAIL' => NV_MY_DOMAIN . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $rows['id']
+        );
+        $message = nv_unhtmlspecialchars($message);
+        foreach ($array_replace as $index => $value) {
+            $message = str_replace('[' . $index . ']', $value, $message);
+        }
+    }
+
+    $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
+    $xtpl->assign('CONTENT', $message);
+
+    $xtpl->parse('print');
+    $contents = $xtpl->text('print');
+
+    include NV_ROOTDIR . '/includes/header.php';
+    echo nv_site_theme($contents, false);
+    include NV_ROOTDIR . '/includes/footer.php';
+}
+
 if ($nv_Request->isset_request('download', 'get')) {
     $fileid = $nv_Request->get_int('fileid', 'get', 0);
 
@@ -190,7 +228,8 @@ $array_control = array(
     'url_edit' => NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=content&amp;id=' . $rows['id'] . '&amp;redirect=' . nv_redirect_encrypt($client_info['selfurl']),
     'url_delete' => NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;delete_id=' . $rows['id'] . '&amp;delete_checkss=' . md5($rows['id'] . NV_CACHE_PREFIX . $client_info['session_id']),
     'url_sendmail' => NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=email&amp;' . NV_OP_VARIABLE . '=content&amp;customerid=' . $rows['customerid'] . '&amp;title=' . urlencode($subject) . '&amp;redirect=' . nv_redirect_encrypt($client_info['selfurl']),
-    'url_creatinvoice' => NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=invoice&amp;' . NV_OP_VARIABLE . '=content&amp;projectid=' . $rows['id']
+    'url_creatinvoice' => NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=invoice&amp;' . NV_OP_VARIABLE . '=content&amp;projectid=' . $rows['id'],
+    'url_print' => NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $rows['id'] . '&amp;print=1'
 );
 
 $contents = nv_theme_project_detail($rows, $content_comment, $array_control);

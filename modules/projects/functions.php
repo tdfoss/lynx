@@ -20,7 +20,8 @@ if (!defined('NV_IS_USER')) {
 
 function nv_sendinfo_projects($id)
 {
-    global $db, $module_data, $global_config, $lang_module, $array_replace, $redirect, $workforce_list;
+    global $db, $module_data, $global_config, $lang_module, $redirect, $workforce_list, $array_working_type_id;
+
     $message = $db->query('SELECT econtent FROM ' . NV_PREFIXLANG . '_' . $module_data . '_econtent WHERE action="new_project"')->fetchColumn();
     $row = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
 
@@ -28,16 +29,19 @@ function nv_sendinfo_projects($id)
         $customer_info = nv_crm_customer_info($row['customerid']);
         $array_replace = array(
             'SITE_NAME' => $global_config['site_name'],
+            'CAT' => !empty($row['type_id']) ? $array_working_type_id[$row['type_id']]['title'] : '',
             'CUSTOMER_FISRT_NAME' => $customer_info['first_name'],
             'CUSTOMER_LAST_NAME' => $customer_info['last_name'],
-            'USER_WORK' => $workforce_list[$workforceid]['fullname'],
+            'CUSTOMER_FULLNAME' => $customer_info['fullname'],
+            'USER_WORK' => $workforce_list[$row['workforceid']]['fullname'],
             'TITLE' => $row['title'],
             'BEGIN_TIME' => !empty($row['begintime']) ? nv_date('d/m/Y', $row['begintime']) : '-',
             'END_TIME' => !empty($row['endtime']) ? nv_date('d/m/Y', $row['endtime']) : '-',
+            'REAL_TIME' => !empty($row['realtime']) ? nv_date('d/m/Y', $row['realtime']) : '-',
             'PRICE' => !empty($row['price']) ? nv_number_format($row['price']) : '-',
             'VAT' => $row['vat'],
             'CONTENT' => $row['content'],
-            'STATUS' => $lang_module['status_' . $row['status']],
+            'STATUS' => $lang_module['status_select_' . $row['status']],
             'URL_DETAIL' => NV_MY_DOMAIN . $redirect
         );
         $message = nv_unhtmlspecialchars($message);

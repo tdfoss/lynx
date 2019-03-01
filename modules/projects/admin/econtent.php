@@ -17,6 +17,7 @@ if (defined('NV_EDITOR')) {
 
 if ($nv_Request->isset_request('submit', 'post')) {
     $row['new_project'] = $nv_Request->get_editor('econtent_new_project', '', NV_ALLOWED_HTML_TAGS);
+    $row['print'] = $nv_Request->get_editor('econtent_print', '', NV_ALLOWED_HTML_TAGS);
 
     $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . '_econtent SET econtent = :econtent WHERE action=:action');
     foreach ($row as $config_name => $config_value) {
@@ -43,13 +44,17 @@ if ($nv_Request->isset_request('submit', 'post')) {
 
 $array_replace = array(
     'SITE_NAME' => $lang_module['site_name'],
+    'CAT' => $lang_module['cat'],
     'CUSTOMER_FISRT_NAME' => $lang_module['customer_first_name'],
     'CUSTOMER_LAST_NAME' => $lang_module['customer_last_name'],
+    'CUSTOMER_FULLNAME' => $lang_module['customer_fullname'],
     'USER_WORK' => $lang_module['user_work'],
     'TITLE' => $lang_module['title'],
     'BEGIN_TIME' => $lang_module['begintime'],
     'END_TIME' => $lang_module['endtime'],
+    'REAL_TIME' => $lang_module['realtime'],
     'PRICE' => $lang_module['price'],
+    'VAT' => $lang_module['vat'],
     'CONTENT' => $lang_module['content'],
     'STATUS' => $lang_module['status'],
     'URL_DETAIL' => $lang_module['url_detail']
@@ -65,18 +70,15 @@ if (!empty($row)) {
         $value['title'] = $lang_module['econtent_' . $value['action']];
         $xtpl->assign('ROW', $value);
         $xtpl->parse('main.title');
-
-        if ($value['action'] == 'new_project') {
-            foreach ($array_replace as $index => $value) {
-                $xtpl->assign('NOTE', array(
-                    'index' => $index,
-                    'value' => $value
-                ));
-                $xtpl->parse('main.content.new_project');
-            }
-        }
-
         $xtpl->parse('main.content');
+    }
+
+    foreach ($array_replace as $index => $value) {
+        $xtpl->assign('NOTE', array(
+            'index' => $index,
+            'value' => $value
+        ));
+        $xtpl->parse('main.note');
     }
 }
 
