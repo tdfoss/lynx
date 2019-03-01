@@ -160,6 +160,30 @@ if (isset($site_mods['comment']) and isset($module_config[$module_name]['activec
     $content_comment = '';
 }
 
+$array_field_config = array();
+$result_field = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_field WHERE show_profile=1 ORDER BY weight ASC');
+while ($row_field = $result_field->fetch()) {
+    $language = unserialize($row_field['language']);
+    $row_field['title'] = (isset($language[NV_LANG_DATA])) ? $language[NV_LANG_DATA][0] : $row['field'];
+    $row_field['description'] = (isset($language[NV_LANG_DATA])) ? nv_htmlspecialchars($language[NV_LANG_DATA][1]) : '';
+    if (!empty($row_field['field_choices'])) {
+        $row_field['field_choices'] = unserialize($row_field['field_choices']);
+    } elseif (!empty($row_field['sql_choices'])) {
+        $row_field['sql_choices'] = explode('|', $row_field['sql_choices']);
+        $query = 'SELECT ' . $row_field['sql_choices'][2] . ', ' . $row_field['sql_choices'][3] . ' FROM ' . $row_field['sql_choices'][1];
+        $result = $db->query($query);
+        $weight = 0;
+        while (list ($key, $val) = $result->fetch(3)) {
+            $row_field['field_choices'][$key] = $val;
+        }
+    }
+    $array_field_config[] = $row_field;
+}
+
+$sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_info WHERE rows_id=' . $id;
+$result = $db->query($sql);
+$custom_fields = $result->fetch();
+
 $subject = 'Re: ' . sprintf($lang_module['new_project_title'], $global_config['site_name'], $rows['title']);
 $array_control = array(
     'url_add' => NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=content',

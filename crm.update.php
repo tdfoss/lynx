@@ -71,7 +71,7 @@ while (list ($lang) = $language_query->fetch(3)) {
     $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_email ADD status tinyint(1) unsigned NOT NULL DEFAULT '1' AFTER addtime;";
 
     $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_products ADD price_unit tinyint(1) NOT NULL AFTER vat";
-    
+
     $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_customer_share_acc(
            userid smallint(4) NOT NULL,
            customerid mediumint(8) unsigned NOT NULL,
@@ -91,7 +91,7 @@ while (list ($lang) = $language_query->fetch(3)) {
            customerid mediumint(8) unsigned NOT NULL,
            UNIQUE KEY tid (tid, customerid)
          ) ENGINE=MyISAM;";
-    
+
     $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_products_price_unit(
            id tinyint(2) NOT NULL AUTO_INCREMENT,
            title varchar(255) NOT NULL,
@@ -101,6 +101,32 @@ while (list ($lang) = $language_query->fetch(3)) {
          ) ENGINE=MyISAM;";
 
     $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_customer CHANGE care_staff care_staff MEDIUMINT(8) UNSIGNED NOT NULL COMMENT 'Nhân viên chăm sóc KH';";
+
+    $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_projects_field (
+    	fid mediumint(8) NOT NULL AUTO_INCREMENT,
+    	field varchar(25) NOT NULL,
+    	weight int(10) unsigned NOT NULL DEFAULT '1',
+    	field_type enum('number','date','textbox','textarea','editor','select','radio','checkbox','multiselect') NOT NULL DEFAULT 'textbox',
+    	field_choices text NOT NULL,
+    	sql_choices text NOT NULL,
+    	match_type enum('none','alphanumeric','email','url','regex','callback') NOT NULL DEFAULT 'none',
+    	match_regex varchar(250) NOT NULL DEFAULT '',
+    	func_callback varchar(75) NOT NULL DEFAULT '',
+    	min_length int(11) NOT NULL DEFAULT '0',
+    	max_length bigint(20) unsigned NOT NULL DEFAULT '0',
+    	required tinyint(3) unsigned NOT NULL DEFAULT '0',
+    	show_profile tinyint(4) NOT NULL DEFAULT '1',
+    	class varchar(50) NOT NULL DEFAULT '',
+    	language text NOT NULL,
+    	default_value varchar(255) NOT NULL DEFAULT '',
+    	PRIMARY KEY (fid),
+    	UNIQUE KEY field (field)
+    ) ENGINE=MyISAM";
+
+    $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_projects_info (
+    	rows_id mediumint(8) unsigned NOT NULL,
+    	PRIMARY KEY (rows_id)
+    ) ENGINE=MyISAM";
 
     foreach ($sql as $_sql) {
         try {

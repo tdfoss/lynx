@@ -23,6 +23,11 @@
                     <li><label>{LANG.realtime}</label>{ROW.realtime}</li>
                     <li><label>{LANG.typeid}</label>{ROW.type_id}</li>
                     <li><label>{LANG.url_code}</label><a href="{ROW.url_code}" target="_blank">{ROW.url_code}</a></li>
+                    <!-- BEGIN: field -->
+                    <!-- BEGIN: loop -->
+                    <li><label>{FIELD.title}</label>{FIELD.value}</li>
+                    <!-- END: loop -->
+                    <!-- END: field -->
                     <li><label class="pull-left" style="margin-top: 6px">{LANG.status}</label> <select class="form-control" style="width: 200px" id="change_status_{ROW.id}" onchange="nv_chang_status('{ROW.id}');">
                             <!-- BEGIN: status -->
                             <option value="{STATUS.index}"{STATUS.selected}>{STATUS.value}</option>
@@ -114,16 +119,12 @@
             <!-- BEGIN: loop -->
             <tr>
                 <td class="text-center">{TASK.number}</td>
-                <td>
-                    <a href="{TASK.link}">{TASK.title}</a>
-                </td>
+                <td><a href="{TASK.link}">{TASK.title}</a></td>
                 <td>{TASK.performer_str}</td>
                 <td>{TASK.begintime}</td>
                 <td>{TASK.endtime}</td>
                 <td>{TASK.status}</td>
-                <td>
-                    <a href="" class="btn btn-default btn-xs" onclick="nv_task_content({TASK.taskid}, {TASK.projectid});"><i class="fa fa-edit"></i></a>
-                </td>
+                <td><a href="" class="btn btn-default btn-xs" onclick="nv_task_content({TASK.taskid}, {TASK.projectid});"><i class="fa fa-edit"></i></a></td>
             </tr>
             <!-- END: loop -->
         </tbody>

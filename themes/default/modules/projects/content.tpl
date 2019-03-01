@@ -10,8 +10,7 @@
         <div class="col-xs-24 col-sm-18 col-md-19">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <input type="hidden" name="id" value="{ROW.id}" />
-                    <input type="hidden" name="redirect" value="{ROW.redirect}" />
+                    <input type="hidden" name="id" value="{ROW.id}" /> <input type="hidden" name="redirect" value="{ROW.redirect}" />
                     <div class="form-group">
                         <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.title}</strong> <span class="red">(*)</span></label>
                         <div class="col-sm-19 col-md-20">
@@ -61,6 +60,57 @@
                             <input type="url" class="form-control" name="url_code" value="{ROW.url_code}">
                         </div>
                     </div>
+                    <!-- BEGIN: field -->
+                    <!-- BEGIN: loop -->
+                    <div class="form-group">
+                        <label class="col-sm-5 col-md-4 control-label"> <strong>{FIELD.title}</strong> <!-- BEGIN: required --> <span class="red">(*)</span> <!-- END: required -->
+                        </label>
+                        <div class="col-sm-19 col-md-20">
+                            <!-- BEGIN: textbox -->
+                            <input class="form-control {FIELD.required}" type="text" name="custom_fields[{FIELD.field}]" id="{FIELD.field}" value="{FIELD.value}" />
+                            <!-- END: textbox -->
+                            <!-- BEGIN: date -->
+                            <div class="input-group">
+                                <input class="form-control datepicker {FIELD.required}" id="{FIELD.field}" type="text" name="custom_fields[{FIELD.field}]" value="{FIELD.value}" pattern="^[0-9]{2,2}\/[0-9]{2,2}\/[0-9]{1,4}$" /> <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <em class="fa fa-calendar fa-fix"> </em>
+                                    </button>
+                                </span>
+                            </div>
+                            <!-- END: date -->
+                            <!-- BEGIN: textarea -->
+                            <textarea rows="5" cols="70" class="form-control" id="{FIELD.field}" name="custom_fields[{FIELD.field}]">{FIELD.value}</textarea>
+                            <!-- END: textarea -->
+                            <!-- BEGIN: editor -->
+                            {EDITOR}
+                            <!-- END: editor -->
+                            <!-- BEGIN: select -->
+                            <select class="form-control" id="{FIELD.field}" name="custom_fields[{FIELD.field}]">
+                                <!-- BEGIN: loop -->
+                                <option value="{FIELD_CHOICES.key}"{FIELD_CHOICES.selected}>{FIELD_CHOICES.value}</option>
+                                <!-- END: loop -->
+                            </select>
+                            <!-- END: loopselect -->
+                            <!-- BEGIN: radio -->
+                            <label for="lb_{FIELD_CHOICES.id}"> <input type="radio" name="custom_fields[{FIELD.field}]" value="{FIELD_CHOICES.key}" id="lb_{FIELD_CHOICES.id}"{FIELD_CHOICES.checked}> {FIELD_CHOICES.value}
+                            </label>
+                            <!-- END: radio -->
+                            <!-- BEGIN: checkbox -->
+                            <label for="lb_{FIELD_CHOICES.id}"> <input type="checkbox" name="custom_fields[{FIELD.field}][]" value="{FIELD_CHOICES.key}" id="lb_{FIELD_CHOICES.id}"{FIELD_CHOICES.checked}> {FIELD_CHOICES.value}
+                            </label>
+                            <!-- END: checkbox -->
+                            <!-- BEGIN: multiselect -->
+                            <select class="form-control" id="{FIELD.field}" name="custom_fields[{FIELD.field}][]" multiple="multiple">
+                                <!-- BEGIN: loop -->
+                                <option value="{FIELD_CHOICES.key}"{FIELD_CHOICES.selected}>{FIELD_CHOICES.value}</option>
+                                <!-- END: loop -->
+                            </select>
+                            <!-- END: multiselect -->
+                            <small class="help-block"><em>{FIELD.description}</em></small>
+                        </div>
+                    </div>
+                    <!-- END: loop -->
+                    <!-- END: field -->
                 </div>
             </div>
             <div class="panel panel-default">
@@ -103,8 +153,7 @@
                     <div class="form-group">
                         <label class="control-label"><strong>{LANG.begintime}</strong></label>
                         <div class="input-group">
-                            <input class="form-control" type="text" name="begintime" value="{ROW.begintime}" id="begintime" autocomplete="off" />
-                            <span class="input-group-btn">
+                            <input class="form-control datepicker" type="text" name="begintime" value="{ROW.begintime}" id="begintime" autocomplete="off" /> <span class="input-group-btn">
                                 <button class="btn btn-default" type="button" id="begintime-btn">
                                     <em class="fa fa-calendar fa-fix"> </em>
                                 </button>
@@ -114,8 +163,7 @@
                     <div class="form-group">
                         <label class="control-label"><strong>{LANG.endtime}</strong></label>
                         <div class="input-group">
-                            <input class="form-control" type="text" name="endtime" value="{ROW.endtime}" id="endtime" pattern="^[0-9]{2,2}\/[0-9]{2,2}\/[0-9]{1,4}$" autocomplete="off" />
-                            <span class="input-group-btn">
+                            <input class="form-control datepicker" type="text" name="endtime" value="{ROW.endtime}" id="endtime" pattern="^[0-9]{2,2}\/[0-9]{2,2}\/[0-9]{1,4}$" autocomplete="off" /> <span class="input-group-btn">
                                 <button class="btn btn-default" type="button" id="endtime-btn">
                                     <em class="fa fa-calendar fa-fix"> </em>
                                 </button>
@@ -125,8 +173,7 @@
                     <div class="form-group">
                         <label class="control-label"><strong>{LANG.realtime}</strong></label>
                         <div class="input-group">
-                            <input class="form-control" type="text" name="realtime" value="{ROW.realtime}" id="realtime" pattern="^[0-9]{2,2}\/[0-9]{2,2}\/[0-9]{1,4}$" autocomplete="off" />
-                            <span class="input-group-btn">
+                            <input class="form-control datepicker" type="text" name="realtime" value="{ROW.realtime}" id="realtime" pattern="^[0-9]{2,2}\/[0-9]{2,2}\/[0-9]{1,4}$" autocomplete="off" /> <span class="input-group-btn">
                                 <button class="btn btn-default" type="button" id="realtime-btn">
                                     <em class="fa fa-calendar fa-fix"> </em>
                                 </button>
@@ -150,8 +197,7 @@
         </div>
     </div>
     <div class="form-group text-center">
-        <input type="hidden" name="submit" value="1" />
-        <input class="btn btn-primary" type="submit" value="{LANG.save}" />
+        <input type="hidden" name="submit" value="1" /> <input class="btn btn-primary" type="submit" value="{LANG.save}" />
     </div>
 </form>
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/jquery-ui/jquery-ui.min.js"></script>
@@ -201,7 +247,7 @@
         });
     });
     
-    $("#begintime,#endtime,#realtime").datepicker({
+    $(".datepicker").datepicker({
         dateFormat : "dd/mm/yy",
         changeMonth : true,
         changeYear : true,
