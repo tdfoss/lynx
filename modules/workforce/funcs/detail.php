@@ -10,17 +10,19 @@ if (!defined('NV_IS_MOD_WORKFORCE')) die('Stop!!!');
 
 if ($nv_Request->isset_request('change_status', 'post')) {
     $id = $nv_Request->get_int('id', 'post', 0);
-    
+
     if (empty($id)) {
         die('NO_' . $id);
     }
-    
+
     $new_status = $nv_Request->get_int('new_status', 'post');
-    
+
     $sql = 'UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET status=' . $new_status . ' WHERE id=' . $id;
     $db->query($sql);
-    
+
     $nv_Cache->delMod($module_name);
+    $nv_Cache->delMod('users');
+
     die('OK_' . $id);
 }
 
@@ -37,8 +39,24 @@ $result['gender'] = $array_gender[$result['gender']];
 $result['addtime'] = nv_date('H:i d/m/Y', $result['addtime']);
 $result['edittime'] = !empty($result['edittime']) ? nv_date('H:i d/m/Y', $result['edittime']) : '';
 $result['birthday'] = !empty($result['birthday']) ? nv_date('d/m/Y', $result['birthday']) : '';
-if ($result['jointime'] > 0) {
-    $result['jointime'] = nv_date('d/m/Y', $result['jointime']);
+$result['jointime'] = !empty($result['jointime']) ? nv_date('d/m/Y', $result['jointime']) : '-';
+
+$array_parts_title = array();
+$result['part'] = explode(",", $result['part']);
+foreach ($result['part'] as $partid) {
+    $array_parts_title[] = $array_part_list[$partid]['title'];
+}
+$result['part'] = implode(", ", $array_parts_title);
+
+if (isset($site_mods['salary'])) {
+    $array_salary = array();
+    $approval = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_salary_history_salary WHERE userid = ' . $result['userid']);
+    while ($row = $approval->fetch()) {
+        $row['addtime'] = nv_date('H:i d/m/Y', $row['addtime']);
+        $row['salary'] = nv_number_format($row['salary']);
+        $row['allowance'] = nv_number_format($row['allowance']);
+        $array_salary[$row['id']] = $row;
+    }
 }
 
 $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
@@ -46,6 +64,11 @@ $xtpl->assign('URL_EDIT', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=
 $xtpl->assign('URL_DELETE', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;delete_id=' . $id . '&amp;delete_checkss=' . md5($id . NV_CACHE_PREFIX . $client_info['session_id']));
 $xtpl->assign('LANG', $lang_module);
 $xtpl->assign('WORKFORCE', $result);
+
+if (nv_workforce_check_premission() && isset($site_mods['salary'])) {
+    $xtpl->assign('URL_APPROVAL', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=history-salary&amp;id=' . $id);
+    $xtpl->parse('main.salary');
+}
 
 foreach ($array_status as $data => $value) {
     $selected = $data == $result['status'] ? 'selected = "selected"' : '';
@@ -55,6 +78,14 @@ foreach ($array_status as $data => $value) {
         'selected' => $selected
     ));
     $xtpl->parse('main.status');
+}
+
+if (!empty($array_salary)) {
+    foreach ($array_salary as $approval) {
+        $xtpl->assign('APPROVAL', $approval);
+        $xtpl->parse('main.approval.loop');
+    }
+    $xtpl->parse('main.approval');
 }
 
 $xtpl->parse('main');

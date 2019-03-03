@@ -68,7 +68,7 @@ $lang_module['status_select'] = 'Chọn trạng thái';
 $lang_module['invoice_number'] = 'Hóa đơn số ';
 $lang_module['vnd'] = 'VNĐ';
 $lang_module['send_mail'] = 'Gửi thông tin';
-$lang_module['resend_mail'] = 'Gửi lại thông tin';
+$lang_module['resend_mail'] = 'Gửi lại thông tin lần %d';
 $lang_module['send_mail_note'] = 'Gửi chi tiết hóa đơn cho khách hàng qua Email';
 $lang_module['send_mail_note_confirm'] = 'Gửi xác nhận thanh toán hóa đơn cho khách hàng qua Email';
 $lang_module['sendmail_title'] = 'Hóa đơn "#%s - %s" vừa được tạo';
@@ -111,6 +111,10 @@ $lang_module['transaction_status_1'] = 'Đang chờ xử lý';
 $lang_module['transaction_status_2'] = 'Đang tạm giữ';
 $lang_module['transaction_status_3'] = 'Thất bại';
 $lang_module['transaction_status_4'] = 'Thành công';
+
+$lang_module['begintime_holder'] = 'Từ ngày';
+$lang_module['endtime_holder'] = 'Đến ngày';
+
 $lang_module['transaction_status_5'] = 'Sai checksum (thanh toán không thành công)';
 $lang_module['rest'] = 'Còn lại';
 $lang_module['review_invoice'] = 'Xem lại hóa đơn';

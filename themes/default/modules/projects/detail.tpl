@@ -1,11 +1,20 @@
 <!-- BEGIN: main -->
 <ul class="pull-right list-inline">
-    <li><a href="{CONTROL.url_creatinvoice}" class="btn btn-primary btn-xs"><em class="fa fa-file-text">&nbsp;</em>{LANG.creatinvoice}</a></li>
-    <li><a href="{CONTROL.url_sendmail}" class="btn btn-primary btn-xs"><em class="fa fa-envelope">&nbsp;</em>{LANG.sendmail}</a></li>
     <li><a href="{CONTROL.url_add}" class="btn btn-primary btn-xs"><em class="fa fa-sign-in">&nbsp;</em>{LANG.project_add}</a></li>
     <li><a href="{CONTROL.url_edit}" class="btn btn-default btn-xs"><em class="fa fa-edit">&nbsp;</em>{LANG.project_edit}</a></li>
     <li><a href="{CONTROL.url_delete}" class="btn btn-danger btn-xs" onclick="return confirm(nv_is_del_confirm[0]);"><em class="fa fa-trash-o">&nbsp;</em>{LANG.delete}</a></li>
 </ul>
+<div class="dropdown dropdown-hover pull-right" style="padding-right: 10px">
+    <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+        <em class="fa fa-list-ul">&nbsp;</em>{LANG.other} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <li><a href="{CONTROL.url_creatinvoice}"><em class="fa fa-file-text">&nbsp;</em>{LANG.creatinvoice}</a></li>
+        <li><a href="" onclick="nv_projects_sendinfo({ROW.id}); return !1;"><em class="fa fa-info-circle">&nbsp;</em>{LANG.sendinfo}</a></li>
+        <li><a href="{CONTROL.url_sendmail}"><em class="fa fa-envelope">&nbsp;</em>{LANG.sendmail}</a></li>
+        <li><a href="{CONTROL.url_print}" id="btn-print"><em class="fa fa-print">&nbsp;</em>{LANG.print}</a></li>
+    </ul>
+</div>
 <div class="clearfix"></div>
 <div class="row">
     <div class="col-xs-24 col-sm-12 col-md-12">
@@ -22,6 +31,11 @@
                     <li><label>{LANG.realtime}</label>{ROW.realtime}</li>
                     <li><label>{LANG.typeid}</label>{ROW.type_id}</li>
                     <li><label>{LANG.url_code}</label><a href="{ROW.url_code}" target="_blank">{ROW.url_code}</a></li>
+                    <!-- BEGIN: field -->
+                    <!-- BEGIN: loop -->
+                    <li><label>{FIELD.title}</label>{FIELD.value}</li>
+                    <!-- END: loop -->
+                    <!-- END: field -->
                     <li><label class="pull-left" style="margin-top: 6px">{LANG.status}</label> <select class="form-control" style="width: 200px" id="change_status_{ROW.id}" onchange="nv_chang_status('{ROW.id}');">
                             <!-- BEGIN: status -->
                             <option value="{STATUS.index}"{STATUS.selected}>{STATUS.value}</option>
@@ -31,7 +45,7 @@
             </div>
         </div>
         <!-- BEGIN: content -->
-        <div class="panel panel-default">
+        <div class="panel panel-default" id="description">
             <div class="panel-heading">{LANG.content}</div>
             <div class="panel-body">{ROW.content}</div>
         </div>
@@ -89,6 +103,15 @@
         <!-- END: comment -->
     </div>
 </div>
+<script>
+    var projects_sendinfo_confirm = '{LANG.projects_sendinfo_confirm}';
+    fix_news_image('description');
+    
+    $('#btn-print').click(function(){
+        nv_open_browse($(this).attr('href'), "NVImg", 850, 620, "resizable=no,scrollbars=no,toolbar=no,location=no,status=no");
+        return !1;
+    });
+</script>
 <!-- END: main -->
 <!-- BEGIN: task_list -->
 <div class="panel panel-default">
@@ -121,3 +144,11 @@
     </table>
 </div>
 <!-- END: task_list -->
+<!-- BEGIN: print -->
+<div id="print">{CONTENT}</div>
+<script type="text/javascript">
+	$(document).ready(function() {
+		window.print();
+	});
+</script>
+<!-- BEGIN: print -->

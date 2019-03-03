@@ -30,7 +30,7 @@ if ($nv_Request->isset_request('del', 'post')) {
     $query = 'SELECT title FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id;
     $title = $db->query($query)->fetchColumn();
 
-    if (empty($title)) {
+    if (empty($title) || $id == 1) {
         die('NO_' . $id);
     }
 
@@ -84,6 +84,10 @@ if (empty($array)) {
 } else {
     foreach ($array as $row) {
         $xtpl->assign('ROW', $row);
+        // không xóa menu có ID == 1
+        if($row['id'] != 1){
+            $xtpl->parse('main.table.loop1.delete');
+        }
         $xtpl->parse('main.table.loop1');
     }
     $xtpl->parse('main.table');

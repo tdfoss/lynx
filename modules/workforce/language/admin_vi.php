@@ -19,3 +19,4 @@ $lang_module['save'] = 'Cập nhật';
 $lang_module['config'] = 'Cấu hình';
 $lang_module['config_groups_admin'] = 'Nhóm điều hành';
 $lang_module['config_groups_use'] = 'Nhóm sử dụng';
+$lang_module['config_general'] = 'Chung';

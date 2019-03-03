@@ -65,7 +65,7 @@ foreach ($groups_list as $group_id => $grtl) {
 }
 
 $default_status = !empty($array_config['default_status']) ? explode(',', $array_config['default_status']) : array();
-foreach ($array_status as $index => $value) {
+foreach ($array_invoice_status as $index => $value) {
     $sl = in_array($index, $default_status) ? 'checked="checked"' : '';
     $xtpl->assign('STATUS', array(
         'index' => $index,

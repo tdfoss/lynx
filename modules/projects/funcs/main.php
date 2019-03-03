@@ -34,7 +34,7 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
 
 $where = '';
 $base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op;
-$per_page = 20;
+$per_page = 10;
 $page = $nv_Request->get_int('page', 'post,get', 1);
 $array_search = array(
     'q' => $nv_Request->get_title('q', 'postG,get'),
@@ -80,7 +80,7 @@ if (!empty($array_search['begintime'])) {
         $array_search['begintime'] = 0;
     }
     $base_url .= '&amp;begintime= ' . $array_search['begintime'];
-    $where .= ' AND begintime = ' . $array_search['begintime'];
+    $where .= ' AND begintime >= ' . $array_search['begintime'];
 }
 if (!empty($array_search['endtime'])) {
 
@@ -93,7 +93,7 @@ if (!empty($array_search['endtime'])) {
         $array_search['endtime'] = 0;
     }
     $base_url .= '&amp;endtime= ' . $array_search['endtime'];
-    $where .= ' AND endtime = ' . $array_search['endtime'];
+    $where .= ' AND endtime <= ' . $array_search['endtime'];
 }
 if (!empty($array_search['realtime'])) {
 

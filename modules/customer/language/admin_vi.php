@@ -30,6 +30,7 @@ $lang_module['search_submit'] = 'Tìm kiếm';
 $lang_module['title'] = 'Tiêu đề';
 $lang_module['perform'] = 'Thực hiện';
 $lang_module['tags'] = 'Tag khách hàng';
+$lang_module['unit'] = 'Đơn vị';
 
 $lang_module['config_groups_admin'] = 'Nhóm quản lý';
 $lang_module['config_groups_manage'] = 'Nhóm làm việc';

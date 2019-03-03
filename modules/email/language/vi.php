@@ -29,6 +29,7 @@ $lang_module['title'] = 'Tiêu đề thư';
 $lang_module['content'] = 'Nội dung';
 $lang_module['files'] = 'Tệp đính kèm';
 $lang_module['save'] = 'Gửi thư';
+$lang_module['draft'] = 'Lưu thư nháp';
 $lang_module['sendto'] = 'Người nhận';
 $lang_module['sendcc'] = 'Thêm người nhận Cc';
 $lang_module['perform'] = 'Thực hiện';
@@ -36,6 +37,12 @@ $lang_module['email_title_success'] = 'Gửi thư thành công';
 $lang_module['email_title_error'] = 'Gửi thư không thành công';
 $lang_module['email_content_success'] = 'Thư của bạn đã được gửi đi thành công';
 $lang_module['email_content_error'] = 'Quá trình gửi thư gặp sự cố, bạn có thể thử lại thư này tại trang xem chi tiết';
+
+$lang_module['email_draft_success'] = 'Lưu thư nháp thành công';
+$lang_module['email_draft_error'] = 'Lưu thư nháp không thành công';
+$lang_module['email_content_draft'] = 'Thư của bạn đã được lưu thành công';
+$lang_module['email_content_draft_error'] = 'Quá trình lưu thư gặp sự cố, bạn có thể thử lại thư này tại trang xem chi tiết';
+
 $lang_module['view_detail'] = 'Xem chi tiết';
 $lang_module['useradd'] = 'Người gửi';
 $lang_module['addtime'] = 'Thời gian gửi';
@@ -52,4 +59,10 @@ $lang_module['logs_send_mail_note'] = '<strong>%s</strong> đã gửi thư <stro
 
 $lang_module['error_required_title'] = 'Lỗi: bạn cần nhập dữ liệu cho Tiêu đề thư';
 $lang_module['error_required_content'] = 'Lỗi: bạn cần nhập dữ liệu cho Nội dung';
+$lang_module['error_required_sendto_id'] = 'Lỗi: bạn cần chọn dữ liệu Người nhận';
 $lang_module['error_empty_data'] = 'Bạn cần chọn dữ liệu để thực hiện!';
+$lang_module['status'] = 'Trạng thái';
+$lang_module['status_0'] = 'Thư nháp';
+$lang_module['status_1'] = 'Đã gửi';
+$lang_module['status_select'] = 'Chọn trạng thái';
+$lang_module['send_new'] = 'Gửi email nháp';

@@ -121,3 +121,41 @@ function nv_chang_status(vid) {
     });
     return;
 }
+
+function nv_projects_sendinfo(id) {
+    if (confirm(projects_sendinfo_confirm)) {
+        $.ajax({
+            type : 'POST',
+            url : script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=detail&nocache=' + new Date().getTime(),
+            data : 'sendinfo=1&id=' + id,
+            success : function(data) {
+                var r_split = data.split('_');
+                alert(r_split[1]);
+                return !1;
+            }
+        });
+    }
+}
+
+function fix_news_image(stringid) {
+    var news = $('#' + stringid), newsW, w, h;
+    if (news.length) {
+        var newsW = news.innerWidth();
+        $.each($('img', news), function() {
+            if (typeof $(this).data('width') == "undefined") {
+                w = $(this).innerWidth();
+                h = $(this).innerHeight();
+                $(this).data('width', w);
+                $(this).data('height', h);
+            } else {
+                w = $(this).data('width');
+                h = $(this).data('height');
+            }
+            
+            if (w > newsW) {
+                $(this).prop('width', newsW - 30);
+                $(this).prop('height', h * newsW / w);
+            }
+        });
+    }
+}

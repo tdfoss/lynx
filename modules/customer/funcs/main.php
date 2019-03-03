@@ -45,13 +45,13 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
 
 $per_page = 20;
 $page = $nv_Request->get_int('page', 'post,get', 1);
-$is_contact = $nv_Request->get_int('is_contact', 'get', 0);
 $join = $where = '';
 $array_search = array(
     'q' => $nv_Request->get_title('q', 'post,get'),
     'type_id' => $nv_Request->get_int('type_id', 'post,get', 0),
     'workforceid' => $nv_Request->get_int('workforceid', 'post,get', 0),
-    'tag_id' => $nv_Request->get_typed_array('tag_id', 'get', 'int')
+    'tag_id' => $nv_Request->get_typed_array('tag_id', 'get', 'int'),
+    'is_contact' => $nv_Request->get_int('is_contact', 'get', 0)
 );
 
 if (!class_exists('PHPExcel')) {
@@ -62,23 +62,23 @@ if (!class_exists('PHPExcel')) {
 
 if ($nv_Request->isset_request('ordername', 'get')) {
     $array_search['ordername'] = $nv_Request->get_title('ordername', 'get');
-    $nv_Request->set_Cookie('ordername', $array_search['ordername']);
-} elseif ($nv_Request->isset_request('ordername', 'cookie')) {
-    $array_search['ordername'] = $nv_Request->get_title('ordername', 'cookie');
+    $nv_Request->set_Cookie($module_data . '_' . $op . '_ordername', $array_search['ordername']);
+} elseif ($nv_Request->isset_request($module_data . '_' . $op . 'ordername', 'cookie')) {
+    $array_search['ordername'] = $nv_Request->get_title($module_data . '_' . $op . 'ordername', 'cookie');
 } else {
     $array_search['ordername'] = 'first_name';
 }
 
 if ($nv_Request->isset_request('ordertype', 'get')) {
     $array_search['ordertype'] = $nv_Request->get_title('ordertype', 'get');
-    $nv_Request->set_Cookie('ordertype', $array_search['ordertype']);
-} elseif ($nv_Request->isset_request('ordername', 'cookie')) {
-    $array_search['ordertype'] = $nv_Request->get_title('ordertype', 'cookie');
+    $nv_Request->set_Cookie($module_data . '_' . $op . 'ordertype', $array_search['ordertype']);
+} elseif ($nv_Request->isset_request($module_data . '_' . $op . 'ordername', 'cookie')) {
+    $array_search['ordertype'] = $nv_Request->get_title($module_data . '_' . $op . 'ordertype', 'cookie');
 } else {
     $array_search['ordertype'] = 'asc';
 }
 
-$base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;is_contact=' . $is_contact;
+$base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;is_contact=' . $array_search['is_contact'];
 
 if (!empty($array_search['q'])) {
     $base_url .= '&q=' . $array_search['q'];
@@ -92,10 +92,6 @@ if (!empty($array_search['q'])) {
         OR skype LIKE "%' . $array_search['q'] . '%"
         OR zalo LIKE "%' . $array_search['q'] . '%"
         OR address LIKE "%' . $array_search['q'] . '%"
-        OR trading_person LIKE "%' . $array_search['q'] . '%"
-        OR unit_name LIKE "%' . $array_search['q'] . '%"
-        OR tax_code LIKE "%' . $array_search['q'] . '%"
-        OR address_invoice LIKE "%' . $array_search['q'] . '%"
     )';
 }
 
@@ -116,8 +112,9 @@ if (!empty($array_search['tag_id'])) {
     $where .= ' AND t2.tid IN (' . implode(',', $array_search['tag_id']) . ')';
 }
 
+$join .= ' INNER JOIN ' . NV_PREFIXLANG . '_' . $module_data . '_share_acc t3 ON t1.id=t3.customerid';
 $where .= nv_customer_premission($module_name);
-$where .= ' AND is_contacts=' . $is_contact;
+$where .= ' AND is_contacts=' . $array_search['is_contact'] . ' AND t3.userid=' . $user_info['userid'];
 
 $db->sqlreset()
     ->select('COUNT(*)')
@@ -129,14 +126,14 @@ $sth = $db->prepare($db->sql());
 $sth->execute();
 $num_items = $sth->fetchColumn();
 
-$db->select('t1.*')
+$db->select('t1.*, t3.permisson')
     ->order($array_search['ordername'] . ' ' . $array_search['ordertype'])
     ->limit($per_page)
     ->offset(($page - 1) * $per_page);
 $sth = $db->prepare($db->sql());
 $sth->execute();
 
-if ($is_contact) {
+if ($array_search['is_contact']) {
     $lang_module['customer_add'] = $lang_module['contact_add'];
     $lang_module['manage_customer'] = $lang_module['contact'];
 }
@@ -162,10 +159,11 @@ $xtpl->assign('MODULE_NAME', $module_name);
 $xtpl->assign('MODULE_UPLOAD', $module_upload);
 $xtpl->assign('OP', $op);
 $xtpl->assign('ROW', $row);
-$xtpl->assign('Q', $array_search['q']);
-$xtpl->assign('URL_ADD', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=content' . ($is_contact ? '&amp;is_contact=1' : ''));
+$xtpl->assign('SEARCH', $array_search);
+$xtpl->assign('URL_ADD', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=content' . ($array_search['is_contact'] ? '&amp;is_contact=1' : ''));
 $xtpl->assign('SORTURL', $array_sort_url);
 $xtpl->assign('URL_PARAM', http_build_query($array_param));
+$xtpl->assign('PAGE', $array_param['page']);
 
 if (class_exists('PHPExcel')) {
     $xtpl->assign('IMPORT_EXCEL', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=import&action=' . $module_name);
@@ -196,6 +194,11 @@ while ($view = $sth->fetch()) {
     $view['link_delete'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;delete_id=' . $view['id'] . '&amp;delete_checkss=' . md5($view['id'] . NV_CACHE_PREFIX . $client_info['session_id']);
     $view['type_id'] = !empty($view['type_id']) ? $array_customer_type_id[$view['type_id']]['title'] : '';
     $xtpl->assign('VIEW', $view);
+    
+    if($view['permisson'] == 1){
+        $xtpl->parse('main.loop.admin');
+    }
+    
     $xtpl->parse('main.loop');
 }
 

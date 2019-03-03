@@ -46,6 +46,7 @@
                     <th>{LANG.url}</th>
                     <th>{LANG.price}</th>
                     <th>{LANG.vat}</th>
+                    <th>{LANG.price_unit}</th>
                     <th width="100" class="text-center">{LANG.active}</th>
                     <th width="150">&nbsp;</th>
                 </tr>
@@ -66,6 +67,7 @@
                     <td><a href={VIEW.url} target="_blank">{VIEW.url}</a></td>
                     <td>{VIEW.price}</td>
                     <td>{VIEW.vat}</td>
+                    <td>{VIEW.price_unit}</td>
                     <td class="text-center"><input type="checkbox" name="active" id="change_status_{VIEW.id}" value="{VIEW.id}" {CHECK} onclick="nv_change_status({VIEW.id});" /></td>
                     <td class="text-center"><i class="fa fa-edit fa-lg">&nbsp;</i> <a href="{VIEW.link_edit}">{LANG.edit}</a> - <em class="fa fa-trash-o fa-lg">&nbsp;</em> <a href="{VIEW.link_delete}" onclick="return confirm(nv_is_del_confirm[0]);">{LANG.delete}</a></td>
                 </tr>

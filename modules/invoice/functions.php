@@ -24,6 +24,12 @@ function nv_delete_invoice($id)
 {
     global $db, $module_name, $module_data, $user_info, $lang_module, $workforce_list;
 
+    nv_invoice_premission($module_name);
+
+    if (!defined('NV_IS_ADMIN')) {
+        return false;
+    }
+
     $rows = $db->query('SELECT code, title FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
     if ($rows) {
         $count = $db->exec('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id = ' . $id);
@@ -46,7 +52,7 @@ function nv_caculate_total($price, $quantity, $vat = 0)
 
 function nv_sendmail_confirm($id)
 {
-    global $db, $module_name, $module_data, $row, $lang_module, $array_status, $user_info, $workforce_list;
+    global $db, $module_name, $module_data, $row, $lang_module, $array_invoice_status, $user_info, $workforce_list;
 
     $row = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
     if ($row) {
@@ -59,7 +65,7 @@ function nv_sendmail_confirm($id)
 
             $subject = 'Re: ' . sprintf($lang_module['sendmail_title'], $row['code'], $row['title']);
             $message = $db->query('SELECT econtent FROM ' . NV_PREFIXLANG . '_' . $module_data . '_econtent WHERE action="newconfirm"')->fetchColumn();
-            $row['status'] = $array_status[$row['status']];
+            $row['status'] = $array_invoice_status[$row['status']];
             $array_replace = array(
                 'FULLNAME' => $customer_info['fullname'],
                 'TITLE' => $row['title'],
@@ -112,15 +118,18 @@ function nv_invoice_premission($module, $type = 'where')
     $array_userid = array(); // mảng chứa userid mà người này được quản lý
     $groups_admin = explode(',', $array_config['groups_admin']);
 
-    if (!empty(array_intersect($groups_admin, $user_info['in_groups']))) {
-        return '';
-    }
-
-    // nhóm quản lý thấy tất cả
     $group_manage = !empty($array_config['groups_manage']) ? explode(',', $array_config['groups_manage']) : array();
     $group_manage = array_map('intval', $group_manage);
 
-    if (!empty(array_intersect($group_manage, $user_info['in_groups']))) {
+    if (!empty(array_intersect($groups_admin, $user_info['in_groups']))) {
+        if (!defined('NV_INVOICE_ADMIN')) {
+            define('NV_INVOICE_ADMIN', true);
+        }
+        return '';
+    } elseif (!empty(array_intersect($group_manage, $user_info['in_groups']))) {
+        if (!defined('NV_INVOICE_ADMIN')) {
+            define('NV_INVOICE_ADMIN', true);
+        }
         // kiểm tra tư cách trong nhóm (trưởng nhóm / thành viên nhóm)
         $result = $db->query('SELECT * FROM ' . NV_USERS_GLOBALTABLE . '_groups_users WHERE is_leader=1 AND approved=1 AND userid=' . $user_info['userid']);
         while ($row = $result->fetch()) {
@@ -145,7 +154,8 @@ function nv_invoice_premission($module, $type = 'where')
             return $array_userid;
         }
     } else {
-        return '';
+        // khách hàng
+        return ' AND customerid=' . $user_info['userid'];
     }
 }
 
@@ -207,13 +217,13 @@ function nv_transaction_update($invoiceid)
     }
 }
 
-function nv_support_confirm_payment($id)
+function nv_invoice_confirm_payment($id)
 {
     global $db, $module_name, $module_data, $lang_module, $workforce_list, $user_info;
 
-    $rows = $db->query('SELECT code, title FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
+    $rows = $db->query('SELECT code, title, sended FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
     if ($rows) {
-        $count = $db->exec('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET status=1 WHERE id=' . $id);
+        $count = $db->exec('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET status=1, paytime=' . NV_CURRENTTIME . ' WHERE id=' . $id);
         if ($count) {
             // cập nhật lịch sử giao dịch
             $grand_total = $db->query('SELECT grand_total FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetchColumn();
@@ -228,7 +238,11 @@ function nv_support_confirm_payment($id)
             $stmt->bindParam(':payment', $payment, PDO::PARAM_STR);
             $stmt->bindParam(':payment_amount', $payment_amount, PDO::PARAM_STR);
             if ($stmt->execute()) {
-                nv_sendmail_confirm($id);
+                // nếu trước đó có gửi thông tin hóa đơn cho khách đã thì mới gửi thông báo xác nhận thanh toán
+                if ($rows['sended']) {
+                    nv_sendmail_confirm($id);
+                }
+
                 $content = sprintf($lang_module['logs_invoice_confirm_note'], '[#' . $rows['code'] . '] ' . $rows['title']);
                 nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_invoice_confirm'], $content, $user_info['userid']);
             }

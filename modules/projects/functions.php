@@ -18,6 +18,48 @@ if (!defined('NV_IS_USER')) {
     nv_redirect_location($url_back);
 }
 
+function nv_sendinfo_projects($id)
+{
+    global $db, $module_data, $global_config, $lang_module, $redirect, $workforce_list, $array_working_type_id;
+
+    $message = $db->query('SELECT econtent FROM ' . NV_PREFIXLANG . '_' . $module_data . '_econtent WHERE action="new_project"')->fetchColumn();
+    $row = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
+
+    if (!empty($message)) {
+        $customer_info = nv_crm_customer_info($row['customerid']);
+        $array_replace = array(
+            'SITE_NAME' => $global_config['site_name'],
+            'CAT' => !empty($row['type_id']) ? $array_working_type_id[$row['type_id']]['title'] : '',
+            'CUSTOMER_FISRT_NAME' => $customer_info['first_name'],
+            'CUSTOMER_LAST_NAME' => $customer_info['last_name'],
+            'CUSTOMER_FULLNAME' => $customer_info['fullname'],
+            'USER_WORK' => $workforce_list[$row['workforceid']]['fullname'],
+            'TITLE' => $row['title'],
+            'BEGIN_TIME' => !empty($row['begintime']) ? nv_date('d/m/Y', $row['begintime']) : '-',
+            'END_TIME' => !empty($row['endtime']) ? nv_date('d/m/Y', $row['endtime']) : '-',
+            'REAL_TIME' => !empty($row['realtime']) ? nv_date('d/m/Y', $row['realtime']) : '-',
+            'PRICE' => !empty($row['price']) ? nv_number_format($row['price']) : '-',
+            'VAT' => $row['vat'],
+            'CONTENT' => $row['content'],
+            'STATUS' => $lang_module['status_select_' . $row['status']],
+            'URL_DETAIL' => NV_MY_DOMAIN . $redirect
+        );
+        $message = nv_unhtmlspecialchars($message);
+        foreach ($array_replace as $index => $value) {
+            $message = str_replace('[' . $index . ']', $value, $message);
+        }
+        $subject = sprintf($lang_module['new_project_title'], $global_config['site_name'], $row['title']);
+
+        require_once NV_ROOTDIR . '/modules/email/site.functions.php';
+        $sendto_id = array(
+            $row['customerid']
+        );
+
+        $return = nv_email_send($subject, $message, 0, $sendto_id);
+    }
+    return $return['status'];
+}
+
 if (isset($site_mods['task'])) {
     define('NV_TASK', true);
     $array_task_status = array(
@@ -96,6 +138,11 @@ function nv_projects_delete($id)
     if ($rows) {
         $count = $db->exec('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '  WHERE id = ' . $id);
         if ($count) {
+
+            // xóa custom field
+            $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_info WHERE rows_id=' . $id);
+
+            // xóa file đính kèm
             if (!empty($rows['files'])) {
                 $rows['files'] = explode(',', $rows['files']);
                 foreach ($rows['files'] as $path) {
@@ -109,4 +156,54 @@ function nv_projects_delete($id)
             nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_project_delete'], $content, $user_info['userid']);
         }
     }
+}
+
+function nv_projects_makeLinks($value, $protocols = array('http', 'mail'), array $attributes = array())
+{
+    // Link attributes
+    $attr = '';
+    foreach ($attributes as $key => $val) {
+        $attr = ' ' . $key . '="' . htmlentities($val) . '"';
+    }
+
+    $links = array();
+
+    // Extract existing links and tags
+    $value = preg_replace_callback('~(<a .*?>.*?</a>|<.*?>)~i', function ($match) use (&$links) {
+        return '<' . array_push($links, $match[1]) . '>';
+    }, $value);
+
+    // Extract text links for each protocol
+    foreach ((array) $protocols as $protocol) {
+        switch ($protocol) {
+            case 'http':
+            case 'https':
+                $value = preg_replace_callback('~(?:(https?)://([^\s<]+)|(www\.[^\s<]+?\.[^\s<]+))(?<![\.,:])~i', function ($match) use ($protocol, &$links, $attr) {
+                    if ($match[1]) $protocol = $match[1];
+                    $link = $match[2] ?: $match[3];
+                    return '<' . array_push($links, "<a $attr href=\"$protocol://$link\">$link</a>") . '>';
+                }, $value);
+                break;
+            case 'mail':
+                $value = preg_replace_callback('~([^\s<]+?@[^\s<]+?\.[^\s<]+)(?<![\.,:])~', function ($match) use (&$links, $attr) {
+                    return '<' . array_push($links, "<a $attr href=\"mailto:{$match[1]}\">{$match[1]}</a>") . '>';
+                }, $value);
+                break;
+            case 'twitter':
+                $value = preg_replace_callback('~(?<!\w)[@#](\w++)~', function ($match) use (&$links, $attr) {
+                    return '<' . array_push($links, "<a $attr href=\"https://twitter.com/" . ($match[0][0] == '@' ? '' : 'search/%23') . $match[1] . "\">{$match[0]}</a>") . '>';
+                }, $value);
+                break;
+            default:
+                $value = preg_replace_callback('~' . preg_quote($protocol, '~') . '://([^\s<]+?)(?<![\.,:])~i', function ($match) use ($protocol, &$links, $attr) {
+                    return '<' . array_push($links, "<a $attr href=\"$protocol://{$match[1]}\">{$match[1]}</a>") . '>';
+                }, $value);
+                break;
+        }
+    }
+
+    // Insert all link
+    return preg_replace_callback('/<(\d+)>/', function ($match) use (&$links) {
+        return $links[$match[1] - 1];
+    }, $value);
 }

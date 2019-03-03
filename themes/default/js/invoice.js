@@ -131,8 +131,11 @@ function nv_invoice_sendmail(id) {
             data : 'sendmail=1&id=' + id,
             success : function(data) {
                 var r_split = data.split('_');
-                alert(r_split[1]);
-                return !1;
+                if (r_split[0] == 'OK') {
+                    location.reload();
+                } else {
+                    alert(r_split[1]);
+                }
             }
         });
     }

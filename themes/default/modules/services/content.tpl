@@ -2,11 +2,9 @@
 <link type="text/css" href="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/select2/select2.min.css" />
 <link rel="stylesheet" href="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/select2/select2-bootstrap.min.css" />
-
 <!-- BEGIN: error -->
 <div class="alert alert-warning">{ERROR}</div>
 <!-- END: error -->
-
 <form class="form-horizontal" action="{NV_BASE_SITEURL}index.php?{NV_LANG_VARIABLE}={NV_LANG_DATA}&amp;{NV_NAME_VARIABLE}={MODULE_NAME}&amp;{NV_OP_VARIABLE}={OP}" method="post">
     <div class="panel panel-default">
         <div class="panel-body">
@@ -24,7 +22,7 @@
             <div class="form-group">
                 <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.serviceid}</strong> <span class="red">(*)</span></label>
                 <div class="col-sm-19 col-md-20">
-                    <select name="serviceid" class="form-control select2">
+                    <select name="serviceid" class="form-control select2" style="width: 100%">
                         <!-- BEGIN: services -->
                         <option value="{SERVICE.id}"{SERVICE.selected}>{SERVICE.title}</option>
                         <!-- END: services -->
@@ -53,7 +51,7 @@
                 <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.begintime}</strong></label>
                 <div class="col-sm-19 col-md-20">
                     <div class="input-group">
-                        <input class="form-control" type="text" name="begintime" value="{ROW.begintime}" id="begintime" pattern="^[0-9]{2,2}\/[0-9]{2,2}\/[0-9]{1,4}$" autocomplete="off"/> <span class="input-group-btn">
+                        <input class="form-control" type="text" name="begintime" value="{ROW.begintime}" id="begintime" pattern="^[0-9]{2,2}\/[0-9]{2,2}\/[0-9]{1,4}$" autocomplete="off" /> <span class="input-group-btn">
                             <button class="btn btn-default" type="button" id="begintime-btn">
                                 <em class="fa fa-calendar fa-fix"> </em>
                             </button>
@@ -65,7 +63,7 @@
                 <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.endtime}</strong></label>
                 <div class="col-sm-19 col-md-20">
                     <div class="input-group">
-                        <input class="form-control" type="text" name="endtime" value="{ROW.endtime}" id="endtime" pattern="^[0-9]{2,2}\/[0-9]{2,2}\/[0-9]{1,4}$" autocomplete="off"/> <span class="input-group-btn">
+                        <input class="form-control" type="text" name="endtime" value="{ROW.endtime}" id="endtime" pattern="^[0-9]{2,2}\/[0-9]{2,2}\/[0-9]{1,4}$" autocomplete="off" /> <span class="input-group-btn">
                             <button class="btn btn-default" type="button" id="endtime-btn">
                                 <em class="fa fa-calendar fa-fix"> </em>
                             </button>
@@ -85,7 +83,6 @@
         <input class="btn btn-primary" name="submit" type="submit" value="{LANG.save}" />
     </div>
 </form>
-
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/jquery-ui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/language/jquery.ui.datepicker-{NV_LANG_INTERFACE}.js"></script>
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/select2/select2.min.js"></script>
@@ -105,6 +102,7 @@
         $(".select2").select2({
             language : "{NV_LANG_INTERFACE}",
             theme : "bootstrap",
+            tags : true
         });
         
         $("#customerid").select2({

@@ -12,6 +12,9 @@ $sql_drop_module = array();
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data;
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_types";
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_tags";
+$sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_tags_customer";
+$sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_share_acc";
+$sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_units";
 
 $sql_create_module = $sql_drop_module;
 $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "(
@@ -26,14 +29,10 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   facebook varchar(255) NOT NULL,
   skype varchar(50) NOT NULL,
   zalo varchar(255) NOT NULL,
-  gender tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT 'Giới tính',
+  gender tinyint(1) unsigned NOT NULL DEFAULT '2' COMMENT 'Giới tính',
   address varchar(255) NOT NULL COMMENT 'Địa chỉ',
   unit varchar(255) NOT NULL COMMENT 'Đơn vị công tác',
-  trading_person varchar(255) NOT NULL COMMENT 'Người giao dịch',
-  unit_name varchar(255) NOT NULL COMMENT 'Đơn vị',
-  tax_code varchar(30) NOT NULL COMMENT 'Mã số thuế',
-  address_invoice varchar(255) NOT NULL COMMENT 'Địa chỉ đơn vị',
-  care_staff smallint(4) unsigned NOT NULL COMMENT 'Nhân viên chăm sóc KH',
+  care_staff mediumint(8) unsigned NOT NULL COMMENT 'Nhân viên chăm sóc KH',
   image varchar(255) NOT NULL,
   addtime int(11) unsigned NOT NULL COMMENT 'Thời gian thêm',
   edittime int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'Thời gian sửa',
@@ -42,6 +41,8 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   is_contacts tinyint(1) NOT NULL COMMENT 'Loại khách hàng',
   type_id smallint(4) unsigned NOT NULL DEFAULT '0',
   tag_id varchar(100) NOT NULL,
+  share_acc varchar(100) NOT NULL COMMENT 'share với tài khoản',
+  share_groups smallint(4) unsigned NOT NULL COMMENT 'share với group',
   PRIMARY KEY (id)
 ) ENGINE=MyISAM";
 
@@ -65,6 +66,20 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   tid smallint(4) NOT NULL,
   customerid mediumint(8) unsigned NOT NULL,
   UNIQUE KEY tid (tid, customerid)
+) ENGINE=MyISAM;";
+
+$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_units(
+  tid smallint(4) NOT NULL AUTO_INCREMENT,
+  title varchar(255) NOT NULL COMMENT 'Tiêu đề',
+  note text NOT NULL DEFAULT '' COMMENT 'Ghi chú',
+  PRIMARY KEY (tid)
+) ENGINE=MyISAM;";
+
+$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_share_acc(
+  userid smallint(4) NOT NULL,
+  customerid mediumint(8) unsigned NOT NULL,
+  permisson tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT 'Quyền',
+  UNIQUE KEY tid (userid, customerid, permisson)
 ) ENGINE=MyISAM;";
 
 $data = array();

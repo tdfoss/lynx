@@ -40,3 +40,8 @@ ul.list-info label {
     display: block;
     -webkit-box-orient: vertical;
 }
+
+#print {
+    padding: 10px;
+    background-color: #fff
+}

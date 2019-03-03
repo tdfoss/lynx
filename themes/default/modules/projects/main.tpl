@@ -31,7 +31,7 @@
                 <div class="form-group ">
                     <div class="form-group">
                         <div class="input-group">
-                            <input class="form-control datepicker" value="{SEARCH.from}" type="text" name="begintime" placeholder="{LANG.begintime_holder}" /> <span class="input-group-btn">
+                            <input class="form-control datepicker" value="{SEARCH.from}" type="text" name="begintime" autocomplete="off" placeholder="{LANG.begintime_holder}" /> <span class="input-group-btn">
                                 <button class="btn btn-default" type="button">
                                     <em class="fa fa-calendar fa-fix">&nbsp;</em>
                                 </button>
@@ -44,7 +44,7 @@
                 <div class="form-group">
                     <div class="form-group">
                         <div class="input-group">
-                            <input class="form-control datepicker" value="{SEARCH.from}" type="text" name="endtime" placeholder="{LANG.endtime_holder}" /> <span class="input-group-btn">
+                            <input class="form-control datepicker" value="{SEARCH.from}" type="text" name="endtime" autocomplete="off" placeholder="{LANG.endtime_holder}" /> <span class="input-group-btn">
                                 <button class="btn btn-default" type="button">
                                     <em class="fa fa-calendar fa-fix">&nbsp;</em>
                                 </button>
@@ -57,7 +57,7 @@
                 <div class="form-group">
                     <div class="form-group">
                         <div class="input-group">
-                            <input class="form-control datepicker" value="{SEARCH.from}" type="text" name="realtime" placeholder="{LANG.realtime_holder}" /> <span class="input-group-btn">
+                            <input class="form-control datepicker" value="{SEARCH.from}" type="text" name="realtime" autocomplete="off" placeholder="{LANG.realtime_holder}" /> <span class="input-group-btn">
                                 <button class="btn btn-default" type="button">
                                     <em class="fa fa-calendar fa-fix">&nbsp;</em>
                                 </button>
@@ -93,17 +93,16 @@
 </form>
 <form action="{NV_BASE_SITEURL}index.php?{NV_LANG_VARIABLE}={NV_LANG_DATA}&amp;{NV_NAME_VARIABLE}={MODULE_NAME}&amp;{NV_OP_VARIABLE}={OP}" method="post">
     <div class="table-responsive">
-        <table class="table table-striped table-bordered table-hover">
+        <table class="table table-striped table-bordered table-hover table-middle">
             <thead>
                 <tr>
                     <th class="text-center" width="50"><input name="check_all[]" type="checkbox" value="yes" onclick="nv_checkAll(this.form, 'idcheck[]', 'check_all[]',this.checked);"></th>
                     <th>{LANG.title}</th>
-                    <th>{LANG.workforceid}</th>
                     <th width="200">{LANG.customerid}</th>
-                    <th width="150">{LANG.begintime}</th>
-                    <th width="150">{LANG.endtime}</th>
-                    <th width="190">{LANG.realtime}</th>
-                    <th width="150">{LANG.status}</th>
+                    <th width="110" class="text-center">{LANG.begintime}</th>
+                    <th width="110" class="text-center">{LANG.endtime}</th>
+                    <th width="110" class="text-center">{LANG.realtime}</th>
+                    <th width="130">{LANG.status}</th>
                     <th width="70">&nbsp;</th>
                 </tr>
             </thead>
@@ -118,13 +117,13 @@
                 <!-- BEGIN: loop -->
                 <tr onclick="nv_table_row_click(event, '{VIEW.link_view}', false);" class="pointer">
                     <td class="text-center"><input type="checkbox" onclick="nv_UncheckAll(this.form, 'idcheck[]', 'check_all[]', this.checked);" value="{VIEW.id}" name="idcheck[]" class="post"></td>
-                    <td>{VIEW.title} <!-- BEGIN: files --> <em class="fa fa-paperclip pull-right">&nbsp;</em> <!-- END: files -->
+                    <td><strong>{VIEW.title}</strong> <!-- BEGIN: files --> <em class="fa fa-paperclip pull-right">&nbsp;</em> <!-- END: files -->
+                    <span class="help-block">{VIEW.performer_str}</span>
                     </td>
-                    <td>{VIEW.performer_str}</td>
                     <td><a href="{VIEW.customer.link}">{VIEW.customer.fullname}</a></td>
-                    <td>{VIEW.begintime}</td>
-                    <td>{VIEW.endtime}</td>
-                    <td>{VIEW.realtime}</td>
+                    <td class="text-center">{VIEW.begintime}</td>
+                    <td class="text-center">{VIEW.endtime}</td>
+                    <td class="text-center">{VIEW.realtime}</td>
                     <td>{VIEW.status}</td>
                     <td class="text-center form-tooltip"><a href="{VIEW.link_edit}" class="btn btn-default btn-xs" data-toggle="tooltip" data-original-title="{LANG.edit}"><i class="fa fa-edit"></i></a> <a href="{VIEW.link_delete}" onclick="return confirm(nv_is_del_confirm[0]);" class="btn btn-default btn-xs" data-toggle="tooltip" data-original-title="{LANG.delete}"><em class="fa fa-trash-o"></em></a></td>
                 </tr>
