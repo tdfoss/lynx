@@ -207,3 +207,204 @@ function nv_projects_makeLinks($value, $protocols = array('http', 'mail'), array
         return $links[$match[1] - 1];
     }, $value);
 }
+
+/**
+ * nv_exams_report_download()
+ *
+ * @param mixed $title
+ * @param mixed $array_data
+ * @param mixed $type
+ * @return
+ *
+ */
+function nv_exams_report_download($title, $array_data, $type = 'xlsx')
+{
+    global $module_name, $array_config, $array_field_config, $admin_info, $lang_module;
+
+    if (empty($array_data)) {
+        die('Nothing download!');
+    }
+
+    $array = array(
+        'objType' => '',
+        'objExt' => ''
+    );
+    switch ($type) {
+        case 'xlsx':
+            $array['objType'] = 'Excel2007';
+            $array['objExt'] = 'xlsx';
+            break;
+        case 'ods':
+            $array['objType'] = 'OpenDocument';
+            $array['objExt'] = 'ods';
+            break;
+        default:
+            $array['objType'] = 'CSV';
+            $array['objExt'] = 'csv';
+    }
+
+    $objPHPExcel = new PHPExcel();
+    $objPHPExcel->setActiveSheetIndex(0);
+
+    // Set properties
+    $objPHPExcel->getProperties()
+        ->setCreator($admin_info['username'])
+        ->setLastModifiedBy($admin_info['username'])
+        ->setTitle($title)
+        ->setSubject($title)
+        ->setDescription($title)
+        ->setCategory($module_name);
+
+    $columnIndex = 0; // Cot bat dau ghi du lieu
+    $rowIndex = 3; // Dong bat dau ghi du lieu
+
+    // cột số thứ tự
+    $objPHPExcel->getActiveSheet()->setCellValue(PHPExcel_Cell::stringFromColumnIndex($columnIndex) . $rowIndex, $lang_module['number']);
+
+    // thông tin thành viên
+    $objPHPExcel->getActiveSheet()->setCellValue(PHPExcel_Cell::stringFromColumnIndex($columnIndex + 1) . $rowIndex, $lang_module['title']);
+
+    $i = $columnIndex + 2;
+    foreach ($array_data[0] as $index => $data) {
+        if ($index == 'custom_field' && !empty($data)) {
+            foreach ($data as $field) {
+                $objPHPExcel->getActiveSheet()->setCellValue(PHPExcel_Cell::stringFromColumnIndex($i) . $rowIndex, $field['title']);
+                $i++;
+            }
+        }
+    }
+
+    $objPHPExcel->getActiveSheet()
+        ->setCellValue(PHPExcel_Cell::stringFromColumnIndex($i++) . $rowIndex, $lang_module['customerid'])
+        ->setCellValue(PHPExcel_Cell::stringFromColumnIndex($i++) . $rowIndex, $lang_module['workforceid'])
+        ->setCellValue(PHPExcel_Cell::stringFromColumnIndex($i++) . $rowIndex, $lang_module['price'])
+        ->setCellValue(PHPExcel_Cell::stringFromColumnIndex($i++) . $rowIndex, $lang_module['vat'])
+        ->setCellValue(PHPExcel_Cell::stringFromColumnIndex($i++) . $rowIndex, $lang_module['content'])
+        ->setCellValue(PHPExcel_Cell::stringFromColumnIndex($i++) . $rowIndex, $lang_module['url_code'])
+        ->setCellValue(PHPExcel_Cell::stringFromColumnIndex($i++) . $rowIndex, $lang_module['typeid'])
+        ->setCellValue(PHPExcel_Cell::stringFromColumnIndex($i++) . $rowIndex, $lang_module['begintime'])
+        ->setCellValue(PHPExcel_Cell::stringFromColumnIndex($i++) . $rowIndex, $lang_module['endtime'])
+        ->setCellValue(PHPExcel_Cell::stringFromColumnIndex($i++) . $rowIndex, $lang_module['realtime'])
+        ->setCellValue(PHPExcel_Cell::stringFromColumnIndex($i++) . $rowIndex, $lang_module['status']);
+
+    // Hiển thị thông tin câu trả lời
+    $i = $rowIndex + 1;
+    $number = 1;
+    foreach ($array_data as $data) {
+        // số thứ tự
+        $col = PHPExcel_Cell::stringFromColumnIndex(0);
+        $objPHPExcel->getActiveSheet()->setCellValue($col . $i, $number);
+
+        // thông tin thành viên
+        $col = PHPExcel_Cell::stringFromColumnIndex(1);
+        $objPHPExcel->getActiveSheet()->setCellValue($col . $i, $data['title']);
+
+        // thông tin tùy biến
+        $j = $columnIndex + 2;
+        if (!empty($data['custom_field'])) {
+            foreach ($data['custom_field'] as $field) {
+                $col = PHPExcel_Cell::stringFromColumnIndex($j++);
+                $objPHPExcel->getActiveSheet()->setCellValue($col . $i, $field['value']);
+            }
+        }
+
+        $col = PHPExcel_Cell::stringFromColumnIndex($j++);
+        $objPHPExcel->getActiveSheet()->setCellValue($col . $i, $data['customer']['fullname']);
+
+        $col = PHPExcel_Cell::stringFromColumnIndex($j++);
+        $objPHPExcel->getActiveSheet()->setCellValue($col . $i, $data['performer_str']);
+
+        $col = PHPExcel_Cell::stringFromColumnIndex($j++);
+        $objPHPExcel->getActiveSheet()->setCellValue($col . $i, $data['price']);
+
+        $col = PHPExcel_Cell::stringFromColumnIndex($j++);
+        $objPHPExcel->getActiveSheet()->setCellValue($col . $i, $data['vat']);
+
+        $col = PHPExcel_Cell::stringFromColumnIndex($j++);
+        $objPHPExcel->getActiveSheet()->setCellValue($col . $i, $data['content']);
+
+        $col = PHPExcel_Cell::stringFromColumnIndex($j++);
+        $objPHPExcel->getActiveSheet()->setCellValue($col . $i, $data['url_code']);
+
+        $col = PHPExcel_Cell::stringFromColumnIndex($j++);
+        $objPHPExcel->getActiveSheet()->setCellValue($col . $i, $data['type_id']);
+
+        $col = PHPExcel_Cell::stringFromColumnIndex($j++);
+        $objPHPExcel->getActiveSheet()->setCellValue($col . $i, $data['begintime']);
+
+        $col = PHPExcel_Cell::stringFromColumnIndex($j++);
+        $objPHPExcel->getActiveSheet()->setCellValue($col . $i, $data['endtime']);
+
+        $col = PHPExcel_Cell::stringFromColumnIndex($j++);
+        $objPHPExcel->getActiveSheet()->setCellValue($col . $i, $data['realtime']);
+
+        $col = PHPExcel_Cell::stringFromColumnIndex($j++);
+        $objPHPExcel->getActiveSheet()->setCellValue($col . $i, $data['status']);
+
+        $i++;
+        $number++;
+    }
+
+    $highestRow = $i - 1;
+    $highestColumn = PHPExcel_Cell::stringFromColumnIndex($j - 1);
+
+    // Rename sheet
+    $objPHPExcel->getActiveSheet()->setTitle('Sheet 1');
+
+    // Set page orientation and size
+    $objPHPExcel->getActiveSheet()
+        ->getPageSetup()
+        ->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_PORTRAIT);
+    $objPHPExcel->getActiveSheet()
+        ->getPageSetup()
+        ->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+
+    // Excel title
+    $objPHPExcel->getActiveSheet()->mergeCells('A2:' . $highestColumn . '2');
+    $objPHPExcel->getActiveSheet()->setCellValue('A2', $title);
+    $objPHPExcel->getActiveSheet()
+        ->getStyle('A2')
+        ->getAlignment()
+        ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+    $objPHPExcel->getActiveSheet()
+        ->getStyle('A2')
+        ->getAlignment()
+        ->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+
+    // Set color
+    $styleArray = array(
+        'borders' => array(
+            'outline' => array(
+                'style' => PHPExcel_Style_Border::BORDER_THIN,
+                'color' => array(
+                    'argb' => 'FF000000'
+                )
+            )
+        )
+    );
+
+    $objPHPExcel->getActiveSheet()
+        ->getStyle('A3' . ':' . $highestColumn . $highestRow)
+        ->applyFromArray($styleArray);
+
+    // Set font size
+    $objPHPExcel->getActiveSheet()
+        ->getStyle("A1:" . $highestColumn . $highestRow)
+        ->getFont()
+        ->setSize(13);
+
+    // Set auto column width
+    foreach (range('A', $highestColumn) as $columnID) {
+        $objPHPExcel->getActiveSheet()
+            ->getColumnDimension($columnID)
+            ->setAutoSize(true);
+    }
+
+    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, $array['objType']);
+    $file_src = NV_ROOTDIR . NV_BASE_SITEURL . NV_TEMP_DIR . '/' . change_alias($title) . '.' . $array['objExt'];
+    $objWriter->save($file_src);
+
+    $download = new NukeViet\Files\Download($file_src, NV_ROOTDIR . NV_BASE_SITEURL . NV_TEMP_DIR);
+    $download->download_file();
+    die();
+}
