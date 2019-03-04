@@ -3,7 +3,7 @@
 /* admintoolbar */
 #admintoolbar{
     position: fixed;
-    left: 0;
+    right: 0;
     top: 60px;
     background: #205FA0;
     background-image:linear-gradient(to right,rgba(255,255,255,0) 0%,rgba(255,255,255,0.1) 100%);
