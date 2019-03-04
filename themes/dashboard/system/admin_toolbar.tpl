@@ -24,10 +24,10 @@
     padding:0
 }
 #admintoolbar,#admintoolbar ul,#admintoolbar li:first-child, #admintoolbar li:first-child a{
-    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
 }
 #admintoolbar,#admintoolbar ul,#admintoolbar li:last-child, #admintoolbar li:last-child a{
-    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
 }
 #admintoolbar li {
     display:block;
