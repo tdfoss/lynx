@@ -148,6 +148,35 @@ if (!empty($array_search['customerid'])) {
 }
 
 while ($view = $sth->fetch()) {
+
+    $sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_info WHERE rows_id=' . $view['id'];
+
+    $result = $db->query($sql);
+    $custom_fields = $result->fetch();
+
+    foreach ($array_field_config as $field_info) {
+        if ($field_info['field_choices'] && $field_info['sql_choices']) {
+            $field_info['field_choices'] = [];
+            $query = 'SELECT ' . $field_info['sql_choices'][2] . ', ' . $field_info['sql_choices'][3] . ' FROM ' . $field_info['sql_choices'][1];
+            if (!empty($field_info['sql_choices'][4]) and !empty($field_info['sql_choices'][5])) {
+                $query .= ' ORDER BY ' . $field_info['sql_choices'][4] . ' ' . $field_info['sql_choices'][5];
+            }
+            $result = $db->query($query);
+            while (list ($key, $val) = $result->fetch(3)) {
+                $field_info['field_choices'][$key] = $val;
+            }
+            $view['custom_field'][] = array(
+                'title' => $field_info['title'],
+                'value' => $field_info['field_choices'][$custom_fields[$field_info['field']]]
+            );
+        } else {
+            $view['custom_field'][] = array(
+                'title' => $field_info['title'],
+                'value' => $custom_fields[$field_info['field']]
+            );
+        }
+    }
+
     $view['price'] = number_format($view['price']);
     $view['begintime'] = (empty($view['begintime'])) ? '-' : nv_date('d/m/Y', $view['begintime']);
     $view['endtime'] = (empty($view['endtime'])) ? '-' : nv_date('d/m/Y', $view['endtime']);
@@ -178,10 +207,11 @@ while ($view = $sth->fetch()) {
 
     $view['type_id'] = $array_working_type_id[$view['type_id']]['title'];
     $array_data[$view['id']] = $view;
+    $array_data_down[] = $view;
 }
 
 if ($is_download) {
-    nv_exams_report_download($lang_module['manager_projects'], $array_data);
+    nv_exams_report_download($lang_module['manager_projects'], $array_data_down);
     die();
 }
 

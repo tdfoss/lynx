@@ -208,6 +208,26 @@ function nv_projects_makeLinks($value, $protocols = array('http', 'mail'), array
     }, $value);
 }
 
+$array_field_config = array();
+$result_field = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_field WHERE show_profile=1 ORDER BY weight ASC');
+while ($row_field = $result_field->fetch()) {
+    $language = unserialize($row_field['language']);
+    $row_field['title'] = (isset($language[NV_LANG_DATA])) ? $language[NV_LANG_DATA][0] : $row['field'];
+    $row_field['description'] = (isset($language[NV_LANG_DATA])) ? nv_htmlspecialchars($language[NV_LANG_DATA][1]) : '';
+    if (!empty($row_field['field_choices'])) {
+        $row_field['field_choices'] = unserialize($row_field['field_choices']);
+    } elseif (!empty($row_field['sql_choices'])) {
+        $row_field['sql_choices'] = explode('|', $row_field['sql_choices']);
+        $query = 'SELECT ' . $row_field['sql_choices'][2] . ', ' . $row_field['sql_choices'][3] . ' FROM ' . $row_field['sql_choices'][1];
+        $result = $db->query($query);
+        $weight = 0;
+        while (list ($key, $val) = $result->fetch(3)) {
+            $row_field['field_choices'][$key] = $val;
+        }
+    }
+    $array_field_config[] = $row_field;
+}
+
 /**
  * nv_exams_report_download()
  *
@@ -258,13 +278,19 @@ function nv_exams_report_download($title, $array_data, $type = 'xlsx')
     $columnIndex = 0; // Cot bat dau ghi du lieu
     $rowIndex = 3; // Dong bat dau ghi du lieu
 
-    // cột số thứ tự
-    $objPHPExcel->getActiveSheet()->setCellValue(PHPExcel_Cell::stringFromColumnIndex($columnIndex) . $rowIndex, $lang_module['number']);
-
     // thông tin thành viên
-    $objPHPExcel->getActiveSheet()->setCellValue(PHPExcel_Cell::stringFromColumnIndex($columnIndex + 1) . $rowIndex, $lang_module['title']);
+    $objPHPExcel->getActiveSheet()
+        ->setCellValue(PHPExcel_Cell::stringFromColumnIndex($columnIndex) . $rowIndex, $lang_module['number'])
+        ->setCellValue(PHPExcel_Cell::stringFromColumnIndex($columnIndex + 1) . $rowIndex, $lang_module['title'])
+        ->setCellValue(PHPExcel_Cell::stringFromColumnIndex($columnIndex + 2) . $rowIndex, $lang_module['customerid'])
+        ->setCellValue(PHPExcel_Cell::stringFromColumnIndex($columnIndex + 3) . $rowIndex, $lang_module['workforceid'])
+        ->setCellValue(PHPExcel_Cell::stringFromColumnIndex($columnIndex + 4) . $rowIndex, $lang_module['price'])
+        ->setCellValue(PHPExcel_Cell::stringFromColumnIndex($columnIndex + 5) . $rowIndex, $lang_module['vat'])
+        ->setCellValue(PHPExcel_Cell::stringFromColumnIndex($columnIndex + 6) . $rowIndex, $lang_module['content'])
+        ->setCellValue(PHPExcel_Cell::stringFromColumnIndex($columnIndex + 7) . $rowIndex, $lang_module['url_code']);
 
-    $i = $columnIndex + 2;
+    $i = $columnIndex + 8;
+
     foreach ($array_data[0] as $index => $data) {
         if ($index == 'custom_field' && !empty($data)) {
             foreach ($data as $field) {
@@ -275,12 +301,6 @@ function nv_exams_report_download($title, $array_data, $type = 'xlsx')
     }
 
     $objPHPExcel->getActiveSheet()
-        ->setCellValue(PHPExcel_Cell::stringFromColumnIndex($i++) . $rowIndex, $lang_module['customerid'])
-        ->setCellValue(PHPExcel_Cell::stringFromColumnIndex($i++) . $rowIndex, $lang_module['workforceid'])
-        ->setCellValue(PHPExcel_Cell::stringFromColumnIndex($i++) . $rowIndex, $lang_module['price'])
-        ->setCellValue(PHPExcel_Cell::stringFromColumnIndex($i++) . $rowIndex, $lang_module['vat'])
-        ->setCellValue(PHPExcel_Cell::stringFromColumnIndex($i++) . $rowIndex, $lang_module['content'])
-        ->setCellValue(PHPExcel_Cell::stringFromColumnIndex($i++) . $rowIndex, $lang_module['url_code'])
         ->setCellValue(PHPExcel_Cell::stringFromColumnIndex($i++) . $rowIndex, $lang_module['typeid'])
         ->setCellValue(PHPExcel_Cell::stringFromColumnIndex($i++) . $rowIndex, $lang_module['begintime'])
         ->setCellValue(PHPExcel_Cell::stringFromColumnIndex($i++) . $rowIndex, $lang_module['endtime'])
@@ -299,32 +319,32 @@ function nv_exams_report_download($title, $array_data, $type = 'xlsx')
         $col = PHPExcel_Cell::stringFromColumnIndex(1);
         $objPHPExcel->getActiveSheet()->setCellValue($col . $i, $data['title']);
 
+        $col = PHPExcel_Cell::stringFromColumnIndex(2);
+        $objPHPExcel->getActiveSheet()->setCellValue($col . $i, $data['customer']['fullname']);
+
+        $col = PHPExcel_Cell::stringFromColumnIndex(3);
+        $objPHPExcel->getActiveSheet()->setCellValue($col . $i, $data['performer_str']);
+
+        $col = PHPExcel_Cell::stringFromColumnIndex(4);
+        $objPHPExcel->getActiveSheet()->setCellValue($col . $i, $data['price']);
+
+        $col = PHPExcel_Cell::stringFromColumnIndex(5);
+        $objPHPExcel->getActiveSheet()->setCellValue($col . $i, $data['vat']);
+
+        $col = PHPExcel_Cell::stringFromColumnIndex(6);
+        $objPHPExcel->getActiveSheet()->setCellValue($col . $i, $data['content']);
+
+        $col = PHPExcel_Cell::stringFromColumnIndex(7);
+        $objPHPExcel->getActiveSheet()->setCellValue($col . $i, $data['url_code']);
+
         // thông tin tùy biến
-        $j = $columnIndex + 2;
+        $j = $columnIndex + 8;
         if (!empty($data['custom_field'])) {
             foreach ($data['custom_field'] as $field) {
                 $col = PHPExcel_Cell::stringFromColumnIndex($j++);
                 $objPHPExcel->getActiveSheet()->setCellValue($col . $i, $field['value']);
             }
         }
-
-        $col = PHPExcel_Cell::stringFromColumnIndex($j++);
-        $objPHPExcel->getActiveSheet()->setCellValue($col . $i, $data['customer']['fullname']);
-
-        $col = PHPExcel_Cell::stringFromColumnIndex($j++);
-        $objPHPExcel->getActiveSheet()->setCellValue($col . $i, $data['performer_str']);
-
-        $col = PHPExcel_Cell::stringFromColumnIndex($j++);
-        $objPHPExcel->getActiveSheet()->setCellValue($col . $i, $data['price']);
-
-        $col = PHPExcel_Cell::stringFromColumnIndex($j++);
-        $objPHPExcel->getActiveSheet()->setCellValue($col . $i, $data['vat']);
-
-        $col = PHPExcel_Cell::stringFromColumnIndex($j++);
-        $objPHPExcel->getActiveSheet()->setCellValue($col . $i, $data['content']);
-
-        $col = PHPExcel_Cell::stringFromColumnIndex($j++);
-        $objPHPExcel->getActiveSheet()->setCellValue($col . $i, $data['url_code']);
 
         $col = PHPExcel_Cell::stringFromColumnIndex($j++);
         $objPHPExcel->getActiveSheet()->setCellValue($col . $i, $data['type_id']);
