@@ -245,6 +245,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
             $stmt->bindParam(':type_id', $row['type_id'], PDO::PARAM_INT);
             if ($stmt->execute()) {
                 $new_id = $row['id'];
+                $db->query('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_info (' . implode(', ', array_keys($query_field)) . ') VALUES (' . implode(', ', array_values($query_field)) . ')');
             }
         }
 
