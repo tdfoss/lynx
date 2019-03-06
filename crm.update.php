@@ -72,6 +72,9 @@ while (list ($lang) = $language_query->fetch(3)) {
 
     $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_products ADD price_unit tinyint(1) NOT NULL AFTER vat";
     
+    $sql[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', 'workreport', 'type_content', '1');";
+        
+    
     $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_customer_share_acc(
            userid smallint(4) NOT NULL,
            customerid mediumint(8) unsigned NOT NULL,
@@ -102,6 +105,8 @@ while (list ($lang) = $language_query->fetch(3)) {
 
     $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_customer CHANGE care_staff care_staff MEDIUMINT(8) UNSIGNED NOT NULL COMMENT 'Nhân viên chăm sóc KH';";
 
+    $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_services_price_unit ADD note text NOT NULL AFTER title;";
+    
     foreach ($sql as $_sql) {
         try {
             $db->query($_sql);
