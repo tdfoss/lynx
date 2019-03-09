@@ -20,13 +20,6 @@ if (!isset($site_mods['workforce'])) {
     }
 }
 
-if (empty($workforce_list)) {
-    $contents = nv_theme_alert($lang_module['workforce_empty_title'], $lang_module['workforce_empty_content'], 'danger');
-    include NV_ROOTDIR . '/includes/header.php';
-    echo nv_site_theme($contents);
-    include NV_ROOTDIR . '/includes/footer.php';
-}
-
 function nv_crm_customer_info($customerid)
 {
     global $db;
