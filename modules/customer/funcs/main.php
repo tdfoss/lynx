@@ -84,6 +84,7 @@ if (!empty($array_search['q'])) {
     $base_url .= '&q=' . $array_search['q'];
     $where .= ' AND (first_name LIKE "%' . $array_search['q'] . '%"
         OR last_name LIKE "%' . $array_search['q'] . '%"
+        OR CONCAT(last_name," ",first_name) LIKE "%' . $array_search['q'] . '%"
         OR main_phone LIKE "%' . $array_search['q'] . '%"
         OR other_phone LIKE "%' . $array_search['q'] . '%"
         OR main_email LIKE "%' . $array_search['q'] . '%"
@@ -194,11 +195,11 @@ while ($view = $sth->fetch()) {
     $view['link_delete'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;delete_id=' . $view['id'] . '&amp;delete_checkss=' . md5($view['id'] . NV_CACHE_PREFIX . $client_info['session_id']);
     $view['type_id'] = !empty($view['type_id']) ? $array_customer_type_id[$view['type_id']]['title'] : '';
     $xtpl->assign('VIEW', $view);
-    
+
     if($view['permisson'] == 1){
         $xtpl->parse('main.loop.admin');
     }
-    
+
     $xtpl->parse('main.loop');
 }
 
