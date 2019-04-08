@@ -1968,18 +1968,21 @@
 								border-left: 1px solid #d2d6de
 				}
 }
-.skin-blue-light .sidebar-menu>li>a>.material-button-toggle {
+.skin-blue-light .sidebar-menu>li>a>.material-button-toggle,.skin-blue-light .user-panel>.info>p {
     color: #3c8dbc;
 }
-.skin-green-light .sidebar-menu>li>a>.material-button-toggle {
+.skin-green-light .sidebar-menu>li>a>.material-button-toggle,.skin-green-light .user-panel>.info>p {
     color: #00a65a;
 }
-.skin-red-light .sidebar-menu>li>a>.material-button-toggle {
+.skin-red-light .sidebar-menu>li>a>.material-button-toggle,.skin-red-light .user-panel>.info>p {
     color: #dd4b39;
 }
-.skin-purple-light .sidebar-menu>li>a>.material-button-toggle {
+.skin-purple-light .sidebar-menu>li>a>.material-button-toggle,.skin-purple-light .user-panel>.info>p {
     color: rgb(170, 113, 228);
 }
-.skin-black-light .sidebar-menu>li>a>.material-button-toggle {
+.skin-black-light .sidebar-menu>li>a>.material-button-toggle,.skin-black-light .user-panel>.info>p {
     color: #333;
+}
+.skin-pink .user-panel>.info>p {
+color:	#f96a6e;			
 }

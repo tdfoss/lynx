@@ -1,6 +1,17 @@
-.wrapper {
+.sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>a>span:not(.pull-right), .sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>.treeview-menu {
+    width: 220px;
+}
+.sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>a>.pull-right-container {
+    left: 220px !important;
+}
+.sidebar-mini.sidebar-collapse .content-wrapper{
 				overflow-x:unset;
-				overflow-y:unset
+				overflow-y:unset;
+				min-height:1000px !important;
+				
+}
+.wrapper {
+				
 				}
 .control-sidebar-bg, .control-sidebar {width: 340px;right: -340px;}
 .sidebar-menu .menu-expand .pull-right-container>.fa-angle-left, .sidebar-menu .menu-expand .pull-right-container>.fa-angle-left {
@@ -275,7 +286,7 @@ body>div.login-box>div>div>div>div>h2 {
 }
 
 .content-wrapper {
-    background-color: #fff
+    background-color: #fff;
 }
 
 .navbar-nav>.notifications-menu>.dropdown-menu>li .menu {

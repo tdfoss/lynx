@@ -1,5 +1,5 @@
 .bg-pink-active, .modal-warning .modal-header, .modal-warning .modal-footer {
-    background-color: #f1595d !important;
+    background-color: #f96a6e !important;
 }
 .bg-pink, .callout.callout-danger, .alert-danger, .alert-error, .label-danger, .modal-danger .modal-body {
     background-color: #f96a6e !important;
@@ -66,13 +66,12 @@
 }
 
 .skin-pink .wrapper, .skin-pink .main-sidebar, .skin-pink .left-side {
-				background-color: #fff;
-				box-shadow: 0 0 5px rgba(0,0,0,0.3);
-				-webkit-box-shadow: 0 0 5px rgba(0,0,0,0.3);
+				/* background-color: #fff; */
+				/* box-shadow: 0 0 5px rgba(0,0,0,0.3); */
+				/* -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.3); */
 }
 
 .skin-pink .user-panel>.info, .skin-pink .user-panel>.info>a {
-				color: #fff
 }
 
 .skin-pink .sidebar-menu>li.header {
@@ -95,6 +94,7 @@
 .skin-pink .sidebar-menu>li:hover>a, .skin-pink .sidebar-menu>li.active>a, .skin-pink .sidebar-menu>li.menu-open>a {
 				color: #f96a6e;
 				font-weight: 700;
+				background: #e2e2e2;
 }
 
 .skin-pink .sidebar-menu>li.active>a {
