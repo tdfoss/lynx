@@ -149,6 +149,7 @@ $array_param = array(
     'page' => $page,
     'per_page' => $per_page,
     'where_string' => base64_encode($where),
+    'join_string' => base64_encode($join),
     'where_md5' => md5($where . $global_config['sitekey']),
     'ordername' => $array_search['ordername'],
     'ordertype' => $array_search['ordertype']

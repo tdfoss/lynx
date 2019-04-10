@@ -17,6 +17,7 @@ if ($nv_Request->isset_request('option', 'post')) {
         'per_page' => $nv_Request->get_int('per_page', 'post', 20),
         'selected_id' => $nv_Request->get_string('selected_id', 'post', ''),
         'where' => $nv_Request->get_string('where_string', 'post', ''),
+        'join' => $nv_Request->get_string('join_string', 'post', ''),
         'checkssum' => $nv_Request->get_string('where_md5', 'post', ''),
         'ordername' => $nv_Request->get_string('ordername', 'post', ''),
         'ordertype' => $nv_Request->get_string('ordertype', 'post', '')
@@ -58,6 +59,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
     $type = $nv_Request->get_int('type', 'post', 3);
     $data = $nv_Request->get_array('data', 'post');
     $data['where'] = base64_decode($data['where']);
+    $data['join'] = base64_decode($data['join']);
 
     if (md5($data['where'] . $global_config['sitekey']) != $data['checkssum']) {
         nv_jsonOutput(array(
@@ -89,6 +91,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
 
     $db->select(implode(',', array_keys($array_heading)))
         ->from(NV_PREFIXLANG . '_' . $module_data . ' t1')
+        ->join($data['join'])
         ->where('1=1' . $data['where'])
         ->order($data['ordername'] . ' ' . $data['ordertype']);
 
