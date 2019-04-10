@@ -43,4 +43,12 @@
         $(window).resize(checkWidthMenu);
     });
 </script>
+<script type="text/javascript">
+$(document).ready(function () {
+    $('.material-button-toggle').on("click", function () {
+        $(this).toggleClass('open');
+        $('.dropdown.open').toggleClass('close-up');
+    });
+});
+</script>
 <!-- END: main -->

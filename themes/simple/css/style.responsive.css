@@ -17,6 +17,25 @@
     }
 }
 @media (max-width:767px) {
+	.test.viewlist .panel .panel-body p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 20px;
+    -webkit-line-clamp: 2;
+    height: 40px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+	.caret-down {
+    position: absolute;
+    top: 8px;
+    right: 6px;
+    color: #fff;
+    font-size: 20px;
+    width: 66px;
+    height: 25px;
+    padding-left: 31px;
+}
     .box-shadow {
         box-shadow:none;
         -webkit-box-shadow:none;
