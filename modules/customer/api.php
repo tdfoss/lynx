@@ -31,6 +31,7 @@ $app->post('/api/customer/add/', function (Request $request, Response $response,
     $row['facebook'] = $request->getParam('facebook');
     $row['skype'] = $request->getParam('skype');
     $row['zalo'] = $request->getParam('zalo');
+    $row['website'] = $request->getParam('website');
     $row['gender'] = $request->getParam('gender');
     $row['address'] = $request->getParam('address');
     $row['care_staff'] = $request->getParam('care_staff');
@@ -58,6 +59,14 @@ $app->post('/api/customer/add/', function (Request $request, Response $response,
         $row['image'] = '';
     }
 
+    if (!empty($row['website'])) {
+        foreach ($row['website'] as $index => $url) {
+            if (!nv_is_url($url)) {
+                unset($row['website'][$index]);
+            }
+        }
+    }
+
     if (empty($row['first_name'])) {
         nv_jsonOutput(array(
             'error' => 1,
@@ -66,7 +75,8 @@ $app->post('/api/customer/add/', function (Request $request, Response $response,
     }
 
     try {
-        $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_customer (note, first_name, last_name, main_phone, other_phone, main_email, other_email, birthday, facebook, skype, zalo, gender, address, care_staff, image, addtime, userid, is_contacts, type_id) VALUES (:note, :first_name, :last_name, :main_phone, :other_phone, :main_email, :other_email, :birthday, :facebook, :skype, :zalo, :gender, :address, :care_staff, :image, ' . NV_CURRENTTIME . ', 1, :is_contacts, :type_id)';
+        $website = !empty($row['website']) ? implode(',', $row['website']) : '';
+        $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_customer (note, first_name, last_name, main_phone, other_phone, main_email, other_email, birthday, facebook, skype, zalo, website, gender, address, care_staff, image, addtime, userid, is_contacts, type_id) VALUES (:note, :first_name, :last_name, :main_phone, :other_phone, :main_email, :other_email, :birthday, :facebook, :skype, :zalo, :website, :gender, :address, :care_staff, :image, ' . NV_CURRENTTIME . ', 1, :is_contacts, :type_id)';
         $data_insert = array();
         $data_insert['first_name'] = $row['first_name'];
         $data_insert['last_name'] = $row['last_name'];
@@ -78,6 +88,7 @@ $app->post('/api/customer/add/', function (Request $request, Response $response,
         $data_insert['facebook'] = $row['facebook'];
         $data_insert['skype'] = $row['skype'];
         $data_insert['zalo'] = $row['zalo'];
+        $data_insert['website'] = $website;
         $data_insert['gender'] = $row['gender'];
         $data_insert['address'] = $row['address'];
         $data_insert['care_staff'] = $row['care_staff'];
@@ -115,6 +126,7 @@ $app->post('/api/customer/update/{id}/', function (Request $request, Response $r
     $row['facebook'] = $request->getParam('facebook');
     $row['skype'] = $request->getParam('skype');
     $row['zalo'] = $request->getParam('zalo');
+    $row['website'] = $request->getParam('website');
     $row['gender'] = $request->getParam('gender');
     $row['address'] = $request->getParam('address');
     $row['care_staff'] = $request->getParam('care_staff');
@@ -142,6 +154,14 @@ $app->post('/api/customer/update/{id}/', function (Request $request, Response $r
         $row['image'] = '';
     }
 
+    if (!empty($row['website'])) {
+        foreach ($row['website'] as $index => $url) {
+            if (!nv_is_url($url)) {
+                unset($row['website'][$index]);
+            }
+        }
+    }
+
     if (empty($row['first_name'])) {
         nv_jsonOutput(array(
             'error' => 1,
@@ -150,7 +170,8 @@ $app->post('/api/customer/update/{id}/', function (Request $request, Response $r
     }
 
     try {
-        $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_customer SET first_name = :first_name, last_name = :last_name, main_phone = :main_phone, other_phone = :other_phone, main_email = :main_email, other_email = :other_email, birthday = :birthday, facebook = :facebook, skype = :skype, zalo = :zalo, gender = :gender, address = :address, care_staff = :care_staff, image = :image, edittime=' . NV_CURRENTTIME . ', note = :note, type_id = :type_id WHERE id=' . $id);
+        $website = !empty($row['website']) ? implode(',', $row['website']) : '';
+        $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_customer SET first_name = :first_name, last_name = :last_name, main_phone = :main_phone, other_phone = :other_phone, main_email = :main_email, other_email = :other_email, birthday = :birthday, facebook = :facebook, skype = :skype, zalo = :zalo, website = :website, gender = :gender, address = :address, care_staff = :care_staff, image = :image, edittime=' . NV_CURRENTTIME . ', note = :note, type_id = :type_id WHERE id=' . $id);
         $stmt->bindParam(':first_name', $row['first_name'], PDO::PARAM_STR);
         $stmt->bindParam(':last_name', $row['last_name'], PDO::PARAM_STR);
         $stmt->bindParam(':main_phone', $row['main_phone'], PDO::PARAM_STR);
@@ -161,6 +182,7 @@ $app->post('/api/customer/update/{id}/', function (Request $request, Response $r
         $stmt->bindParam(':facebook', $row['facebook'], PDO::PARAM_STR);
         $stmt->bindParam(':skype', $row['skype'], PDO::PARAM_STR);
         $stmt->bindParam(':zalo', $row['zalo'], PDO::PARAM_STR);
+        $stmt->bindParam(':website', $website, PDO::PARAM_STR);
         $stmt->bindParam(':gender', $row['gender'], PDO::PARAM_INT);
         $stmt->bindParam(':address', $row['address'], PDO::PARAM_STR);
         $stmt->bindParam(':care_staff', $row['care_staff'], PDO::PARAM_INT);
