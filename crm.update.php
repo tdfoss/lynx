@@ -134,6 +134,8 @@ while (list ($lang) = $language_query->fetch(3)) {
 
     $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_services_price_unit ADD note text NOT NULL AFTER title;";
 
+    $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_customer ADD website VARCHAR(255) NOT NULL AFTER zalo;";
+
     foreach ($sql as $_sql) {
         try {
             $db->query($_sql);

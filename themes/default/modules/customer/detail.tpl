@@ -87,8 +87,14 @@
                         <tr>
                             <th>Zalo</th>
                             <td>{CUSTOMER.zalo}</td>
+                            <th>Website</th>
+                            <td>{CUSTOMER.website_str}</td>
+                        </tr>
+                        <tr>
                             <th>{LANG.address}</th>
                             <td>{CUSTOMER.address}</td>
+                            <th></th>
+                            <td></td>
                         </tr>
                         <tr>
                             <th>{LANG.gender}</th>
