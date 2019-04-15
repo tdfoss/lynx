@@ -35,7 +35,6 @@
 		"endroid/qrcode" : "^1.9.1",
 		"true/punycode" : "^2.1",
 		"gregwar/captcha" : "^1.1",
-		"phpmailer/phpmailer" : "^6.0",
-		"mpdf/mpdf" : "^7.1"
+		"phpmailer/phpmailer" : "^6.0"
 	}
 }
