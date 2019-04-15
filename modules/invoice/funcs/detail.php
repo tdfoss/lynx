@@ -104,9 +104,11 @@ if ($nv_Request->isset_request('downpdf', 'get')) {
     $filename = '#' . $code . '.pdf';
     $contents = nv_invoice_template($id);
 
-    $mpdf = new \Mpdf\Mpdf();
-    $mpdf->WriteHTML($contents);
-    $mpdf->Output($filename, 'D');
+    if (class_exists('Mpdf')) {
+        $mpdf = new \Mpdf\Mpdf();
+        $mpdf->WriteHTML($contents);
+        $mpdf->Output($filename, 'D');
+    }
 }
 
 if ($nv_Request->isset_request('sendmail', 'post')) {
