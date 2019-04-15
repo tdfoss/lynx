@@ -12,15 +12,21 @@ if (!defined('NV_IS_MOD_CUSTOMER')) die('Stop!!!');
 if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_request('delete_checkss', 'get')) {
     $id = $nv_Request->get_int('delete_id', 'get');
     $delete_checkss = $nv_Request->get_string('delete_checkss', 'get');
+    $redirect = $nv_Request->get_string('redirect', 'get');
     if ($id > 0 and $delete_checkss == md5($id . NV_CACHE_PREFIX . $client_info['session_id'])) {
 
-        $userid = $db->query('SELECT userid FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetchColumn();
+        list($userid, $is_contact) = $db->query('SELECT userid, is_contacts FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch(3);
         $fullname = $workforce_list[$userid]['fullname'];
 
         nv_customer_delete($id);
         nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_customer'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['delete_customer'] . " " . $fullname, $user_info['userid']);
-        Header('Location: ' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=' . $op);
-        die();
+
+        if (!empty($redirect)) {
+            $url = nv_redirect_decrypt($redirect);
+        } else {
+            $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&is_contact=' . $is_contact;
+        }
+        nv_redirect_location($url);
     }
 } elseif ($nv_Request->isset_request('delete_list', 'post')) {
     $listall = $nv_Request->get_title('listall', 'post', '');
@@ -193,11 +199,11 @@ while ($view = $sth->fetch()) {
     $view['addtime'] = nv_date('H:i d/m/Y', $view['addtime']);
     $view['link_view'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $view['id'] . '&amp;is_contacts=' . $view['is_contacts'];
     $view['link_edit'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=content&amp;id=' . $view['id'] . '&amp;redirect=' . nv_redirect_encrypt($client_info['selfurl']);
-    $view['link_delete'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;delete_id=' . $view['id'] . '&amp;delete_checkss=' . md5($view['id'] . NV_CACHE_PREFIX . $client_info['session_id']);
+    $view['link_delete'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;delete_id=' . $view['id'] . '&amp;delete_checkss=' . md5($view['id'] . NV_CACHE_PREFIX . $client_info['session_id']) . '&amp;redirect=' . nv_redirect_encrypt($client_info['selfurl']);
     $view['type_id'] = !empty($view['type_id']) ? $array_customer_type_id[$view['type_id']]['title'] : '';
     $xtpl->assign('VIEW', $view);
 
-    if($view['permisson'] == 1){
+    if ($view['permisson'] == 1) {
         $xtpl->parse('main.loop.admin');
     }
 
