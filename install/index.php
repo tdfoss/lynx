@@ -1103,6 +1103,15 @@ if ($step == 1) {
             }
         }
 
+        // Cập nhật lại trường in_groups
+        $in_groups = array();
+        $result = $db->query('SELECT group_id FROM ' . $db_config['prefix'] . '_users_groups_users WHERE userid=1');
+        while (list ($group_id) = $result->fetch(3)) {
+            $in_groups[] = $group_id;
+        }
+        $in_groups = !empty($in_groups) ? implode(',', $in_groups) : '';
+        $db->query('UPDATE ' . $db_config['prefix'] . '_users SET in_groups=' . $db->quote($in_groups) . ' WHERE userid=1');
+
         define('NV_CONFIG_GLOBALTABLE', $db_config['prefix'] . '_config');
         $db->query("UPDATE " . NV_CONFIG_GLOBALTABLE . " SET config_value = " . $db->quote(NV_SERVER_NAME) . " WHERE lang = 'sys' AND module = 'global' AND config_name = 'my_domains'");
 
