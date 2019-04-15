@@ -106,26 +106,26 @@ if (!nv_function_exists('nv_projects_list')) {
         $sql = 'SELECT id, title, status, addtime, edittime, workforceid FROM ' . NV_PREFIXLANG . '_' . $mod_data . ' WHERE status IN (' . implode(',', $block_config['type']) . ')  ORDER BY ' . $block_config['updown'] . ' DESC  LIMIT ' . $block_config['numrow'];
         $list = $nv_Cache->db($sql, 'id', $module);
 
+        if (empty($list)) return '';
+
         $xtpl = new XTemplate('block.manage_projects.tpl', NV_ROOTDIR . '/themes/' . $block_theme . '/modules/projects');
         $xtpl->assign('LANG', $lang_module);
         $xtpl->assign('BLOCK_THEME', $block_theme);
 
-        if (!empty($list)) {
-            foreach ($list as $view) {
-                $view['title'] = nv_clean60($view['title'], $block_config['characters']);
-                $view['status'] = $lang_module['status_select_' . $view['status']];
-                $view['link_view'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $mod_data . '&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $view['id'];
+        foreach ($list as $view) {
+            $view['title'] = nv_clean60($view['title'], $block_config['characters']);
+            $view['status'] = $lang_module['status_select_' . $view['status']];
+            $view['link_view'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $mod_data . '&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $view['id'];
 
-                $view['performer_str'] = array();
-                $performer = !empty($view['workforceid']) ? explode(',', $view['workforceid']) : array();
-                foreach ($performer as $userid) {
-                    $view['performer_str'][] = $workforce_list[$userid]['fullname'];
-                }
-                $view['performer_str'] = !empty($view['performer_str']) ? implode(', ', $view['performer_str']) : '';
-
-                $xtpl->assign('PROJECTS_VIEW', $view);
-                $xtpl->parse('main.projects');
+            $view['performer_str'] = array();
+            $performer = !empty($view['workforceid']) ? explode(',', $view['workforceid']) : array();
+            foreach ($performer as $userid) {
+                $view['performer_str'][] = $workforce_list[$userid]['fullname'];
             }
+            $view['performer_str'] = !empty($view['performer_str']) ? implode(', ', $view['performer_str']) : '';
+
+            $xtpl->assign('PROJECTS_VIEW', $view);
+            $xtpl->parse('main.projects');
         }
 
         $xtpl->parse('main');
