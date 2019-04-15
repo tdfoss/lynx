@@ -1,0 +1,100 @@
+/**
+ * @Project NUKEVIET 4.x
+ * @Author VINADES.,JSC (contact@vinades.vn)
+ * @Copyright (C) 2015 VINADES.,JSC. All rights reserved
+ * @License GNU/GPL version 2 or any later version
+ * @Createdate Wed, 06 May 2015 02:22:19 GMT
+ */
+.notify_item {
+    border-bottom: dotted 1px #ccc;
+    padding: 5px
+}
+
+.notify_item img {
+    height: 70px;
+    margin: 0 10px 10px 0
+}
+
+.notification-popup {
+    position: absolute;
+    top: 11px;
+    right: 8px;
+}
+
+.notification-popup .navbar {
+    min-height: inherit;
+    float: right;
+}
+
+.notification-popup .navbar .dropdown-menu a {
+    color: #0855A1;
+    font-size: 12px !important
+}
+
+.notification-popup .navbar a.dropdown-toggle {
+    font-family: Roboto;
+    font-weight: 400;
+    font-size: 14px !important;
+    margin-top: -1px;
+    display: block;
+}
+
+.notification-popup .navbar #notification-number {
+    position: absolute;
+    top: -7px;
+    right: 4px;
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    background-color: #FF0040;
+    border-radius: 10px;
+    z-index: 1;
+}
+
+.notification-popup .navbar .dropdown-menu {
+    min-width: 430px;
+}
+
+.notification-popup .navbar .dropdown-menu ul.notification-list li {
+    padding: 10px 10px 0 10px;
+    cursor: pointer
+}
+
+.notification-popup .navbar .dropdown-menu ul.notification-list li:hover {
+    background: rgba(237, 239, 245, .5);
+}
+
+.notification-popup .navbar .dropdown-menu ul.notification-list li:not (:last-child ){
+    border-bottom: solid 1px #f1f1f1;
+}
+
+.notification-popup .navbar .fa-2x {
+    font-size: 20px
+}
+
+.notification-popup .navbar .dropdown-menu ul.notification-list li p, .notification-popup .navbar .dropdown-menu ul.notification-list li p a {
+    font-size: 12px !important;
+    line-height: 20px;
+    text-align: justify;
+}
+
+.notification-popup .navbar .dropdown-menu ul.notification-list li p a {
+    margin: 0 !important
+}
+
+.view {
+    background-color: #e9eaed;
+    background: rgba(237, 239, 245, .98);
+    border-color: #d8deea;
+}
+
+ul.notification-list{
+    padding: 0
+}
