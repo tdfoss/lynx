@@ -98,11 +98,9 @@ if ($nv_Request->isset_request('submit', 'post')) {
     } else {
         $row['image'] = '';
     }
-    
+
     $ingroups = $array_config['groups_use'];
-    
-    $part = !empty($row['part']) ? implode(',', $row['part']) : '';
-    
+
     if (empty($row['first_name'])) {
         nv_jsonOutput(array(
             'error' => 1,
@@ -132,6 +130,12 @@ if ($nv_Request->isset_request('submit', 'post')) {
             'error' => 1,
             'msg' => $lang_module['error_required_main_email'],
             'input' => 'main_email'
+        ));
+    } elseif (empty($row['part'])) {
+        nv_jsonOutput(array(
+            'error' => 1,
+            'msg' => $lang_module['error_required_part'],
+            'input' => 'part'
         ));
     }
     if (!empty($row['btn_radio'])) {
@@ -165,10 +169,10 @@ if ($nv_Request->isset_request('submit', 'post')) {
             ));
         }
     }
-    
+
     if (empty($error)) {
-        
         try {
+            $part = !empty($row['part']) ? implode(',', $row['part']) : '';
             if (empty($row['id'])) {
                 $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (userid, first_name, last_name, gender, birthday, main_phone, other_phone, main_email, other_email, address, knowledge, image, jointime, position, part, salary, allowance, addtime, edittime, useradd) VALUES (:userid, :first_name, :last_name, :gender, :birthday, :main_phone, :other_phone, :main_email, :other_email, :address, :knowledge, :image, :jointime, :position, :part, :salary, :allowance, ' . NV_CURRENTTIME . ', ' . NV_CURRENTTIME . ', ' . $user_info['userid'] . ')';
                 $data_insert = array();
@@ -229,20 +233,20 @@ if ($nv_Request->isset_request('submit', 'post')) {
                         }
                     }
                 }
-                
+
                 $nv_Cache->delMod($module_name);
                 $nv_Cache->delMod('users');
-                
+
                 if (!empty($row['redirect'])) {
                     $url = nv_redirect_decrypt($row['redirect']);
                 } else {
                     $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=detail&id=' . $new_id;
                 }
-                
+
                 nv_jsonOutput(array(
                     'error' => 0,
                     'redirect' => $url
-                
+
                 ));
             }
         } catch (PDOException $e) {

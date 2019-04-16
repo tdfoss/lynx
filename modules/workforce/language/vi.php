@@ -110,6 +110,7 @@ $lang_module['error_required_birthday'] = 'Lỗi: bạn cần nhập dữ liệu
 $lang_module['error_required_password'] = 'Lỗi: bạn cần nhập dữ liệu mật khẩu';
 $lang_module['error_required_pass'] = 'Lỗi: bạn dữ liệu mật khẩu không trùng nhau !';
 $lang_module['error_required_looppassword'] = 'Lỗi: bạn cần nhập dữ liệu mật khẩu xác thực';
+$lang_module['error_required_part'] = 'Lỗi: bạn cần chọn Bộ phận';
 $lang_module['error_empty_data'] = 'Bạn cần chọn dữ liệu để thực hiện!';
 $lang_module['error_unknow'] = 'Vì một lý do nào đó hệ thống không thể đáp ứng yêu cầu của bạn lúc này, vui lòng liên hệ với người quản trị để biết thêm thông tin.';
 $lang_module['error_data_part_title'] = 'Hiện tại bộ phận đang trống';
