@@ -9,6 +9,14 @@
  */
 if (!defined('NV_IS_MOD_WORKFORCE')) die('Stop!!!');
 
+if ($nv_Request->isset_request('notify', 'get')) {
+    $redirect = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=content';
+    $contents = nv_theme_alert($lang_module['error_required_workforce_list'], $lang_module['error_required_workforce_list_content'], 'warning', $redirect, $lang_module['workforce_add']);
+    include NV_ROOTDIR . '/includes/header.php';
+    echo nv_site_theme($contents);
+    include NV_ROOTDIR . '/includes/footer.php';
+}
+
 if ($nv_Request->isset_request('get_user_json', 'post, get')) {
     $q = $nv_Request->get_title('q', 'post, get', '');
 
