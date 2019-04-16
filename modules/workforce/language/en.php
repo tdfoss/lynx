@@ -18,8 +18,6 @@ $lang_translator['langtype'] = 'lang_module';
 $lang_module['main'] = "Main";
 $lang_module['detail'] = "Detail";
 
-//Lang for function salary
-$lang_module['salary'] = 'salary';
 $lang_module['edit'] = 'edit';
 $lang_module['delete'] = 'Delete';
 $lang_module['number'] = 'Number';

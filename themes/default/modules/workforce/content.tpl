@@ -161,18 +161,6 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.salary_base}</strong></label>
-                <div class="col-sm-19 col-md-20">
-                    <input class="form-control" type="text" name="salary" value="{ROW.salary}" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.allowance}</strong></label>
-                <div class="col-sm-19 col-md-20">
-                    <input class="form-control" type="text" name="allowance" value="{ROW.allowance}" />
-                </div>
-            </div>
         </div>
     </div>
     <div class="form-group text-center">
