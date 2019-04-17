@@ -178,7 +178,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
         if (isset($_FILES['upload_fileupload']) && !empty($_FILES['upload_fileupload']['name'][0])) {
             $array_files = normalizeFiles($_FILES['upload_fileupload']);
             foreach ($array_files as $file) {
-                $upload = new NukeViet\Files\Upload($global_config['file_allowed_ext'], $global_config['forbid_extensions'], $global_config['forbid_mimes'], $array_config['maxfilesize'], NV_MAX_WIDTH, NV_MAX_HEIGHT);
+                $upload = new NukeViet\Files\Upload($global_config['file_allowed_ext'], $global_config['forbid_extensions'], $global_config['forbid_mimes'], NV_UPLOAD_MAX_FILESIZE, NV_MAX_WIDTH, NV_MAX_HEIGHT);
                 $upload_info = $upload->save_file($file, NV_ROOTDIR . '/' . NV_UPLOADS_DIR . '/' . $module_upload, false);
                 @unlink($file['tmp_name']);
                 if (empty($upload_info['error'])) {
