@@ -143,14 +143,15 @@ function nv_sendmail_econtent($new_id, $adduser = 0, $location_file = array())
                 'FULLNAME' => $customer_info['fullname'],
                 'TITLE' => $row['title'],
                 'STATUS' => $row['status'],
-                'URL' => NV_MY_DOMAIN . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=invoice&amp;id=' . $id . '&amp;checksum=' . md5($new_id . $global_config['sitekey'] . $client_info['session_id']),
+                'URL' => NV_MY_DOMAIN . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=invoice&amp;id=' . $new_id . '&amp;checksum=' . md5($new_id . $global_config['sitekey'] . $client_info['session_id']),
                 'CODE' => $row['code'],
                 'WORKFORCE' => $workforce_list[$row['workforceid']]['fullname'],
                 'CREATETIME' => date('d/m/Y', $row['createtime']),
                 'DUETIME' => (empty($row['duetime'])) ? ($lang_module['non_identify']) : nv_date('d/m/Y', $row['duetime']),
                 'TERMS' => $row['terms'],
                 'DESCRIPTION' => $row['description'],
-                'TABLE' => nv_invoice_table($new_id)
+                'TABLE' => nv_invoice_table($new_id),
+                'TABLE_TRANSACTION' => nv_transaction_list($new_id)
             );
 
             $message = nv_unhtmlspecialchars($message);
@@ -164,7 +165,7 @@ function nv_sendmail_econtent($new_id, $adduser = 0, $location_file = array())
             }
 
             $result = nv_email_send($subject, $message, $adduser, $sendto_id, $cc_id, $location_file);
-            if (!$result['status']) {
+            if ($result['status']) {
                 $db->query('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET sended=sended+1 WHERE id=' . $new_id);
             }
         }

@@ -24,6 +24,27 @@ $array_ignore_save = array(
     $db_config['prefix'] . '_upload_dir',
     $db_config['prefix'] . '_upload_file'
 );
+
+// lynx
+$array_ignore_save[] = NV_NOTIFICATION_GLOBALTABLE;
+$array_truncate_data = array(
+    NV_PREFIXLANG . '_email',
+    NV_PREFIXLANG . '_email_sendto',
+    NV_PREFIXLANG . '_customer',
+    NV_PREFIXLANG . '_customer_share_acc',
+    NV_PREFIXLANG . '_customer_tags',
+    NV_PREFIXLANG . '_customer_tags_customer',
+    NV_PREFIXLANG . '_customer_types',
+    NV_PREFIXLANG . '_customer_units',
+    NV_PREFIXLANG . '_customer_units_customer',
+    NV_PREFIXLANG . '_projects',
+    NV_PREFIXLANG . '_projects_field',
+    NV_PREFIXLANG . '_projects_info',
+    NV_PREFIXLANG . '_projects_performer',
+    NV_PREFIXLANG . '_projects_task',
+    NV_PREFIXLANG . '_projects_types',
+);
+
 $array_ignore_drop = array(
     $db_config['prefix'] . '_config',
     NV_USERS_GLOBALTABLE
@@ -179,7 +200,7 @@ if ($nv_Request->isset_request('startwrite', 'get')) {
                 }
 
                 // Xuất dữ liệu
-                if (!empty($table['numrow'])) {
+                if (!empty($table['numrow']) && !in_array($table['name'], $array_truncate_data)) {
                     $columns = array();
                     $columns_array = $db->columns_array($table['name']);
                     foreach ($columns_array as $col) {

@@ -29,7 +29,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
     $row['salary'] = preg_replace('/[^0-9]/', '', $row['salary']);
     $row['allowance'] = $nv_Request->get_string('allowance', 'post', 0);
     $row['allowance'] = preg_replace('/[^0-9]/', '', $row['allowance']);
-    
+
     if (empty($row['salary'])) {
         nv_jsonOutput(array(
             'error' => 1,
@@ -105,4 +105,4 @@ $contents = $xtpl->text('main');
 $page_title = $lang_module['approval'];
 include NV_ROOTDIR . '/includes/header.php';
 echo nv_site_theme($contents);
-include NV_ROOTDIR . '/includes/footer.php'; 
+include NV_ROOTDIR . '/includes/footer.php';

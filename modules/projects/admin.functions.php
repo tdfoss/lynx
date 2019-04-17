@@ -15,5 +15,6 @@ $allow_func = array(
     'main',
     'config',
     'types',
-    'econtent'
+    'econtent',
+    'fields'
 );

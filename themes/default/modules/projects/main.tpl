@@ -90,20 +90,20 @@
     </select>
     <button class="btn btn-primary" onclick="nv_list_action( $('#action-top').val(), '{BASE_URL}', '{LANG.error_empty_data}' ); return false;">{LANG.perform}</button>
     <a class="btn btn-primary" href="{ADD_URL}">{LANG.project_add}</a>
+    <a href="{DOWNLOAD_URL}" target="_blank" class="btn btn-primary <!-- BEGIN: btn_disabled -->disabled<!-- END: btn_disabled -->"><em class="fa fa-save">&nbsp;</em>{LANG.task_export} </a>
 </form>
 <form action="{NV_BASE_SITEURL}index.php?{NV_LANG_VARIABLE}={NV_LANG_DATA}&amp;{NV_NAME_VARIABLE}={MODULE_NAME}&amp;{NV_OP_VARIABLE}={OP}" method="post">
     <div class="table-responsive">
-        <table class="table table-striped table-bordered table-hover">
+        <table class="table table-striped table-bordered table-hover table-middle">
             <thead>
                 <tr>
                     <th class="text-center" width="50"><input name="check_all[]" type="checkbox" value="yes" onclick="nv_checkAll(this.form, 'idcheck[]', 'check_all[]',this.checked);"></th>
                     <th>{LANG.title}</th>
-                    <th>{LANG.workforceid}</th>
-                    <th>{LANG.customerid}</th>
+                    <th width="200">{LANG.customerid}</th>
                     <th width="110" class="text-center">{LANG.begintime}</th>
                     <th width="110" class="text-center">{LANG.endtime}</th>
                     <th width="110" class="text-center">{LANG.realtime}</th>
-                    <th width="100">{LANG.status}</th>
+                    <th width="130">{LANG.status}</th>
                     <th width="70">&nbsp;</th>
                 </tr>
             </thead>
@@ -118,9 +118,9 @@
                 <!-- BEGIN: loop -->
                 <tr onclick="nv_table_row_click(event, '{VIEW.link_view}', false);" class="pointer">
                     <td class="text-center"><input type="checkbox" onclick="nv_UncheckAll(this.form, 'idcheck[]', 'check_all[]', this.checked);" value="{VIEW.id}" name="idcheck[]" class="post"></td>
-                    <td>{VIEW.title} <!-- BEGIN: files --> <em class="fa fa-paperclip pull-right">&nbsp;</em> <!-- END: files -->
+                    <td><strong>{VIEW.title}</strong> <!-- BEGIN: files --> <em class="fa fa-paperclip pull-right">&nbsp;</em> <!-- END: files -->
+                    <span class="help-block">{VIEW.performer_str}</span>
                     </td>
-                    <td>{VIEW.performer_str}</td>
                     <td><a href="{VIEW.customer.link}">{VIEW.customer.fullname}</a></td>
                     <td class="text-center">{VIEW.begintime}</td>
                     <td class="text-center">{VIEW.endtime}</td>

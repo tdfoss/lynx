@@ -14,6 +14,8 @@ $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lan
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_econtent";
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_performer";
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_task";
+$sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_field";
+$sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_info";
 
 $result = $db->query("SHOW TABLE STATUS LIKE '" . $db_config['prefix'] . "\_" . $lang . "\_comment'");
 $rows = $result->fetchAll();
@@ -58,6 +60,8 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   econtent text NOT NULL,
   PRIMARY KEY (action)
 ) ENGINE=MyISAM";
+$sql_create_module[] = "INSERT INTO " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_econtent (action, econtent) VALUES('new_project', 'Xin chào <strong>[CUSTOMER_LAST_NAME] [CUSTOMER_FISRT_NAME]</strong>. Dự án&nbsp;<strong>[TITLE]</strong> đã được khởi tạo tại <strong>[SITE_NAME]</strong>. Dưới đây là thông tin chi tiết về dự án. <ul> <li><strong>Tên dự án:</strong>&nbsp;[TITLE]</li> <li><strong>Thời gian bắt đầu: </strong>[BEGIN_TIME]</li> <li><strong>Thời gian hoàn thành (dự kiến):</strong>&nbsp;[END_TIME]</li> <li><strong>Trạng thái:&nbsp;</strong>[STATUS]</li> </ul> [CONTENT]<br /> <br /> Mọi thông tin, hoạt động đến dự án sẽ được thông báo qua thư này.<br /> Chúc quý khách hàng một ngày làm làm việc hiệu quả!')";
+$sql_create_module[] = "INSERT INTO " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_econtent (action, econtent) VALUES('print', '<div style=\"line-height: 27px\"> <div style=\"text-align: center;\"><span style=\"font-size:18px;\"><strong>THÔNG TIN DỰ ÁN</strong></span></div> <div style=\"text-align: center;\"><strong>[TITLE]</strong></div> <br /> Danh mục dự án:&nbsp;<strong>[CAT]</strong><br /> Họ tên khách hàng:&nbsp;<strong>[CUSTOMER_FULLNAME]</strong><br /> Thời gian bắt đầu:&nbsp;<strong>[BEGIN_TIME]</strong><br /> Thời gian hoàn thành dự kiến:&nbsp;<strong>[END_TIME]</strong><br /> Thời gian hoàn thành thực tế:&nbsp;<strong>[REAL_TIME]</strong><br /> Chi phí:&nbsp;<strong>[PRICE]</strong><br /> Thuế:&nbsp;<strong>[VAT]%</strong><br /> <strong>[STATUS]</strong>: Trạng thái<br /> <br /> [CONTENT]</div>')";
 
 $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_performer(
   projectid int(11) unsigned NOT NULL,
@@ -65,12 +69,37 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   follow tinyint(1) unsigned NOT NULL DEFAULT '1',
   UNIQUE KEY projectid (projectid,userid)
 ) ENGINE=MyISAM";
-$sql_create_module[] = "INSERT INTO " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_econtent (action, econtent) VALUES('new_project', '')";
 
 $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_task(
   taskid int(11) unsigned NOT NULL,
   projectid mediumint(8) unsigned NOT NULL,
   UNIQUE KEY taskid(taskid, projectid)
+) ENGINE=MyISAM";
+
+$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_field (
+	fid mediumint(8) NOT NULL AUTO_INCREMENT,
+	field varchar(25) NOT NULL,
+	weight int(10) unsigned NOT NULL DEFAULT '1',
+	field_type enum('number','date','textbox','textarea','editor','select','radio','checkbox','multiselect') NOT NULL DEFAULT 'textbox',
+	field_choices text NOT NULL,
+	sql_choices text NOT NULL,
+	match_type enum('none','alphanumeric','email','url','regex','callback') NOT NULL DEFAULT 'none',
+	match_regex varchar(250) NOT NULL DEFAULT '',
+	func_callback varchar(75) NOT NULL DEFAULT '',
+	min_length int(11) NOT NULL DEFAULT '0',
+	max_length bigint(20) unsigned NOT NULL DEFAULT '0',
+	required tinyint(3) unsigned NOT NULL DEFAULT '0',
+	show_profile tinyint(4) NOT NULL DEFAULT '1',
+	class varchar(50) NOT NULL DEFAULT '',
+	language text NOT NULL,
+	default_value varchar(255) NOT NULL DEFAULT '',
+	PRIMARY KEY (fid),
+	UNIQUE KEY field (field)
+) ENGINE=MyISAM";
+
+$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_info (
+	rows_id mediumint(8) unsigned NOT NULL,
+	PRIMARY KEY (rows_id)
 ) ENGINE=MyISAM";
 
 $sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', '" . $module_name . "', 'auto_postcomm', '1')";

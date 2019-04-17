@@ -1,5 +1,4 @@
 <?php
-use NukeViet\Files\Download;
 
 /**
  * @Project NUKEVIET 4.x

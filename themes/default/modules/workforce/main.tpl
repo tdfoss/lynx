@@ -74,7 +74,7 @@
             <!-- END: generate_page -->
             <tbody>
                 <!-- BEGIN: loop -->
-                <tr onclick="nv_table_row_click(event, '{VIEW.link_view}',false)" class="view_click">
+                <tr onclick="nv_table_row_click(event, '{VIEW.link_view}',false)" class="view_click pointer">
                     <td class="text-center">
                         <input type="checkbox" onclick="nv_UncheckAll(this.form, 'idcheck[]', 'check_all[]', this.checked);" value="{VIEW.id}" name="idcheck[]" class="post">
                     </td>

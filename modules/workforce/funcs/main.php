@@ -9,23 +9,31 @@
  */
 if (!defined('NV_IS_MOD_WORKFORCE')) die('Stop!!!');
 
+if ($nv_Request->isset_request('notify', 'get')) {
+    $redirect = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=content';
+    $contents = nv_theme_alert($lang_module['error_required_workforce_list'], $lang_module['error_required_workforce_list_content'], 'warning', $redirect, $lang_module['workforce_add']);
+    include NV_ROOTDIR . '/includes/header.php';
+    echo nv_site_theme($contents);
+    include NV_ROOTDIR . '/includes/footer.php';
+}
+
 if ($nv_Request->isset_request('get_user_json', 'post, get')) {
     $q = $nv_Request->get_title('q', 'post, get', '');
-    
+
     $db->sqlreset()
         ->select('userid, username, email, first_name, last_name')
         ->from(NV_USERS_GLOBALTABLE)
         ->where('( username LIKE :username OR email LIKE :email OR first_name like :first_name OR last_name like :last_name ) AND userid NOT IN (SELECT userid FROM ' . NV_PREFIXLANG . '_' . $module_data . ')')
         ->order('username ASC')
         ->limit(20);
-    
+
     $sth = $db->prepare($db->sql());
     $sth->bindValue(':username', '%' . $q . '%', PDO::PARAM_STR);
     $sth->bindValue(':email', '%' . $q . '%', PDO::PARAM_STR);
     $sth->bindValue(':first_name', '%' . $q . '%', PDO::PARAM_STR);
     $sth->bindValue(':last_name', '%' . $q . '%', PDO::PARAM_STR);
     $sth->execute();
-    
+
     $array_data = array();
     while (list ($userid, $username, $email, $first_name, $last_name) = $sth->fetch(3)) {
         $array_data[] = array(
@@ -34,10 +42,10 @@ if ($nv_Request->isset_request('get_user_json', 'post, get')) {
             'fullname' => nv_show_name_user($first_name, $last_name)
         );
     }
-    
+
     header('Cache-Control: no-cache, must-revalidate');
     header('Content-type: application/json');
-    
+
     ob_start('ob_gzhandler');
     echo json_encode($array_data);
     exit();
@@ -52,13 +60,14 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
         nv_workforce_delete($id);
         nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_workforce'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['delete_workforce'] . " " . $fullname, $user_info['userid']);
         $nv_Cache->delMod($module_name);
+        $nv_Cache->delMod('users');
         Header('Location: ' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=' . $op);
         die();
     }
 } elseif ($nv_Request->isset_request('delete_list', 'post')) {
     $listall = $nv_Request->get_title('listall', 'post', '');
     $array_id = explode(',', $listall);
-    
+
     if (!empty($array_id)) {
         $array_name = array();
         foreach ($array_id as $id) {
@@ -68,10 +77,11 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
             }
             nv_workforce_delete($id);
         }
-        
+
         nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_workforce'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['delete_many_workforce'] . " " . implode(', ', $array_name), $user_info['userid']);
-        
+
         $nv_Cache->delMod($module_name);
+        $nv_Cache->delMod('users');
         die('OK');
     }
     die('NO');
@@ -170,11 +180,11 @@ while ($view = $sth->fetch()) {
         $view['link_delete'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;delete_id=' . $view['id'] . '&amp;delete_checkss=' . md5($view['id'] . NV_CACHE_PREFIX . $client_info['session_id']);
     }
     $xtpl->assign('VIEW', $view);
-    
+
     if (nv_workforce_check_premission()) {
         $xtpl->parse('main.loop.manage');
     }
-    
+
     $xtpl->parse('main.loop');
 }
 

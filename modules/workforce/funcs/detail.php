@@ -21,6 +21,8 @@ if ($nv_Request->isset_request('change_status', 'post')) {
     $db->query($sql);
 
     $nv_Cache->delMod($module_name);
+    $nv_Cache->delMod('users');
+
     die('OK_' . $id);
 }
 
@@ -46,7 +48,7 @@ foreach ($result['part'] as $partid) {
 }
 $result['part'] = implode(", ", $array_parts_title);
 
-if(isset($site_mods['salary'])){
+if (isset($site_mods['salary'])) {
     $array_salary = array();
     $approval = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_salary_history_salary WHERE userid = ' . $result['userid']);
     while ($row = $approval->fetch()) {
@@ -78,7 +80,7 @@ foreach ($array_status as $data => $value) {
     $xtpl->parse('main.status');
 }
 
-if(!empty($array_salary)){
+if (!empty($array_salary)) {
     foreach ($array_salary as $approval) {
         $xtpl->assign('APPROVAL', $approval);
         $xtpl->parse('main.approval.loop');

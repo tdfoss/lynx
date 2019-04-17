@@ -84,7 +84,7 @@ $array_data = array();
 $base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name;
 
 $db->sqlreset()
-    ->select('*')
+    ->select('COUNT(*)')
     ->from(NV_NOTIFICATION_GLOBALTABLE)
     ->where('language = "' . NV_LANG_DATA . '" AND area=0 AND send_to=' . $user_info['userid']);
 

@@ -43,7 +43,9 @@ function nv_projects_premission($module, $type = 'where')
             return $array_userid;
         }
     } else {
-        $array_userid = array_keys($workforce_list);
+        $array_userid = !empty($workforce_list) ? array_keys($workforce_list) : array(
+            0
+        );
         if ($type == 'where') {
             return ' AND (workforceid IN (' . implode(',', $array_userid) . ') OR useradd IN (' . implode(',', $array_userid) . '))';
         } elseif ($type == 'array_userid') {

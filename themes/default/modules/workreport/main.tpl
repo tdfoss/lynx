@@ -7,7 +7,16 @@
         <input type="hidden" name="{NV_LANG_VARIABLE}" value="{NV_LANG_DATA}" /> <input type="hidden" name="{NV_NAME_VARIABLE}" value="{MODULE_NAME}" /> <input type="hidden" name="{NV_OP_VARIABLE}" value="{OP}" />
         <!-- END: no_rewrite -->
         <div class="row">
-            <div class="col-xs-24 col-md-6">
+            <div class="col-xs-24 col-md-3">
+                <div class="form-group">
+                    <select class="form-control" name="year">
+                        <!-- BEGIN: year -->
+                        <option value="{YEAR.index}"{YEAR.selected}>{YEAR.index}</option>
+                        <!-- END: year -->
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-24 col-md-3">
                 <div class="form-group">
                     <select class="form-control" name="month">
                         <!-- BEGIN: month -->

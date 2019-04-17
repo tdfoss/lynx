@@ -134,7 +134,7 @@
         <div class="panel-heading">{LANG.workinfo}</div>
         <div class="panel-body">
             <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.part}</strong> </label>
+                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.part}</strong> <span class="red">(*)</span> </label>
                 <div class="col-sm-19 col-md-20">
                     <select class="form-control " style="height: 200px;" cols="75" name="part[]" multiple="multiple" id="part">
                         <!-- BEGIN: parent_loop -->
@@ -159,18 +159,6 @@
                             </button>
                         </span>
                     </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.salary_base}</strong></label>
-                <div class="col-sm-19 col-md-20">
-                    <input class="form-control" type="text" name="salary" value="{ROW.salary}" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.allowance}</strong></label>
-                <div class="col-sm-19 col-md-20">
-                    <input class="form-control" type="text" name="allowance" value="{ROW.allowance}" />
                 </div>
             </div>
         </div>

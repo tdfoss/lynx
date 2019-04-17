@@ -1095,11 +1095,11 @@ function nv_sendmail($from, $to, $subject, $message, $files = '', $AddEmbeddedIm
                     $mail->SMTPSecure = '';
             }
             $mail->SMTPOptions = array(
-            		'ssl' => array(
-            				'verify_peer' => ($global_config['verify_peer_ssl'] == 1) ? true : false,
-            				'verify_peer_name' => ($global_config['verify_peer_name_ssl'] == 1) ? true : false,
-            				'allow_self_signed' => true
-            		)
+                    'ssl' => array(
+                            'verify_peer' => ($global_config['verify_peer_ssl'] == 1) ? true : false,
+                            'verify_peer_name' => ($global_config['verify_peer_name_ssl'] == 1) ? true : false,
+                            'allow_self_signed' => true
+                    )
             );
 
             if (filter_var($global_config['smtp_username'], FILTER_VALIDATE_EMAIL)) {
@@ -1700,12 +1700,12 @@ function nv_change_buffer($buffer)
 {
     global $global_config, $client_info;
 
-    if (defined('NV_SYSTEM') and (defined('GOOGLE_ANALYTICS_SYSTEM') or preg_match('/^UA-\d{4,}-\d+$/', $global_config['googleAnalyticsID']))) {
+    if (defined('NV_SYSTEM') and (defined('GOOGLE_ANALYTICS_SYSTEM') or (isset($global_config['googleAnalyticsID']) and preg_match('/^UA-\d{4,}-\d+$/', $global_config['googleAnalyticsID'])))) {
         $_google_analytics = "<script data-show=\"inline\">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){" . PHP_EOL;
         $_google_analytics .= "(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o)," . PHP_EOL;
         $_google_analytics .= "m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)" . PHP_EOL;
         $_google_analytics .= "})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');" . PHP_EOL;
-        if (preg_match('/^UA-\d{4,}-\d+$/', $global_config['googleAnalyticsID'])) {
+        if (isset($global_config['googleAnalyticsID']) and preg_match('/^UA-\d{4,}-\d+$/', $global_config['googleAnalyticsID'])) {
             $_google_analytics .= "ga('create', '" . $global_config['googleAnalyticsID'] . "', '" . $global_config['cookie_domain'] . "');" . PHP_EOL;
         }
         if (defined('GOOGLE_ANALYTICS_SYSTEM')) {
@@ -1716,11 +1716,11 @@ function nv_change_buffer($buffer)
         $buffer = preg_replace('/(<\/head[^>]*>)/', PHP_EOL . $_google_analytics . "$1", $buffer, 1);
     }
 
-    if (NV_ANTI_IFRAME and ! $client_info['is_myreferer']) {
+    if (NV_ANTI_IFRAME and empty($client_info['is_myreferer'])) {
         $buffer = preg_replace('/(<body[^>]*>)/', "$1" . PHP_EOL . "<script>if(window.top!==window.self){document.write=\"\";window.top.location=window.self.location;setTimeout(function(){document.body.innerHTML=\"\"},1);window.self.onload=function(){document.body.innerHTML=\"\"}};</script>", $buffer, 1);
     }
 
-    if (NV_CURRENTTIME > $global_config['cronjobs_next_time']) {
+    if (isset($global_config['cronjobs_next_time']) and NV_CURRENTTIME > $global_config['cronjobs_next_time']) {
         $_body_cronjobs = "<div id=\"run_cronjobs\" style=\"visibility:hidden;display:none;\"><img alt=\"\" src=\"" . NV_BASE_SITEURL . "index.php?second=cronjobs&amp;p=" . nv_genpass() . "\" width=\"1\" height=\"1\" /></div>" . PHP_EOL;
         $buffer = preg_replace('/\s*<\/body>/i', PHP_EOL . $_body_cronjobs . '</body>', $buffer, 1);
     }
@@ -1745,8 +1745,8 @@ function nv_insert_logs($lang = '', $module_name = '', $name_key = '', $note_act
     global $db_config, $db;
 
     $sth = $db->prepare('INSERT INTO ' . $db_config['prefix'] . '_logs
-		(lang, module_name, name_key, note_action, link_acess, userid, log_time) VALUES
-		(:lang, :module_name, :name_key, :note_action, :link_acess, :userid, ' . NV_CURRENTTIME . ')');
+        (lang, module_name, name_key, note_action, link_acess, userid, log_time) VALUES
+        (:lang, :module_name, :name_key, :note_action, :link_acess, :userid, ' . NV_CURRENTTIME . ')');
     $sth->bindParam(':lang', $lang, PDO::PARAM_STR);
     $sth->bindParam(':module_name', $module_name, PDO::PARAM_STR);
     $sth->bindParam(':name_key', $name_key, PDO::PARAM_STR);
@@ -1846,8 +1846,8 @@ function nv_insert_notification($module, $type, $content = array(), $obid = 0, $
         !empty($content) and $content = serialize($content);
 
         $_sql = 'INSERT INTO ' . NV_NOTIFICATION_GLOBALTABLE . '
-		(send_to, send_from, area, language, module, obid, type, content, add_time, view)	VALUES
-		(:send_to, :send_from, :area, ' . $db->quote(NV_LANG_DATA) . ', :module, :obid, :type, :content, ' . NV_CURRENTTIME . ', 0)';
+        (send_to, send_from, area, language, module, obid, type, content, add_time, view)	VALUES
+        (:send_to, :send_from, :area, ' . $db->quote(NV_LANG_DATA) . ', :module, :obid, :type, :content, ' . NV_CURRENTTIME . ', 0)';
         $data_insert = array();
         $data_insert['send_to'] = $send_to;
         $data_insert['send_from'] = $send_from;
@@ -1923,7 +1923,7 @@ function nv_status_notification($language, $module, $type, $obid, $status = 1, $
 function nv_redirect_location($url, $error_code = 301)
 {
     http_response_code($error_code);
-    Header('Location: ' . nv_url_rewrite($url, true));
+    Header('Location: ' . str_replace('&amp;', '&', nv_url_rewrite($url, true)));
     exit(0);
 }
 

@@ -26,7 +26,9 @@
         <!-- BEGIN: support -->
         <li><a href="{CONTROL.url_support}"><em class="fa fa-user">&nbsp;</em>{LANG.new_ticket}</a></li>
         <!-- END: support -->
+        <!-- BEGIN: export_pdf -->
         <li><a href="{CONTROL.url_export_pdf}"><em class="fa fa-download">&nbsp;</em>{LANG.export_pdf}</a></li>
+        <!-- END: export_pdf -->
     </ul>
 </div>
 <!-- END: button_funs -->

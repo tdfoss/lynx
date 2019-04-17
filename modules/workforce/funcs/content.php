@@ -50,8 +50,6 @@ if ($row['id'] > 0) {
     $row['userid'] = 0;
     $row['jointime'] = 0;
     $row['part'] = $row['part_old'] = array();
-    $row['salary'] = 0;
-    $row['allowance'] = 0;
     $row['username'] = '';
     $row['password'] = '';
     $row['looppassword'] = '';
@@ -64,10 +62,6 @@ if ($nv_Request->isset_request('submit', 'post')) {
     $firstname = $row['first_name'] = $nv_Request->get_title('first_name', 'post', '');
     $lastname = $row['last_name'] = $nv_Request->get_title('last_name', 'post', '');
     $gender = $row['gender'] = $nv_Request->get_int('gender', 'post', 0);
-    $row['salary'] = $nv_Request->get_string('salary', 'post', 0);
-    $row['salary'] = preg_replace('/[^0-9]/', '', $row['salary']);
-    $row['allowance'] = $nv_Request->get_string('allowance', 'post', 0);
-    $row['allowance'] = preg_replace('/[^0-9]/', '', $row['allowance']);
     if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $nv_Request->get_string('birthday', 'post'), $m)) {
         $_hour = 23;
         $_min = 23;
@@ -98,11 +92,9 @@ if ($nv_Request->isset_request('submit', 'post')) {
     } else {
         $row['image'] = '';
     }
-    
+
     $ingroups = $array_config['groups_use'];
-    
-    $part = !empty($row['part']) ? implode(',', $row['part']) : '';
-    
+
     if (empty($row['first_name'])) {
         nv_jsonOutput(array(
             'error' => 1,
@@ -132,6 +124,12 @@ if ($nv_Request->isset_request('submit', 'post')) {
             'error' => 1,
             'msg' => $lang_module['error_required_main_email'],
             'input' => 'main_email'
+        ));
+    } elseif (empty($row['part'])) {
+        nv_jsonOutput(array(
+            'error' => 1,
+            'msg' => $lang_module['error_required_part'],
+            'input' => 'part'
         ));
     }
     if (!empty($row['btn_radio'])) {
@@ -165,12 +163,12 @@ if ($nv_Request->isset_request('submit', 'post')) {
             ));
         }
     }
-    
+
     if (empty($error)) {
-        
         try {
+            $part = !empty($row['part']) ? implode(',', $row['part']) : '';
             if (empty($row['id'])) {
-                $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (userid, first_name, last_name, gender, birthday, main_phone, other_phone, main_email, other_email, address, knowledge, image, jointime, position, part, salary, allowance, addtime, edittime, useradd) VALUES (:userid, :first_name, :last_name, :gender, :birthday, :main_phone, :other_phone, :main_email, :other_email, :address, :knowledge, :image, :jointime, :position, :part, :salary, :allowance, ' . NV_CURRENTTIME . ', ' . NV_CURRENTTIME . ', ' . $user_info['userid'] . ')';
+                $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (userid, first_name, last_name, gender, birthday, main_phone, other_phone, main_email, other_email, address, knowledge, image, jointime, position, part, addtime, edittime, useradd) VALUES (:userid, :first_name, :last_name, :gender, :birthday, :main_phone, :other_phone, :main_email, :other_email, :address, :knowledge, :image, :jointime, :position, :part, ' . NV_CURRENTTIME . ', ' . NV_CURRENTTIME . ', ' . $user_info['userid'] . ')';
                 $data_insert = array();
                 $data_insert['userid'] = $userid;
                 $data_insert['first_name'] = $row['first_name'];
@@ -187,11 +185,9 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $data_insert['jointime'] = $row['jointime'];
                 $data_insert['position'] = $row['position'];
                 $data_insert['part'] = $part;
-                $data_insert['salary'] = $row['salary'];
-                $data_insert['allowance'] = $row['allowance'];
                 $new_id = $db->insert_id($_sql, 'id', $data_insert);
             } else {
-                $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET userid = :userid, first_name = :first_name, last_name = :last_name, gender = :gender, birthday = :birthday, main_phone = :main_phone, other_phone = :other_phone, main_email = :main_email, other_email = :other_email, address = :address, knowledge = :knowledge, image = :image, jointime = :jointime, position = :position, part = :part, salary = :salary, allowance = :allowance, edittime = ' . NV_CURRENTTIME . ' WHERE id=' . $row['id']);
+                $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET userid = :userid, first_name = :first_name, last_name = :last_name, gender = :gender, birthday = :birthday, main_phone = :main_phone, other_phone = :other_phone, main_email = :main_email, other_email = :other_email, address = :address, knowledge = :knowledge, image = :image, jointime = :jointime, position = :position, part = :part, edittime = ' . NV_CURRENTTIME . ' WHERE id=' . $row['id']);
                 $stmt->bindParam(':userid', $row['userid'], PDO::PARAM_INT);
                 $stmt->bindParam(':first_name', $row['first_name'], PDO::PARAM_STR);
                 $stmt->bindParam(':last_name', $row['last_name'], PDO::PARAM_STR);
@@ -207,8 +203,6 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $stmt->bindParam(':jointime', $row['jointime'], PDO::PARAM_INT);
                 $stmt->bindParam(':position', $row['position'], PDO::PARAM_INT);
                 $stmt->bindParam(':part', $part, PDO::PARAM_INT);
-                $stmt->bindParam(':salary', $row['salary'], PDO::PARAM_STR);
-                $stmt->bindParam(':allowance', $row['allowance'], PDO::PARAM_STR);
                 if ($stmt->execute()) {
                     $new_id = $row['id'];
                 }
@@ -229,20 +223,20 @@ if ($nv_Request->isset_request('submit', 'post')) {
                         }
                     }
                 }
-                
+
                 $nv_Cache->delMod($module_name);
                 $nv_Cache->delMod('users');
-                
+
                 if (!empty($row['redirect'])) {
                     $url = nv_redirect_decrypt($row['redirect']);
                 } else {
                     $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=detail&id=' . $new_id;
                 }
-                
+
                 nv_jsonOutput(array(
                     'error' => 0,
                     'redirect' => $url
-                
+
                 ));
             }
         } catch (PDOException $e) {
@@ -257,8 +251,6 @@ if ($nv_Request->isset_request('submit', 'post')) {
 
 $row['birthday'] = !empty($row['birthday']) ? date('d/m/Y', $row['birthday']) : '';
 $row['jointime'] = !empty($row['jointime']) ? date('d/m/Y', $row['jointime']) : '';
-$row['salary'] = !empty($row['salary']) ? $row['salary'] : '';
-$row['allowance'] = !empty($row['allowance']) ? $row['allowance'] : '';
 if (!empty($row['image']) and is_file(NV_UPLOADS_REAL_DIR . '/' . $module_upload . '/' . $row['image'])) {
     $row['image'] = NV_BASE_SITEURL . NV_UPLOADS_DIR . '/' . $module_upload . '/' . $row['image'];
 }
