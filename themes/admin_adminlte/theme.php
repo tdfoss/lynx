@@ -100,7 +100,7 @@ function nv_admin_theme($contents, $head_site = 1)
     global $global_config, $lang_global, $admin_mods, $site_mods, $admin_menu_mods, $module_name, $module_file, $module_info, $admin_info, $page_title, $submenu, $select_options, $op, $set_active_op, $array_lang_admin, $my_head, $my_footer, $array_mod_title, $array_url_instruction, $op, $client_info;
 
     $dir_template = '';
-    $skin = 'yellow';
+    $skin = 'blue';
 
     if ($head_site == 1) {
         $file_name_tpl = 'main.tpl';

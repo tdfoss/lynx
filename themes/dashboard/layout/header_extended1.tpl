@@ -6,7 +6,7 @@
     <div class="wrapper">
         <header class="main-header">
             <!-- BEGIN: image -->
-            <a title="{SITE_NAME}" href="{THEME_SITE_HREF}" class="logo"><img src="{LOGO_SRC}" width="{LOGO_WIDTH}" height="{LOGO_HEIGHT}" alt="{SITE_NAME}" class="logo-img" /></a>
+            <a title="{SITE_NAME}" href="{THEME_SITE_HREF}" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels --> <span class="logo-mini"><img class="logo-xs" alt="{NV_SITE_NAME}" src="{NV_BASE_SITEURL}themes/{TEMPLATE}/images/logo-xs.png" width="45" height="45" /></span> <!-- logo for regular state and mobile devices --> <span class="logo-lg"><img class="logo-md" alt="{NV_SITE_NAME}" src="{NV_BASE_SITEURL}themes/{TEMPLATE}/images/logo_small.png" /></span>
             <!-- END: image -->
             <!-- BEGIN: swf -->
             <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="{LOGO_WIDTH}" height="{LOGO_HEIGHT}">

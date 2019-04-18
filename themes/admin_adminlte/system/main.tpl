@@ -4,16 +4,16 @@
 		<header class="main-header">
 				<!-- Logo -->
 				<a
+                        title="Lynx CMR"
 						href="{NV_BASE_SITEURL}{NV_ADMINDIR}/index.php?{NV_LANG_VARIABLE}={NV_LANG_DATA}"
 						class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
 						<span class="logo-mini"><img class="logo-xs"
 								alt="{NV_SITE_NAME}"
 								src="{NV_BASE_SITEURL}themes/{NV_ADMIN_THEME}/images/logo-xs.png"
-								width="50" height="50" /></span> <!-- logo for regular state and mobile devices -->
+								width="45" height="45" /></span> <!-- logo for regular state and mobile devices -->
 						<span class="logo-lg"><img class="logo-md"
 								alt="{NV_SITE_NAME}"
-								src="{NV_BASE_SITEURL}themes/{NV_ADMIN_THEME}/images/logo_small.png"
-								width="150" /></span>
+								src="{NV_BASE_SITEURL}themes/{NV_ADMIN_THEME}/images/logo_small.png" /></span>
 				</a>
 				<!-- Header Navbar: style can be found in header.less -->
 				<nav class="navbar navbar-static-top">
