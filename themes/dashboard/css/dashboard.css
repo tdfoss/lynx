@@ -13,7 +13,7 @@
 .wrapper {
 				
 				}
-.control-sidebar-bg, .control-sidebar {width: 340px;right: -340px;}
+.control-sidebar-bg, .control-sidebar {width: 340px;right: -340px;position: fixed;}
 .sidebar-menu .menu-expand .pull-right-container>.fa-angle-left, .sidebar-menu .menu-expand .pull-right-container>.fa-angle-left {
     width: auto;
     height: auto;
