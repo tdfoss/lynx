@@ -1,4 +1,5 @@
 <!-- BEGIN: main -->
+<link type="text/css" href="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
 <ul class="comment-list">
 	<!-- BEGIN: detail -->
 	<li class="media" id="cid_{COMMENT.cid}">
@@ -31,6 +32,13 @@
 <div class="text-center">
 	{PAGE}
 </div>
+<script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/jquery-ui/jquery-ui.min.js"></script>
+<script>
+    if(window.location.hash) {
+        var hash = window.location.hash.substring(1);
+        $('#' + hash).effect("highlight", {}, 5000);        
+    }
+</script>
 <!-- END: main -->
 
 <!-- BEGIN: children -->
