@@ -6,5 +6,5 @@
           <p>{USER.full_name}</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
-<script src="{NV_BASE_SITEURL}themes/{BLOCK_JS}/js/users.js"></script>
+<script src="{NV_BASE_SITEURL}themes/dashboard/js/users.js"></script>
 <!-- END: signed -->
