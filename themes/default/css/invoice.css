@@ -58,3 +58,9 @@ table.table-middle td span.help-block, table.table-middle td span.help-block ul 
 #ui-datepicker-div{
     z-index: 9999999999 !important
 }
+
+.cancelLink {
+    font-size: 14px;
+    padding-left: 10px;
+    color: red;
+}

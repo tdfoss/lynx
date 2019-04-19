@@ -37,6 +37,7 @@ $lang_module['description'] = 'Mô tả';
 $lang_module['error_required_title'] = 'Lỗi: bạn cần nhập dữ liệu cho Tiêu đề';
 $lang_module['error_required_customerid'] = 'Lỗi: bạn cần nhập dữ liệu cho Khách hàng';
 $lang_module['save'] = 'Lưu thay đổi';
+$lang_module['cancel'] = 'Hủy';
 $lang_module['invoice_info'] = 'Chi tiết hóa đơn';
 $lang_module['item_details'] = 'Hạng mục chi tiết';
 $lang_module['quantity'] = 'Số lượng';

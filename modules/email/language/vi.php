@@ -30,6 +30,7 @@ $lang_module['content'] = 'Nội dung';
 $lang_module['files'] = 'Tệp đính kèm';
 $lang_module['save'] = 'Gửi thư';
 $lang_module['draft'] = 'Lưu thư nháp';
+$lang_module['cancel'] = 'Hủy';
 $lang_module['sendto'] = 'Người nhận';
 $lang_module['sendcc'] = 'Thêm người nhận Cc';
 $lang_module['perform'] = 'Thực hiện';
