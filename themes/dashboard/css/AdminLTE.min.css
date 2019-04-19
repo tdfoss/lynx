@@ -46,7 +46,7 @@ body {
     background-color: #f9fafc
 }
 
-.content-wrapper, .main-footer {
+.content-wrapper {
     -webkit-transition: -webkit-transform .3s ease-in-out, margin .3s ease-in-out;
     -moz-transition: -moz-transform .3s ease-in-out, margin .3s ease-in-out;
     -o-transition: -o-transform .3s ease-in-out, margin .3s ease-in-out;
@@ -572,7 +572,7 @@ a:hover, a:active, a:focus {
         position: fixed;
         width: 100%;
     }
-    .sidebar-mini.sidebar-collapse .content-wrapper, .sidebar-mini.sidebar-collapse .right-side, .sidebar-mini.sidebar-collapse .main-footer {
+    .sidebar-mini.sidebar-collapse .content-wrapper, .sidebar-mini.sidebar-collapse .right-side {
         margin-left: 50px !important;
         z-index: 840
     }
