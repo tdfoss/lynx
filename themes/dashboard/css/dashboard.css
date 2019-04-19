@@ -320,3 +320,4 @@ body>div.login-box>div>div>div>div>h2 {
 .panel-info .collapse  div{ display:none;}
 .panel-info .collapse.in  div{ display:block;}
 #drawer {top: 149px !important;}
+.button-push-menu .logo{display: none}
