@@ -153,3 +153,21 @@
 .select2-container .select2-selection--single .select2-selection__rendered {
   padding-right: 10px;
 }
+ul.sidebar-menu::-webkit-scrollbar {
+ width: 5px;
+}
+
+ul.sidebar-menu::-webkit-scrollbar-button {
+    background: #ccc;
+}
+ul.sidebar-menu::-webkit-scrollbar-track-piece {
+    background: #888
+}
+ul.sidebar-menu::-webkit-scrollbar-thumb {
+    background: #f39c12;
+}​
+ul.sidebar-menu::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+ul.sidebar-menu{list-style:none;margin:0;padding:0;height: 615px;overflow-y: scroll;}
