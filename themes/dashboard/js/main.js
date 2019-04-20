@@ -511,11 +511,8 @@ $(function() {
             b = strip_tags(a.val()),
             d = $(this).attr("data-minlength");
         a.parent().removeClass("has-error");
-        "" == b || b.length < d || b.length > c ? (a.parent().addClass("has-error"), a.val(b).focus(), $(this).attr("data-click", "y")) : window.location.href = $(this).attr("data-url") + rawurlencode(b);
+        "" == b || b.length < d || b.length > c ? (a.parent().addClass("has-error"), a.val(b).focus(), $(this).attr("data-click", "y")) : $('#input-global-search').submit();
         return !1
-    });
-    $(".headerSearch input").on("keypress", function(a) {
-        13 != a.which || a.shiftKey || (a.preventDefault(), $(".headerSearch button").trigger("click"))
     });
     // Show messger timeout login users
     nv_is_user && (myTimerPage = setTimeout(function() {
@@ -625,6 +622,20 @@ $(function() {
     	e.target.hintAdded = true
     });
     */
+    
+    $('#input-global-search').submit(function(e) {
+        e.preventDefault();
+        var q = $(this).find('input').val();
+        $.ajax({
+            type : 'POST',
+            url : nv_base_siteurl + 'index.php?' + nv_lang_variable + '=' + nv_lang_data + '&' + nv_name_variable + '=seek&q=' + q + '&ajax=1',
+            success : function(html) {
+                modalShow('', html);
+                $('.modal-dialog').css('margin-top', '66px');
+            }
+        });
+    });
+    
 });
 // Fix bootstrap multiple modal
 $(document).on({

@@ -2306,3 +2306,14 @@ button.close {
 .comment-list {
     padding-left: 50px !important;
 }
+
+.headerSearch .btn-info{
+    background-color: #1061a7;
+    border-color: #1061a7;
+}
+
+#input-global-search{
+    width: 400px; 
+    float: left; 
+    margin-top: 7px
+}
