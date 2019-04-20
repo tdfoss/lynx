@@ -10,7 +10,11 @@ if (!defined('NV_MAINFILE')) die('Stop!!!');
 
 function nv_projects_premission($module, $type = 'where')
 {
-    global $db, $array_config, $user_info, $workforce_list;
+    global $db, $array_config, $user_info, $workforce_list, $module_name, $module_config;
+
+    if($module_name != $module){
+        $array_config = $module_config[$module];
+    }
 
     $array_userid = array(); // mảng chứa userid mà người này được quản lý
 
