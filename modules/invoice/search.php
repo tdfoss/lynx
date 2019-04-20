@@ -16,6 +16,9 @@ $where = ' AND (' . nv_like_logic('title', $dbkeyword, $logic) . '
         OR ' . nv_like_logic('description', $dbkeyword, $logic) . '
         OR ' . nv_like_logic('terms', $dbkeyword, $logic) . ')';
 
+require_once NV_ROOTDIR . '/modules/invoice/site.functions.php';
+$where .= nv_invoice_premission($m_values['module_name']);
+
 $db_slave->sqlreset()
     ->select('COUNT(*)')
     ->from(NV_PREFIXLANG . '_' . $m_values['module_data'])
