@@ -24,10 +24,15 @@ $where = ' AND (' . nv_like_logic('first_name', $dbkeyword, $logic) . '
         OR ' . nv_like_logic('address', $dbkeyword, $logic) . '
     )';
 
+require_once NV_ROOTDIR . '/modules/customer/site.functions.php';
+$where .= nv_customer_premission($m_values['module_name']);
+
 $db_slave->sqlreset()
     ->select('COUNT(*)')
-    ->from(NV_PREFIXLANG . '_' . $m_values['module_data'])
-    ->where('1=1' . $where);
+    ->from(NV_PREFIXLANG . '_' . $m_values['module_data'] . ' t1')
+    ->join('INNER JOIN ' . NV_PREFIXLANG . '_' . $m_values['module_data'] . '_share_acc t2 ON t1.id=t2.customerid')
+    ->where('t2.userid=' . $user_info['userid'] . $where);
+
 $num_items = $db_slave->query($db_slave->sql())
     ->fetchColumn();
 
