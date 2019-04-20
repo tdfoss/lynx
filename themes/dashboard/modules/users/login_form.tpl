@@ -1,5 +1,5 @@
 <form action="{USER_LOGIN}" method="post" onsubmit="return login_validForm(this);" autocomplete="off" novalidate>
-    <!-- <div class="nv-info margin-bottom" data-default="{GLANG.logininfo}">{GLANG.logininfo}</div> -->
+     <div class="nv-info margin-bottom" data-default="{GLANG.logininfo}">{GLANG.logininfo}</div> 
     <div class="form-detail">
         <div class="form-group loginstep1">
             <div class="input-group">
