@@ -38,7 +38,6 @@
 </script>
 <script>
 $(window).resize(function() {
-	console.log('remove class');
 	var width = $(window).width();
 	if (width >= 0 && width <= 1024) {
 		$('.remove_class').removeClass('sidebar-collapse').addClass('');
