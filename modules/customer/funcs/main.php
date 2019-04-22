@@ -195,7 +195,7 @@ if (!empty($generate_page)) {
 }
 
 while ($view = $sth->fetch()) {
-    $view['workforce'] = $workforce_list[$view['care_staff']]['fullname'];
+    $view['workforce'] = !empty($view['care_staff']) ? $workforce_list[$view['care_staff']]['fullname'] : '';
     $view['addtime'] = nv_date('H:i d/m/Y', $view['addtime']);
     $view['link_view'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $view['id'] . '&amp;is_contacts=' . $view['is_contacts'];
     $view['link_edit'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=content&amp;id=' . $view['id'] . '&amp;redirect=' . nv_redirect_encrypt($client_info['selfurl']);
