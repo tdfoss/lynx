@@ -89,7 +89,7 @@ if ($nv_Request->get_int('save', 'post', 0)) {
     $lev = ((defined('NV_IS_SPADMIN') and $admin_info['level'] == 1) and $row['admin_id'] != $admin_info['admin_id']) ? $nv_Request->get_int('lev', 'post', 0) : $row['lev'];
     $modules = (defined('NV_IS_SPADMIN') and $row['admin_id'] != $admin_info['admin_id']) ? $nv_Request->get_array('modules', 'post', array()) : $old_modules;
     $position = ((defined('NV_IS_SPADMIN') and $admin_info['level'] == 1) or (defined('NV_IS_SPADMIN') and $row['lev'] != 1 and $row['admin_id'] != $admin_info['admin_id'])) ? $nv_Request->get_title('position', 'post') : $row['position'];
-    $main_module = $nv_Request->get_title('main_module', 'post', 'siteinfo');
+    $main_module = $nv_Request->get_title('main_module', 'post', 'users');
 
     if ($lev == 2) {
         $modules = array();

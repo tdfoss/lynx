@@ -45,3 +45,9 @@ ul.list-info label {
     padding: 10px;
     background-color: #fff
 }
+
+.cancelLink {
+    font-size: 14px;
+    padding-left: 10px;
+    color: red;
+}

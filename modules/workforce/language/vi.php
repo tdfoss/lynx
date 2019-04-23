@@ -115,5 +115,3 @@ $lang_module['error_empty_data'] = 'Bạn cần chọn dữ liệu để thực 
 $lang_module['error_unknow'] = 'Vì một lý do nào đó hệ thống không thể đáp ứng yêu cầu của bạn lúc này, vui lòng liên hệ với người quản trị để biết thêm thông tin.';
 $lang_module['error_data_part_title'] = 'Hiện tại bộ phận đang trống';
 $lang_module['error_data_part_content'] = 'Bạn cần thêm bộ phận trước khi thêm nhân sự, vui lòng trở lại';
-$lang_module['error_required_workforce_list'] = 'Không tìm thấy danh sách nhân sự';
-$lang_module['error_required_workforce_list_content'] = 'Hệ thống không thể tìm thấy dữ liệu nhân sự, vui lòng cập nhật thêm dữ liệu trước khi sử dụng hệ thống';

@@ -7,12 +7,12 @@
 </div>
 <div id="openidResult" class="nv-alert" style="display: none"></div>
 <div id="openidBt" data-result="" data-redirect=""></div>
-<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/bootstrap.min.js"></script>
-<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery.slimscroll.min.js"></script>
-<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/fastclick.js"></script>
-<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/adminlte.min.js"></script>
-<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/TDconfig.js"></script>
-<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery.sparkline.min.js"></script>
+<script defer src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/bootstrap.min.js"></script>
+<script defer src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery.slimscroll.min.js"></script>
+<script defer src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/fastclick.js"></script>
+<script defer src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/adminlte.min.js"></script>
+<script defer src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/TDconfig.js"></script>
+
 <script>
     jQuery(document).ready(function() {
         fadeMenuWrap();

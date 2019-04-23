@@ -1,19 +1,22 @@
 .sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>a>span:not(.pull-right), .sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>.treeview-menu {
-    width: 220px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 260px;
 }
 .sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>a>.pull-right-container {
-    left: 220px !important;
+    left: 265px !important;
 }
 .sidebar-mini.sidebar-collapse .content-wrapper{
 				overflow-x:unset;
 				overflow-y:unset;
 				min-height:1000px !important;
-				
+				margin-top: 50px;
 }
 .wrapper {
 				
 				}
-.control-sidebar-bg, .control-sidebar {width: 340px;right: -340px;}
+.control-sidebar-bg, .control-sidebar {width: 340px;right: -340px;position: fixed;}
 .sidebar-menu .menu-expand .pull-right-container>.fa-angle-left, .sidebar-menu .menu-expand .pull-right-container>.fa-angle-left {
     width: auto;
     height: auto;
@@ -320,3 +323,4 @@ body>div.login-box>div>div>div>div>h2 {
 .panel-info .collapse  div{ display:none;}
 .panel-info .collapse.in  div{ display:block;}
 #drawer {top: 149px !important;}
+.button-push-menu .logo{display: none}

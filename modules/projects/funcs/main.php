@@ -61,10 +61,9 @@ $array_search = array(
 
 if (!empty($array_search['q'])) {
     $base_url .= '&q=' . $array_search['q'];
-    $where .= ' AND title LIKE "%' . $array_search['q'] . '%"
+    $where .= ' AND (title LIKE "%' . $array_search['q'] . '%"
         OR url_code LIKE "%' . $array_search['q'] . '%"
-        OR content LIKE "%' . $array_search['q'] . '%"
-    ';
+        OR content LIKE "%' . $array_search['q'] . '%")';
 }
 if (!empty($array_search['customerid'])) {
     $base_url .= '&amp;customerid=' . $array_search['customerid'];

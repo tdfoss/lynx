@@ -57,8 +57,10 @@
                     <label><input type="checkbox" name="send_my_cc" value="1" {ROW.send_my_cc_checked} />{LANG.send_my_cc_note}</label>
                 </div>
             </div>
-            <div class="form-group text-center">
-                <input class="btn btn-warning loading" name="draft" type="submit" value="{LANG.draft}" /> <input class="btn btn-primary" name="submit" type="submit" id="btn-submit" value="{LANG.save}" />
+            <div class="form-group text-center button_fixed_bottom">
+                <input class="btn btn-warning loading" name="draft" type="submit" value="{LANG.draft}" /> 
+                <input class="btn btn-primary" name="submit" type="submit" id="btn-submit" value="{LANG.save}" />
+                <a class="cancelLink" href="javascript:history.back()" type="reset">{LANG.cancel}</a>                
             </div>
         </div>
     </div>

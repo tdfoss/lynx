@@ -44,6 +44,7 @@ $lang_module['error_required_fullname'] = 'Lỗi: bạn cần nhập dữ liệu
 $lang_module['error_required_main_phone'] = 'Lỗi: bạn cần nhập dữ liệu cho Số điện thoại';
 $lang_module['error_required_main_email'] = 'Lỗi: bạn cần nhập dữ liệu cho Email';
 $lang_module['save'] = 'Lưu thay đổi';
+$lang_module['cancel'] = 'Hủy';
 $lang_module['male'] = 'Nam';
 $lang_module['female'] = 'Nữ';
 $lang_module['customer_detail'] = 'Thông tin khách hàng';

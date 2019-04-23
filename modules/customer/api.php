@@ -72,6 +72,18 @@ $app->post('/api/customer/add/', function (Request $request, Response $response,
             'error' => 1,
             'msg' => $lang_module['error_required_fullname']
         ));
+    } elseif (empty($row['id']) && !empty($row['main_email']) && $db->query('SELECT COUNT(*) FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE main_email=' . $db->quote($row['main_email']))
+        ->fetchColumn() > 0) {
+            nv_jsonOutput(array(
+                'error' => 1,
+                'msg' => sprintf($lang_module['error_exits_email'], $row['main_email'])
+            ));
+    } elseif (empty($row['id']) && !empty($row['main_phone']) && $db->query('SELECT COUNT(*) FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE main_phone=' . $db->quote($row['main_phone']))
+        ->fetchColumn() > 0) {
+            nv_jsonOutput(array(
+                'error' => 1,
+                'msg' => sprintf($lang_module['error_exits_email'], $row['main_email'])
+            ));
     }
 
     try {

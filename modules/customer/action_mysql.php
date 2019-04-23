@@ -44,7 +44,9 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   tag_id varchar(100) NOT NULL,
   share_acc varchar(100) NOT NULL COMMENT 'share với tài khoản',
   share_groups smallint(4) unsigned NOT NULL COMMENT 'share với group',
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  UNIQUE KEY main_phone (main_phone),
+  UNIQUE KEY main_email (main_email)
 ) ENGINE=MyISAM";
 
 $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_types(

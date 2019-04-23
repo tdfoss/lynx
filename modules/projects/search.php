@@ -2,38 +2,41 @@
 
 /**
  * @Project NUKEVIET 4.x
- * @Author TDFOSS.,LTD (contact@tdfoss.vn)
- * @Copyright (C) 2018 TDFOSS.,LTD. All rights reserved
- * @Createdate Fri, 12 Jan 2018 09:14:06 GMT
+ * @Author VINADES.,JSC (contact@vinades.vn)
+ * @Copyright (C) 2014 VINADES.,JSC. All rights reserved
+ * @License GNU/GPL version 2 or any later version
+ * @Createdate 03-05-2010
  */
+if (!defined('NV_IS_MOD_SEARCH')) {
+    die('Stop!!!');
+}
 
-if ( ! defined( 'NV_IS_MOD_SEARCH' ) ) die( 'Stop!!!' );
+$where = ' AND (' . nv_like_logic('title', $dbkeyword, $logic) . '
+        OR ' . nv_like_logic('url_code', $dbkeyword, $logic) . '
+        OR ' . nv_like_logic('content', $dbkeyword, $logic) . ')';
 
-/**
-$db->sqlreset()
-	->select( 'COUNT(*)' )
-	->from( NV_PREFIXLANG . '_' . $m_values['module_data'] . '_rows r')
-	->join( 'INNER JOIN ' . NV_PREFIXLANG . '_' . $m_values['module_data'] . '_bodytext c ON (r.id=c.id)' )
-	->where('(' . nv_like_logic( 'r.title', $dbkeyword, $logic ) . ' OR ' . nv_like_logic( 'r.hometext', $dbkeyword, $logic ) . ') OR ' . nv_like_logic( 'c.bodytext', $dbkeyword, $logic ) . '	AND r.status= 1' );
+require_once NV_ROOTDIR . '/modules/projects/site.functions.php';
+$where .= nv_projects_premission($m_values['module_name']);
 
-$all_page = $db->query( $db->sql() )->fetchColumn();
-if ( $all_page )
-{
+$db_slave->sqlreset()
+    ->select('COUNT(*)')
+    ->from(NV_PREFIXLANG . '_' . $m_values['module_data'])
+    ->where('1=1' . $where);
+$num_items = $db_slave->query($db_slave->sql())
+    ->fetchColumn();
+
+if ($num_items) {
     $link = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $m_values['module_name'] . '&amp;' . NV_OP_VARIABLE . '=';
 
-	$db->select( 'r.id, r.title, r.alias, r.catid, r.hometext, c.bodytext' )
-		->limit( $limit )
-		->offset( $pages );
-	$result = $db->query( $db->sql() );
-    while ( list( $id, $tilterow, $alias, $content ) = $result->fetch( 3 ) )
-    {
-        $url = $link . $alias . '-' . $id;
-
+    $db_slave->select('id, title, content')
+        ->limit($limit)
+        ->offset(($page - 1) * $limit);
+    $result = $db_slave->query($db_slave->sql());
+    while (list ($id, $title, $content) = $result->fetch(3)) {
         $result_array[] = array(
-            'link' => $url,
-            'title' => BoldKeywordInStr( $tilterow, $key, $logic ),
-            'content' => BoldKeywordInStr( $content, $key, $logic )
+            'link' => $link . 'detail&id=' . $id,
+            'title' => BoldKeywordInStr($title, $key, $logic),
+            'content' => BoldKeywordInStr(strip_tags($content), $key, $logic)
         );
     }
 }
- */

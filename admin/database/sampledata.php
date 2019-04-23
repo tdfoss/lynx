@@ -27,6 +27,7 @@ $array_ignore_save = array(
 
 // lynx
 $array_ignore_save[] = NV_NOTIFICATION_GLOBALTABLE;
+$array_ignore_save[] = NV_PREFIXLANG . '_comment';
 $array_truncate_data = array(
     NV_PREFIXLANG . '_email',
     NV_PREFIXLANG . '_email_sendto',

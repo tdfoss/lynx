@@ -228,6 +228,7 @@
     </table>
     <div class="form-group text-center button_fixed_bottom">
         <input class="btn btn-primary" name="submit" type="submit" value="{LANG.save}" />
+        <a class="cancelLink" href="javascript:history.back()" type="reset">{LANG.cancel}</a>
     </div>
 </form>
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/jquery-ui/jquery-ui.min.js"></script>

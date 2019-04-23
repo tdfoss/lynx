@@ -16,7 +16,6 @@ $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lan
 $sql_create_module = $sql_drop_module;
 $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "(
   id smallint(4) NOT NULL AUTO_INCREMENT,
-  jobtitleid smallint(4) unsigned NOT NULL,
   userid mediumint(8) unsigned NOT NULL,
   first_name varchar(100) NOT NULL,
   last_name varchar(50) NOT NULL,

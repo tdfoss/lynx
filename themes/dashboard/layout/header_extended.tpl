@@ -39,6 +39,13 @@
             <nav class="navbar navbar-static-top">
                 <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button"> <span class="sr-only">Toggle navigation</span>
                 </a>
+                <form class="headerSearch" id="input-global-search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" maxlength="{NV_MAX_SEARCH_LENGTH}" placeholder="{LANG.search}..."><span class="input-group-btn"><button type="button" class="btn btn-info" data-url="{THEME_SEARCH_URL}" data-minlength="{NV_MIN_SEARCH_LENGTH}" data-click="y">
+                                <em class="fa fa-search fa-lg"></em>
+                            </button></span>
+                    </div>
+                </form>
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
                         <li class="dropdown notifications-menu">[NOTIFICATION]</li>
