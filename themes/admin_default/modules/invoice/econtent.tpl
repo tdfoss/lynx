@@ -7,7 +7,6 @@
                 <li role="presentation"><a href="#{ROW.action}" aria-controls="{ROW.action}" role="tab" data-toggle="tab">{ROW.title}</a></li>
                 <!-- END: title -->
             </ul>
-
             <div class="tab-content">
                 <!-- BEGIN: content -->
                 <div role="tabpanel" class="tab-pane" id="{ROW.action}">
