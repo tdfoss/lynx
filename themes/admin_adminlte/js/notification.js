@@ -48,7 +48,7 @@ function nv_get_notification(timestamp) {
                 data: queryString,
                 success: function(data) {
                     if (data.data_from_file > 0) {
-                        $('#notification').show().html(1);
+                        $('#notification').show().html(data.data_from_file);
                     } else {
                         $('#notification').hide();
                     }
@@ -63,23 +63,25 @@ function nv_get_notification(timestamp) {
 $(function() {
     nv_get_notification();
     notification_get_more();
-    
+
     // Notification
     $('#notification-area').on('show.bs.dropdown', function() {
         $.get(script_name + '?' + nv_name_variable + '=siteinfo&' + nv_fc_variable + '=notification&ajax=1&nocache=' + new Date().getTime(), function(result) {
             notification_reset();
-            $('#notification_load').html(result);
+            $('#notification_load').html(result).slimScroll({
+                height: '250px'
+            });
             $("abbr.timeago").timeago();
             $('#notification_waiting').hide();
         });
     });
-    
+
     $('#notification-area').on('show.bs.dropdown', function() {
         page = 1;
         $('#notification_load').html('');
         $('#notification_waiting').show();
     });
-    
+
     // Hide notification
     $('.notify_item .ntf-hide').click(function(e) {
         e.preventDefault();

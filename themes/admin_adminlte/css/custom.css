@@ -171,3 +171,8 @@ ul.sidebar-menu::-webkit-scrollbar-track {
     border-radius: 10px;
 }
 ul.sidebar-menu{list-style:none;margin:0;padding:0;height: 615px;overflow-y: scroll;}
+
+a.btn-default {
+    color: #333;
+    text-decoration: none;
+}
