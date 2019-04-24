@@ -16,8 +16,8 @@ function cron_workforce_birthday_reminder()
     global $db;
 
     $array_persons = array();
-    $result = $db->query('SELECT first_name,last_name FROM ' . NV_PREFIXLANG . '_workforce WHERE DATE_FORMAT(FROM_UNIXTIME(birthday),"%d%m") = ' . date('dm', NV_CURRENTTIME));
-    while (list ($first_name, $last_name) = $result->fetch(3)) {
+    $result = $db->query('SELECT id, first_name, last_name FROM ' . NV_PREFIXLANG . '_workforce WHERE DATE_FORMAT(FROM_UNIXTIME(birthday),"%d%m") = ' . date('dm', NV_CURRENTTIME));
+    while (list ($id, $first_name, $last_name) = $result->fetch(3)) {
         $array_persons[] = nv_show_name_user($first_name, $last_name);
     }
 
@@ -26,7 +26,8 @@ function cron_workforce_birthday_reminder()
         require_once NV_ROOTDIR . '/modules/workforce/site.functions.php';
         require_once NV_ROOTDIR . '/modules/workforce/language/' . NV_LANG_DATA . '.php';
         $content = sprintf($lang_module['remider_birthday'], implode(', ', $array_persons));
-        nv_send_notification(array_keys($workforce_list), $content, 'remider_birthday', 'workforce');
+        $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=workforce&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $id;
+        nv_send_notification(array_keys($workforce_list), $content, 'remider_birthday', 'workforce', $url);
     }
 
     return true;
