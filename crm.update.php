@@ -136,10 +136,6 @@ while (list ($lang) = $language_query->fetch(3)) {
     
     $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_customer ADD website VARCHAR(255) NOT NULL AFTER zalo;";
     
-    $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_customer ADD UNIQUE( main_phone );";
-    
-    $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_customer ADD UNIQUE( main_email);";
-    
     $sql[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', 'invoice', 'auto_postcomm', '1')";
     $sql[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', 'invoice', 'allowed_comm', '6')";
     $sql[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', 'invoice', 'view_comm', '6')";
