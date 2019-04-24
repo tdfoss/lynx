@@ -16,7 +16,7 @@ function cron_workforce_birthday_reminder()
     global $db;
 
     $array_persons = array();
-    $result = $db->query('SELECT first_name,last_name FROM ' . NV_PREFIXLANG . '_workforce WHERE DATE_FORMAT(FROM_UNIXTIME(birthday),"%d%m%Y") = ' . date('dmY', NV_CURRENTTIME));
+    $result = $db->query('SELECT first_name,last_name FROM ' . NV_PREFIXLANG . '_workforce WHERE DATE_FORMAT(FROM_UNIXTIME(birthday),"%d%m") = ' . date('dm', NV_CURRENTTIME));
     while (list ($first_name, $last_name) = $result->fetch(3)) {
         $array_persons[] = nv_show_name_user($first_name, $last_name);
     }
