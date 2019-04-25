@@ -31,7 +31,7 @@
                 <div class="form-group ">
                     <div class="form-group">
                         <div class="input-group">
-                            <input class="form-control datepicker" value="{SEARCH.from}" type="text" name="begintime" autocomplete="off" placeholder="{LANG.begintime_holder}" /> <span class="input-group-btn">
+                            <input class="form-control datepicker" value="{SEARCH.begintime}" type="text" name="begintime" autocomplete="off" placeholder="{LANG.begintime_holder}" /> <span class="input-group-btn">
                                 <button class="btn btn-default" type="button">
                                     <em class="fa fa-calendar fa-fix">&nbsp;</em>
                                 </button>
@@ -44,7 +44,7 @@
                 <div class="form-group">
                     <div class="form-group">
                         <div class="input-group">
-                            <input class="form-control datepicker" value="{SEARCH.from}" type="text" name="endtime" autocomplete="off" placeholder="{LANG.endtime_holder}" /> <span class="input-group-btn">
+                            <input class="form-control datepicker" value="{SEARCH.endtime}" type="text" name="endtime" autocomplete="off" placeholder="{LANG.endtime_holder}" /> <span class="input-group-btn">
                                 <button class="btn btn-default" type="button">
                                     <em class="fa fa-calendar fa-fix">&nbsp;</em>
                                 </button>
@@ -57,7 +57,7 @@
                 <div class="form-group">
                     <div class="form-group">
                         <div class="input-group">
-                            <input class="form-control datepicker" value="{SEARCH.from}" type="text" name="realtime" autocomplete="off" placeholder="{LANG.realtime_holder}" /> <span class="input-group-btn">
+                            <input class="form-control datepicker" value="{SEARCH.realtime}" type="text" name="realtime" autocomplete="off" placeholder="{LANG.realtime_holder}" /> <span class="input-group-btn">
                                 <button class="btn btn-default" type="button">
                                     <em class="fa fa-calendar fa-fix">&nbsp;</em>
                                 </button>
@@ -89,8 +89,7 @@
         <!-- END: action_top -->
     </select>
     <button class="btn btn-primary" onclick="nv_list_action( $('#action-top').val(), '{BASE_URL}', '{LANG.error_empty_data}' ); return false;">{LANG.perform}</button>
-    <a class="btn btn-primary" href="{ADD_URL}">{LANG.project_add}</a>
-    <a href="{DOWNLOAD_URL}" target="_blank" class="btn btn-primary <!-- BEGIN: btn_disabled -->disabled<!-- END: btn_disabled -->"><em class="fa fa-save">&nbsp;</em>{LANG.task_export} </a>
+    <a class="btn btn-primary" href="{ADD_URL}">{LANG.project_add}</a> <a href="{DOWNLOAD_URL}" target="_blank" class="btn btn-primary <!-- BEGIN: btn_disabled -->disabled<!-- END: btn_disabled -->"><em class="fa fa-save">&nbsp;</em>{LANG.task_export} </a>
 </form>
 <form action="{NV_BASE_SITEURL}index.php?{NV_LANG_VARIABLE}={NV_LANG_DATA}&amp;{NV_NAME_VARIABLE}={MODULE_NAME}&amp;{NV_OP_VARIABLE}={OP}" method="post">
     <div class="table-responsive">
@@ -117,16 +116,26 @@
             <tbody>
                 <!-- BEGIN: loop -->
                 <tr onclick="nv_table_row_click(event, '{VIEW.link_view}', false);" class="pointer">
-                    <td class="text-center"><input type="checkbox" onclick="nv_UncheckAll(this.form, 'idcheck[]', 'check_all[]', this.checked);" value="{VIEW.id}" name="idcheck[]" class="post"></td>
-                    <td><strong>{VIEW.title}</strong> <!-- BEGIN: files --> <em class="fa fa-paperclip pull-right">&nbsp;</em> <!-- END: files -->
-                    <span class="help-block">{VIEW.performer_str}</span>
+                    <td class="text-center">
+                        <input type="checkbox" onclick="nv_UncheckAll(this.form, 'idcheck[]', 'check_all[]', this.checked);" value="{VIEW.id}" name="idcheck[]" class="post">
                     </td>
-                    <td><a href="{VIEW.customer.link}">{VIEW.customer.fullname}</a></td>
+                    <td>
+                        <strong>{VIEW.title}</strong>
+                        <!-- BEGIN: files -->
+                        <em class="fa fa-paperclip pull-right">&nbsp;</em>
+                        <!-- END: files -->
+                        <span class="help-block">{VIEW.performer_str}</span>
+                    </td>
+                    <td>
+                        <a href="{VIEW.customer.link}">{VIEW.customer.fullname}</a>
+                    </td>
                     <td class="text-center">{VIEW.begintime}</td>
                     <td class="text-center">{VIEW.endtime}</td>
                     <td class="text-center">{VIEW.realtime}</td>
                     <td>{VIEW.status}</td>
-                    <td class="text-center form-tooltip"><a href="{VIEW.link_edit}" class="btn btn-default btn-xs" data-toggle="tooltip" data-original-title="{LANG.edit}"><i class="fa fa-edit"></i></a> <a href="{VIEW.link_delete}" onclick="return confirm(nv_is_del_confirm[0]);" class="btn btn-default btn-xs" data-toggle="tooltip" data-original-title="{LANG.delete}"><em class="fa fa-trash-o"></em></a></td>
+                    <td class="text-center form-tooltip">
+                        <a href="{VIEW.link_edit}" class="btn btn-default btn-xs" data-toggle="tooltip" data-original-title="{LANG.edit}"><i class="fa fa-edit"></i></a> <a href="{VIEW.link_delete}" onclick="return confirm(nv_is_del_confirm[0]);" class="btn btn-default btn-xs" data-toggle="tooltip" data-original-title="{LANG.delete}"><em class="fa fa-trash-o"></em></a>
+                    </td>
                 </tr>
                 <!-- END: loop -->
             </tbody>
