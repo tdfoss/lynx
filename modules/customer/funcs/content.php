@@ -79,7 +79,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
     $row['tag_id'] = $nv_Request->get_array('tag_id', 'post');
     $row['share_acc'] = $nv_Request->get_typed_array('share_acc', 'post', 'int');
     $row['share_groups'] = $nv_Request->get_int('share_groups', 'post', 0);
-
+    
     if (!empty($row['website'])) {
         foreach ($row['website'] as $index => $url) {
             if (!nv_is_url($url)) {
@@ -87,7 +87,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
             }
         }
     }
-
+    
     if (!empty($row['tag_id'])) {
         foreach ($row['tag_id'] as $index => $value) {
             if (!is_numeric($value)) {
@@ -100,7 +100,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
         }
     }
     $tag_id = !empty($row['tag_id']) ? implode(',', $row['tag_id']) : '';
-
+    
     if (!empty($row['unit'])) {
         if (!is_numeric($row['unit'])) {
             $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_units(title) VALUES (:title)';
@@ -110,21 +110,28 @@ if ($nv_Request->isset_request('submit', 'post')) {
             $row['unit'] = $db->insert_id($_sql, 'id', $data_insert);
         }
     }
-
+    
+    if (!empty($row['share_acc'])) {
+        foreach ($row['share_acc'] as $index => $value) {
+            if ($value == $user_info['userid'] || $value == $row['care_staff']) {
+                unset($row['share_acc'][$index]);
+            }
+        }
+    }
     $share_acc = !empty($row['share_acc']) ? implode(',', $row['share_acc']) : '';
-
+    
     if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $nv_Request->get_string('birthday', 'post'), $m)) {
         $row['birthday'] = mktime(23, 59, 59, $m[2], $m[1], $m[3]);
     } else {
         $row['birthday'] = 0;
     }
-
+    
     if (is_file(NV_DOCUMENT_ROOT . $row['image'])) {
         $row['image'] = substr($row['image'], strlen(NV_BASE_SITEURL . NV_UPLOADS_DIR . '/' . $module_upload . '/'));
     } else {
         $row['image'] = '';
     }
-
+    
     if (empty($row['first_name'])) {
         $error[] = $lang_module['error_required_fullname'];
     } elseif (empty($row['id']) && !empty($row['main_email']) && $db->query('SELECT COUNT(*) FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE main_email=' . $db->quote($row['main_email']))
@@ -134,7 +141,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
         ->fetchColumn() > 0) {
         $error[] = sprintf($lang_module['error_exits_phone'], $row['main_phone']);
     }
-
+    
     if (empty($error)) {
         try {
             $new_id = 0;
@@ -193,7 +200,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 }
             }
             if ($new_id > 0) {
-
+                
                 if ($row['tag_id'] != $row['tag_id_old']) {
                     $sth = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_tags_customer (tid, customerid) VALUES(:tid, :customerid)');
                     foreach ($row['tag_id'] as $tag_id) {
@@ -203,19 +210,20 @@ if ($nv_Request->isset_request('submit', 'post')) {
                             $sth->execute();
                         }
                     }
-
+                    
                     foreach ($row['tag_id_old'] as $tag_id_old) {
                         if (!in_array($tag_id_old, $row['tag_id'])) {
                             $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_tags_customer WHERE tid=' . $tag_id_old . ' AND customerid=' . $new_id);
                         }
                     }
                 }
-
+                
+                $array_userid = array(
+                    $user_info['userid'],
+                    $row['care_staff']
+                );
+                
                 if (empty($row['id'])) {
-                    $array_userid = array(
-                        $user_info['userid'],
-                        $row['care_staff']
-                    );
                     $array_userid = array_unique($array_userid);
                     $sth = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_share_acc (userid, customerid, permisson) VALUES(:userid, :customerid, 1)');
                     foreach ($array_userid as $userid) {
@@ -224,24 +232,25 @@ if ($nv_Request->isset_request('submit', 'post')) {
                         $sth->execute();
                     }
                 }
-
+                
                 if ($row['share_acc'] != $row['share_acc_old']) {
+                    
                     $sth = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_share_acc (userid, customerid, permisson) VALUES(:userid, :customerid, 2)');
                     foreach ($row['share_acc'] as $share_acc) {
-                        if (!in_array($share_acc, $row['share_acc_old'])) {
+                        if (!in_array($share_acc, $row['share_acc_old']) && !in_array($share_acc, $array_userid)) {
                             $sth->bindParam(':userid', $share_acc, PDO::PARAM_INT);
                             $sth->bindParam(':customerid', $new_id, PDO::PARAM_INT);
                             $sth->execute();
                         }
                     }
-
+                    
                     foreach ($row['share_acc_old'] as $share_acc_old) {
                         if (!in_array($share_acc_old, $row['share_acc'])) {
                             $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_share_acc WHERE userid=' . $share_acc_old . ' AND customerid=' . $new_id);
                         }
                     }
                 }
-
+                
                 // thông báo đến người chăm sóc khách hàng (nếu không phải là người thêm kh)
                 if ($row['care_staff'] != $row['care_staff_old']) {
                     require_once NV_ROOTDIR . '/modules/notification/site.functions.php';
@@ -252,7 +261,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
                     $url = NV_MY_DOMAIN . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=detail&id=' . $new_id;
                     nv_send_notification($array_userid, $content, 'new_care_staff', $module_name, $url);
                 }
-
+                
                 if (!empty($row['redirect'])) {
                     $url = nv_redirect_decrypt($row['redirect']);
                 } elseif (empty($row['id'])) {
@@ -262,7 +271,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
                     $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . ($row['is_contacts'] ? '&is_contact=1' : '');
                     nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_customer'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['edit_customer'] . " " . $row['last_name'] . " " . $row['first_name'], $workforce_list[$user_info['userid']]['fullname']);
                 }
-
+                
                 $nv_Cache->delMod($module_name);
                 $nv_Cache->delMod('users');
                 Header('Location: ' . $url);
@@ -282,7 +291,7 @@ if (defined('NV_EDITOR')) {
     define('NV_EDITOR', true);
     define('NV_IS_CKEDITOR', true);
     $my_head .= '<script type="text/javascript" src="' . NV_BASE_SITEURL . NV_EDITORSDIR . '/ckeditor/ckeditor.js"></script>';
-
+    
     function nv_aleditor($textareaname, $width = '100%', $height = '450px', $val = '', $customtoolbar = '')
     {
         global $module_data;

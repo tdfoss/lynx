@@ -11,7 +11,7 @@
         <div class="panel-heading">{LANG.customer_info}</div>
         <div class="panel-body">
             <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.customer_types}</strong></label>
+                <label class="col-sm-5 col-md-4"><strong>{LANG.customer_types}</strong></label>
                 <div class="col-sm-19 col-md-20">
                     <select class="form-control" name="type_id">
                         <option value="">---{LANG.typeid}---</option>
@@ -192,8 +192,7 @@
         </div>
     </div>
     <div class="form-group text-center button_fixed_bottom">
-        <input class="btn btn-primary" name="submit" type="submit" value="{LANG.save}" />
-        <a class="cancelLink" href="javascript:history.back()" type="reset">{LANG.cancel}</a>
+        <input class="btn btn-primary" name="submit" type="submit" value="{LANG.save}" /> <a class="cancelLink" href="javascript:history.back()" type="reset">{LANG.cancel}</a>
     </div>
 </form>
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/select2/select2.min.js"></script>
