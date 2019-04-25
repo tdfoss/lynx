@@ -31,8 +31,9 @@ function nv_theme_invoice_main($array_data)
  * @param mixed $array_data
  * @return
  */
-function nv_theme_invoice_detail($row, $array_invoice_products, $array_control, $downpdf, $sendmail)
+function nv_theme_invoice_detail($row, $array_invoice_products, $array_control, $downpdf, $sendmail,$content_comment)
 {
+
     global $global_config, $module_name, $module_file, $lang_module, $module_config, $module_info, $op, $array_services, $array_products, $array_projects, $site_mods, $db;
 
     $lang_module['send_mail'] = $row['sended'] > 0 ? (sprintf($lang_module['resend_mail'], $row['sended'] + 1)) : $lang_module['send_mail'];
@@ -44,6 +45,8 @@ function nv_theme_invoice_detail($row, $array_invoice_products, $array_control, 
     $xtpl->assign('CONTROL', $array_control);
     $xtpl->assign('TEMPLATE_CSS', $templateCSS);
     $xtpl->assign('TRANSACTION', nv_transaction_list($row['id']));
+    
+  
 
     if (!empty($array_invoice_products)) {
         $i = 1;
@@ -118,6 +121,11 @@ function nv_theme_invoice_detail($row, $array_invoice_products, $array_control, 
         }
         $xtpl->parse('main.admin');
         $xtpl->parse('main.transaction_add');
+    }
+    
+    if (!empty($content_comment)) {
+        $xtpl->assign('COMMENT', $content_comment);
+        $xtpl->parse('main.comment');
     }
 
     $xtpl->parse('main');

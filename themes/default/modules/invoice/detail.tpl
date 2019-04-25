@@ -1,4 +1,5 @@
 <!-- BEGIN: main -->
+<link type="text/css" href="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
 <!-- BEGIN: admin -->
 <!-- BEGIN: dompdf_link -->
 <link rel="StyleSheet" href="{NV_BASE_SITEURL}themes/{TEMPLATE_CSS}/css/invoice_pdf.css" type="text/css" />
@@ -51,28 +52,48 @@
                     <div class="col-sm-12 col-md-12 col-pdf-12">
                         <table class="info_customer">
                             <tr>
-                                <td width="150"><strong>{LANG.customerid}:</strong></td>
-                                <td><strong><a href="{ROW.customer.link_view}">{ROW.customer.fullname}</a></strong></td>
+                                <td width="150">
+                                    <strong>{LANG.customerid}:</strong>
+                                </td>
+                                <td>
+                                    <strong><a href="{ROW.customer.link_view}">{ROW.customer.fullname}</a></strong>
+                                </td>
                             </tr>
                             <tr>
-                                <td><p>{LANG.createtime}:&nbsp;</p></td>
-                                <td><p>{ROW.createtime}</p></td>
+                                <td>
+                                    <p>{LANG.createtime}:&nbsp;</p>
+                                </td>
+                                <td>
+                                    <p>{ROW.createtime}</p>
+                                </td>
                             </tr>
                             <tr>
-                                <td><p>{LANG.status}:</p></td>
-                                <td><p>{ROW.status_str}</p></td>
+                                <td>
+                                    <p>{LANG.status}:</p>
+                                </td>
+                                <td>
+                                    <p>{ROW.status_str}</p>
+                                </td>
                             </tr>
                         </table>
                     </div>
                     <div class="col-sm-12 col-md-12 col-pdf-12">
                         <table class="info_customer">
                             <tr>
-                                <td width="150"><strong>{LANG.workforceid}:&nbsp;</strong></td>
-                                <td><strong>{ROW.workforceid}</strong></td>
+                                <td width="150">
+                                    <strong>{LANG.workforceid}:&nbsp;</strong>
+                                </td>
+                                <td>
+                                    <strong>{ROW.workforceid}</strong>
+                                </td>
                             </tr>
                             <tr>
-                                <td><p>{LANG.duetime}:</p></td>
-                                <td><p>{ROW.duetime}</p></td>
+                                <td>
+                                    <p>{LANG.duetime}:</p>
+                                </td>
+                                <td>
+                                    <p>{ROW.duetime}</p>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -97,12 +118,21 @@
                             <!-- BEGIN: loop -->
                             <tr>
                                 <td class="text-center">{ORDERS.number}</td>
-                                <td><strong>{ORDERS.itemid}</strong> <span class="help-block">{ORDERS.note}</span></td>
+                                <td>
+                                    <strong>{ORDERS.itemid}</strong> <span class="help-block">{ORDERS.note}</span>
+                                </td>
                                 <td>{ORDERS.unit_price}</td>
                                 <td>{ORDERS.money_unit}</td>
                                 <td class="text-center">{ORDERS.quantity}</td>
                                 <td>{ORDERS.price}</td>
-                                <td><!-- BEGIN: vat -->{ORDERS.vat_price} ({ORDERS.vat}%)<!-- END: vat --><!-- BEGIN: vat_empty -->-<!-- END: vat_empty --></td>
+                                <td>
+                                    <!-- BEGIN: vat -->
+                                    {ORDERS.vat_price} ({ORDERS.vat}%)
+                                    <!-- END: vat -->
+                                    <!-- BEGIN: vat_empty -->
+                                    -
+                                    <!-- END: vat_empty -->
+                                </td>
                                 <td>{ORDERS.total}</td>
                             </tr>
                             <!-- END: loop -->
@@ -110,7 +140,9 @@
                         <!--  END: invoice_list -->
                         <tfoot>
                             <tr>
-                                <td colspan="7" class="text-right"><strong>{LANG.item_total}</strong></td>
+                                <td colspan="7" class="text-right">
+                                    <strong>{LANG.item_total}</strong>
+                                </td>
                                 <td>{ROW.item_total}</td>
                             </tr>
                             <tr>
@@ -119,16 +151,22 @@
                             </tr>
                             <!-- BEGIN: discount -->
                             <tr>
-                                <td colspan="7" class="text-right"><strong>{LANG.discount}</strong></td>
+                                <td colspan="7" class="text-right">
+                                    <strong>{LANG.discount}</strong>
+                                </td>
                                 <td>{ROW.discount_value} ({ROW.discount_percent}%)</td>
                             </tr>
                             <!-- END: discount -->
                             <tr>
-                                <td colspan="7" class="text-right"><strong>{LANG.grand_total}</strong></td>
+                                <td colspan="7" class="text-right">
+                                    <strong>{LANG.grand_total}</strong>
+                                </td>
                                 <td>{ROW.grand_total}</td>
                             </tr>
                             <tr>
-                                <td colspan="7" class="text-right"><strong>{LANG.grand_total_string}</strong></td>
+                                <td colspan="7" class="text-right">
+                                    <strong>{LANG.grand_total_string}</strong>
+                                </td>
                                 <td>{ROW.grand_total_string}</td>
                             </tr>
                         </tfoot>
@@ -139,7 +177,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <span class="pull-left">{LANG.transaction_history}</span>
-                <!-- BEGIN: transaction_add --> 
+                <!-- BEGIN: transaction_add -->
                 <span class="pull-right"><button data-invoiceid="{ROW.id}" data-lang-add="{LANG.transaction_add}" id="btn-transaction-add" class="btn btn-primary btn-xs">{LANG.transaction_add}</button></span>
                 <!-- END: transaction_add -->
                 <div class="clearfix"></div>
@@ -159,7 +197,15 @@
         </div>
         <!-- END: description -->
     </div>
+    <div class="col-xs-24 col-sm-24 col-md-24">
+        <!-- BEGIN: comment -->
+        <div class="panel panel-default">
+            <div class="panel-body">{COMMENT}</div>
+        </div>
+        <!-- END: comment -->
+    </div>
 </div>
+<script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/jquery-ui/jquery-ui.min.js"></script>
 <script>
 	var invoice_sendmail_confirm = '{LANG.invoice_sendmail_confirm}';
 	var invoice_sendmail_confirm_payment = '{LANG.invoice_sendmail_confirm_payment}';

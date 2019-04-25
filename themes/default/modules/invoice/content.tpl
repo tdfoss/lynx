@@ -136,6 +136,17 @@
         </div>
     </div>
     <div class="panel panel-default">
+        <div class="panel-heading">{LANG.description}</div>
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.description}</strong></label>
+                <div class="col-sm-19 col-md-20">
+                    <textarea class="form-control" style="height: 100px;" cols="75" rows="5" name="description">{ROW.description}</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
         <div class="panel-heading">
             <span class="pull-left">{LANG.item_details}</span><span class="pull-right">{LANG.money_unit}: {LANG.vnd}</span>
             <div class="clearfix"></div>
