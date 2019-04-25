@@ -24,11 +24,11 @@
             </div>
             <div class="col-xs-24 col-md-4">
                 <div class="form-group">
-                    <select class="form-control select2" name="workforceid">
+                    <select class="form-control select2" name="care_staff">
                         <option value="0">---{LANG.care_staff_name}---</option>
-                        <!-- BEGIN: workforce -->
-                        <option value="{WORKFORCE.userid}"{WORKFORCE.selected}>{WORKFORCE.fullname}</option>
-                        <!-- END: workforce -->
+                        <!-- BEGIN: care_staff -->
+                        <option value="{CARE_START.userid}"{CARE_START.selected}>{CARE_START.fullname}</option>
+                        <!-- END: care_staff -->
                     </select>
                 </div>
             </div>
@@ -57,7 +57,7 @@
     </select>
     <button class="btn btn-primary" onclick="nv_list_action( $('#action-top').val(), '{BASE_URL}', '{LANG.error_empty_data}' ); return false;">{LANG.perform}</button>
     <a href="{URL_ADD}" class="btn btn-primary">{LANG.customer_add}</a>
-    <div class="dropdown dropdown-hover pull-right">
+    <div class="dropdown dropdown-hover pull-right margin-left">
         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
             <em class="fa fa-list-ul">&nbsp;</em>{LANG.other} <span class="caret"></span>
         </button>

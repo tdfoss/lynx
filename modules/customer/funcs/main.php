@@ -14,13 +14,13 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
     $delete_checkss = $nv_Request->get_string('delete_checkss', 'get');
     $redirect = $nv_Request->get_string('redirect', 'get');
     if ($id > 0 and $delete_checkss == md5($id . NV_CACHE_PREFIX . $client_info['session_id'])) {
-
-        list($userid, $is_contact) = $db->query('SELECT userid, is_contacts FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch(3);
+        
+        list ($userid, $is_contact) = $db->query('SELECT userid, is_contacts FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch(3);
         $fullname = $workforce_list[$userid]['fullname'];
-
+        
         nv_customer_delete($id);
         nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_customer'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['delete_customer'] . " " . $fullname, $user_info['userid']);
-
+        
         if (!empty($redirect)) {
             $url = nv_redirect_decrypt($redirect);
         } else {
@@ -31,10 +31,10 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
 } elseif ($nv_Request->isset_request('delete_list', 'post')) {
     $listall = $nv_Request->get_title('listall', 'post', '');
     $array_id = explode(',', $listall);
-
+    
     if (!empty($array_id)) {
         foreach ($array_id as $id) {
-
+            
             $userid = $db->query('SELECT userid FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetchColumn();
             if ($userid) {
                 $array_name[] = $workforce_list[$userid]['fullname'];
@@ -55,7 +55,7 @@ $join = $where = '';
 $array_search = array(
     'q' => $nv_Request->get_title('q', 'post,get'),
     'type_id' => $nv_Request->get_int('type_id', 'post,get', 0),
-    'workforceid' => $nv_Request->get_int('workforceid', 'post,get', 0),
+    'care_staff' => $nv_Request->get_int('care_staff', 'post,get', 0),
     'tag_id' => $nv_Request->get_typed_array('tag_id', 'get', 'int'),
     'is_contact' => $nv_Request->get_int('is_contact', 'get', 0)
 );
@@ -107,9 +107,9 @@ if (!empty($array_search['type_id'])) {
     $where .= ' AND type_id=' . $array_search['type_id'];
 }
 
-if (!empty($array_search['workforceid'])) {
-    $base_url .= '&workforceid=' . $array_search['workforceid'];
-    $where .= ' AND userid=' . $array_search['workforceid'];
+if (!empty($array_search['care_staff'])) {
+    $base_url .= '&care_staff=' . $array_search['care_staff'];
+    $where .= ' AND t1.care_staff=' . $array_search['care_staff'];
 }
 
 if (!empty($array_search['tag_id'])) {
@@ -128,7 +128,7 @@ $db->sqlreset()
     ->from(NV_PREFIXLANG . '_' . $module_data . ' t1')
     ->join($join)
     ->where('1=1' . $where);
-
+//     die($db->sql());
 $sth = $db->prepare($db->sql());
 $sth->execute();
 $num_items = $sth->fetchColumn();
@@ -137,6 +137,7 @@ $db->select('t1.*, t3.permisson')
     ->order($array_search['ordername'] . ' ' . $array_search['ordertype'])
     ->limit($per_page)
     ->offset(($page - 1) * $per_page);
+
 $sth = $db->prepare($db->sql());
 $sth->execute();
 
@@ -202,11 +203,10 @@ while ($view = $sth->fetch()) {
     $view['link_delete'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;delete_id=' . $view['id'] . '&amp;delete_checkss=' . md5($view['id'] . NV_CACHE_PREFIX . $client_info['session_id']) . '&amp;redirect=' . nv_redirect_encrypt($client_info['selfurl']);
     $view['type_id'] = !empty($view['type_id']) ? $array_customer_type_id[$view['type_id']]['title'] : '';
     $xtpl->assign('VIEW', $view);
-
+    
     if ($view['permisson'] == 1) {
         $xtpl->parse('main.loop.admin');
     }
-
     $xtpl->parse('main.loop');
 }
 
@@ -226,9 +226,9 @@ if ($array_search['ordername'] == 'addtime') {
 
 if (!empty($workforce_list)) {
     foreach ($workforce_list as $workforce) {
-        $workforce['selected'] = $workforce['userid'] == $array_search['workforceid'] ? 'selected="selected"' : '';
-        $xtpl->assign('WORKFORCE', $workforce);
-        $xtpl->parse('main.workforce');
+        $workforce['selected'] = $workforce['userid'] == $array_search['care_staff'] ? 'selected="selected"' : '';
+        $xtpl->assign('CARE_START', $workforce);
+        $xtpl->parse('main.care_staff');
     }
 }
 
