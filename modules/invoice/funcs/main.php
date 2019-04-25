@@ -66,8 +66,8 @@ $array_search = array(
     'presenterid' => $nv_Request->get_int('presenterid', 'get', 0),
     'performerid' => $nv_Request->get_int('performerid', 'get', 0),
     'serviceid' => $nv_Request->get_int('serviceid', 'get', 0),
-    'createtime' => $nv_Request->get_int('createtime', 'get', 0),
-    'duetime' => $nv_Request->get_int('duetime', 'get', 0),
+    'createtime' => $nv_Request->get_string('createtime', 'get', ''),
+    'duetime' => $nv_Request->get_string('duetime', 'get', ''),
     'status' => $nv_Request->get_int('status', 'post,get', -1)
 );
 
@@ -102,28 +102,29 @@ if (!empty($array_search['performerid'])) {
 
 if (!empty($array_search['createtime'])) {
     
-    if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $nv_Request->get_string('createtime', 'get'), $m)) {
+    if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $array_search['createtime'], $m)) {
         $_hour = 23;
         $_min = 23;
-        $array_search['createtime'] = mktime($_hour, $_min, 59, $m[2], $m[1], $m[3]);
+        $createtime = mktime($_hour, $_min, 59, $m[2], $m[1], $m[3]);
     } else {
-        $array_search['createtime'] = 0;
+        $createtime = 0;
     }
     $base_url .= '&amp;createtime= ' . $array_search['createtime'];
-    $where .= ' AND createtime >= ' . $array_search['createtime'];
+    $where .= ' AND createtime >= ' . $createtime;
 }
 if (!empty($array_search['duetime'])) {
     
-    if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $nv_Request->get_string('duetime', 'get'), $m)) {
+    if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $array_search['duetime'], $m)) {
         
         $_hour = 23;
         $_min = 23;
-        $array_search['duetime'] = mktime($_hour, $_min, 59, $m[2], $m[1], $m[3]);
+        
+        $duetime = mktime($_hour, $_min, 59, $m[2], $m[1], $m[3]);
     } else {
-        $array_search['duetime'] = 0;
+        $duetime = 0;
     }
     $base_url .= '&amp;duetime= ' . $array_search['duetime'];
-    $where .= ' AND duetime <= ' . $array_search['duetime'];
+    $where .= ' AND duetime <= ' . $duetime;
 }
 
 if ($array_search['status'] >= 0) {
@@ -140,7 +141,6 @@ if ($array_search['serviceid'] > 0) {
 }
 
 $where .= nv_invoice_premission($module_name);
-
 $db->sqlreset()
     ->select('COUNT(*)')
     ->from(NV_PREFIXLANG . '_' . $module_data . ' t1')
@@ -157,9 +157,6 @@ $db->select('t1.*')
     ->offset(($page - 1) * $per_page);
 $sth = $db->prepare($db->sql());
 $sth->execute();
-
-$array_search['createtime'] = !empty($array_search['createtime']) ? nv_date('d/m/Y', $array_search['createtime']) : '';
-$array_search['duetime'] = !empty($array_search['duetime']) ? nv_date('d/m/Y', $array_search['duetime']) : '';
 
 $customer_info = array();
 if (!empty($array_search['customerid'])) {
