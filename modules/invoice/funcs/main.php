@@ -66,7 +66,7 @@ $array_search = array(
     'presenterid' => $nv_Request->get_int('presenterid', 'get', 0),
     'performerid' => $nv_Request->get_int('performerid', 'get', 0),
     'serviceid' => $nv_Request->get_int('serviceid', 'get', 0),
-    'createtime' => $nv_Request->get_string('createtime', 'get', 0),
+    'createtime' => $nv_Request->get_int('createtime', 'get', 0),
     'duetime' => $nv_Request->get_int('duetime', 'get', 0),
     'status' => $nv_Request->get_int('status', 'post,get', -1)
 );
@@ -157,6 +157,9 @@ $db->select('t1.*')
     ->offset(($page - 1) * $per_page);
 $sth = $db->prepare($db->sql());
 $sth->execute();
+
+$array_search['createtime'] = !empty($array_search['createtime']) ? nv_date('d/m/Y', $array_search['createtime']) : '';
+$array_search['duetime'] = !empty($array_search['duetime']) ? nv_date('d/m/Y', $array_search['duetime']) : '';
 
 $customer_info = array();
 if (!empty($array_search['customerid'])) {
