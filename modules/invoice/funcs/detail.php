@@ -22,20 +22,20 @@ if ($nv_Request->isset_request('transaction_update', 'post')) {
     $row['payment_amount'] = $nv_Request->get_title('amount', 'post', '');
     $row['payment_data'] = '';
     $row['note'] = $nv_Request->get_textarea('note', '', NV_ALLOWED_HTML_TAGS);
-    
+
     if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $nv_Request->get_string('transaction_time', 'post'), $m)) {
         $row['transaction_time'] = mktime(23, 59, 59, $m[2], $m[1], $m[3]);
     } else {
         $row['transaction_time'] = 0;
     }
-    
+
     if (empty($row['invoiceid'])) {
         nv_jsonOutput(array(
             'error' => 1,
             'msg' => $lang_module['error_required_invoiceid']
         ));
     }
-    
+
     if (empty($row['payment_amount'])) {
         nv_jsonOutput(array(
             'error' => 1,
@@ -43,7 +43,7 @@ if ($nv_Request->isset_request('transaction_update', 'post')) {
             'input' => 'amount'
         ));
     }
-    
+
     $rows = $db->query('SELECT title, code FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $row['invoiceid'])->fetch();
     if (!$rows) {
         nv_jsonOutput(array(
@@ -51,7 +51,7 @@ if ($nv_Request->isset_request('transaction_update', 'post')) {
             'msg' => $lang_module['error_required_invoiceid']
         ));
     }
-    
+
     $stmt = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_transaction(invoiceid, transaction_time, transaction_status, payment, payment_amount, payment_data, note) VALUES(:invoiceid, ' . $row['transaction_time'] . ', :transaction_status, :payment, :payment_amount, :payment_data, :note)');
     $stmt->bindParam(':invoiceid', $row['invoiceid'], PDO::PARAM_INT);
     $stmt->bindParam(':transaction_status', $row['transaction_status'], PDO::PARAM_INT);
@@ -60,13 +60,13 @@ if ($nv_Request->isset_request('transaction_update', 'post')) {
     $stmt->bindParam(':payment_data', $row['payment_data'], PDO::PARAM_STR);
     $stmt->bindParam(':note', $row['note'], PDO::PARAM_STR, strlen($row['note']));
     if ($stmt->execute()) {
-        
+
         // tính toán, cập nhật lại trạng thái hóa đơn
         nv_transaction_update($row['invoiceid']);
-        
+
         $content = sprintf($lang_module['logs_transaction_add'], $workforce_list[$user_info['userid']]['fullname'], $rows['code'], $rows['title'], nv_number_format($row['payment_amount']));
         nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['transaction_add'], $content, $user_info['userid']);
-        
+
         nv_jsonOutput(array(
             'error' => 0,
             'invoiceid' => $row['invoiceid']
@@ -80,7 +80,7 @@ if ($nv_Request->isset_request('transaction_update', 'post')) {
 
 if ($nv_Request->isset_request('transaction_content', 'post')) {
     $id = $nv_Request->get_int('id', 'post', 0);
-    
+
     if ($id > 0) {
         $rows = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_transaction WHERE id=' . $id)->fetch();
     } else {
@@ -93,7 +93,7 @@ if ($nv_Request->isset_request('transaction_content', 'post')) {
         $rows['payment_amount'] = 0;
         $rows['payment_data'] = '';
     }
-    
+
     $contents = nv_theme_invoice_transaction($rows);
     nv_htmlOutput($contents);
 }
@@ -103,8 +103,8 @@ if ($nv_Request->isset_request('downpdf', 'get')) {
     $code = $db->query('SELECT code FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetchColumn();
     $filename = '#' . $code . '.pdf';
     $contents = nv_invoice_template($id);
-    
-    if (class_exists('Mpdf')) {
+
+    if (class_exists('Mpdf\Mpdf')) {
         $mpdf = new \Mpdf\Mpdf();
         $mpdf->WriteHTML($contents);
         $mpdf->Output($filename, 'D');
@@ -114,9 +114,9 @@ if ($nv_Request->isset_request('downpdf', 'get')) {
 if ($nv_Request->isset_request('sendmail', 'post')) {
     $id = $nv_Request->get_int('id', 'post', 0);
     $code = $db->query('SELECT code FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetchColumn();
-    
+
     $location_file = array();
-    if (class_exists('Mpdf')) {
+    if (class_exists('Mpdf\Mpdf')) {
         $contents = nv_invoice_template($id);
         $location = NV_ROOTDIR . '/' . NV_TEMP_DIR . '/#' . $code . '.pdf';
         $mpdf = new \Mpdf\Mpdf();
@@ -124,7 +124,7 @@ if ($nv_Request->isset_request('sendmail', 'post')) {
         $mpdf->Output($location, \Mpdf\Output\Destination::FILE);
         $location_file[] = str_replace(NV_ROOTDIR . '/', '', $location);
     }
-    
+
     $result = nv_sendmail_econtent($id, $user_info['userid'], $location_file);
     if ($result['status']) {
         if (file_exists($location)) {
@@ -207,13 +207,13 @@ if (isset($site_mods['comment']) and isset($array_config['activecomm'])) {
     if ($allowed == '-1') {
         $allowed = $rows['allowed_comm'];
     }
-    
+
     define('NV_PER_PAGE_COMMENT', 5);
-    
+
     require_once NV_ROOTDIR . '/modules/comment/comment.php';
     $area = (defined('NV_COMM_AREA')) ? NV_COMM_AREA : 0;
     $checkss = md5($module_name . '-' . $area . '-' . NV_COMM_ID . '-' . $allowed . '-' . NV_CACHE_PREFIX);
-    
+
     $url_info = parse_url($client_info['selfurl']);
     $content_comment = nv_comment_module($module_name, $checkss, $area, NV_COMM_ID, $allowed, 1);
 } else {
