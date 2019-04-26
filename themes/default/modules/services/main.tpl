@@ -22,7 +22,7 @@
 </div>
 <form action="{NV_BASE_SITEURL}index.php?{NV_LANG_VARIABLE}={NV_LANG_DATA}&amp;{NV_NAME_VARIABLE}={MODULE_NAME}&amp;{NV_OP_VARIABLE}={OP}" method="post">
 	<div class="table-responsive">
-		<table class="table table-striped table-bordered table-hover table-middle">
+		<table class="table table-striped table-bordered table-hover table-middle row-click">
 			<thead>
 				<tr>
 					<th width="100">{LANG.weight}</th>
@@ -43,7 +43,7 @@
 			<!-- END: generate_page -->
 			<tbody>
 				<!-- BEGIN: loop -->
-				<tr>
+				<tr onclick="nv_table_row_click(event, '{VIEW.link_view}', false);">
 					<td><select class="form-control" id="id_weight_{VIEW.id}" onchange="nv_change_weight('{VIEW.id}');">
 							<!-- BEGIN: weight_loop -->
 							<option value="{WEIGHT.key}"{WEIGHT.selected}>{WEIGHT.title}</option>

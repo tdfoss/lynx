@@ -53,7 +53,7 @@
         <thead>
             <tr>
                 <th width="50" class="text-center">{LANG.number}</th>
-                <th>{LANG.idinvoiuce}</th>
+                <th>{LANG.idinvoice}</th>
                 <th>{LANG.fullname}</th>
                 <th>{LANG.phone}</th>
                 <th>{LANG.email}</th>

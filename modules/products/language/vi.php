@@ -56,5 +56,5 @@ $lang_module['email'] = 'Email';
 $lang_module['quantity'] = 'Số lượng';
 $lang_module['date'] = 'Ngày mua';
 $lang_module['total_buy'] = 'Tổng số hóa đơn:';
-$lang_module['idinvoiuce'] = 'Hóa đơn';
+$lang_module['idinvoice'] = 'Hóa đơn';
 

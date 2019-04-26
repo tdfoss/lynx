@@ -7,7 +7,6 @@
  * @License GNU/GPL version 2 or any later version
  * @Createdate Tue, 02 Jan 2018 08:50:17 GMT
  */
-
 if (!defined('NV_IS_MOD_SERVICES')) die('Stop!!!');
 
 //change status
@@ -109,7 +108,6 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $weight = $db->query('SELECT max(weight) FROM ' . NV_PREFIXLANG . '_' . $module_data . '')->fetchColumn();
                 $weight = intval($weight) + 1;
                 $stmt->bindParam(':weight', $weight, PDO::PARAM_INT);
-                
             } else {
                 $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET title = :title, price = :price, price_unit = :price_unit, vat = :vat, note = :note WHERE id=' . $row['id']);
             }
@@ -154,8 +152,8 @@ if (!$nv_Request->isset_request('id', 'post,get')) {
     $per_page = 20;
     $page = $nv_Request->get_int('page', 'post,get', 1);
     $db->sqlreset()
-    ->select('COUNT(*)')
-    ->from('' . NV_PREFIXLANG . '_' . $module_data . '');
+        ->select('COUNT(*)')
+        ->from('' . NV_PREFIXLANG . '_' . $module_data . '');
     
     if (!empty($q)) {
         $db->where('title LIKE :q_title OR price LIKE :q_price OR price_unit LIKE :q_price_unit');
@@ -171,9 +169,9 @@ if (!$nv_Request->isset_request('id', 'post,get')) {
     $num_items = $sth->fetchColumn();
     
     $db->select('*')
-    ->order('weight ASC')
-    ->limit($per_page)
-    ->offset(($page - 1) * $per_page);
+        ->order('weight ASC')
+        ->limit($per_page)
+        ->offset(($page - 1) * $per_page);
     $sth = $db->prepare($db->sql());
     
     if (!empty($q)) {
@@ -219,14 +217,15 @@ if ($show_view) {
             $xtpl->parse('main.view.loop.weight_loop');
         }
         $xtpl->assign('CHECK', $view['active'] == 1 ? 'checked' : '');
+        $view['link_view'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $module_info['alias']['detail'] . '&amp;id=' . $view['id'];
         $view['link_edit'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;id=' . $view['id'];
         $view['link_delete'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;delete_id=' . $view['id'] . '&amp;delete_checkss=' . md5($view['id'] . NV_CACHE_PREFIX . $client_info['session_id']);
-        if(isset($site_mods['invoice'])){
+        if (isset($site_mods['invoice'])) {
             $view['link_invoice'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=invoice&amp;serviceid=' . $view['id'];
         }
         $xtpl->assign('VIEW', $view);
         
-        if(isset($site_mods['invoice'])){
+        if (isset($site_mods['invoice'])) {
             $xtpl->parse('main.view.loop.invoice');
         }
         
@@ -234,7 +233,7 @@ if ($show_view) {
     }
     $xtpl->parse('main.view');
 }
- 
+
 if (!empty($array_price_unit)) {
     foreach ($array_price_unit as $price_type) {
         $price_type['selected'] = $price_type['id'] == $row['price_unit'] ? 'selected="selected"' : '';
