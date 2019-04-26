@@ -114,7 +114,7 @@ if (!$nv_Request->isset_request('id', 'post,get')) {
     $db->sqlreset()
         ->select('COUNT(*)')
         ->from('' . NV_PREFIXLANG . '_' . $module_data . '')
-        ->where('1=1' . $where);
+        ->where('1=1 AND active=1' . $where);
     
     if (!empty($q)) {
         $db->where('title LIKE :q_title OR price LIKE :q_price');
@@ -176,6 +176,7 @@ while ($view = $sth->fetch()) {
     
     $view['price_unit'] = !empty($view['price_unit']) ? $array_price_unit[$view['price_unit']]['title'] : '';
     $xtpl->assign('CHECK', $view['active'] == 1 ? 'checked' : '');
+    $view['link_view'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $module_info['alias']['detail'] . '&amp;id=' . $view['id'];
     $view['link_edit'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $module_info['alias']['content'] . '&amp;id=' . $view['id'];
     $view['link_delete'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;delete_id=' . $view['id'] . '&amp;delete_checkss=' . md5($view['id'] . NV_CACHE_PREFIX . $client_info['session_id']);
     $view['catid'] = !empty($view['catid']) ? $array_type[$view['catid']]['title'] : '';
