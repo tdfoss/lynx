@@ -12,5 +12,6 @@ define('NV_IS_FILE_ADMIN', true);
 
 $allow_func = array(
     'main',
-    'cat'
+    'cat',
+    'unit'
 );
