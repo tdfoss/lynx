@@ -159,6 +159,12 @@ $sendmail = $nv_Request->get_int('sendmail', 'sendmail', 0);
 
 if ($id > 0) {
     $row = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id . nv_invoice_premission($module_name))->fetch();
+    if ($row == false){
+        Header('Location: ' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name);
+        die();
+    }
+
+    
     $row['createtime'] = date('d/m/Y', $row['createtime']);
     $row['duetime'] = (empty($row['duetime'])) ? ($lang_module['non_identify']) : nv_date('d/m/Y', $row['duetime']);
     $row['customer'] = nv_crm_customer_info($row['customerid']);

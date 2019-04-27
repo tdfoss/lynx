@@ -127,6 +127,7 @@ if (!empty($array_search['duetime'])) {
     $where .= ' AND duetime <= ' . $duetime;
 }
 
+
 if ($array_search['status'] >= 0) {
     $base_url .= '&amp;status=' . $array_search['status'];
     $where .= ' AND status=' . $array_search['status'];
@@ -155,6 +156,7 @@ $db->select('t1.*')
     ->order('t1.id DESC')
     ->limit($per_page)
     ->offset(($page - 1) * $per_page);
+
 $sth = $db->prepare($db->sql());
 $sth->execute();
 
