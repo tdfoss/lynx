@@ -258,6 +258,7 @@ function nv_invoice_table($id)
     if (!empty($array_invoice_products)) {
         $i = 1;
         foreach ($array_invoice_products as $orders) {
+            
             $orders['number'] = $i++;
             $orders['vat_price'] = ($orders['price'] * $orders['vat']) / 100;
             $orders['vat_price'] = number_format($orders['vat_price']);
@@ -266,11 +267,15 @@ function nv_invoice_table($id)
             $orders['total'] = number_format($orders['total']);
             
             if ($orders['module'] == 'services') {
+                $unit_services = $db->query('SELECT t2.title FROM ' . NV_PREFIXLANG . '_services t1 INNER JOIN  ' . NV_PREFIXLANG . '_services_price_unit t2 ON t1.price_unit = t2.id WHERE t1.id=' . $orders['itemid'])->fetch();
+                $orders['money_unit'] = $unit_services['title'];
                 $orders['itemid'] = $array_services[$orders['itemid']]['title'];
             } elseif ($orders['module'] == 'products') {
+                
+                $unit_products = $db->query('SELECT t2.title FROM ' . NV_PREFIXLANG . '_products t1 INNER JOIN  ' . NV_PREFIXLANG . '_products_price_unit t2 ON t1.price_unit = t2.id WHERE t1.id=' . $orders['itemid'])->fetch();
+                $orders['money_unit'] = $unit_products['title'];
                 $orders['itemid'] = $array_products[$orders['itemid']]['title'];
             }
-            
             $xtpl->assign('CONTROL', $array_control);
             $xtpl->assign('ORDERS', $orders);
             
