@@ -45,8 +45,8 @@ function nv_theme_invoice_detail($row, $array_invoice_products, $array_control, 
     $xtpl->assign('CONTROL', $array_control);
     $xtpl->assign('TEMPLATE_CSS', $templateCSS);
     $xtpl->assign('TRANSACTION', nv_transaction_list($row['id']));
-    
-  
+
+
 
     if (!empty($array_invoice_products)) {
         $i = 1;
@@ -111,7 +111,7 @@ function nv_theme_invoice_detail($row, $array_invoice_products, $array_control, 
         }
 
         if (empty($downpdf) && empty($sendmail)) {
-            if (class_exists('Mpdf')) {
+            if (class_exists('Mpdf\Mpdf')) {
                 $xtpl->parse('main.admin.button_funs.export_pdf');
             }
             $xtpl->parse('main.admin.button_funs');
@@ -122,7 +122,7 @@ function nv_theme_invoice_detail($row, $array_invoice_products, $array_control, 
         $xtpl->parse('main.admin');
         $xtpl->parse('main.transaction_add');
     }
-    
+
     if (!empty($content_comment)) {
         $xtpl->assign('COMMENT', $content_comment);
         $xtpl->parse('main.comment');
