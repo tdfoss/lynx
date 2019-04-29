@@ -5,7 +5,7 @@
  * @Author VINADES.,JSC <contact@vinades.vn>
  * @Copyright (C) 2019 VINADES.,JSC. All rights reserved
  * @License GNU/GPL version 2 or any later version
- * @Createdate Wed, 24 Apr 2019 00:43:01 GMT
+ * @Createdate Mon, 29 Apr 2019 03:53:10 GMT
  */
 
 if (!defined('NV_MAINFILE')) {
@@ -115,7 +115,7 @@ $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'site', 'google_client_secret', '')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'define', 'nv_gfx_num', '6')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'notification_active', '1')";
-$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'notification_autodel', '0')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'notification_autodel', '15')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'site_keywords', 'NukeViet, portal, mysql, php')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'block_admin_ip', '0')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'admfirewall', '0')";
@@ -144,7 +144,7 @@ $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'gzip_method', '1')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'authors_detail_main', '0')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'spadmin_add_admin', '1')";
-$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'timestamp', '131')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'timestamp', '2')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'captcha_type', '1')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'version', '4.3.05')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'cookie_httponly', '1')";
@@ -175,7 +175,7 @@ $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'define', 'nv_anti_iframe', '1')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'define', 'nv_anti_agent', '0')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'define', 'nv_allowed_html_tags', 'embed, object, param, a, b, blockquote, br, caption, col, colgroup, div, em, h1, h2, h3, h4, h5, h6, hr, i, img, li, p, span, strong, s, sub, sup, table, tbody, td, th, tr, u, ul, ol, iframe, figure, figcaption, video, audio, source, track, code, pre')";
-$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'define', 'nv_debug', '1')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'define', 'nv_debug', '0')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'site_domain', '')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'site_logo', 'uploads/logo_200_86.png')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'site_banner', '')";
@@ -195,7 +195,7 @@ $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'autologosize3', '30')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'autologomod', '')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'name_show', '0')";
-$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'cronjobs_next_time', '1556066825')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'cronjobs_next_time', '1556510286')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'disable_site_content', 'Vì lý do kỹ thuật website tạm ngưng hoạt động. Thành thật xin lỗi các bạn vì sự bất tiện này!')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'seotools', 'prcservice', '')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'about', 'auto_postcomm', '1')";
@@ -299,7 +299,7 @@ $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'site', 'statistics_timezone', 'Asia/Bangkok')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'site', 'site_email', 'contact@tdfoss.vn')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'error_set_logs', '1')";
-$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'error_send_email', 'hongoctrien@tdfoss.vn')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'error_send_email', 'admin@nukeviet.vn')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'site_lang', 'vi')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'my_domains', 'site-lynx.vn')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'site_timezone', 'byCountry')";
@@ -361,6 +361,19 @@ $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'wiki', 'timeoutcomm', '360')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'wiki', 'allowattachcomm', '0')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'wiki', 'alloweditorcomm', '0')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'invoice', 'auto_postcomm', '1')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'invoice', 'allowed_comm', '6')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'invoice', 'view_comm', '6')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'invoice', 'setcomm', '4')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'invoice', 'activecomm', '1')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'invoice', 'emailcomm', '0')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'invoice', 'adminscomm', '')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'invoice', 'sortcomm', '0')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'invoice', 'captcha', '1')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'invoice', 'perpagecomm', '5')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'invoice', 'timeoutcomm', '360')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'invoice', 'allowattachcomm', '0')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'invoice', 'alloweditorcomm', '0')";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_cronjobs`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_cronjobs` (
@@ -380,15 +393,15 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_cronjobs` (
   PRIMARY KEY (`id`),
   KEY `is_sys` (`is_sys`)
 ) ENGINE=MyISAM  AUTO_INCREMENT=14  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (1, 1514880771, 5, 0, 'online_expired_del.php', 'cron_online_expired_del', '', 0, 1, 1, 1556066525, 1, 'Xóa các dòng ghi trạng thái online đã cũ trong CSDL')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (2, 1514880771, 1440, 0, 'dump_autobackup.php', 'cron_dump_autobackup', '', 0, 1, 1, 1556066525, 1, 'Tự động lưu CSDL')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (3, 1514880771, 60, 0, 'temp_download_destroy.php', 'cron_auto_del_temp_download', '', 0, 1, 1, 1556066525, 1, 'Xóa các file tạm trong thư mục tmp')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (4, 1514880771, 30, 0, 'ip_logs_destroy.php', 'cron_del_ip_logs', '', 0, 1, 1, 1556066525, 1, 'Xóa IP log files, Xóa các file nhật ký truy cập')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (5, 1514880771, 1440, 0, 'error_log_destroy.php', 'cron_auto_del_error_log', '', 0, 1, 1, 1556066525, 1, 'Xóa các file error_log quá hạn')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (1, 1514880771, 5, 0, 'online_expired_del.php', 'cron_online_expired_del', '', 0, 1, 1, 1556509986, 1, 'Xóa các dòng ghi trạng thái online đã cũ trong CSDL')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (2, 1514880771, 1440, 0, 'dump_autobackup.php', 'cron_dump_autobackup', '', 0, 1, 1, 1556509299, 1, 'Tự động lưu CSDL')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (3, 1514880771, 60, 0, 'temp_download_destroy.php', 'cron_auto_del_temp_download', '', 0, 1, 1, 1556509299, 1, 'Xóa các file tạm trong thư mục tmp')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (4, 1514880771, 30, 0, 'ip_logs_destroy.php', 'cron_del_ip_logs', '', 0, 1, 1, 1556509299, 1, 'Xóa IP log files, Xóa các file nhật ký truy cập')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (5, 1514880771, 1440, 0, 'error_log_destroy.php', 'cron_auto_del_error_log', '', 0, 1, 1, 1556509299, 1, 'Xóa các file error_log quá hạn')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (6, 1514880771, 360, 0, 'error_log_sendmail.php', 'cron_auto_sendmail_error_log', '', 0, 1, 0, 0, 0, 'Gửi email các thông báo lỗi cho admin')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (7, 1514880771, 60, 0, 'ref_expired_del.php', 'cron_ref_expired_del', '', 0, 1, 1, 1556066525, 1, 'Xóa các referer quá hạn')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (8, 1514880771, 60, 0, 'check_version.php', 'cron_auto_check_version', '', 0, 1, 1, 1556066525, 1, 'Kiểm tra phiên bản NukeViet')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (9, 1514880771, 1440, 0, 'notification_autodel.php', 'cron_notification_autodel', '', 0, 1, 1, 1556066525, 1, 'Xóa thông báo cũ')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (7, 1514880771, 60, 0, 'ref_expired_del.php', 'cron_ref_expired_del', '', 0, 1, 1, 1556509299, 1, 'Xóa các referer quá hạn')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (8, 1514880771, 60, 0, 'check_version.php', 'cron_auto_check_version', '', 0, 1, 1, 1556509299, 1, 'Kiểm tra phiên bản NukeViet')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (9, 1514880771, 1440, 0, 'notification_autodel.php', 'cron_notification_autodel', '', 0, 1, 1, 1556509299, 1, 'Xóa thông báo cũ')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (13, 1547522880, 1, 0, 'workforce_birthday_reminder.php', 'cron_workforce_birthday_reminder', '', 0, 0, 0, 1550140559, 1, 'Nhắc nhở sinh nhật nhân viên')";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_extension_files`";
@@ -549,6 +562,8 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_setup_language
   PRIMARY KEY (`lang`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_language` (`lang`, `setup`, `weight`) VALUES ('vi', 1, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users` (`userid`, `group_id`, `username`, `md5username`, `password`, `email`, `first_name`, `last_name`, `gender`, `photo`, `birthday`, `sig`, `regdate`, `question`, `answer`, `passlostkey`, `view_mail`, `remember`, `in_groups`, `active`, `active2step`, `secretkey`, `checknum`, `last_login`, `last_ip`, `last_agent`, `last_openid`, `idsite`, `safemode`, `safekey`, `email_verification_time`) VALUES (2, 4, 'admin02', '6e60a28384bc05fa5b33cc579d040c56', '{SSHA512}AV7m+5XNlJ3yFdaX7ZEjjf1+whlKfoxdBc1ZXH5/IpKJPprM4xS/6y5tlIyOTWJwBaIgSaHdsIc5NkyrBptIYGRmM2E=', 'phonghai88@gmail.com', 'Đặng', 'Phong', '1', '', 0, NULL, 1556156007, '', '', '', 0, 1, '1,2', 1, 0, '', '', 0, '', '', '', 0, 0, '', 0)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users` (`userid`, `group_id`, `username`, `md5username`, `password`, `email`, `first_name`, `last_name`, `gender`, `photo`, `birthday`, `sig`, `regdate`, `question`, `answer`, `passlostkey`, `view_mail`, `remember`, `in_groups`, `active`, `active2step`, `secretkey`, `checknum`, `last_login`, `last_ip`, `last_agent`, `last_openid`, `idsite`, `safemode`, `safekey`, `email_verification_time`) VALUES (3, 4, 'admin03', '7dc2466ad3ff5911f6a5e47e043e0abc', '{SSHA512}KOVM0oaq0dUG9Lg7prnZXhQ0wFQLod26Kv0n71SlzMwCjsa6ovXqznbfyjHQsrA+BA0iTr4Xmv3hTvIVsu5b8DRhNzA=', 'leloc09@gmail.com', 'Lê', 'Lộc', '1', '', 0, NULL, 1556156131, '', '', '', 0, 1, '1,2', 1, 0, '', '', 0, '', '', '', 0, 0, '', 0)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_users_backupcodes`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_users_backupcodes` (
@@ -648,8 +663,8 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_users_groups` 
   UNIQUE KEY `ktitle` (`title`,`idsite`),
   KEY `exp_time` (`exp_time`)
 ) ENGINE=MyISAM  AUTO_INCREMENT=17  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups` (`group_id`, `title`, `email`, `description`, `content`, `group_type`, `group_color`, `group_avatar`, `require_2step_admin`, `require_2step_site`, `is_default`, `add_time`, `exp_time`, `weight`, `act`, `idsite`, `numbers`, `siteus`, `config`) VALUES (1, 'Super admin', '', 'Super Admin', '', 0, '', '', 0, 0, 0, 1514880771, 0, 1, 1, 0, 2, 0, 'a:7:{s:17:\"access_groups_add\";i:1;s:17:\"access_groups_del\";i:1;s:12:\"access_addus\";i:0;s:14:\"access_waiting\";i:0;s:13:\"access_editus\";i:0;s:12:\"access_delus\";i:0;s:13:\"access_passus\";i:0;}')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups` (`group_id`, `title`, `email`, `description`, `content`, `group_type`, `group_color`, `group_avatar`, `require_2step_admin`, `require_2step_site`, `is_default`, `add_time`, `exp_time`, `weight`, `act`, `idsite`, `numbers`, `siteus`, `config`) VALUES (2, 'General admin', '', 'General Admin', '', 0, '', '', 0, 0, 0, 1514880771, 0, 2, 1, 0, 1, 0, 'a:7:{s:17:\"access_groups_add\";i:1;s:17:\"access_groups_del\";i:1;s:12:\"access_addus\";i:0;s:14:\"access_waiting\";i:0;s:13:\"access_editus\";i:0;s:12:\"access_delus\";i:0;s:13:\"access_passus\";i:0;}')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups` (`group_id`, `title`, `email`, `description`, `content`, `group_type`, `group_color`, `group_avatar`, `require_2step_admin`, `require_2step_site`, `is_default`, `add_time`, `exp_time`, `weight`, `act`, `idsite`, `numbers`, `siteus`, `config`) VALUES (1, 'Super admin', '', 'Super Admin', '', 0, '', '', 0, 0, 0, 1514880771, 0, 1, 1, 0, 4, 0, 'a:7:{s:17:\"access_groups_add\";i:1;s:17:\"access_groups_del\";i:1;s:12:\"access_addus\";i:0;s:14:\"access_waiting\";i:0;s:13:\"access_editus\";i:0;s:12:\"access_delus\";i:0;s:13:\"access_passus\";i:0;}')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups` (`group_id`, `title`, `email`, `description`, `content`, `group_type`, `group_color`, `group_avatar`, `require_2step_admin`, `require_2step_site`, `is_default`, `add_time`, `exp_time`, `weight`, `act`, `idsite`, `numbers`, `siteus`, `config`) VALUES (2, 'General admin', '', 'General Admin', '', 0, '', '', 0, 0, 0, 1514880771, 0, 2, 1, 0, 3, 0, 'a:7:{s:17:\"access_groups_add\";i:1;s:17:\"access_groups_del\";i:1;s:12:\"access_addus\";i:0;s:14:\"access_waiting\";i:0;s:13:\"access_editus\";i:0;s:12:\"access_delus\";i:0;s:13:\"access_passus\";i:0;}')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups` (`group_id`, `title`, `email`, `description`, `content`, `group_type`, `group_color`, `group_avatar`, `require_2step_admin`, `require_2step_site`, `is_default`, `add_time`, `exp_time`, `weight`, `act`, `idsite`, `numbers`, `siteus`, `config`) VALUES (3, 'Module admin', '', 'Module Admin', '', 0, '', '', 0, 0, 0, 1514880771, 0, 3, 1, 0, 0, 0, 'a:7:{s:17:\"access_groups_add\";i:1;s:17:\"access_groups_del\";i:1;s:12:\"access_addus\";i:0;s:14:\"access_waiting\";i:0;s:13:\"access_editus\";i:0;s:12:\"access_delus\";i:0;s:13:\"access_passus\";i:0;}')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups` (`group_id`, `title`, `email`, `description`, `content`, `group_type`, `group_color`, `group_avatar`, `require_2step_admin`, `require_2step_site`, `is_default`, `add_time`, `exp_time`, `weight`, `act`, `idsite`, `numbers`, `siteus`, `config`) VALUES (4, 'Users', '', 'Users', '', 0, '', '', 0, 0, 0, 1514880771, 0, 4, 1, 0, 12, 0, 'a:7:{s:17:\"access_groups_add\";i:1;s:17:\"access_groups_del\";i:1;s:12:\"access_addus\";i:0;s:14:\"access_waiting\";i:0;s:13:\"access_editus\";i:0;s:12:\"access_delus\";i:0;s:13:\"access_passus\";i:0;}')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups` (`group_id`, `title`, `email`, `description`, `content`, `group_type`, `group_color`, `group_avatar`, `require_2step_admin`, `require_2step_site`, `is_default`, `add_time`, `exp_time`, `weight`, `act`, `idsite`, `numbers`, `siteus`, `config`) VALUES (7, 'New Users', '', 'New Users', '', 0, '', '', 0, 0, 0, 1514880771, 0, 5, 1, 0, 0, 0, 'a:7:{s:17:\"access_groups_add\";i:1;s:17:\"access_groups_del\";i:1;s:12:\"access_addus\";i:0;s:14:\"access_waiting\";i:0;s:13:\"access_editus\";i:0;s:12:\"access_delus\";i:0;s:13:\"access_passus\";i:0;}')";
@@ -676,6 +691,10 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups_us
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups_users` (`group_id`, `userid`, `is_leader`, `approved`, `data`) VALUES (10, 1, 1, 1, '0')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups_users` (`group_id`, `userid`, `is_leader`, `approved`, `data`) VALUES (14, 1, 0, 1, '0')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups_users` (`group_id`, `userid`, `is_leader`, `approved`, `data`) VALUES (13, 1, 1, 1, '0')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups_users` (`group_id`, `userid`, `is_leader`, `approved`, `data`) VALUES (1, 2, 0, 1, '0')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups_users` (`group_id`, `userid`, `is_leader`, `approved`, `data`) VALUES (2, 2, 0, 1, '0')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups_users` (`group_id`, `userid`, `is_leader`, `approved`, `data`) VALUES (1, 3, 0, 1, '0')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups_users` (`group_id`, `userid`, `is_leader`, `approved`, `data`) VALUES (2, 3, 0, 1, '0')";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_users_info`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_users_info` (
@@ -3258,10 +3277,6 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_customer` (
   `gender` tinyint(1) unsigned NOT NULL DEFAULT '2' COMMENT 'Giới tính',
   `address` varchar(255) NOT NULL COMMENT 'Địa chỉ',
   `unit` varchar(255) NOT NULL COMMENT 'Đơn vị công tác',
-  `trading_person` varchar(255) NOT NULL COMMENT 'Người giao dịch',
-  `unit_name` varchar(255) NOT NULL COMMENT 'Đơn vị',
-  `tax_code` varchar(30) NOT NULL COMMENT 'Mã số thuế',
-  `address_invoice` varchar(255) NOT NULL COMMENT 'Địa chỉ đơn vị',
   `care_staff` mediumint(8) unsigned NOT NULL COMMENT 'Nhân viên chăm sóc KH',
   `image` varchar(255) NOT NULL,
   `addtime` int(11) unsigned NOT NULL COMMENT 'Thời gian thêm',
@@ -3274,9 +3289,8 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_customer` (
   `tag_id` varchar(100) NOT NULL,
   `share_acc` varchar(100) NOT NULL COMMENT 'share với tài khoản',
   `share_groups` smallint(4) unsigned NOT NULL COMMENT 'share với group',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `main_phone` (`main_phone`)
-) ENGINE=MyISAM  AUTO_INCREMENT=11  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  AUTO_INCREMENT=18  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_customer_share_acc`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_customer_share_acc` (
@@ -3425,11 +3439,7 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_invoice` (
   `reminder` tinyint(1) unsigned NOT NULL DEFAULT '1',
   `auto_create` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  AUTO_INCREMENT=10  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_invoice` (`id`, `title`, `code`, `customerid`, `createtime`, `duetime`, `paytime`, `cycle`, `status`, `workforceid`, `presenterid`, `performerid`, `terms`, `description`, `grand_total`, `discount_percent`, `discount_value`, `sended`, `addtime`, `updatetime`, `useradd`, `reminder`, `auto_create`) VALUES (2, 'Highcharts Demo', '000002', 1, 1532795039, 0, 0, 0, 1, 0, 0, 0, '', '', '54500', 0, '0', 0, 1534644995, 0, 0, 1, 0)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_invoice` (`id`, `title`, `code`, `customerid`, `createtime`, `duetime`, `paytime`, `cycle`, `status`, `workforceid`, `presenterid`, `performerid`, `terms`, `description`, `grand_total`, `discount_percent`, `discount_value`, `sended`, `addtime`, `updatetime`, `useradd`, `reminder`, `auto_create`) VALUES (4, 'Highcharts Demo', '000004', 4, 1544977439, 0, 0, 0, 1, 0, 0, 0, '', '', '0', 0, '0', 0, 1544962102, 0, 0, 1, 0)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_invoice` (`id`, `title`, `code`, `customerid`, `createtime`, `duetime`, `paytime`, `cycle`, `status`, `workforceid`, `presenterid`, `performerid`, `terms`, `description`, `grand_total`, `discount_percent`, `discount_value`, `sended`, `addtime`, `updatetime`, `useradd`, `reminder`, `auto_create`) VALUES (5, 'Highcharts Demo', '000005', 4, 1544977439, 0, 0, 0, 1, 0, 0, 0, '', '', '0', 0, '0', 0, 1544964547, 0, 0, 1, 0)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_invoice` (`id`, `title`, `code`, `customerid`, `createtime`, `duetime`, `paytime`, `cycle`, `status`, `workforceid`, `presenterid`, `performerid`, `terms`, `description`, `grand_total`, `discount_percent`, `discount_value`, `sended`, `addtime`, `updatetime`, `useradd`, `reminder`, `auto_create`) VALUES (6, 'Highcharts Demo', '000006', 4, 1544977439, 0, 0, 0, 1, 0, 0, 0, '', '', '0', 0, '0', 0, 1544964863, 0, 1, 1, 0)";
+) ENGINE=MyISAM  AUTO_INCREMENT=12  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_invoice_detail`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_invoice_detail` (
@@ -3448,11 +3458,6 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_invoice_det
   PRIMARY KEY (`id`),
   UNIQUE KEY `idinvoice` (`idinvoice`,`idcustomer`,`module`,`itemid`)
 ) ENGINE=MyISAM  AUTO_INCREMENT=11  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_invoice_detail` (`id`, `idinvoice`, `idcustomer`, `module`, `itemid`, `unit_price`, `quantity`, `price`, `vat`, `total`, `note`, `weight`) VALUES (3, 2, 1, 'services', 1, '0', 1, '10000', 5, '10500', '', 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_invoice_detail` (`id`, `idinvoice`, `idcustomer`, `module`, `itemid`, `unit_price`, `quantity`, `price`, `vat`, `total`, `note`, `weight`) VALUES (4, 2, 1, 'services', 2, '0', 2, '20000', 10, '44000', '', 2)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_invoice_detail` (`id`, `idinvoice`, `idcustomer`, `module`, `itemid`, `unit_price`, `quantity`, `price`, `vat`, `total`, `note`, `weight`) VALUES (6, 4, 4, 'services', 1, '0', 1, '1000000', 10, '0', '', 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_invoice_detail` (`id`, `idinvoice`, `idcustomer`, `module`, `itemid`, `unit_price`, `quantity`, `price`, `vat`, `total`, `note`, `weight`) VALUES (7, 5, 4, 'services', 1, '0', 1, '1000000', 10, '0', '', 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_invoice_detail` (`id`, `idinvoice`, `idcustomer`, `module`, `itemid`, `unit_price`, `quantity`, `price`, `vat`, `total`, `note`, `weight`) VALUES (8, 6, 4, 'services', 1, '0', 1, '1000000', 10, '0', '', 1)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_invoice_econtent`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_invoice_econtent` (
@@ -3558,7 +3563,6 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_invoice_tra
   `note` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  AUTO_INCREMENT=5  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_invoice_transaction` (`id`, `invoiceid`, `transaction_time`, `transaction_status`, `payment`, `payment_amount`, `payment_data`, `note`) VALUES (3, 6, 1547384905, 4, '', '0', '', '')";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_menu`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_menu` (
@@ -5279,8 +5283,10 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_workforce` 
   `useradd` mediumint(8) unsigned NOT NULL,
   `status` tinyint(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  AUTO_INCREMENT=2  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+) ENGINE=MyISAM  AUTO_INCREMENT=4  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_workforce` (`id`, `userid`, `first_name`, `last_name`, `gender`, `birthday`, `main_phone`, `other_phone`, `main_email`, `other_email`, `address`, `knowledge`, `image`, `jointime`, `position`, `part`, `addtime`, `edittime`, `useradd`, `status`) VALUES (1, 1, 'admin', '', 1, 0, '', '', 'admin@mail.com', '', '', '', '', 1555474269, '', '1', 1555474269, 0, 1, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_workforce` (`id`, `userid`, `first_name`, `last_name`, `gender`, `birthday`, `main_phone`, `other_phone`, `main_email`, `other_email`, `address`, `knowledge`, `image`, `jointime`, `position`, `part`, `addtime`, `edittime`, `useradd`, `status`) VALUES (2, 2, 'Đặng', 'Phong', 1, 1555604639, '0906176994', '', 'phonghai88@gmail.com', 'phonghai88@gmail.com', '119 Trần Đăng Ninh', '', '', 0, '', '1', 1556156007, 1556156007, 1, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_workforce` (`id`, `userid`, `first_name`, `last_name`, `gender`, `birthday`, `main_phone`, `other_phone`, `main_email`, `other_email`, `address`, `knowledge`, `image`, `jointime`, `position`, `part`, `addtime`, `edittime`, `useradd`, `status`) VALUES (3, 3, 'Lê', 'Lộc', 1, 1555518239, '0982365456', '', 'leloc09@gmail.com', 'leloc09@gmail.com', 'Châu Hưng - Bình Đại', '', '', 0, '', '1', 1556156131, 1556156131, 1, 1)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_workforce_history_salary`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_workforce_history_salary` (
@@ -5324,6 +5330,8 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_workforce_p
   UNIQUE KEY `userid` (`userid`,`part`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_workforce_part_detail` (`userid`, `part`) VALUES (1, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_workforce_part_detail` (`userid`, `part`) VALUES (2, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_workforce_part_detail` (`userid`, `part`) VALUES (3, 1)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_workforce_salary`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_workforce_salary` (
