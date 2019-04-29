@@ -227,7 +227,7 @@ function nv_sendmail_econtent($new_id, $adduser = 0, $location_file = array())
 
 function nv_invoice_table($id)
 {
-    global $module_file, $lang_module, $array_invoice_products, $order_id, $db, $module_data, $array_services, $array_products, $array_control, $row, $module_name, $op, $global_config;
+    global $module_file, $lang_module, $array_invoice_products, $order_id, $db, $module_data, $array_services, $array_products, $array_control, $row, $module_name, $op, $global_config, $nv_Cache;
     
     $row = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
     $row['vat_price'] = $row['item_total'] = $row['vat_total'] = 0;
@@ -267,15 +267,19 @@ function nv_invoice_table($id)
             $orders['total'] = number_format($orders['total']);
             
             if ($orders['module'] == 'services') {
-                $unit_services = $db->query('SELECT t2.title FROM ' . NV_PREFIXLANG . '_services t1 INNER JOIN  ' . NV_PREFIXLANG . '_services_price_unit t2 ON t1.price_unit = t2.id WHERE t1.id=' . $orders['itemid'])->fetch();
-                $orders['money_unit'] = $unit_services['title'];
+                
+                $_sql = 'SELECT t1.id as idt1,t2.title FROM ' . NV_PREFIXLANG . '_services t1 INNER JOIN  ' . NV_PREFIXLANG . '_services_price_unit t2 ON t1.price_unit = t2.id WHERE t1.id=' . $orders['itemid'];
+                $unit_services = $nv_Cache->db($_sql, 'idt1', 'services');                
+                $orders['money_unit'] = $unit_services[$orders['itemid']]['title'];
                 $orders['itemid'] = $array_services[$orders['itemid']]['title'];
             } elseif ($orders['module'] == 'products') {
-                
-                $unit_products = $db->query('SELECT t2.title FROM ' . NV_PREFIXLANG . '_products t1 INNER JOIN  ' . NV_PREFIXLANG . '_products_price_unit t2 ON t1.price_unit = t2.id WHERE t1.id=' . $orders['itemid'])->fetch();
-                $orders['money_unit'] = $unit_products['title'];
+
+                $_sql = 'SELECT t1.id as idt1, t2.title FROM ' . NV_PREFIXLANG . '_products t1 INNER JOIN  ' . NV_PREFIXLANG . '_products_price_unit t2 ON t1.price_unit = t2.id WHERE t1.id=' . $orders['itemid'];
+                $unit_products = $nv_Cache->db($_sql, 'idt1', 'products');          
+                $orders['money_unit'] = $unit_products[$orders['itemid']]['title'];
                 $orders['itemid'] = $array_products[$orders['itemid']]['title'];
             }
+            
             $xtpl->assign('CONTROL', $array_control);
             $xtpl->assign('ORDERS', $orders);
             
