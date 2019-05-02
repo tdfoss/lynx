@@ -57,9 +57,7 @@
             </div>
             <div class="form-group">
                 <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.note}</strong></label>
-                <div class="col-sm-19 col-md-20">
-                    <textarea class="form-control" name="note">{ROW.note}</textarea>
-                </div>
+                <div class="col-sm-19 col-md-20">{ROW.note}</div>
             </div>
             <div class="form-group text-center">
                 <input class="btn btn-primary" name="submit" type="submit" value="{LANG.save}" />
