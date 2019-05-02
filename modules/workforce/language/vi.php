@@ -91,6 +91,7 @@ $lang_module['createaccount'] = 'Tạo tài khoản mới';
 $lang_module['group_company'] = 'Tạo tài khoản mới';
 $lang_module['type_account'] = 'Chọn loại tài khoản';
 $lang_module['type_customer'] = 'Chọn loại tài khoản';
+$lang_module['description'] = 'Mô tả';
 
 $lang_module['admin_add'] = 'Thêm thành công';
 $lang_module['edit_error_username_exist'] = 'Lỗi: User đã tồn tại';
