@@ -136,17 +136,6 @@
         </div>
     </div>
     <div class="panel panel-default">
-        <div class="panel-heading">{LANG.description}</div>
-        <div class="panel-body">
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.description}</strong></label>
-                <div class="col-sm-19 col-md-20">
-                    <textarea class="form-control" style="height: 100px;" cols="75" rows="5" name="description">{ROW.description}</textarea>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="panel panel-default">
         <div class="panel-heading">
             <span class="pull-left">{LANG.item_details}</span><span class="pull-right">{LANG.money_unit}: {LANG.vnd}</span>
             <div class="clearfix"></div>
@@ -169,7 +158,8 @@
                 <!-- BEGIN: items -->
                 <tr class="item" data-index="{ITEM.index}" data-module="{ITEM.module}">
                     <td class="number text-center">{ITEM.number}</td>
-                    <td><input type="hidden" name="detail[{ITEM.index}][module]" value="{ITEM.module}" />
+                    <td>
+                        <input type="hidden" name="detail[{ITEM.index}][module]" value="{ITEM.module}" />
                         <div class="m-bottom">
                             <!-- BEGIN: services -->
                             <select class="select2 form-control" name="detail[{ITEM.index}][itemid]" style="width: 100%" onchange="nv_item_change($(this)); return !1;">
@@ -195,14 +185,28 @@
                                 <!-- END: loop -->
                             </select>
                             <!-- END: projects -->
-                        </div> <textarea class="form-control" name="detail[{ITEM.index}][note]" placeholder="{LANG.note}">{ITEM.note}</textarea></td>
-                    <td><input type="text" class="form-control unit_price" onchange="nv_item_change_input();" name="detail[{ITEM.index}][unit_price]" value="{ITEM.unit_price}"></td>
-                    <td><input type="number" class="form-control quantity" onchange="nv_item_change_input();" name="detail[{ITEM.index}][quantity]" value="{ITEM.quantity}"></td>
-                    <td><input type="text" class="form-control price" onchange="nv_item_change_input();" name="detail[{ITEM.index}][price]" value="{ITEM.price}"></td>
-                    <td><input type="text" class="form-control vat" onchange="nv_item_change_input();" name="detail[{ITEM.index}][vat]" value="{ITEM.vat}"></td>
-                    <td><input type="text" class="form-control vat_price" readonly="readonly" name="detail[{ITEM.index}][vat_price]" value="{ITEM.vat_price}"></td>
+                        </div>
+                        <textarea class="form-control" name="detail[{ITEM.index}][note]" placeholder="{LANG.note}">{ITEM.note}</textarea>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control unit_price" onchange="nv_item_change_input();" name="detail[{ITEM.index}][unit_price]" value="{ITEM.unit_price}">
+                    </td>
+                    <td>
+                        <input type="number" class="form-control quantity" onchange="nv_item_change_input();" name="detail[{ITEM.index}][quantity]" value="{ITEM.quantity}">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control price" onchange="nv_item_change_input();" name="detail[{ITEM.index}][price]" value="{ITEM.price}">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control vat" onchange="nv_item_change_input();" name="detail[{ITEM.index}][vat]" value="{ITEM.vat}">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control vat_price" readonly="readonly" name="detail[{ITEM.index}][vat_price]" value="{ITEM.vat_price}">
+                    </td>
                     <td class="total">{ITEM.total}</td>
-                    <td class="text-center"><em class="fa fa-trash-o fa-lg pointer" onclick="nv_item_delete(this); return !1;">&nbsp;</em></td>
+                    <td class="text-center">
+                        <em class="fa fa-trash-o fa-lg pointer" onclick="nv_item_delete(this); return !1;">&nbsp;</em>
+                    </td>
                 </tr>
                 <!-- END: items -->
             </tbody>
@@ -225,7 +229,9 @@
             </tr>
             <tr>
                 <th class="text-right">{LANG.discount} (%)</th>
-                <td width="300"><input type="number" name="discount_percent" value="{ROW.discount_percent}" class="form-control" onchange="nv_item_change_input();" /></td>
+                <td width="300">
+                    <input type="number" name="discount_percent" value="{ROW.discount_percent}" class="form-control" onchange="nv_item_change_input();" />
+                </td>
             </tr>
             <tr>
                 <th class="text-right">{LANG.grand_total}</th>
@@ -238,8 +244,7 @@
         </tbody>
     </table>
     <div class="form-group text-center button_fixed_bottom">
-        <input class="btn btn-primary" name="submit" type="submit" value="{LANG.save}" />
-        <a class="cancelLink" href="javascript:history.back()" type="reset">{LANG.cancel}</a>
+        <input class="btn btn-primary" name="submit" type="submit" value="{LANG.save}" /> <a class="cancelLink" href="javascript:history.back()" type="reset">{LANG.cancel}</a>
     </div>
 </form>
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/jquery-ui/jquery-ui.min.js"></script>

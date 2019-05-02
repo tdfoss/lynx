@@ -51,6 +51,7 @@ function nv_theme_invoice_detail($row, $array_invoice_products, $array_control, 
     if (!empty($array_invoice_products)) {
         $i = 1;
         foreach ($array_invoice_products as $orders) {
+
             $orders['number'] = $i++;
             $orders['vat_price'] = ($orders['price'] * $orders['vat']) / 100;
             $orders['vat_price'] = number_format($orders['vat_price']);
@@ -65,7 +66,7 @@ function nv_theme_invoice_detail($row, $array_invoice_products, $array_control, 
                 $orders['itemid'] = $array_services[$orders['itemid']]['title'];
             } elseif ($orders['module'] == 'products') {
                 $unit_products = $db->query('SELECT t2.title FROM ' . NV_PREFIXLANG . '_products t1 INNER JOIN  ' . NV_PREFIXLANG . '_products_price_unit t2 ON t1.price_unit = t2.id WHERE t1.id=' . $orders['itemid'])->fetch();
-
+                
                 $orders['money_unit'] = $unit_products['title'];
                 $orders['itemid'] = $array_products[$orders['itemid']]['title'];
             } elseif ($orders['module'] == 'projects') {

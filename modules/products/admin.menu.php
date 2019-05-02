@@ -10,4 +10,5 @@
 if ( ! defined( 'NV_ADMIN' ) ) die( 'Stop!!!' );
 
 $submenu['cat'] = $lang_module['cat'];
+$submenu['unit'] = $lang_module['unit'];
 

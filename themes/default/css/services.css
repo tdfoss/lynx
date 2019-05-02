@@ -7,3 +7,9 @@
 .red {
     color: red
 }
+
+table.row-click tr{ 
+
+    cursor: pointer; 
+
+} 

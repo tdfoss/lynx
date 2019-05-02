@@ -17,6 +17,7 @@ $lang_translator['langtype'] = 'lang_module';
 
 $lang_module['main'] = 'Trang chính';
 $lang_module['cat'] = 'Loại sản phẩm';
+$lang_module['unit'] = 'Đơn vị';
 $lang_module['products'] = 'Sản Phẩm';
 $lang_module['save'] = 'Save';
 

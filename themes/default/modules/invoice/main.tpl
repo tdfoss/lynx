@@ -4,11 +4,7 @@
 <link type="text/css" href="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
 <div class="well">
     <form action="{NV_BASE_SITEURL}index.php" method="get">
-        <input type="hidden" name="{NV_LANG_VARIABLE}" value="{NV_LANG_DATA}" />
-        <input type="hidden" name="{NV_NAME_VARIABLE}" value="{MODULE_NAME}" />
-        <input type="hidden" name="{NV_OP_VARIABLE}" value="{OP}" />
-        <input type="hidden" name="search" value="1" />
-        <input type="hidden" name="serviceid" value="{SEARCH.serviceid}" />
+        <input type="hidden" name="{NV_LANG_VARIABLE}" value="{NV_LANG_DATA}" /> <input type="hidden" name="{NV_NAME_VARIABLE}" value="{MODULE_NAME}" /> <input type="hidden" name="{NV_OP_VARIABLE}" value="{OP}" /> <input type="hidden" name="search" value="1" /> <input type="hidden" name="serviceid" value="{SEARCH.serviceid}" />
         <div class="row">
             <div class="col-xs-24 col-md-3">
                 <div class="form-group">
@@ -59,8 +55,7 @@
                 <div class="form-group ">
                     <div class="form-group">
                         <div class="input-group">
-                            <input class="form-control datepicker" value="{SEARCH.from}" type="text" name="createtime" autocomplete="off" placeholder="{LANG.begintime_holder}" />
-                            <span class="input-group-btn">
+                            <input class="form-control datepicker" value="{SEARCH.createtime}" type="text" name="createtime" autocomplete="off" placeholder="{LANG.begintime_holder}" /> <span class="input-group-btn">
                                 <button class="btn btn-default" type="button">
                                     <em class="fa fa-calendar fa-fix">&nbsp;</em>
                                 </button>
@@ -73,8 +68,7 @@
                 <div class="form-group">
                     <div class="form-group">
                         <div class="input-group">
-                            <input class="form-control datepicker" value="{SEARCH.from}" type="text" name="duetime" autocomplete="off" placeholder="{LANG.endtime_holder}" />
-                            <span class="input-group-btn">
+                            <input class="form-control datepicker" value="{SEARCH.duetime}" type="text" name="duetime" autocomplete="off" placeholder="{LANG.endtime_holder}" /> <span class="input-group-btn">
                                 <button class="btn btn-default" type="button">
                                     <em class="fa fa-calendar fa-fix">&nbsp;</em>
                                 </button>
@@ -118,9 +112,7 @@
         <table class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
-                    <th class="text-center" width="50">
-                        <input name="check_all[]" type="checkbox" value="yes" onclick="nv_checkAll(this.form, 'idcheck[]', 'check_all[]',this.checked);">
-                    </th>
+                    <th class="text-center" width="50"><input name="check_all[]" type="checkbox" value="yes" onclick="nv_checkAll(this.form, 'idcheck[]', 'check_all[]',this.checked);"></th>
                     <th width="100">{LANG.code}</th>
                     <th>{LANG.title}</th>
                     <th>{LANG.customerid}</th>

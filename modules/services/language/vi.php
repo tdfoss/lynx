@@ -38,3 +38,15 @@ $lang_module['price_type_select'] = 'Chọn đơn vị';
 $lang_module['error_required_title'] = 'Lỗi: bạn cần nhập dữ liệu cho Tiêu đề';
 $lang_module['config_general'] = 'Chung';
 $lang_module['invoice_view'] = 'Xem các hóa đơn cho dịch vụ này';
+
+//lang for services
+$lang_module['services_detail'] = 'Chi tiết dịch vụ';
+$lang_module['add_service'] = 'Thêm dịch vụ';
+$lang_module['list_buy_services'] = 'Danh sách khách hàng mua dịch vụ';
+$lang_module['fullname'] = 'Họ tên';
+$lang_module['phone'] = 'Số điện thoại';
+$lang_module['email'] = 'Email';
+$lang_module['quantity'] = 'Số lượng';
+$lang_module['date'] = 'Ngày mua';
+$lang_module['total_buy'] = 'Tổng số hóa đơn:';
+$lang_module['idinvoice'] = 'Hóa đơn';
