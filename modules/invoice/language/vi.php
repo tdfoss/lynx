@@ -115,6 +115,7 @@ $lang_module['transaction_status_4'] = 'Thành công';
 
 $lang_module['begintime_holder'] = 'Từ ngày';
 $lang_module['endtime_holder'] = 'Đến ngày';
+$lang_module['choice_time'] = 'Chọn thời gian';
 
 $lang_module['transaction_status_5'] = 'Sai checksum (thanh toán không thành công)';
 $lang_module['rest'] = 'Còn lại';

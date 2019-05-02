@@ -51,29 +51,14 @@
                     </select>
                 </div>
             </div>
-            <div class="col-xs-12 col-md-4">
-                <div class="form-group ">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input class="form-control datepicker" value="{SEARCH.createtime}" type="text" name="createtime" autocomplete="off" placeholder="{LANG.begintime_holder}" /> <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <em class="fa fa-calendar fa-fix">&nbsp;</em>
-                                </button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-md-4">
+            <div class="col-xs-12 col-md-5">
                 <div class="form-group">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input class="form-control datepicker" value="{SEARCH.duetime}" type="text" name="duetime" autocomplete="off" placeholder="{LANG.endtime_holder}" /> <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <em class="fa fa-calendar fa-fix">&nbsp;</em>
-                                </button>
-                            </span>
-                        </div>
+                    <div class="input-group">
+                        <input class="form-control" value="{SEARCH.daterange}" type="text" name="daterange" autocomplete="off" placeholder="{LANG.choice_time}" /><span class="input-group-btn">
+                            <button class="btn btn-default" type="button">
+                                <em class="fa fa-calendar fa-fix">&nbsp;</em>
+                            </button>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -173,6 +158,67 @@
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/select2/i18n/{NV_LANG_INTERFACE}.js"></script>
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/jquery-ui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/language/jquery.ui.datepicker-{NV_LANG_INTERFACE}.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<script type="text/javascript">
+$(function() {
+
+  $('input[name="daterange"]').daterangepicker({
+      autoUpdateInput: false,
+      showDropdowns: true,
+      opens: "center",
+      locale: {
+          cancelLabel: 'Clear',
+          format: 'DD/MM/YYYY'     
+      }
+  });
+
+  $('input[name="daterange"]').daterangepicker({
+      "locale": {
+          "format": "DD/MM/YYYY",
+          "separator": " - ",
+          "applyLabel": "Áp dụng",
+          "cancelLabel": "Hủy",
+          "fromLabel": "Từ ngày",
+          "toLabel": "Đến ngày",
+          "customRangeLabel": "Custom",
+          "daysOfWeek": [
+              "CN",
+              "Hai",
+              "Ba",
+              "Tư",
+              "Năm",
+              "Sáu",
+              "Bảy"
+          ],
+          "monthNames": [
+              "Tháng 1",
+              "Tháng 2",
+              "Tháng 3",
+              "Tháng 4",
+              "Tháng 5",
+              "Tháng 6",
+              "Tháng 7",
+              "Tháng 8",
+              "Tháng 9",
+              "Tháng 10",
+              "Tháng 11",
+              "Tháng 12"
+          ],
+          "firstDay": 0
+      }});
+
+  $('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
+      $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
+  });
+
+  $('input[name="daterange"]').on('cancel.daterangepicker', function(ev, picker) {
+      $(this).val('');
+  });
+
+});
+</script>
 <script>
     $(".datepicker").datepicker({
         dateFormat : "dd/mm/yy",

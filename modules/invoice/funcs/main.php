@@ -66,8 +66,7 @@ $array_search = array(
     'presenterid' => $nv_Request->get_int('presenterid', 'get', 0),
     'performerid' => $nv_Request->get_int('performerid', 'get', 0),
     'serviceid' => $nv_Request->get_int('serviceid', 'get', 0),
-    'createtime' => $nv_Request->get_string('createtime', 'get', ''),
-    'duetime' => $nv_Request->get_string('duetime', 'get', ''),
+    'daterange' => $nv_Request->get_string('daterange', 'get', ''),
     'status' => $nv_Request->get_int('status', 'post,get', -1)
 );
 
@@ -100,33 +99,27 @@ if (!empty($array_search['performerid'])) {
     $where .= ' AND performerid=' . $array_search['performerid'];
 }
 
-if (!empty($array_search['createtime'])) {
+if (!empty($array_search['daterange'])) {
     
-    if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $array_search['createtime'], $m)) {
-        $_hour = 23;
-        $_min = 23;
-        $createtime = mktime($_hour, $_min, 59, $m[2], $m[1], $m[3]);
-    } else {
-        $createtime = 0;
-    }
-    $base_url .= '&amp;createtime= ' . $array_search['createtime'];
-    $where .= ' AND createtime >= ' . $createtime;
-}
-if (!empty($array_search['duetime'])) {
+    $begin_time = substr($array_search['daterange'], 0, 10);
+    $end_time = substr($array_search['daterange'], -10);
     
-    if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $array_search['duetime'], $m)) {
+    if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $begin_time, $m)) {
         
-        $_hour = 23;
-        $_min = 23;
-        
-        $duetime = mktime($_hour, $_min, 59, $m[2], $m[1], $m[3]);
+        $begin_time = mktime(23, 59, 59, $m[2], $m[1], $m[3]);
     } else {
-        $duetime = 0;
+        $begin_time = 0;
     }
-    $base_url .= '&amp;duetime= ' . $array_search['duetime'];
-    $where .= ' AND duetime <= ' . $duetime;
+    if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $end_time, $m)) {
+        
+        $end_time = mktime(23, 59, 59, $m[2], $m[1], $m[3]);
+    } else {
+        $end_time = 0;
+    }
+    
+    $base_url .= '&amp;daterange= ' . $array_search['daterange'];
+    $where .= ' AND createtime >= ' . $begin_time . ' AND duetime <= ' . $end_time;
 }
-
 
 if ($array_search['status'] >= 0) {
     $base_url .= '&amp;status=' . $array_search['status'];
@@ -156,7 +149,7 @@ $db->select('t1.*')
     ->order('t1.id DESC')
     ->limit($per_page)
     ->offset(($page - 1) * $per_page);
-
+//     die($db->sql());
 $sth = $db->prepare($db->sql());
 $sth->execute();
 
