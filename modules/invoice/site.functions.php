@@ -270,7 +270,6 @@ function nv_invoice_table($id)
                 $orders['money_unit'] = $array_services[$orders['itemid']]['title_unit'];
                 $orders['itemid'] = $array_services[$orders['itemid']]['title'];
             } elseif ($orders['module'] == 'products') {
-                
                 $orders['money_unit'] = $array_products[$orders['itemid']]['title_unit'];
                 $orders['itemid'] = $array_products[$orders['itemid']]['title'];
             }
