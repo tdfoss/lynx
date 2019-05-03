@@ -19,7 +19,7 @@ if ($nv_Request->isset_request('get_alias_title', 'post')) {
 if ($nv_Request->isset_request('change_status', 'post, get')) {
     $id = $nv_Request->get_int('id', 'post, get', 0);
     $content = 'NO_' . $id;
-
+    
     $query = 'SELECT status FROM ' . NV_PREFIXLANG . '_' . $module_data . '_part WHERE id=' . $id;
     $row = $db->query($query)->fetch();
     if (isset($row['status'])) {
@@ -39,9 +39,9 @@ if ($nv_Request->isset_request('ajax_action', 'post')) {
     $id = $nv_Request->get_int('id', 'post', 0);
     $new_vid = $nv_Request->get_int('new_vid', 'post', 0);
     $content = 'NO_' . $id;
-
+    
     list ($id, $parentid) = $db->query('SELECT id, parentid FROM ' . NV_PREFIXLANG . '_' . $module_data . '_part WHERE id=' . $id)->fetch(3);
-
+    
     if ($new_vid > 0) {
         $sql = 'SELECT id FROM ' . NV_PREFIXLANG . '_' . $module_data . '_part WHERE id!=' . $id . ' AND parentid=' . $parentid . ' ORDER BY weight ASC';
         $result = $db->query($sql);
@@ -68,12 +68,12 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
     $delete_checkss = $nv_Request->get_string('delete_checkss', 'get');
     if ($id > 0 and $delete_checkss == md5($id . NV_CACHE_PREFIX . $client_info['session_id'])) {
         list ($id, $parentid) = $db->query('SELECT id, parentid FROM ' . NV_PREFIXLANG . '_' . $module_data . '_part WHERE id=' . $id)->fetch(3);
-
+        
         $weight = 0;
         $sql = 'SELECT weight FROM ' . NV_PREFIXLANG . '_' . $module_data . '_part WHERE id =' . $db->quote($id);
         $result = $db->query($sql);
         list ($weight) = $result->fetch(3);
-
+        
         $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_part  WHERE id = ' . $db->quote($id) . ' OR parentid=' . $id);
         if ($weight > 0) {
             $sql = 'SELECT id, weight FROM ' . NV_PREFIXLANG . '_' . $module_data . '_part WHERE weight >' . $weight;
@@ -83,10 +83,10 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
                 $db->query('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . '_part SET weight=' . $weight . ' WHERE id=' . intval($id));
             }
         }
-
+        
         $table_name = NV_PREFIXLANG . '_' . $module_data . '_part';
         nv_fix_order($table_name);
-
+        
         $nv_Cache->delMod($module_name);
         Header('Location: ' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=' . $op . '&parentid=' . $parentid);
         die();
@@ -110,11 +110,11 @@ if ($nv_Request->isset_request('submit', 'post')) {
     $row['website'] = $nv_Request->get_title('website', 'post', '');
     $row['email'] = $nv_Request->get_title('email', 'post', '');
     $row['note'] = $nv_Request->get_editor('note', '', NV_ALLOWED_HTML_TAGS);
-
+    
     if (empty($row['title'])) {
         $error[] = $lang_module['error_required_title'];
     }
-
+    
     if (empty($error)) {
         try {
             if (empty($row['id'])) {
@@ -136,7 +136,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
             $stmt->bindParam(':website', $row['website'], PDO::PARAM_STR);
             $stmt->bindParam(':email', $row['email'], PDO::PARAM_STR);
             $stmt->bindParam(':note', $row['note'], PDO::PARAM_STR, strlen($row['note']));
-
+            
             $exc = $stmt->execute();
             if ($exc) {
                 $table_name = NV_PREFIXLANG . '_' . $module_data . '_part';
@@ -179,18 +179,18 @@ if (!$nv_Request->isset_request('id', 'post,get')) {
         ->select('COUNT(*)')
         ->from('' . NV_PREFIXLANG . '_' . $module_data . '_part')
         ->where('parentid=' . $row['parentid']);
-
+    
     $sth = $db->prepare($db->sql());
-
+    
     $sth->execute();
     $num_items = $sth->fetchColumn();
-
+    
     $db->select('*')
         ->order('weight ASC')
         ->limit($per_page)
         ->offset(($page - 1) * $per_page);
     $sth = $db->prepare($db->sql());
-
+    
     $sth->execute();
 }
 
@@ -222,7 +222,7 @@ $row['note'] = htmlspecialchars(nv_editor_br2nl($row['note']));
 if (defined('NV_EDITOR') and nv_function_exists('nv_aleditor')) {
     $row['note'] = nv_aleditor('note', '100%', '300px', $row['note']);
 } else {
-    $row['note'] = '<textarea style="width:100%;height:300px" name="note">' . $row['note'] . '</textarea>';
+    $row['note'] = '<textarea style="width:100%;height:100px" name="note">' . $row['note'] . '</textarea>';
 }
 
 $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);

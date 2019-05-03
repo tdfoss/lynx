@@ -7,12 +7,11 @@
  * @License GNU/GPL version 2 or any later version
  * @Createdate Tue, 16 Jan 2018 04:31:22 GMT
  */
-
 if (!defined('NV_IS_MOD_SERVICES')) die('Stop!!!');
 
 if ($nv_Request->isset_request('get_user_json', 'post, get')) {
     $q = $nv_Request->get_title('q', 'post, get', '');
-
+    
     $db->sqlreset()
         ->select('id, first_name, last_name, main_phone, main_email')
         ->from(NV_PREFIXLANG . '_customer')
@@ -26,10 +25,10 @@ if ($nv_Request->isset_request('get_user_json', 'post, get')) {
         )')
         ->order('first_name ASC')
         ->limit(20);
-
+    
     $sth = $db->prepare($db->sql());
     $sth->execute();
-
+    
     $array_data = array();
     while (list ($customerid, $first_name, $last_name, $main_phone, $main_email) = $sth->fetch(3)) {
         $array_data[] = array(
@@ -39,10 +38,10 @@ if ($nv_Request->isset_request('get_user_json', 'post, get')) {
             'email' => $main_email
         );
     }
-
+    
     header('Cache-Control: no-cache, must-revalidate');
     header('Content-type: application/json');
-
+    
     ob_start('ob_gzhandler');
     echo json_encode($array_data);
     exit();
@@ -77,13 +76,13 @@ if ($nv_Request->isset_request('submit', 'post')) {
     $row['note'] = $nv_Request->get_string('note', 'post', '');
     $row['price'] = $nv_Request->get_title('price', 'post', 0);
     $row['month'] = $nv_Request->get_int('month', 'post', 0);
-
+    
     if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $nv_Request->get_string('begintime', 'post'), $m)) {
         $row['begintime'] = mktime(0, 0, 0, $m[2], $m[1], $m[3]);
     } else {
         $row['begintime'] = 0;
     }
-
+    
     if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $nv_Request->get_string('endtime', 'post'), $m)) {
         $_hour = 23;
         $_min = 23;
@@ -91,7 +90,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
     } else {
         $row['endtime'] = 0;
     }
-
+    
     if (empty($row['customerid'])) {
         $error[] = $lang_module['error_required_customerid'];
     } elseif (empty($row['serviceid'])) {
@@ -99,7 +98,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
     } elseif (empty($row['title'])) {
         $error[] = $lang_module['error_required_title'];
     }
-
+    
     if (empty($error)) {
         try {
             $new_id = 0;
@@ -129,7 +128,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
                     $new_id = $row['id'];
                 }
             }
-
+            
             if ($new_id > 0) {
                 $nv_Cache->delMod($module_name);
                 Header('Location: ' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name);
