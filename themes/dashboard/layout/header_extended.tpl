@@ -48,6 +48,7 @@
                 </form>
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
+                        <li class="dropdown messages-menu">[MENU_SELECT]</li>
                         <li class="dropdown notifications-menu">[NOTIFICATION]</li>
                         <li class="dropdown user user-menu ">[PERSONALAREA]</li>
                     </ul>

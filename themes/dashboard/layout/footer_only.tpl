@@ -9,7 +9,6 @@
 <div id="openidBt" data-result="" data-redirect=""></div>
 <script defer src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/bootstrap.min.js"></script>
 <script defer src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery.slimscroll.min.js"></script>
-<script defer src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/fastclick.js"></script>
 <script defer src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/adminlte.min.js"></script>
 <script defer src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/TDconfig.js"></script>
 
@@ -39,7 +38,6 @@
 </script>
 <script>
 $(window).resize(function() {
-	console.log('remove class');
 	var width = $(window).width();
 	if (width >= 0 && width <= 1024) {
 		$('.remove_class').removeClass('sidebar-collapse').addClass('');
@@ -47,6 +45,11 @@ $(window).resize(function() {
 		$('.remove_class').removeClass('').addClass('sidebar-collapse');
 	}
 }).resize();//trigger the resize event on page load.
+</script>
+<script>
+window.onbeforeunload = function () {
+    window.scrollTo(0,0);
+}
 </script>
 </body>
 </html>
