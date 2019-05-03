@@ -22,3 +22,16 @@
 /web.config
 !/themes/dashboard
 /error.php
+/.gitattributes
+/CHANGELOG.txt
+/OneSignalSDKUpdaterWorker.js
+/OneSignalSDKWorker.js
+/README.md
+/crm.update.php
+/invoice.cronjobs.php
+/manifest.json
+/projects.update.php
+/salary.update.php
+/theme_dashboard.sql
+/workforce.update.php
+/workreport.update.php
