@@ -171,7 +171,7 @@ if (!empty($generate_page)) {
 $number = $page > 1 ? ($per_page * ($page - 1)) + 1 : 1;
 while ($view = $sth->fetch()) {
     $view['vat'] = !empty($view['vat']) ? $view['vat'] : '-';
-    $view['price'] = !empty($view['price']) ? number_format($view['price']) : '';
+    $view['price'] = !empty($view['price']) ? nv_number_format($view['price']) : '';
     $view['price'] = !empty($view['price']) ? $view['price'] : '';
     
     $view['price_unit'] = !empty($view['price_unit']) ? $array_price_unit[$view['price_unit']]['title'] : '';

@@ -39,6 +39,8 @@ if ($nv_Request->isset_request('submit', 'post')) {
     $row['price_unit'] = $nv_Request->get_title('price_unit', 'post', 0);
     $row['url'] = $nv_Request->get_title('url', 'post', '');
     $row['note'] = $nv_Request->get_textarea('note', '', NV_ALLOWED_HTML_TAGS);
+    $row['price'] = floatval(preg_replace('/[^0-9.]/', '', $row['price']));
+    
     
     if (empty($row['title'])) {
         $error[] = $lang_module['error_required_title'];
