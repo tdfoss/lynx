@@ -46,5 +46,10 @@ $(window).resize(function() {
 	}
 }).resize();//trigger the resize event on page load.
 </script>
+<script>
+window.onbeforeunload = function () {
+    window.scrollTo(0,0);
+}
+</script>
 </body>
 </html>

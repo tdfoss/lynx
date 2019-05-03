@@ -198,6 +198,9 @@
     .guestBlock{
         width:100%
     }
+    #input-global-search{
+        width: 170px; 
+    }
 }
 @media (min-width:500px) and (max-width:991px) {
     #footer .menu li {
