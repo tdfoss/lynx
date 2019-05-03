@@ -64,7 +64,7 @@ $xtpl->assign('MODULE_NAME', $module_name);
 $xtpl->assign('OP', $op);
 
 $rows['vat'] = !empty($rows['vat']) ? $rows['vat'] : '-';
-$rows['price'] = !empty($rows['price']) ? number_format($rows['price']) : '-';
+$rows['price'] = !empty($rows['price']) ? nv_number_format($rows['price']) : '-';
 $rows['price'] = !empty($rows['price']) ? $rows['price'] : '-';
 $rows['price_unit'] = !empty($rows['price_unit']) ? $array_price_unit[$rows['price_unit']]['title'] : '-';
 $rows['total_buy'] = $db->query('select count(quantity) as total from nv4_vi_invoice_detail where itemid=' . $id . ' AND module=' . "'$module_name'")->fetch();

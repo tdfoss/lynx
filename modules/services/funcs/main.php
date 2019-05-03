@@ -86,6 +86,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
     $row['price_unit'] = $nv_Request->get_title('price_unit', 'post', 0);
     $row['vat'] = $nv_Request->get_float('vat', 'post', 0);
     $row['note'] = $nv_Request->get_textarea('note', '', NV_ALLOWED_HTML_TAGS);
+    $row['price'] = floatval(preg_replace('/[^0-9.]/', '', $row['price']));
     
     if (empty($row['title'])) {
         $error[] = $lang_module['error_required_title'];
@@ -228,8 +229,10 @@ if ($show_view) {
         $xtpl->parse('main.view.generate_page');
     }
     $number = $page > 1 ? ($per_page * ($page - 1)) + 1 : 1;
+    
     while ($view = $sth->fetch()) {
-        $view['price'] = !empty($view['price']) ? $view['price'] : '';
+        
+        $view['price'] = !empty($view['price']) ? nv_number_format($view['price']) : '';
         
         $view['price_unit'] = !empty($view['price_unit']) ? $array_price_unit[$view['price_unit']]['title'] : '';
         for ($i = 1; $i <= $num_items; ++$i) {
