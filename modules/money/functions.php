@@ -46,11 +46,6 @@ function nv_check_action($addtime)
     return false;
 }
 
-function nv_number_format($number)
-{
-    return number_format($number);
-}
-
 function nv_make_number($price)
 {
     $price = preg_replace('/[^0-9\.]/', '', $price);

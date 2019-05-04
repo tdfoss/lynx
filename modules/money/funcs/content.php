@@ -38,19 +38,20 @@ if ($nv_Request->isset_request('submit', 'post')) {
     $row['type'] = $nv_Request->get_int('type', 'post', 0);
     $row['money'] = $nv_Request->get_title('money', 'post', '');
     $row['note'] = $nv_Request->get_string('note', 'post', '');
-
+    $row['money'] = floatval(preg_replace('/[^0-9.]/', '', $row['money']));
+    
     if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $nv_Request->get_string('date', 'post'), $m)) {
         $row['date'] = mktime(23, 59, 59, $m[2], $m[1], $m[3]);
     } else {
         $row['date'] = 0;
     }
-
+    
     if (empty($row['type'])) {
         $error[] = $lang_module['error_required_type'];
     } elseif (empty($row['money'])) {
         $error[] = $lang_module['error_required_money'];
     }
-
+    
     if (empty($error)) {
         $row['money'] = nv_make_number($row['money']);
         try {
@@ -63,16 +64,16 @@ if ($nv_Request->isset_request('submit', 'post')) {
             $stmt->bindParam(':date', $row['date'], PDO::PARAM_INT);
             $stmt->bindParam(':money', $row['money'], PDO::PARAM_STR);
             $stmt->bindParam(':note', $row['note'], PDO::PARAM_STR, strlen($row['note']));
-
+            
             $exc = $stmt->execute();
             if ($exc) {
                 if (empty($row['id'])) {
                     $content = sprintf($lang_module['money_' . $row['type'] . '_add'], nv_number_format($row['money']), $row['note']);
                     nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['add'] . ' ' . $lang_module['money_' . $row['type']], $content, $user_info['userid']);
                 }
-
+                
                 $nv_Cache->delMod($module_name);
-
+                
                 if (!empty($row['redirect'])) {
                     $url = nv_redirect_decrypt($row['redirect']);
                 } else {

@@ -108,6 +108,7 @@ while ($view = $sth->fetch()) {
             $view['link_delete'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;delete_id=' . $view['id'] . '&amp;delete_checkss=' . md5($view['id'] . NV_CACHE_PREFIX . $client_info['session_id']) . '&amp;redirect=' . nv_redirect_encrypt($client_info['selfurl']);
         }
     }
+    $total = 0;
 
     $thu = $db->query('SELECT SUM(money) FROM ' . NV_PREFIXLANG . '_' . $module_data . '_money WHERE type=1')->fetchColumn();
     $chi = $db->query('SELECT SUM(money) FROM ' . NV_PREFIXLANG . '_' . $module_data . '_money WHERE type=2')->fetchColumn();
