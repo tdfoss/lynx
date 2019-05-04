@@ -14,29 +14,23 @@ require_once NV_ROOTDIR . '/modules/invoice/global.functions.php';
 require_once NV_ROOTDIR . '/modules/customer/site.functions.php';
 require_once NV_ROOTDIR . '/modules/invoice/site.functions.php';
 
-function nv_number_format($number)
-{
-    if (!empty($number) && is_numeric($number)) $number = number_format($number);
-    return $number;
-}
-
 function nv_delete_invoice($id)
 {
     global $db, $module_name, $module_data, $user_info, $lang_module, $workforce_list;
-
+    
     nv_invoice_premission($module_name);
-
+    
     if (!defined('NV_IS_ADMIN')) {
         return false;
     }
-
+    
     $rows = $db->query('SELECT code, title FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
     if ($rows) {
         $count = $db->exec('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id = ' . $id);
         if ($count) {
             $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_detail WHERE idinvoice = ' . $id);
             $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_transaction WHERE invoiceid = ' . $id);
-
+            
             $content = sprintf($lang_module['logs_invoice_delete_note'], $workforce_list[$user_info['userid']]['fullname'], '[#' . $rows['code'] . '] ' . $rows['title']);
             nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_invoice_delete'], $content, $user_info['userid']);
         }
@@ -53,7 +47,7 @@ function nv_caculate_total($price, $quantity, $vat = 0)
 function nv_sendmail_confirm($id)
 {
     global $db, $module_name, $module_data, $row, $lang_module, $array_invoice_status, $user_info, $workforce_list;
-
+    
     $row = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
     if ($row) {
         $customer_info = nv_crm_customer_info($row['customerid']);
@@ -62,7 +56,7 @@ function nv_sendmail_confirm($id)
             $sendto_id = array(
                 $row['customerid']
             );
-
+            
             $subject = 'Re: ' . sprintf($lang_module['sendmail_title'], $row['code'], $row['title']);
             $message = $db->query('SELECT econtent FROM ' . NV_PREFIXLANG . '_' . $module_data . '_econtent WHERE action="newconfirm"')->fetchColumn();
             $row['status'] = $array_invoice_status[$row['status']];
@@ -79,12 +73,12 @@ function nv_sendmail_confirm($id)
                 'DESCRIPTION' => $row['description'],
                 'TABLE' => nv_invoice_table($id)
             );
-
+            
             $message = nv_unhtmlspecialchars($message);
             foreach ($array_replace as $index => $value) {
                 $message = str_replace('[' . $index . ']', $value, $message);
             }
-
+            
             $result = nv_email_send($subject, $message, $user_info['userid'], $sendto_id);
             if ($result['status']) {
                 if (empty($row['sended'])) {
@@ -98,7 +92,7 @@ function nv_sendmail_confirm($id)
 function nv_invoice_new_notification($id, $title, $workforceid)
 {
     global $db, $user_info, $lang_module, $module_name, $module_config, $array_config;
-
+    
     // thông báo người phụ trách
     if ($workforceid != $user_info['userid']) {
         require_once NV_ROOTDIR . '/modules/notification/site.functions.php';
@@ -114,7 +108,7 @@ function nv_invoice_new_notification($id, $title, $workforceid)
 function nv_transaction_list($invoiceid)
 {
     global $db, $module_info, $module_data, $module_file, $lang_module, $array_transaction_status;
-
+    
     $invoice_info = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $invoiceid)->fetch();
     if ($invoice_info) {
         $total = 0;
@@ -127,13 +121,13 @@ function nv_transaction_list($invoiceid)
             $_row['transaction_status'] = $array_transaction_status[$_row['transaction_status']];
             $array_data[$_row['id']] = $_row;
         }
-
+        
         $xtpl = new XTemplate('transaction.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
         $xtpl->assign('LANG', $lang_module);
         $xtpl->assign('TOTAL', nv_number_format($total));
         $rest = $total >= $invoice_info['grand_total'] ? 0 : $invoice_info['grand_total'] - $total;
         $xtpl->assign('REST', nv_number_format($rest));
-
+        
         if (!empty($array_data)) {
             foreach ($array_data as $data) {
                 $xtpl->assign('DATA', $data);
@@ -144,7 +138,7 @@ function nv_transaction_list($invoiceid)
             $xtpl->parse('transaction_list.empty');
         }
     }
-
+    
     $xtpl->parse('transaction_list');
     return $xtpl->text('transaction_list');
 }
@@ -152,7 +146,7 @@ function nv_transaction_list($invoiceid)
 function nv_transaction_update($invoiceid)
 {
     global $db, $module_data;
-
+    
     $invoice_info = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $invoiceid)->fetch();
     if ($invoice_info) {
         $total = 0;
@@ -160,9 +154,9 @@ function nv_transaction_update($invoiceid)
         while (list ($amount) = $result->fetch(3)) {
             $total += $amount;
         }
-
+        
         $status = empty($total) ? 0 : ($total >= $invoice_info['grand_total'] ? 1 : 3);
-
+        
         if ($status != $invoice_info['status']) {
             $db->query('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET status=' . $status . ' WHERE id=' . $invoiceid);
         }
@@ -172,7 +166,7 @@ function nv_transaction_update($invoiceid)
 function nv_invoice_confirm_payment($id)
 {
     global $db, $module_name, $module_data, $lang_module, $workforce_list, $user_info;
-
+    
     $rows = $db->query('SELECT code, title, sended FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
     if ($rows) {
         $count = $db->exec('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET status=1, paytime=' . NV_CURRENTTIME . ' WHERE id=' . $id);
@@ -183,7 +177,7 @@ function nv_invoice_confirm_payment($id)
             $payment_amount = $grand_total - $transaction_total;
             $transaction_status = 4;
             $payment = '';
-
+            
             $stmt = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_transaction(invoiceid, transaction_time, transaction_status, payment, payment_amount) VALUES(:invoiceid, ' . NV_CURRENTTIME . ', :transaction_status, :payment, :payment_amount)');
             $stmt->bindParam(':invoiceid', $id, PDO::PARAM_INT);
             $stmt->bindParam(':transaction_status', $transaction_status, PDO::PARAM_INT);
@@ -194,7 +188,7 @@ function nv_invoice_confirm_payment($id)
                 if ($rows['sended']) {
                     nv_sendmail_confirm($id);
                 }
-
+                
                 $content = sprintf($lang_module['logs_invoice_confirm_note'], '[#' . $rows['code'] . '] ' . $rows['title']);
                 nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_invoice_confirm'], $content, $user_info['userid']);
             }
