@@ -40,6 +40,7 @@
                     </form>
                     <div class="navbar-custom-menu">
                         <ul class="nav navbar-nav">
+                            <li><a href="{URL_CALENDAR}"><em class="fa fa-calendar">&nbsp;</em></a></li>
                             <li class="dropdown notifications-menu">[NOTIFICATION]</li>
                             <li class="dropdown user user-menu ">[PERSONALAREA]</li>
                             <li><a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a></li>
