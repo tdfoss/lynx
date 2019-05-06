@@ -100,11 +100,13 @@
                             <th>{LANG.gender}</th>
                             <td>{CUSTOMER.gender}</td>
                             <th>{LANG.unit}</th>
-                           <td>
+                            <td>
                                 <!-- BEGIN: unit -->
                                 <label class="label label-default">{UNITS}</label>
                                 <!-- END: unit -->
                             </td>
+                        
+                        
                         <tr>
                             <th>{LANG.addtime}</th>
                             <td>{CUSTOMER.addtime}</td>
@@ -131,6 +133,14 @@
                             <th><label class="control-label"><strong>{LANG.share_groups}</strong></label></th>
                             <td>{CUSTOMER.share_groups}</td>
                         </tr>
+                        <!-- BEGIN: field -->
+                        <!-- BEGIN: loop -->
+                        <tr>
+                            <th>{FIELD.title}</th>
+                            <td>{FIELD.value}</td>
+                        </tr>
+                        <!-- END: loop -->
+                        <!-- END: field -->
                         <tr>
                             <th>{LANG.note}</th>
                             <td colspan="3">{CUSTOMER.note}</td>
