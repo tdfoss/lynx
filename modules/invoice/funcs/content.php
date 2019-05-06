@@ -90,10 +90,6 @@ if ($nv_Request->isset_request('get_user_json', 'post, get')) {
             OR main_email LIKE "%' . $q . '%"
             OR other_email LIKE "%' . $q . '%"
             OR address LIKE "%' . $q . '%"
-            OR trading_person LIKE "%' . $q . '%"
-            OR unit_name LIKE "%' . $q . '%"
-            OR tax_code LIKE "%' . $q . '%"
-            OR address_invoice LIKE "%' . $q . '%"
         )')
         ->order('first_name ASC')
         ->limit(20);

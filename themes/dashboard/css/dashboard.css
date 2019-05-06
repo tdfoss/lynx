@@ -10,8 +10,7 @@
 .sidebar-mini.sidebar-collapse .content-wrapper{
 				overflow-x:unset;
 				overflow-y:unset;
-				min-height:1000px !important;
-				margin-top: 50px;
+				min-height:auto !important;
 }
 .wrapper {
 				
@@ -72,6 +71,8 @@
     left: auto;
     border: 1px solid #ddd;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+    width: 376px;
+    height: 300px;
 }
 
 .box {
@@ -290,6 +291,10 @@ body>div.login-box>div>div>div>div>h2 {
 
 .content-wrapper {
     background-color: #fff;
+    margin-top: 50px;
+    overflow-x: unset;
+    overflow-y: unset;
+    min-height: 900px !important;
 }
 
 .navbar-nav>.notifications-menu>.dropdown-menu>li .menu {
@@ -320,7 +325,26 @@ body>div.login-box>div>div>div>div>h2 {
 .navbar-nav>.notifications-menu>.dropdown-menu>li .menu .row{
     padding: 5px
 }
-.panel-info .collapse  div{ display:none;}
+.button-push-menu .logo, .panel-info .collapse  div{ display:none;}
 .panel-info .collapse.in  div{ display:block;}
 #drawer {top: 149px !important;}
 .button-push-menu .logo{display: none}
+.dropdown.messages-menu.open  ul.menu_select  li a{
+    border-bottom: 0;
+    padding: 10px;
+}
+.dropdown.messages-menu.open  ul.menu_select  li {
+    display: inline-block;
+    text-align: center;
+    width: 33.333%;
+    float: left;
+}
+.navbar-nav>.messages-menu>.dropdown-menu>li .menu_select{
+    overflow:unset;
+    margin: unset;
+    max-height: unset;
+    padding: 7px 5px;
+}
+.icon_select{
+    font-size: 25px;
+}

@@ -152,11 +152,7 @@ function save_customer_file_excel($data_array, $data_customer, $data_customer_ty
         'skype',
         'zalo',
         'workforce',
-        'note',
-        'trading_person',
-        'unit_name',
-        'tax_code',
-        'address_invoice'
+        'note'
     );
 
     //chuyen sang sheet 1 de ghi data

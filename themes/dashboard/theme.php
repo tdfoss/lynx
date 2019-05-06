@@ -84,6 +84,8 @@ function nv_site_theme($contents, $full = true)
     $xtpl->assign('NV_CURRENTTIME', nv_date($global_config['date_pattern'] . ', ' . $global_config['time_pattern'], NV_CURRENTTIME));
     $xtpl->assign('NV_COOKIE_PREFIX', $global_config['cookie_prefix']);
     $xtpl->assign('SITE_FAVICON', $site_favicon);
+    $xtpl->assign('URL_CALENDAR', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=calendar');
+
     // System variables
     $xtpl->assign('THEME_PAGE_TITLE', nv_html_page_title(false));
     if (isset($site_mods['seek'])) {
