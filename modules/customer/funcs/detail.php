@@ -73,6 +73,7 @@ if (isset($site_mods['projects'])) {
     
     $result = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_projects WHERE customerid=' . $id . ' ORDER BY id DESC');
     while ($row = $result->fetch()) {
+        $row['link_view'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=projects&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $row['id'];
         $array_customer_projects[] = $row;
     }
     $customer_info['count_projects'] = sizeof($array_customer_projects);
@@ -86,6 +87,7 @@ if (isset($site_mods['email'])) {
         $row['link_view'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=email&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $row['id'];
         $row['addtime'] = nv_date('H:i d/m/Y', $row['addtime']);
         $row['useradd'] = !empty($row['useradd']) ? $workforce_list[$row['useradd']]['fullname'] : $lang_module['system'];
+        
         $array_email_list[] = $row;
     }
     $customer_info['count_emails'] = sizeof($array_email_list);

@@ -52,6 +52,7 @@ function nv_theme_result_import_customer($array_data, $total_row)
 
 function nv_theme_customer_detail($customer_info, $id)
 {
+    
     global $global_config, $module_name, $module_file, $lang_module, $module_config, $module_info, $op, $array_field_config, $custom_fields, $client_info, $array_email_list, $array_invoice, $array_customer_service, $array_customer_projects;
     
     $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
@@ -158,7 +159,7 @@ function nv_theme_customer_detail($customer_info, $id)
     if ($customer_info['permisson'] == 1) {
         $xtpl->parse('main.admin');
     }
-    //     var_dump($array_field_config);die;
+
     if (!empty($array_field_config)) {
         foreach ($array_field_config as $row) {
             if ($row['show_profile']) {

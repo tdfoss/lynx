@@ -251,7 +251,7 @@
                     <!-- END: generate_page -->
                     <tbody>
                         <!-- BEGIN: loop -->
-                        <tr>
+                        <tr onclick="nv_table_row_click(event, '{PROJECT.link_view}', false);" class="pointer">
                             <td class="text-center">{PROJECT.number}</td>
                             <td>{PROJECT.title}</td>
                             <td>{PROJECT.begintime}</td>
