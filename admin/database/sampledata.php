@@ -44,6 +44,9 @@ $array_truncate_data = array(
     NV_PREFIXLANG . '_projects_performer',
     NV_PREFIXLANG . '_projects_task',
     NV_PREFIXLANG . '_projects_types',
+    NV_PREFIXLANG . '_invoice',
+    NV_PREFIXLANG . '_invoice_detail',
+    NV_PREFIXLANG . '_invoice_transaction'
 );
 
 $array_ignore_drop = array(
