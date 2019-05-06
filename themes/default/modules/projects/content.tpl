@@ -31,7 +31,6 @@
                         <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.workforceid}</strong> <span class="red">(*)</span></label>
                         <div class="col-sm-19 col-md-20">
                             <select class="form-control select2" id="workforceid" name="workforceid[]" multiple="multiple">
-                                <option value="0">---{LANG.workforceid_select}---</option>
                                 <!-- BEGIN: workforce -->
                                 <option value="{WORKFORCE.userid}"{WORKFORCE.selected}>{WORKFORCE.fullname}</option>
                                 <!-- END: workforce -->
@@ -41,7 +40,7 @@
                     <div class="form-group">
                         <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.price}</strong></label>
                         <div class="col-sm-19 col-md-20">
-                            <input type="text" class="form-control" name="price" value="{ROW.price}">
+                            <input type="text" class="form-control format_price" name="price" value="{ROW.price}">
                         </div>
                     </div>
                     <div class="form-group">
@@ -197,18 +196,17 @@
         </div>
     </div>
     <div class="form-group text-center button_fixed_bottom">
-        <input type="hidden" name="submit" value="1" /> 
-        <input class="btn btn-primary" type="submit" value="{LANG.save}" />
-        <a class="cancelLink" href="javascript:history.back()" type="reset">{LANG.cancel}</a>
+        <input type="hidden" name="submit" value="1" /> <input class="btn btn-primary" type="submit" value="{LANG.save}" /> <a class="cancelLink" href="javascript:history.back()" type="reset">{LANG.cancel}</a>
     </div>
 </form>
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/jquery-ui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/language/jquery.ui.datepicker-{NV_LANG_INTERFACE}.js"></script>
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/select2/select2.min.js"></script>
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/select2/i18n/{NV_LANG_INTERFACE}.js"></script>
+<script src="//unpkg.com/autonumeric"></script>
 <script type="text/javascript">
     //<![CDATA[
-    
+    new AutoNumeric('.format_price');
     $(document).ready(function() {
         $(".select2").select2({
             language : "{NV_LANG_INTERFACE}",

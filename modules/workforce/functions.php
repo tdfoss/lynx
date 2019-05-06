@@ -26,7 +26,7 @@ $array_status = array(
 function nv_workforce_delete($id)
 {
     global $db, $module_data;
-
+    
     $rows = $db->query('SELECT userid FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
     if ($rows) {
         $count = $db->exec('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id = ' . $id);
@@ -39,7 +39,7 @@ function nv_workforce_delete($id)
 function nv_workforce_check_premission()
 {
     global $array_config, $user_info;
-
+    
     if (empty($array_config['groups_admin'])) {
         return false;
     } elseif (!empty(array_intersect(explode(',', $array_config['groups_admin']), $user_info['in_groups']))) {
@@ -51,7 +51,7 @@ function nv_workforce_check_premission()
 function nv_fix_order($table_name, $parentid = 0, $sort = 0, $lev = 0)
 {
     global $db, $db_config, $module_data;
-
+    
     $sql = 'SELECT id, parentid FROM ' . $table_name . ' WHERE parentid=' . $parentid . ' ORDER BY weight ASC';
     $result = $db->query($sql);
     $array_order = array();
@@ -68,15 +68,15 @@ function nv_fix_order($table_name, $parentid = 0, $sort = 0, $lev = 0)
     foreach ($array_order as $order_i) {
         ++$sort;
         ++$weight;
-
+        
         $sql = 'UPDATE ' . $table_name . ' SET weight=' . $weight . ', sort=' . $sort . ', lev=' . $lev . ' WHERE id=' . $order_i;
         $db->query($sql);
-
+        
         $sort = nv_fix_order($table_name, $order_i, $sort, $lev);
     }
-
+    
     $numsub = $weight;
-
+    
     if ($parentid > 0) {
         $sql = "UPDATE " . $table_name . " SET numsub=" . $numsub;
         if ($numsub == 0) {
@@ -95,11 +95,6 @@ function nv_empty_value($value)
     return !empty($value) ? $value : '';
 }
 
-function nv_number_format($number)
-{
-    return number_format($number);
-}
-
 function nv_caculate_percent($a, $b)
 {
     return ($a * 100) / $b;
@@ -108,14 +103,14 @@ function nv_caculate_percent($a, $b)
 function nv_createaccount($username, $password, $email, $ingroups, $firstname, $lastname, $gender)
 {
     global $db, $global_config, $crypt, $user_info, $lang_module;
-
+    
     $module_name = 'users';
     $module_data = 'users';
     $md5username = nv_md5safe($username);
-
+    
     // Thực hiện câu truy vấn để kiểm tra username đã tồn tại chưa.
     $stmt = $db->prepare('SELECT userid FROM ' . NV_USERS_GLOBALTABLE . ' WHERE md5username= :md5username');
-
+    
     $stmt->bindParam(':md5username', $md5username, PDO::PARAM_STR);
     $stmt->execute();
     $query_error_username = $stmt->fetchColumn();
@@ -126,7 +121,7 @@ function nv_createaccount($username, $password, $email, $ingroups, $firstname, $
             'input' => 'username'
         ));
     }
-
+    
     // Thực hiện câu truy vấn để kiểm tra email đã tồn tại chưa.
     $stmt = $db->prepare('SELECT userid FROM ' . NV_USERS_GLOBALTABLE . ' WHERE email= :email');
     $stmt->bindParam(':email', $email, PDO::PARAM_STR);
@@ -139,7 +134,7 @@ function nv_createaccount($username, $password, $email, $ingroups, $firstname, $
             'input' => 'main_email'
         ));
     }
-
+    
     // Thực hiện câu truy vấn để kiểm tra email đã tồn tại trong nv4_users_reg chưa.
     $stmt = $db->prepare('SELECT userid FROM ' . NV_USERS_GLOBALTABLE . '_reg WHERE email= :email');
     $stmt->bindParam(':email', $email, PDO::PARAM_STR);
@@ -152,7 +147,7 @@ function nv_createaccount($username, $password, $email, $ingroups, $firstname, $
             'input' => 'main_email'
         ));
     }
-
+    
     // Thực hiện câu truy vấn để kiểm tra email đã tồn tại trong nv3_users_openid chưa.
     $stmt = $db->prepare('SELECT userid FROM ' . NV_USERS_GLOBALTABLE . '_openid WHERE email= :email');
     $stmt->bindParam(':email', $email, PDO::PARAM_STR);
@@ -165,16 +160,16 @@ function nv_createaccount($username, $password, $email, $ingroups, $firstname, $
             'input' => 'main_email'
         ));
     }
-
+    
     if (empty($ingroups)) {
         nv_jsonOutput(array(
             'error' => 1,
             'msg' => $lang_module['edit_error_group_default']
         ));
     }
-
+    
     $in_groups_default = 4;
-
+    
     $sql = "INSERT INTO " . NV_USERS_GLOBALTABLE . " (
         group_id,username,md5username,password,email,first_name,last_name,gender,regdate,
         passlostkey,view_mail,remember,in_groups,active,checknum,last_login,
@@ -199,18 +194,18 @@ function nv_createaccount($username, $password, $email, $ingroups, $firstname, $
     $data_insert['first_name'] = $firstname;
     $data_insert['last_name'] = $lastname;
     $data_insert['gender'] = $gender;
-
+    
     $userid = $db->insert_id($sql, 'userid', $data_insert);
-
+    
     if (!$userid) {
         nv_jsonOutput(array(
             'error' => 1,
             'msg' => $lang_module['edit_add_error']
         ));
     }
-
+    
     nv_insert_logs(NV_LANG_DATA, $module_name, 'log_add_user', 'userid ' . $userid, $user_info['userid']);
-
+    
     if (!empty($ingroups)) {
         $ingroups = explode(",", $ingroups);
         foreach ($ingroups as $group_id) {
@@ -219,6 +214,6 @@ function nv_createaccount($username, $password, $email, $ingroups, $firstname, $
             }
         }
     }
-
+    
     return $userid;
 }

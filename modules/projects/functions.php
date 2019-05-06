@@ -72,11 +72,6 @@ if (isset($site_mods['task'])) {
 $_sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_types WHERE active=1 ORDER BY weight';
 $array_working_type_id = $nv_Cache->db($_sql, 'id', $module_name);
 
-function nv_number_format($number)
-{
-    return number_format($number);
-}
-
 /**
  * nv_theme_project_task_lisk()
  *

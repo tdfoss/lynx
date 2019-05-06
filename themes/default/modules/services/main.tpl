@@ -87,7 +87,7 @@
             <div class="form-group">
                 <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.price}</strong></label>
                 <div class="col-sm-19 col-md-20">
-                    <input class="form-control" type="text" name="price" value="{ROW.price}" />
+                    <input class="form-control myInput" type="text" name="price" value="{ROW.price}" />
                 </div>
             </div>
             <div class="form-group">
@@ -121,9 +121,12 @@
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/select2/i18n/{NV_LANG_INTERFACE}.js"></script>
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/jquery-ui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/language/jquery.ui.datepicker-{NV_LANG_INTERFACE}.js"></script>
+<script src="//unpkg.com/autonumeric"></script>
 <script type="text/javascript">
 //<![CDATA[
-      
+
+    new AutoNumeric('.myInput');
+
     $('.select2').select2({
         language : '{NV_LANG_INTERFACE}',
         theme : 'bootstrap',
@@ -142,7 +145,6 @@
 		});
 		return;
 	}
-
 
 	function nv_change_status(id) {
 		var new_status = $('#change_status_' + id).is(':checked') ? true : false;

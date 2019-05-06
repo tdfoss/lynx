@@ -1,10 +1,8 @@
 <!-- BEGIN: main -->
 <link type="text/css" href="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
-
 <!-- BEGIN: error -->
 <div class="alert alert-warning">{ERROR}</div>
 <!-- END: error -->
-
 <form class="form-horizontal" action="{NV_BASE_SITEURL}index.php?{NV_LANG_VARIABLE}={NV_LANG_DATA}&amp;{NV_NAME_VARIABLE}={MODULE_NAME}&amp;{NV_OP_VARIABLE}={OP}" method="post">
     <div class="panel panel-default">
         <div class="panel-body">
@@ -24,7 +22,7 @@
             <div class="form-group">
                 <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.money_value}</strong></label>
                 <div class="col-sm-19 col-md-20">
-                    <input class="form-control required money" type="text" name="money" value="{ROW.money}" />
+                    <input class="form-control required money format_price" type="text" name="money" value="{ROW.money}" />
                 </div>
             </div>
             <div class="form-group">
@@ -42,8 +40,10 @@
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/jquery-ui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/language/jquery.ui.datepicker-{NV_LANG_INTERFACE}.js"></script>
 <script type="text/javascript" src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/office_autoNumeric.min.js"></script>
+<script src="//unpkg.com/autonumeric"></script>
 <script type="text/javascript">
     //<![CDATA[
+        new AutoNumeric('.format_price');
     $(".datepicker").datepicker({
         dateFormat : "dd/mm/yy",
         changeMonth : !0,

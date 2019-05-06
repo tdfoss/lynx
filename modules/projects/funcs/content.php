@@ -11,7 +11,7 @@ if (!defined('NV_IS_MOD_PROJECT')) die('Stop!!!');
 
 if ($nv_Request->isset_request('get_user_json', 'post, get')) {
     $q = $nv_Request->get_title('q', 'post, get', '');
-
+    
     $db->sqlreset()
         ->select('id, first_name, last_name, main_phone, main_email')
         ->from(NV_PREFIXLANG . '_customer')
@@ -25,10 +25,10 @@ if ($nv_Request->isset_request('get_user_json', 'post, get')) {
         )')
         ->order('first_name ASC')
         ->limit(20);
-
+    
     $sth = $db->prepare($db->sql());
     $sth->execute();
-
+    
     $array_data = array();
     while (list ($customerid, $first_name, $last_name, $main_phone, $main_email) = $sth->fetch(3)) {
         $array_data[] = array(
@@ -38,10 +38,10 @@ if ($nv_Request->isset_request('get_user_json', 'post, get')) {
             'email' => $main_email
         );
     }
-
+    
     header('Cache-Control: no-cache, must-revalidate');
     header('Content-type: application/json');
-
+    
     ob_start('ob_gzhandler');
     echo json_encode($array_data);
     exit();
@@ -81,7 +81,7 @@ if ($row['id'] > 0) {
     $row['workforceid'] = $row['workforceid_old'] = !empty($row['workforceid']) ? array_map('intval', explode(',', $row['workforceid'])) : array();
     $row['files'] = !empty($row['files']) ? explode(',', $row['files']) : array();
     $row['files_old'] = $row['files'];
-
+    
     // field
     $sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_info WHERE rows_id=' . $row['id'];
     $result = $db->query($sql);
@@ -114,7 +114,8 @@ if ($nv_Request->isset_request('submit', 'post')) {
     $row['price'] = $nv_Request->get_title('price', 'post', 0);
     $row['vat'] = $nv_Request->get_title('vat', 'post', 0);
     $row['files'] = $nv_Request->get_array('files', 'post');
-
+    $row['price'] = floatval(preg_replace('/[^0-9.]/', '', $row['price']));
+    
     if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $nv_Request->get_string('begintime', 'post'), $m)) {
         $_hour = 23;
         $_min = 23;
@@ -122,7 +123,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
     } else {
         $row['begintime'] = 0;
     }
-
+    
     if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $nv_Request->get_string('endtime', 'post'), $m)) {
         $_hour = 23;
         $_min = 23;
@@ -130,7 +131,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
     } else {
         $row['endtime'] = 0;
     }
-
+    
     if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $nv_Request->get_string('realtime', 'post'), $m)) {
         $_hour = 23;
         $_min = 23;
@@ -143,15 +144,15 @@ if ($nv_Request->isset_request('submit', 'post')) {
     $row['status'] = $nv_Request->get_int('status', 'post', 1);
     $row['type_id'] = $nv_Request->get_int('type_id', 'post', 0);
     $row['sendinfo'] = $nv_Request->get_int('sendinfo', 'post', 0);
-
+    
     $workforceid = !empty($row['workforceid']) ? implode(',', $row['workforceid']) : '';
-
+    
     // field
     $custom_fields = $nv_Request->get_array('custom_fields', 'post');
     if (!empty($array_field_config)) {
         require NV_ROOTDIR . '/modules/' . $module_file . '/fields.check.php';
     }
-
+    
     if (empty($row['customerid'])) {
         nv_jsonOutput(array(
             'error' => 1,
@@ -203,7 +204,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
             }
         }
     }
-
+    
     try {
         $new_id = 0;
         $files = !empty($row['files']) ? implode(',', $row['files']) : '';
@@ -244,9 +245,9 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $db->query('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_info (' . implode(', ', array_keys($query_field)) . ') VALUES (' . implode(', ', array_values($query_field)) . ')');
             }
         }
-
+        
         if ($new_id > 0) {
-
+            
             if ($row['id'] > 0) {
                 if (!empty($array_field_config)) {
                     $db->query('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . '_info SET ' . implode(', ', $query_field) . ' WHERE rows_id=' . $new_id);
@@ -255,7 +256,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $query_field['rows_id'] = $new_id;
                 $db->query('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_info (' . implode(', ', array_keys($query_field)) . ') VALUES (' . implode(', ', array_values($query_field)) . ')');
             }
-
+            
             if ($row['workforceid'] != $row['workforceid_old']) {
                 $sth = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_performer (projectid, userid) VALUES( :projectid, :userid)');
                 foreach ($row['workforceid'] as $userid) {
@@ -265,14 +266,14 @@ if ($nv_Request->isset_request('submit', 'post')) {
                         $sth->execute();
                     }
                 }
-
+                
                 foreach ($row['workforceid_old'] as $userid) {
                     if (!in_array($userid, $row['workforceid'])) {
                         $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_performer WHERE userid = ' . $userid . ' AND projectid=' . $new_id);
                     }
                 }
             }
-
+            
             if ($row['files'] != $row['files_old']) {
                 foreach ($row['files_old'] as $path) {
                     if (!in_array($path, $row['files'])) {
@@ -282,9 +283,9 @@ if ($nv_Request->isset_request('submit', 'post')) {
                     }
                 }
             }
-
+            
             $redirect = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $new_id;
-
+            
             if (empty($row['id'])) {
                 // notification
                 if ($workforceid != $user_info['userid']) {
@@ -296,7 +297,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
                     $url = NV_MY_DOMAIN . $redirect;
                     nv_send_notification($array_userid, $content, 'new_project', $module_name, $url);
                 }
-
+                
                 if ($row['sendinfo']) {
                     // gửi mail thông báo khách hàng
                     nv_sendinfo_projects($new_id);
@@ -307,9 +308,9 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $content = sprintf($lang_module['logs_project_edit_note'], $row['title']);
                 nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_project_edit'], $content, $user_info['userid'], $redirect);
             }
-
+            
             $nv_Cache->delMod($module_name);
-
+            
             if (!empty($row['redirect'])) {
                 $url = nv_redirect_decrypt($row['redirect']);
             } else {
@@ -358,7 +359,7 @@ if (defined('NV_EDITOR')) {
     define('NV_EDITOR', true);
     define('NV_IS_CKEDITOR', true);
     $my_head .= '<script type="text/javascript" src="' . NV_BASE_SITEURL . NV_EDITORSDIR . '/ckeditor/ckeditor.js"></script>';
-
+    
     function nv_aleditor($textareaname, $width = '100%', $height = '450px', $val = '', $customtoolbar = '')
     {
         global $module_data;
@@ -462,7 +463,7 @@ if (!empty($array_field_config)) {
             $_row['value'] = (isset($custom_fields[$_row['field']])) ? $custom_fields[$_row['field']] : $_row['default_value'];
         }
         $_row['required'] = ($_row['required']) ? 'required' : '';
-
+        
         $xtpl->assign('FIELD', $_row);
         if ($_row['required']) {
             $xtpl->parse('main.field.loop.required');

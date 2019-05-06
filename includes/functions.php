@@ -2041,3 +2041,16 @@ function nv_set_authorization()
     }
     return array( 'auth_user' => $auth_user, 'auth_pw' => $auth_pw );
 }
+
+/**
+ * nv_number_format()
+ *
+ * @param mixed $number
+ * @param integer $decimals
+ * @return
+ */
+function nv_number_format($number, $decimals = 2, $dec_point = ".", $thousands_sep = ",")
+{
+    if (!empty($number) && is_numeric($number)) $number = number_format($number,$decimals,$dec_point,$thousands_sep);
+    return $number;
+}
