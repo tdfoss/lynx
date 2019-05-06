@@ -10,19 +10,19 @@ if (!defined('NV_IS_MOD_WORKFORCE')) die('Stop!!!');
 
 if ($nv_Request->isset_request('change_status', 'post')) {
     $id = $nv_Request->get_int('id', 'post', 0);
-
+    
     if (empty($id)) {
         die('NO_' . $id);
     }
-
+    
     $new_status = $nv_Request->get_int('new_status', 'post');
-
+    
     $sql = 'UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET status=' . $new_status . ' WHERE id=' . $id;
     $db->query($sql);
-
+    
     $nv_Cache->delMod($module_name);
     $nv_Cache->delMod('users');
-
+    
     die('OK_' . $id);
 }
 
@@ -59,42 +59,35 @@ if (isset($site_mods['salary'])) {
     }
 }
 
-$xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
-$xtpl->assign('URL_EDIT', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=content&amp;id=' . $id . '&amp;redirect=' . nv_redirect_encrypt($client_info['selfurl']));
-$xtpl->assign('URL_DELETE', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;delete_id=' . $id . '&amp;delete_checkss=' . md5($id . NV_CACHE_PREFIX . $client_info['session_id']));
-$xtpl->assign('LANG', $lang_module);
-$xtpl->assign('WORKFORCE', $result);
-
-if (nv_workforce_check_premission() && isset($site_mods['salary'])) {
-    $xtpl->assign('URL_APPROVAL', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=history-salary&amp;id=' . $id);
-    $xtpl->parse('main.salary');
-}
-
-foreach ($array_status as $data => $value) {
-    $selected = $data == $result['status'] ? 'selected = "selected"' : '';
-    $xtpl->assign('STATUS', array(
-        'data' => $data,
-        'value' => $value,
-        'selected' => $selected
-    ));
-    $xtpl->parse('main.status');
-}
-
-if (!empty($array_salary)) {
-    foreach ($array_salary as $approval) {
-        $xtpl->assign('APPROVAL', $approval);
-        $xtpl->parse('main.approval.loop');
+$array_field_config = array();
+$result_field = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_field WHERE show_profile=1 ORDER BY weight ASC');
+while ($row_field = $result_field->fetch()) {
+    $language = unserialize($row_field['language']);
+    $row_field['title'] = (isset($language[NV_LANG_DATA])) ? $language[NV_LANG_DATA][0] : $row['field'];
+    $row_field['description'] = (isset($language[NV_LANG_DATA])) ? nv_htmlspecialchars($language[NV_LANG_DATA][1]) : '';
+    if (!empty($row_field['field_choices'])) {
+        $row_field['field_choices'] = unserialize($row_field['field_choices']);
+    } elseif (!empty($row_field['sql_choices'])) {
+        $row_field['sql_choices'] = explode('|', $row_field['sql_choices']);
+        $query = 'SELECT ' . $row_field['sql_choices'][2] . ', ' . $row_field['sql_choices'][3] . ' FROM ' . $row_field['sql_choices'][1];
+        $result = $db->query($query);
+        $weight = 0;
+        while (list ($key, $val) = $result->fetch(3)) {
+            $row_field['field_choices'][$key] = $val;
+        }
     }
-    $xtpl->parse('main.approval');
+    $array_field_config[] = $row_field;
 }
-
-$xtpl->parse('main');
-$contents = $xtpl->text('main');
+$sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_info WHERE rows_id=' . $id;
+$result_field = $db->query($sql);
+$custom_fields = $result_field->fetch();
 
 $page_title = $result['fullname'];
 $array_mod_title[] = array(
     'title' => $page_title
 );
+
+$contents = nv_theme_workforce_detail($result, $id);
 
 include NV_ROOTDIR . '/includes/header.php';
 echo nv_site_theme($contents);

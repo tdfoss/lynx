@@ -12,6 +12,7 @@ $sql_drop_module = array();
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data;
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_part";
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_part_detail";
+$sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_field";
 
 $sql_create_module = $sql_drop_module;
 $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "(
@@ -63,6 +64,32 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   userid mediumint(8) unsigned NOT NULL,
   part smallint(4) NOT NULL COMMENT 'Thuộc bộ phận',
   UNIQUE KEY userid(userid, part)
+) ENGINE=MyISAM";
+
+$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_field (
+	fid mediumint(8) NOT NULL AUTO_INCREMENT,
+	field varchar(25) NOT NULL,
+	weight int(10) unsigned NOT NULL DEFAULT '1',
+	field_type enum('number','date','textbox','textarea','editor','select','radio','checkbox','multiselect') NOT NULL DEFAULT 'textbox',
+	field_choices text NOT NULL,
+	sql_choices text NOT NULL,
+	match_type enum('none','alphanumeric','email','url','regex','callback') NOT NULL DEFAULT 'none',
+	match_regex varchar(250) NOT NULL DEFAULT '',
+	func_callback varchar(75) NOT NULL DEFAULT '',
+	min_length int(11) NOT NULL DEFAULT '0',
+	max_length bigint(20) unsigned NOT NULL DEFAULT '0',
+	required tinyint(3) unsigned NOT NULL DEFAULT '0',
+	show_profile tinyint(4) NOT NULL DEFAULT '1',
+	class varchar(50) NOT NULL DEFAULT '',
+	language text NOT NULL,
+	default_value varchar(255) NOT NULL DEFAULT '',
+	PRIMARY KEY (fid),
+	UNIQUE KEY field (field)
+) ENGINE=MyISAM";
+
+$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_info (
+	rows_id mediumint(8) unsigned NOT NULL,
+	PRIMARY KEY (rows_id)
 ) ENGINE=MyISAM";
 
 $data = array();
