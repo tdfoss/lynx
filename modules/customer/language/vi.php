@@ -182,3 +182,16 @@ $lang_module['share_people'] = 'Chia sẽ với cá nhân';
 $lang_module['share_groups'] = 'Chia sẽ với nhóm';
 $lang_module['social'] = 'Mạng xã hội';
 $lang_module['choice_units'] = 'Chọn hoặc điền tên đơn vị';
+
+$lang_module['field_match_type_error'] = '%s không đúng quy tắc';
+$lang_module['field_match_type_required'] = '%s bắt buộc nhập';
+$lang_module['field_min_max_error'] = '%1$s cần nhập từ %2$s đến %3$s ký tự';
+$lang_module['field_min_max_value'] = '%1$s cần nhập từ %2$s đến %3$s';
+$lang_module['field_match_type'] = 'Yêu cầu kiểm tra với giá trị:';
+$lang_module['field_match_type_none'] = 'Không kiểm tra';
+$lang_module['field_match_type_alphanumeric'] = 'Chỉ được dùng các ký tự A-Z, 0-9 và gạch dưới';
+$lang_module['field_match_type_url'] = 'Url';
+$lang_module['field_match_type_regex'] = 'Biểu thức quy tắc';
+$lang_module['field_match_type_callback'] = 'Sử dụng hàm';
+$lang_module['field_min_max_error'] = '%1$s cần nhập từ %2$s đến %3$s ký tự';
+$lang_module['field_min_max_value'] = '%1$s cần nhập từ %2$s đến %3$s';

@@ -18,13 +18,14 @@ $allow_func = array(
     'types',
     'unit',
     'tags',
-    'config'
+    'config',
+    'fields'
 );
 
 function nv_customer_tags_delete($tid)
 {
     global $db, $module_data;
-
+    
     $count = $db->exec('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_tags  WHERE tid = ' . $tid);
     if ($count) {
         $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_tags_customer WHERE tid=' . $tid);

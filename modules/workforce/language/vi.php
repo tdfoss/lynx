@@ -117,3 +117,16 @@ $lang_module['error_empty_data'] = 'Bạn cần chọn dữ liệu để thực 
 $lang_module['error_unknow'] = 'Vì một lý do nào đó hệ thống không thể đáp ứng yêu cầu của bạn lúc này, vui lòng liên hệ với người quản trị để biết thêm thông tin.';
 $lang_module['error_data_part_title'] = 'Hiện tại bộ phận đang trống';
 $lang_module['error_data_part_content'] = 'Bạn cần thêm bộ phận trước khi thêm nhân sự, vui lòng trở lại';
+
+$lang_module['field_match_type_error'] = '%s không đúng quy tắc';
+$lang_module['field_match_type_required'] = '%s bắt buộc nhập';
+$lang_module['field_min_max_error'] = '%1$s cần nhập từ %2$s đến %3$s ký tự';
+$lang_module['field_min_max_value'] = '%1$s cần nhập từ %2$s đến %3$s';
+$lang_module['field_match_type'] = 'Yêu cầu kiểm tra với giá trị:';
+$lang_module['field_match_type_none'] = 'Không kiểm tra';
+$lang_module['field_match_type_alphanumeric'] = 'Chỉ được dùng các ký tự A-Z, 0-9 và gạch dưới';
+$lang_module['field_match_type_url'] = 'Url';
+$lang_module['field_match_type_regex'] = 'Biểu thức quy tắc';
+$lang_module['field_match_type_callback'] = 'Sử dụng hàm';
+$lang_module['field_min_max_error'] = '%1$s cần nhập từ %2$s đến %3$s ký tự';
+$lang_module['field_min_max_value'] = '%1$s cần nhập từ %2$s đến %3$s';

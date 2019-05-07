@@ -25,19 +25,19 @@ while (list ($lang) = $language_query->fetch(3)) {
         $data['workdays'] = 24; // tổng số ngày công trong tháng
         $data['insurrance'] = 10.5; // hệ số tính bảo hiểm
         $data['overtime'] = 150; // tỉ lệ lương làm thêm giờ
-
+        
         foreach ($data as $config_name => $config_value) {
             $sql[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', " . $db->quote($mod) . ", " . $db->quote($config_name) . ", " . $db->quote($config_value) . ")";
         }
-
+        
         $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $mod_data . " ADD  position varchar(100) NOT NULL AFTER jointime;";
-
+        
         $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $mod_data . " ADD  part varchar(100) NOT NULL COMMENT 'Thuộc bộ phận' AFTER position;";
-
+        
         $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $mod_data . "_salary ADD holiday DOUBLE UNSIGNED NOT NULL DEFAULT '0' AFTER workday, ADD holiday_salary DOUBLE UNSIGNED NOT NULL DEFAULT '0' AFTER holiday;";
-
+        
         $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $mod_data . "_salary ADD bhxh DOUBLE UNSIGNED NOT NULL DEFAULT '0' AFTER total;";
-
+        
         $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $mod_data . "_part(
           id smallint(4) unsigned NOT NULL AUTO_INCREMENT,
           parentid smallint(4) unsigned NOT NULL DEFAULT '0',
@@ -58,13 +58,13 @@ while (list ($lang) = $language_query->fetch(3)) {
           status tinyint(1) NOT NULL COMMENT 'Trạng thái',
           PRIMARY KEY (id)
           ) ENGINE=MyISAM";
-
+        
         $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $mod_data . "_part_detail(
           userid mediumint(8) unsigned NOT NULL,
           part smallint(4) NOT NULL COMMENT 'Thuộc bộ phận',
           UNIQUE KEY userid(userid, part)
           ) ENGINE=MyISAM";
-
+        
         $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $mod_data . "_history_salary(
           id smallint(4) unsigned NOT NULL AUTO_INCREMENT,
           userid mediumint(8) unsigned NOT NULL,
@@ -75,7 +75,33 @@ while (list ($lang) = $language_query->fetch(3)) {
           PRIMARY KEY (id),
           UNIQUE KEY userid (userid,addtime)
           ) ENGINE=MyISAM";
-
+        
+        $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_workforce_field (
+    	fid mediumint(8) NOT NULL AUTO_INCREMENT,
+    	field varchar(25) NOT NULL,
+    	weight int(10) unsigned NOT NULL DEFAULT '1',
+    	field_type enum('number','date','textbox','textarea','editor','select','radio','checkbox','multiselect') NOT NULL DEFAULT 'textbox',
+    	field_choices text NOT NULL,
+    	sql_choices text NOT NULL,
+    	match_type enum('none','alphanumeric','email','url','regex','callback') NOT NULL DEFAULT 'none',
+    	match_regex varchar(250) NOT NULL DEFAULT '',
+    	func_callback varchar(75) NOT NULL DEFAULT '',
+    	min_length int(11) NOT NULL DEFAULT '0',
+    	max_length bigint(20) unsigned NOT NULL DEFAULT '0',
+    	required tinyint(3) unsigned NOT NULL DEFAULT '0',
+    	show_profile tinyint(4) NOT NULL DEFAULT '1',
+    	class varchar(50) NOT NULL DEFAULT '',
+    	language text NOT NULL,
+    	default_value varchar(255) NOT NULL DEFAULT '',
+    	PRIMARY KEY (fid),
+    	UNIQUE KEY field (field)
+    ) ENGINE=MyISAM";
+        
+        $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_workforce_info (
+    	rows_id mediumint(8) unsigned NOT NULL,
+    	PRIMARY KEY (rows_id)
+    ) ENGINE=MyISAM";
+        
         foreach ($sql as $_sql) {
             try {
                 $db->query($_sql);

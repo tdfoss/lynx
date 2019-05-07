@@ -12,7 +12,8 @@ define('NV_IS_FILE_ADMIN', true);
 
 $allow_func = array(
     'main',
-    'config'
+    'config',
+    'fields'
 );
 
 $array_config = $module_config[$module_name];

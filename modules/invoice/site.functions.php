@@ -28,7 +28,8 @@ $array_transaction_status = array(
 );
 
 if (isset($site_mods['services'])) {
-    $_sql = 'SELECT t1.*,t2.title as title_unit FROM ' . NV_PREFIXLANG . '_services t1 INNER JOIN  ' . NV_PREFIXLANG . '_services_price_unit t2 ON t1.price_unit = t2.id WHERE t1.active=1';
+    
+    $_sql = 'SELECT t1.*,t2.title as title_unit FROM ' . NV_PREFIXLANG . '_services t1 LEFT JOIN  ' . NV_PREFIXLANG . '_services_price_unit t2 ON t1.price_unit = t2.id WHERE t1.active=1';
     $array_services = $nv_Cache->db($_sql, 'id', 'services');
 }
 
