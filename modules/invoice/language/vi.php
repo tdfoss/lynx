@@ -147,3 +147,16 @@ $lang_module['error_payment_update_title'] = 'Không cập nhật được thôn
 $lang_module['error_payment_update_content'] = 'Vì lý do nào đó hệ thống không tự cập nhật được thông tin hóa đơn lúc này, vui lòng thông báo với người quản trị';
 $lang_module['error_payment_title'] = 'Thanh toán không thành công';
 $lang_module['error_payment_content'] = 'Vì lý do nào đó hệ thống không thanh toán được lúc này, vui lòng thông báo với người quản trị';
+
+$lang_module['applyLabel'] = 'Áp dụng';
+$lang_module['cancelLabel'] = 'Hủy';
+$lang_module['fromLabel'] = 'Từ ngày';
+$lang_module['toLabel'] = 'Đến ngày';
+
+$lang_module['list_date_invoice'] = 'Danh sách hóa đơn sắp hết hạn';
+$lang_module['chooice_time'] = 'Chọn thời gian';
+$lang_module['1week'] = 'Một tuần';
+$lang_module['2week'] = 'Hai tuần';
+$lang_module['1month'] = 'Một tháng';
+$lang_module['2month'] = 'Hai tháng';
+$lang_module['3month'] = 'Ba tháng';

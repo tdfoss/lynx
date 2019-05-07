@@ -52,7 +52,7 @@
                         </div>
                         <div class="col-xs-18 col-sm-18 col-md-18">
                             <div class="input-group">
-                                <input class="form-control" type="text" name="duetime" value="{ROW.duetime}" id="duetime" pattern="^[0-9]{2,2}\/[0-9]{2,2}\/[0-9]{1,4}$" /> <span class="input-group-btn">
+                                <input class="form-control" type="text" name="duetime" autocomplete="off" value="{ROW.duetime}" id="duetime" pattern="^[0-9]{2,2}\/[0-9]{2,2}\/[0-9]{1,4}$" /> <span class="input-group-btn">
                                     <button class="btn btn-default" type="button" id="duetime-btn">
                                         <em class="fa fa-calendar fa-fix"> </em>
                                     </button>

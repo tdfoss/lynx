@@ -195,3 +195,44 @@ function nv_invoice_confirm_payment($id)
         }
     }
 }
+
+function nv_invoice_check_date($time)
+{
+    global $db, $module_data, $array_users, $lang_module, $module_file, $module_info;
+    $data = array();
+    $result = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE duetime > 0 AND duetime >= ' . NV_CURRENTTIME . ' AND duetime <= ' . NV_CURRENTTIME . ' + ' . $time . '');
+    while ($rows = $result->fetch()) {
+        
+        if (!isset($array_users[$rows['customerid']])) {
+            $users = nv_crm_customer_info($rows['customerid']);
+            if ($users) {
+                $rows['customer'] = array(
+                    'fullname' => $users['fullname'],
+                    'link' => $users['link_view']
+                );
+                $array_users[$rows['customerid']] = $rows['customer'];
+            } else {
+                $rows['customer'] = '';
+            }
+        } else {
+            $rows['customer'] = $array_users[$rows['customerid']];
+        }
+        
+        $rows['status_str'] = $lang_module['status_' . $rows['status']];
+        $rows['createtime'] = (empty($rows['createtime'])) ? '' : nv_date('d/m/Y', $rows['createtime']);
+        $rows['duetime'] = (empty($rows['duetime'])) ? ($lang_module['non_identify']) : nv_date('d/m/Y', $rows['duetime']);
+        $rows['addtime'] = (empty($rows['addtime'])) ? '-' : nv_date('H:i d/m/Y', $rows['addtime']);
+        $data[] = $rows;
+    }
+    
+    $xtpl = new XTemplate('main.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
+    $xtpl->assign('LANG', $lang_module);
+    
+    foreach ($data as $key => $value) {
+        $xtpl->assign('LIST', $value);
+        $xtpl->parse('list.list_invoice');
+    }
+    $xtpl->parse('list');
+    $contents = $xtpl->text('list');
+    return $contents;
+}

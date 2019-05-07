@@ -11,6 +11,25 @@ if (!defined('NV_IS_MOD_INVOICE')) die('Stop!!!');
 
 $redirect = $nv_Request->get_string('redirect', 'get', '');
 
+//tìm kiếm hóa đơn sắp hết hạn
+if ($nv_Request->isset_request('get_info_invoice_json', 'post, get')) {
+    
+    $date = $nv_Request->get_int('date', 'post', '');
+    if ($date == 1) {
+        $time = 604800;
+    } elseif ($date == 2) {
+        $time = 1209600;
+    } elseif ($date == 3) {
+        $time = 2592000;
+    } elseif ($date == 4) {
+        $time = 5184000;
+    } elseif ($date == 5) {
+        $time = 7776000;
+    }
+
+    nv_jsonOutput(nv_invoice_check_date($time));
+}
+
 if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_request('delete_checkss', 'get')) {
     $id = $nv_Request->get_int('delete_id', 'get');
     $delete_checkss = $nv_Request->get_string('delete_checkss', 'get');
@@ -149,7 +168,6 @@ $db->select('t1.*')
     ->order('t1.id DESC')
     ->limit($per_page)
     ->offset(($page - 1) * $per_page);
-//     die($db->sql());
 $sth = $db->prepare($db->sql());
 $sth->execute();
 
@@ -160,6 +178,7 @@ if (!empty($array_search['customerid'])) {
 
 $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
 $xtpl->assign('LANG', $lang_module);
+$xtpl->assign('LANG_GLOBAL', $lang_global);
 $xtpl->assign('MODULE_NAME', $module_name);
 $xtpl->assign('OP', $op);
 $xtpl->assign('ROW', $row);
@@ -229,6 +248,24 @@ foreach ($array_invoice_status as $index => $value) {
         'selected' => $sl
     ));
     $xtpl->parse('main.status');
+}
+
+$array_date_invoice = array(
+    1 => $lang_module['1week'],
+    2 => $lang_module['2week'],
+    3 => $lang_module['1month'],
+    4 => $lang_module['2month'],
+    5 => $lang_module['3month']
+);
+
+foreach ($array_date_invoice as $index => $value) {
+    $sl = $index == $view['list_invoice'] ? 'selected="selected"' : '';
+    $xtpl->assign('TIME', array(
+        'key' => $index,
+        'title' => $value,
+        'selected' => $sl
+    ));
+    $xtpl->parse('main.select_time');
 }
 
 if (defined('NV_INVOICE_ADMIN')) {
