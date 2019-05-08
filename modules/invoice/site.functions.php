@@ -181,6 +181,7 @@ function nv_sendmail_econtent($new_id, $adduser = 0, $location_file = array())
     global $db, $module_name, $module_data, $row, $lang_module, $array_invoice_status, $user_info, $workforce_list;
     
     $row = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $new_id)->fetch();
+    
     if ($row) {
         $customer_info = nv_crm_customer_info($row['customerid']);
         if ($customer_info) {
