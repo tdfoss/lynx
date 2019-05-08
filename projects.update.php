@@ -23,8 +23,8 @@ while (list ($lang) = $language_query->fetch(3)) {
     while (list ($mod, $mod_data) = $mquery->fetch(3)) {
         $sql = array();
         
-        $result_info_workforce = $db->query('SELECT id FROM ' . NV_PREFIXLANG . '_' . $mod_data);
-        while (list ($id) = $result_info_workforce->fetch(3)) {
+        $result_info_project = $db->query('SELECT id FROM ' . NV_PREFIXLANG . '_' . $mod_data);
+        while (list ($id) = $result_info_project->fetch(3)) {
             $sql[] = "INSERT INTO " . NV_PREFIXLANG . '_' . $mod_data . "_info (rows_id) VALUES ('" . $id . "')";
         }
         
