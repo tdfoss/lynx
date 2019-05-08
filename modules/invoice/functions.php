@@ -196,9 +196,22 @@ function nv_invoice_confirm_payment($id)
     }
 }
 
-function nv_invoice_check_date($time)
+function nv_invoice_check_date($date)
 {
     global $db, $module_data, $array_users, $lang_module, $module_file, $module_info;
+    
+    if ($date == 1) {
+        $time = 604800;
+    } elseif ($date == 2) {
+        $time = 1209600;
+    } elseif ($date == 3) {
+        $time = 2592000;
+    } elseif ($date == 4) {
+        $time = 5184000;
+    } elseif ($date == 5) {
+        $time = 7776000;
+    }
+    
     $data = array();
     $result = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE duetime > 0 AND duetime >= ' . NV_CURRENTTIME . ' AND duetime <= ' . NV_CURRENTTIME . ' + ' . $time . '');
     while ($rows = $result->fetch()) {
@@ -228,10 +241,15 @@ function nv_invoice_check_date($time)
     $xtpl = new XTemplate('main.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
     $xtpl->assign('LANG', $lang_module);
     
+    if (empty($data)) {
+        $xtpl->parse('list.empty_list_invoice');
+    }
     foreach ($data as $key => $value) {
+        
         $xtpl->assign('LIST', $value);
         $xtpl->parse('list.list_invoice');
     }
+    
     $xtpl->parse('list');
     $contents = $xtpl->text('list');
     return $contents;

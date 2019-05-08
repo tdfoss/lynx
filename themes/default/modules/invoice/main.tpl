@@ -84,10 +84,9 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <span class="pull-left">{LANG.list_date_invoice}</span>
-        <div class="form-group pull-right">
+        <div class="pull-right">
             <div class="col-sm-19 col-md-24">
-                <select class="form-control invoice_list" style="width: 200px;" name="invoice_list" id="list_invoice">
-                    <option value="">--- {LANG.chooice_time} ---</option>
+                <select class="form-control invoice_list input-sm" name="invoice_list" id="list_invoice">
                     <!-- BEGIN: select_time -->
                     <option value="{TIME.key}"{TIME.selected}>{TIME.title}</option>
                     <!-- END: select_time -->
@@ -120,6 +119,10 @@
                     </tfoot>
                     <!-- END: generate_page -->
                     <tbody id="tbody">
+                        <!-- BEGIN: empty_data_invoice -->
+                        <td colspan="8" class="text-center">{LANG.empty_data_invoice}</td>
+                        <!-- END: empty_data_invoice -->
+                        {DATA_INVOICE}
                     </tbody>
                 </table>
             </div>
@@ -362,4 +365,9 @@ $(function() {
     <td>{LIST.status_str}</td>
 </tr>
 <!-- END: list_invoice -->
+<!-- BEGIN: empty_list_invoice -->
+<tr>
+    <td colspan="8" class="text-center">{LANG.empty_data_invoice}</td>
+</tr>
+<!-- END: empty_list_invoice -->
 <!-- END: list -->

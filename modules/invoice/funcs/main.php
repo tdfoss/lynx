@@ -15,19 +15,9 @@ $redirect = $nv_Request->get_string('redirect', 'get', '');
 if ($nv_Request->isset_request('get_info_invoice_json', 'post, get')) {
     
     $date = $nv_Request->get_int('date', 'post', '');
-    if ($date == 1) {
-        $time = 604800;
-    } elseif ($date == 2) {
-        $time = 1209600;
-    } elseif ($date == 3) {
-        $time = 2592000;
-    } elseif ($date == 4) {
-        $time = 5184000;
-    } elseif ($date == 5) {
-        $time = 7776000;
-    }
+  
 
-    nv_jsonOutput(nv_invoice_check_date($time));
+    nv_jsonOutput(nv_invoice_check_date($date));
 }
 
 if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_request('delete_checkss', 'get')) {
@@ -184,7 +174,14 @@ $xtpl->assign('OP', $op);
 $xtpl->assign('ROW', $row);
 $xtpl->assign('SEARCH', $array_search);
 $xtpl->assign('BASE_URL', $base_url);
+
 $xtpl->assign('URL_ADD', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=content');
+
+if (empty(nv_invoice_check_date(1))){
+    $xtpl->parse('main.empty_data_invoice');
+}else {
+    $xtpl->assign('DATA_INVOICE', nv_invoice_check_date(1));
+}
 
 $generate_page = nv_generate_page($base_url, $num_items, $per_page, $page);
 if (!empty($generate_page)) {
