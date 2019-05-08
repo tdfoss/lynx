@@ -30,6 +30,24 @@ while (list ($lang) = $language_query->fetch(3)) {
             $sql[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', " . $db->quote($mod) . ", " . $db->quote($config_name) . ", " . $db->quote($config_value) . ")";
         }
         
+        $array_1 = array();
+        $result = $db->query('SELECT rows_id FROM ' . NV_PREFIXLANG . '_' . $mod_data . '_info');
+        while (list ($id) = $result->fetch(3)) {
+            $array_1[] = $id;
+        }
+        
+        $array_2 = array();
+        $result = $db->query('SELECT id FROM ' . NV_PREFIXLANG . '_' . $mod_data);
+        while (list ($id) = $result->fetch(3)) {
+            $array_2[] = $id;
+        }
+        
+        $result = array_diff($array_2, $array_1);
+        
+        foreach ($result as $key => $value) {
+            $sql[] = "INSERT INTO " . NV_PREFIXLANG . '_' . $mod_data . "_info (rows_id) VALUES ('" . $value . "')";
+        }
+        
         $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $mod_data . " ADD  position varchar(100) NOT NULL AFTER jointime;";
         
         $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $mod_data . " ADD  part varchar(100) NOT NULL COMMENT 'Thuộc bộ phận' AFTER position;";
