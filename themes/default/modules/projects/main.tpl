@@ -27,29 +27,14 @@
                     <!-- END: customerid -->
                 </select>
             </div>
-            <div class="col-xs-12 col-md-4">
-                <div class="form-group ">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input class="form-control datepicker" value="{SEARCH.begintime}" type="text" name="begintime" autocomplete="off" placeholder="{LANG.begintime_holder}" /> <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <em class="fa fa-calendar fa-fix">&nbsp;</em>
-                                </button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-md-4">
+            <div class="col-xs-12 col-md-5">
                 <div class="form-group">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input class="form-control datepicker" value="{SEARCH.endtime}" type="text" name="endtime" autocomplete="off" placeholder="{LANG.endtime_holder}" /> <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <em class="fa fa-calendar fa-fix">&nbsp;</em>
-                                </button>
-                            </span>
-                        </div>
+                    <div class="input-group">
+                        <input class="form-control" value="{SEARCH.daterange}" type="text" name="daterange" autocomplete="off" placeholder="{LANG.choice_time}" /><span class="input-group-btn">
+                            <button class="btn btn-default" type="button">
+                                <em class="fa fa-calendar fa-fix">&nbsp;</em>
+                            </button>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -154,15 +139,58 @@
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/select2/i18n/{NV_LANG_INTERFACE}.js"></script>
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/jquery-ui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/language/jquery.ui.datepicker-{NV_LANG_INTERFACE}.js"></script>
-<script>
-    $(".datepicker").datepicker({
-        dateFormat : "dd/mm/yy",
-        changeMonth : !0,
-        changeYear : !0,
-        showOtherMonths : !0,
-        showOn : "focus",
-        yearRange : "-90:+0"
-    });
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<script type="text/javascript">
+$(function() {
+  $('input[name="daterange"]').daterangepicker({
+      autoUpdateInput: false,
+      showDropdowns: true,
+      opens: "right",
+      locale: {
+          cancelLabel: 'Clear',
+          format: 'DD/MM/YYYY',
+          separator: " - ",
+          applyLabel: "{LANG.applyLabel}",
+          cancelLabel: "{LANG.cancelLabel}",
+          fromLabel: "{LANG.fromLabel}",
+          toLabel: "{LANG.toLabel}",
+          customRangeLabel: "Custom",
+          daysOfWeek: [
+              "{LANG_GLOBAL.sun}",
+              "{LANG_GLOBAL.mon}",
+              "{LANG_GLOBAL.tue}",
+              "{LANG_GLOBAL.wed}",
+              "{LANG_GLOBAL.thu}",
+              "{LANG_GLOBAL.fri}",
+              "{LANG_GLOBAL.sat}"  
+              ],
+          monthNames: [
+              "{LANG_GLOBAL.january}",
+              "{LANG_GLOBAL.february}",
+              "{LANG_GLOBAL.march}",
+              "{LANG_GLOBAL.april}",
+              "{LANG_GLOBAL.may}",
+              "{LANG_GLOBAL.june}",
+              "{LANG_GLOBAL.july}",
+              "{LANG_GLOBAL.august}",
+              "{LANG_GLOBAL.september}",
+              "{LANG_GLOBAL.october}",
+              "{LANG_GLOBAL.december}"  
+              ]   
+      }
+  });
+ 
+  $('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
+      $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
+  });
+  $('input[name="daterange"]').on('cancel.daterangepicker', function(ev, picker) {
+      $(this).val('');
+  });
+});
+
+;
     
     $('.select2').select2({
         language : '{NV_LANG_INTERFACE}',

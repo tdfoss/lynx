@@ -53,8 +53,7 @@ $array_search = array(
     'q' => $nv_Request->get_title('q', 'post,get'),
     'workforceid' => $nv_Request->get_title('workforceid', 'get', 0),
     'customerid' => $nv_Request->get_int('customerid', 'get', 0),
-    'begintime' => $nv_Request->get_string('begintime', 'get', ''),
-    'endtime' => $nv_Request->get_string('endtime', 'get', ''),
+    'daterange' => $nv_Request->get_string('daterange', 'get', ''),
     'realtime' => $nv_Request->get_string('realtime', 'get', ''),
     'status' => $nv_Request->get_int('status', 'post,get', 0)
 );
@@ -82,34 +81,28 @@ if ($array_search['status'] > 0) {
     $where .= ' AND status IN (' . $array_config['default_status'] . ')';
 }
 
-if (!empty($array_search['begintime'])) {
+if (!empty($array_search['daterange'])) {
     
-    if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $array_search['begintime'], $m)) {
+    $begin_time = substr($array_search['daterange'], 0, 10);
+    $end_time = substr($array_search['daterange'], -10);
+    
+    if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $begin_time, $m)) {
         
-        $_hour = 23;
-        $_min = 23;
-        
-        $begintime = mktime($_hour, $_min, 59, $m[2], $m[1], $m[3]);
+        $begin_time = mktime(23, 59, 59, $m[2], $m[1], $m[3]);
     } else {
-        $begintime = 0;
+        $begin_time = 0;
     }
-    $base_url .= '&amp;begintime= ' . $array_search['begintime'];
-    $where .= ' AND begintime >= ' . $begintime;
+    if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $end_time, $m)) {
+        
+        $end_time = mktime(23, 59, 59, $m[2], $m[1], $m[3]);
+    } else {
+        $end_time = 0;
+    }
+    
+    $base_url .= '&amp;daterange= ' . $array_search['daterange'];
+    $where .= ' AND begintime >= ' . $begin_time . ' AND endtime <= ' . $end_time;
 }
 
-if (!empty($array_search['endtime'])) {
-    
-    if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $array_search['endtime'], $m)) {
-        
-        $_hour = 23;
-        $_min = 23;
-        $endtime = mktime($_hour, $_min, 59, $m[2], $m[1], $m[3]);
-    } else {
-        $endtime = 0;
-    }
-    $base_url .= '&amp;endtime= ' . $array_search['endtime'];
-    $where .= ' AND endtime <= ' . $endtime;
-}
 if (!empty($array_search['realtime'])) {
     
     if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $array_search['realtime'], $m)) {
@@ -218,6 +211,7 @@ if ($is_download) {
 
 $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
 $xtpl->assign('LANG', $lang_module);
+$xtpl->assign('LANG_GLOBAL', $lang_global);
 $xtpl->assign('MODULE_NAME', $module_name);
 $xtpl->assign('OP', $op);
 $xtpl->assign('ROW', $row);
