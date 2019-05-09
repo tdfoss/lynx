@@ -46,7 +46,14 @@ $array_truncate_data = array(
     NV_PREFIXLANG . '_projects_types',
     NV_PREFIXLANG . '_invoice',
     NV_PREFIXLANG . '_invoice_detail',
-    NV_PREFIXLANG . '_invoice_transaction'
+    NV_PREFIXLANG . '_invoice_transaction',
+    NV_PREFIXLANG . '_products',
+    NV_PREFIXLANG . '_products_cat',
+    NV_PREFIXLANG . '_products_price_unit',
+    NV_PREFIXLANG . '_services',
+    NV_PREFIXLANG . '_services_customer',
+    NV_PREFIXLANG . '_services_price_unit',
+    NV_PREFIXLANG . '_workreport'
 );
 
 $array_ignore_drop = array(
