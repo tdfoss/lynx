@@ -202,14 +202,19 @@ function nv_invoice_check_date($date)
     
     if ($date == 1) {
         $time = 604800;
+        $lang = $lang_module['1week'];
     } elseif ($date == 2) {
         $time = 1209600;
+        $lang = $lang_module['2week'];
     } elseif ($date == 3) {
         $time = 2592000;
+        $lang = $lang_module['1month'];
     } elseif ($date == 4) {
         $time = 5184000;
+        $lang = $lang_module['2month'];
     } elseif ($date == 5) {
         $time = 7776000;
+        $lang = $lang_module['3month'];
     }
     
     $data = array();
@@ -242,10 +247,10 @@ function nv_invoice_check_date($date)
     $xtpl->assign('LANG', $lang_module);
     
     if (empty($data)) {
+        $xtpl->assign('EMPTY', sprintf($lang_module['empty_data_invoice'], $lang));
         $xtpl->parse('list.empty_list_invoice');
     }
     foreach ($data as $key => $value) {
-        
         $xtpl->assign('LIST', $value);
         $xtpl->parse('list.list_invoice');
     }

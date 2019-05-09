@@ -15,8 +15,7 @@ $redirect = $nv_Request->get_string('redirect', 'get', '');
 if ($nv_Request->isset_request('get_info_invoice_json', 'post, get')) {
     
     $date = $nv_Request->get_int('date', 'post', '');
-  
-
+    
     nv_jsonOutput(nv_invoice_check_date($date));
 }
 
@@ -177,9 +176,9 @@ $xtpl->assign('BASE_URL', $base_url);
 
 $xtpl->assign('URL_ADD', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=content');
 
-if (empty(nv_invoice_check_date(1))){
+if (empty(nv_invoice_check_date(1))) {
     $xtpl->parse('main.empty_data_invoice');
-}else {
+} else {
     $xtpl->assign('DATA_INVOICE', nv_invoice_check_date(1));
 }
 

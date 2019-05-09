@@ -367,7 +367,7 @@ $(function() {
 <!-- END: list_invoice -->
 <!-- BEGIN: empty_list_invoice -->
 <tr>
-    <td colspan="8" class="text-center">{LANG.empty_data_invoice}</td>
+    <td colspan="8" class="text-center">{EMPTY}</td>
 </tr>
 <!-- END: empty_list_invoice -->
 <!-- END: list -->
