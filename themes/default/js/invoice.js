@@ -6,6 +6,20 @@
  */
 
 $(document).ready(function() {
+    $('.loading').click(function() {
+        if ($.validator) {
+            var valid = $(this).closest('form').valid();
+            if (valid) {
+                $('body').append('<div class="ajax-load-qa"></div>');
+            }
+        } else {
+            var valid = $(this).closest('form').find('input:invalid').length;
+            
+        }
+    });
+});
+
+$(document).ready(function() {
     $.fn.addNumber = function() {
         $(this).each(function(index) {
             $(this).html(index + 1);
@@ -125,6 +139,7 @@ function nv_table_row_click(e, t, n) {
 
 function nv_invoice_sendmail(id) {
     if (confirm(invoice_sendmail_confirm)) {
+        $('body').append('<div class="ajax-load-qa"></div>');
         $.ajax({
             type : 'POST',
             url : script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=detail&nocache=' + new Date().getTime(),

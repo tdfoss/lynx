@@ -81,6 +81,54 @@
         </div>
     </form>
 </div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <span class="pull-left">{LANG.list_date_invoice}</span>
+        <div class="pull-right">
+            <div class="col-sm-19 col-md-24">
+                <select class="form-control invoice_list input-sm" name="invoice_list" id="list_invoice">
+                    <!-- BEGIN: select_time -->
+                    <option value="{TIME.key}"{TIME.selected}>{TIME.title}</option>
+                    <!-- END: select_time -->
+                </select>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div>
+        <form action="{NV_BASE_SITEURL}index.php?{NV_LANG_VARIABLE}={NV_LANG_DATA}&amp;{NV_NAME_VARIABLE}={MODULE_NAME}&amp;{NV_OP_VARIABLE}={OP}" method="post">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th width="100">{LANG.code}</th>
+                            <th>{LANG.title}</th>
+                            <th>{LANG.customerid}</th>
+                            <th>{LANG.createtime}</th>
+                            <th>{LANG.duetime}</th>
+                            <th width="150">{LANG.addtime}</th>
+                            <th>{LANG.grand_total}</th>
+                            <th>{LANG.status}</th>
+                        </tr>
+                    </thead>
+                    <!-- BEGIN: generate_page -->
+                    <tfoot>
+                        <tr>
+                            <td class="text-center" colspan="10">{NV_GENERATE_PAGE}</td>
+                        </tr>
+                    </tfoot>
+                    <!-- END: generate_page -->
+                    <tbody id="tbody">
+                        <!-- BEGIN: empty_data_invoice -->
+                        <td colspan="8" class="text-center">{LANG.empty_data_invoice}</td>
+                        <!-- END: empty_data_invoice -->
+                        {DATA_INVOICE}
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+</div>
 <!-- BEGIN: admin2 -->
 <form class="form-inline m-bottom">
     <select class="form-control" id="action-top">
@@ -170,44 +218,39 @@ $(function() {
       opens: "center",
       locale: {
           cancelLabel: 'Clear',
-          format: 'DD/MM/YYYY'     
+          format: 'DD/MM/YYYY',
+          separator: " - ",
+          applyLabel: "{LANG.applyLabel}",
+          cancelLabel: "{LANG.cancelLabel}",
+          fromLabel: "{LANG.fromLabel}",
+          toLabel: "{LANG.toLabel}",
+          customRangeLabel: "Custom",
+          daysOfWeek: [
+              "{LANG_GLOBAL.sun}",
+              "{LANG_GLOBAL.mon}",
+              "{LANG_GLOBAL.tue}",
+              "{LANG_GLOBAL.wed}",
+              "{LANG_GLOBAL.thu}",
+              "{LANG_GLOBAL.fri}",
+              "{LANG_GLOBAL.sat}"  
+              ],
+          monthNames: [
+              "{LANG_GLOBAL.january}",
+              "{LANG_GLOBAL.february}",
+              "{LANG_GLOBAL.march}",
+              "{LANG_GLOBAL.april}",
+              "{LANG_GLOBAL.may}",
+              "{LANG_GLOBAL.june}",
+              "{LANG_GLOBAL.july}",
+              "{LANG_GLOBAL.august}",
+              "{LANG_GLOBAL.september}",
+              "{LANG_GLOBAL.october}",
+              "{LANG_GLOBAL.december}"  
+              ]   
       }
   });
 
-  $('input[name="daterange"]').daterangepicker({
-      "locale": {
-          "format": "DD/MM/YYYY",
-          "separator": " - ",
-          "applyLabel": "Áp dụng",
-          "cancelLabel": "Hủy",
-          "fromLabel": "Từ ngày",
-          "toLabel": "Đến ngày",
-          "customRangeLabel": "Custom",
-          "daysOfWeek": [
-              "CN",
-              "Hai",
-              "Ba",
-              "Tư",
-              "Năm",
-              "Sáu",
-              "Bảy"
-          ],
-          "monthNames": [
-              "Tháng 1",
-              "Tháng 2",
-              "Tháng 3",
-              "Tháng 4",
-              "Tháng 5",
-              "Tháng 6",
-              "Tháng 7",
-              "Tháng 8",
-              "Tháng 9",
-              "Tháng 10",
-              "Tháng 11",
-              "Tháng 12"
-          ],
-          "firstDay": 0
-      }});
+ 
 
   $('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
       $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
@@ -239,8 +282,18 @@ $(function() {
     
     var confirm_confirm_payment = '{LANG.confirm_confirm_payment}';
     var list_error = '{LANG.error_unknow}';
-    
+
+    $('#list_invoice').change(function(){      
+        var date = $('#list_invoice').val();
+        $.post(script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '={OP}&nocache=' + new Date().getTime(), 'get_info_invoice_json=1&date=' + date, function(json) {            
+            $("#tbody").empty();
+            $("#tbody").append(json);
+         
+        });
+    });
+
     $(document).ready(function() {
+        
         $(".select2").select2({
             language : "{NV_LANG_INTERFACE}",
             theme : "bootstrap",
@@ -297,3 +350,24 @@ $(function() {
 </script>
 <!-- END: admin1 -->
 <!-- END: main -->
+<!-- BEGIN: list -->
+<!-- BEGIN: list_invoice -->
+<tr onclick="nv_table_row_click(event, '{VIEW.link_view}', false);" class="pointer <!-- BEGIN: warning -->warning<!-- END: warning --> <!-- BEGIN: danger -->danger<!-- END: danger --> <!-- BEGIN: success -->success<!-- END: success -->">
+    <td>#{LIST.code}</td>
+    <td>{LIST.title}</td>
+    <td>
+        <a href="{LIST.customer.link}">{LIST.customer.fullname}</a>
+    </td>
+    <td>{LIST.createtime}</td>
+    <td>{LIST.duetime}</td>
+    <td>{LIST.addtime}</td>
+    <td>{LIST.grand_total}</td>
+    <td>{LIST.status_str}</td>
+</tr>
+<!-- END: list_invoice -->
+<!-- BEGIN: empty_list_invoice -->
+<tr>
+    <td colspan="8" class="text-center">{LANG.empty_data_invoice}</td>
+</tr>
+<!-- END: empty_list_invoice -->
+<!-- END: list -->

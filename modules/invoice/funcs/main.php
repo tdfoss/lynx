@@ -11,6 +11,15 @@ if (!defined('NV_IS_MOD_INVOICE')) die('Stop!!!');
 
 $redirect = $nv_Request->get_string('redirect', 'get', '');
 
+//tìm kiếm hóa đơn sắp hết hạn
+if ($nv_Request->isset_request('get_info_invoice_json', 'post, get')) {
+    
+    $date = $nv_Request->get_int('date', 'post', '');
+  
+
+    nv_jsonOutput(nv_invoice_check_date($date));
+}
+
 if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_request('delete_checkss', 'get')) {
     $id = $nv_Request->get_int('delete_id', 'get');
     $delete_checkss = $nv_Request->get_string('delete_checkss', 'get');
@@ -149,7 +158,6 @@ $db->select('t1.*')
     ->order('t1.id DESC')
     ->limit($per_page)
     ->offset(($page - 1) * $per_page);
-//     die($db->sql());
 $sth = $db->prepare($db->sql());
 $sth->execute();
 
@@ -160,12 +168,20 @@ if (!empty($array_search['customerid'])) {
 
 $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
 $xtpl->assign('LANG', $lang_module);
+$xtpl->assign('LANG_GLOBAL', $lang_global);
 $xtpl->assign('MODULE_NAME', $module_name);
 $xtpl->assign('OP', $op);
 $xtpl->assign('ROW', $row);
 $xtpl->assign('SEARCH', $array_search);
 $xtpl->assign('BASE_URL', $base_url);
+
 $xtpl->assign('URL_ADD', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=content');
+
+if (empty(nv_invoice_check_date(1))){
+    $xtpl->parse('main.empty_data_invoice');
+}else {
+    $xtpl->assign('DATA_INVOICE', nv_invoice_check_date(1));
+}
 
 $generate_page = nv_generate_page($base_url, $num_items, $per_page, $page);
 if (!empty($generate_page)) {
@@ -229,6 +245,24 @@ foreach ($array_invoice_status as $index => $value) {
         'selected' => $sl
     ));
     $xtpl->parse('main.status');
+}
+
+$array_date_invoice = array(
+    1 => $lang_module['1week'],
+    2 => $lang_module['2week'],
+    3 => $lang_module['1month'],
+    4 => $lang_module['2month'],
+    5 => $lang_module['3month']
+);
+
+foreach ($array_date_invoice as $index => $value) {
+    $sl = $index == $view['list_invoice'] ? 'selected="selected"' : '';
+    $xtpl->assign('TIME', array(
+        'key' => $index,
+        'title' => $value,
+        'selected' => $sl
+    ));
+    $xtpl->parse('main.select_time');
 }
 
 if (defined('NV_INVOICE_ADMIN')) {
