@@ -81,7 +81,7 @@ while (list ($lang) = $language_query->fetch(3)) {
           UNIQUE KEY userid (userid,addtime)
           ) ENGINE=MyISAM";
         
-        $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_workforce_field (
+        $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang .  "_" . $mod_data . "_field (
     	fid mediumint(8) NOT NULL AUTO_INCREMENT,
     	field varchar(25) NOT NULL,
     	weight int(10) unsigned NOT NULL DEFAULT '1',
@@ -102,7 +102,7 @@ while (list ($lang) = $language_query->fetch(3)) {
     	UNIQUE KEY field (field)
     ) ENGINE=MyISAM";
         
-        $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_workforce_info (
+        $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $mod_data . "_info (
     	rows_id mediumint(8) unsigned NOT NULL,
     	PRIMARY KEY (rows_id)
     ) ENGINE=MyISAM";
