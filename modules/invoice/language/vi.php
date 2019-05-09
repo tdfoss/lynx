@@ -154,7 +154,7 @@ $lang_module['fromLabel'] = 'Từ ngày';
 $lang_module['toLabel'] = 'Đến ngày';
 
 $lang_module['list_date_invoice'] = 'Danh sách hóa đơn sắp hết hạn';
-$lang_module['empty_data_invoice'] = 'Danh sách hóa đơn sắp hết hạn không có trong thời gian tới, vui lòng chọn lại thời gian tìm kiếm !';
+$lang_module['empty_data_invoice'] = 'Không có hóa đơn nào hết hạn trong %s tới !';
 $lang_module['chooice_time'] = 'Chọn thời gian';
 $lang_module['1week'] = 'Một tuần';
 $lang_module['2week'] = 'Hai tuần';

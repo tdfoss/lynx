@@ -112,6 +112,7 @@ if ($nv_Request->isset_request('downpdf', 'get')) {
 }
 
 if ($nv_Request->isset_request('sendmail', 'post')) {
+    
     $id = $nv_Request->get_int('id', 'post', 0);
     $code = $db->query('SELECT code FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetchColumn();
     
