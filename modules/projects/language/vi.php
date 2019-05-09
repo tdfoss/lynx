@@ -120,3 +120,7 @@ $lang_module['error_required_title'] = 'Lỗi: bạn cần nhập dữ liệu ch
 $lang_module['error_unknow'] = 'Vì lý do nào đó hệ thống không thể đáp ứng yêu cầu của bạn lúc này, vui lòng liên hệ với người quản trị để biết thêm thông tin, xin cảm ơn!';
 $lang_module['task_export'] = 'Xuất danh sách';
 $lang_module['manager_projects'] = 'Quản lý dự án';
+$lang_module['applyLabel'] = 'Áp dụng';
+$lang_module['cancelLabel'] = 'Hủy';
+$lang_module['fromLabel'] = 'Từ ngày';
+$lang_module['toLabel'] = 'Đến ngày';
