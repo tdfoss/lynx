@@ -37,9 +37,9 @@
             </tr>
             <tr>
                 <th>{LANG.main_email}</th>
-                <td>{WORKFORCE.main_email}</td>
+                <td><a href="mailto:{WORKFORCE.main_email}">{WORKFORCE.main_email}</a></td>
                 <th>{LANG.other_email}</th>
-                <td>{WORKFORCE.other_email}</td>
+                <td><a href="mailto:{WORKFORCE.other_email}">{WORKFORCE.other_email}</a></td>
             </tr>
             <tr>
                 <th>{LANG.jointime}</th>
@@ -51,13 +51,11 @@
                 <th>{LANG.edittime}</th>
                 <td>{WORKFORCE.edittime}</td>
                 <th>{LANG.status}</th>
-                <td>
-                    <select class="form-control" style="width: 200px" id="change_status_{WORKFORCE.id}" onchange="nv_chang_status('{WORKFORCE.id}');">
+                <td><select class="form-control" style="width: 200px" id="change_status_{WORKFORCE.id}" onchange="nv_chang_status('{WORKFORCE.id}');">
                         <!-- BEGIN: status -->
                         <option value="{STATUS.data}"{STATUS.selected}>{STATUS.value}</option>
                         <!-- END: status -->
-                    </select>
-                </td>
+                </select></td>
             </tr>
             <!-- BEGIN: field -->
             <!-- BEGIN: loop -->
