@@ -1064,9 +1064,32 @@ function nv_get_keywords($content, $keyword_limit = 20)
  * @param string $files
  * @return
  */
-function nv_sendmail($from, $to, $subject, $message, $files = '', $AddEmbeddedImage = false)
+function nv_sendmail($from, $to, $subject, $message, $files = '', $AddEmbeddedImage = false, $queue = true)
 {
     global $global_config, $sys_info;
+
+    if($queue){
+        global $db, $db_config;
+        if (is_array($from)) {
+            $from = serialize($from);
+        }
+
+        if (is_array($to)) {
+            $to = serialize($to);
+        }
+
+        $stmt = $db->prepare('INSERT INTO ' . $db_config['prefix'] . '_sendmail(from_mail, to_mail, subject, message, files, embeddedimage) VALUES(:from_mail, :to_mail, :subject, :message, :files, :embeddedimage)');
+        $stmt->bindParam(':from_mail', $from, PDO::PARAM_STR);
+        $stmt->bindParam(':to_mail', $to, PDO::PARAM_STR);
+        $stmt->bindParam(':subject', $subject, PDO::PARAM_STR);
+        $stmt->bindParam(':message', $message, PDO::PARAM_STR, strlen($message));
+        $stmt->bindParam(':files', $files, PDO::PARAM_STR);
+        $stmt->bindParam(':embeddedimage', intval($AddEmbeddedImage), PDO::PARAM_INT);
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
 
     try {
         $mail = new PHPMailer\PHPMailer\PHPMailer();
