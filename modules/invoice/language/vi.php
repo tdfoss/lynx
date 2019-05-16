@@ -112,11 +112,9 @@ $lang_module['transaction_status_1'] = 'Đang chờ xử lý';
 $lang_module['transaction_status_2'] = 'Đang tạm giữ';
 $lang_module['transaction_status_3'] = 'Thất bại';
 $lang_module['transaction_status_4'] = 'Thành công';
-
 $lang_module['begintime_holder'] = 'Từ ngày';
 $lang_module['endtime_holder'] = 'Đến ngày';
 $lang_module['choice_time'] = 'Chọn thời gian';
-
 $lang_module['transaction_status_5'] = 'Sai checksum (thanh toán không thành công)';
 $lang_module['rest'] = 'Còn lại';
 $lang_module['review_invoice'] = 'Xem lại hóa đơn';
@@ -137,6 +135,11 @@ $lang_module['logs_invoice_edit'] = 'Sửa thông tin hóa đơn';
 $lang_module['logs_invoice_edit_note'] = 'Sửa thông tin hóa đơn <strong>%s</strong>';
 $lang_module['logs_invoice_confirm'] = 'Xác nhận thanh toán hóa đơn';
 $lang_module['logs_invoice_confirm_note'] = 'Xác nhận thanh toán hóa đơn <strong>%s</strong>';
+$lang_module['months'] = 'Tháng %s';
+$lang_module['moneyin'] = 'Doanh thu';
+$lang_module['moneyout'] = 'Chi';
+$lang_module['profit'] = 'Lợi nhuận';
+$lang_module['statistic'] = 'Báo cáo';
 
 $lang_module['error_unknow'] = 'Vì một lý do nào đó hệ thống không thể đáp ứng yêu cầu của bạn lúc này, vui lòng liên hệ với người quản trị để biết thêm thông tin!';
 $lang_module['error_required_invoiceid'] = 'Lỗi: không xác định được Hóa đơn';
