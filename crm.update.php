@@ -52,6 +52,10 @@ while (list ($lang) = $language_query->fetch(3)) {
 
     $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_customer ADD share_groups smallint(4) unsigned NOT NULL COMMENT 'share với group' AFTER share_acc;";
 
+    $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_invoice ADD score smallint(4) NOT NULL DEFAULT '0' AFTER auto_create;";
+
+    $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_invoice_score( customerid mediumint(8) unsigned NOT NULL, score smallint(4) NOT NULL DEFAULT '0', UNIQUE KEY customerid(customerid) ) ENGINE=MyISAM";
+
     $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_projects ADD vat DOUBLE UNSIGNED NOT NULL DEFAULT '0' AFTER price;";
 
     $sql[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', 'workreport', 'allow_days', '1');";
@@ -191,6 +195,14 @@ while (list ($lang) = $language_query->fetch(3)) {
       embeddedimage tinyint(1) unsigned NOT NULL DEFAULT '0',
       PRIMARY KEY (id)
     ) ENGINE=MyISAM";
+
+    $data = array();
+    $data['score_allow'] = 0;
+    $data['score_money'] = 100000;
+    $data['money_score'] = 10000;
+    foreach ($data as $config_name => $config_value) {
+        $sql[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', 'invoice', " . $db->quote($config_name) . ", " . $db->quote($config_value) . ")";
+    }
 
     foreach ($sql as $_sql) {
         try {

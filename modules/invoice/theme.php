@@ -126,16 +126,41 @@ function nv_theme_invoice_detail($row, $array_invoice_products, $array_control, 
     return $xtpl->text('main');
 }
 
-function nv_theme_invoice_transaction($array_data)
+function nv_theme_invoice_transaction($invoice, $array_data)
 {
     global $module_info, $module_file, $lang_module, $array_transaction_status;
     
     $array_data['transaction_time'] = nv_date('d/m/Y', $array_data['transaction_time']);
-    
+
+    if (defined('NV_INVOICE_SCORE')) {
+        $lang_module['score_customer_note'] = sprintf($lang_module['score_customer_note'], $invoice['customer']['fullname'], $invoice['customer']['score'], $invoice['customer']['score_money']);
+    }
+
     $xtpl = new XTemplate('transaction.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
     $xtpl->assign('LANG', $lang_module);
     $xtpl->assign('DATA', $array_data);
-    
+    $xtpl->assign('INVOICE', $invoice);
+
+    $array_type = array(
+        1 => $lang_module['transaction_type_1']
+    );
+    if (defined('NV_INVOICE_SCORE')) {
+        $array_type[2] = $lang_module['transaction_type_2'];
+    }
+    foreach ($array_type as $index => $value) {
+        $sl = $index == 1 ? 'checked="checked"' : '';
+        $xtpl->assign('TYPE', array(
+            'index' => $index,
+            'value' => $value,
+            'selected' => $sl
+        ));
+        $xtpl->parse('main.type');
+    }
+
+    if (defined('NV_INVOICE_SCORE')) {
+        $xtpl->parse('main.score_customer_note');
+    }
+
     $xtpl->parse('main');
     return $xtpl->text('main');
 }

@@ -13,6 +13,8 @@ $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lan
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_detail";
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_transaction";
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_econtent";
+$sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_score";
+$sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_score_history";
 
 $sql_create_module = $sql_drop_module;
 $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "(
@@ -39,6 +41,7 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   useradd mediumint(8) unsigned NOT NULL,
   reminder tinyint(1) unsigned NOT NULL DEFAULT '1',
   auto_create tinyint(1) unsigned NOT NULL DEFAULT '0',
+  score smallint(4) NOT NULL DEFAULT '0',
   weight smallint(4) unsigned NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE=MyISAM";
@@ -81,6 +84,24 @@ $sql_create_module[] = "INSERT INTO " . $db_config['prefix'] . "_" . $lang . "_"
 $sql_create_module[] = "INSERT INTO " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_econtent (action, econtent) VALUES('newconfirm', '')";
 $sql_create_module[] = "INSERT INTO " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_econtent (action, econtent) VALUES('contentpdf', '')";
 
+$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_score(
+  customerid mediumint(8) unsigned NOT NULL,
+  score smallint(4) NOT NULL DEFAULT '0',
+  UNIQUE KEY customerid(customerid)
+) ENGINE=MyISAM";
+
+$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_score_history(
+  id mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  customerid mediumint(8) unsigned NOT NULL,
+  invoiceid mediumint(8) unsigned NOT NULL,
+  type smallint(4) NOT NULL DEFAULT '0',
+  score smallint(4) NOT NULL DEFAULT '0',
+  addtime int(11) unsigned NOT NULL,
+  useradd mediumint(8) unsigned NOT NULL,
+  note TEXT NOT NULL,
+  PRIMARY KEY (id)
+) ENGINE=MyISAM";
+
 // bình luận
 $sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', '" . $module_name . "', 'auto_postcomm', '1')";
 $sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', '" . $module_name . "', 'allowed_comm', '6')";
@@ -100,6 +121,9 @@ $data = array();
 $data['groups_manage'] = 1;
 $data['groups_admin'] = 1;
 $data['default_status'] = '0,1,2,3,4';
+$data['score_allow'] = 0;
+$data['score_money'] = 100000;
+$data['money_score'] = 10000;
 
 foreach ($data as $config_name => $config_value) {
     $sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', " . $db->quote($module_name) . ", " . $db->quote($config_name) . ", " . $db->quote($config_value) . ")";

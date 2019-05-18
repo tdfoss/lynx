@@ -20,6 +20,9 @@ if ($nv_Request->isset_request('savesetting', 'post')) {
     $data['groups_manage'] = !empty($data['groups_manage']) ? implode(',', $data['groups_manage']) : '';
     $data['groups_admin'] = $nv_Request->get_typed_array('groups_admin', 'post', 'int');
     $data['groups_admin'] = !empty($data['groups_admin']) ? implode(',', $data['groups_admin']) : '';
+    $data['score_allow'] = $nv_Request->get_int('score_allow', 'post', 0);
+    $data['score_money'] = $nv_Request->get_int('score_money', 'post', 0);
+    $data['money_score'] = $nv_Request->get_int('money_score', 'post', 0);
 
     $sth = $db->prepare("UPDATE " . NV_CONFIG_GLOBALTABLE . " SET config_value = :config_value WHERE lang = '" . NV_LANG_DATA . "' AND module = :module_name AND config_name = :config_name");
     $sth->bindParam(':module_name', $module_name, PDO::PARAM_STR);
@@ -35,6 +38,8 @@ if ($nv_Request->isset_request('savesetting', 'post')) {
     Header("Location: " . NV_BASE_ADMINURL . "index.php?" . NV_NAME_VARIABLE . "=" . $module_name . "&" . NV_OP_VARIABLE . '=' . $op);
     die();
 }
+
+$array_config['ck_score_allow'] = $array_config['score_allow'] ? 'checked="checked"' : '';
 
 $xtpl = new XTemplate($op . ".tpl", NV_ROOTDIR . "/themes/" . $global_config['module_theme'] . "/modules/" . $module_file);
 $xtpl->assign('LANG', $lang_module);

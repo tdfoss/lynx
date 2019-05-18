@@ -10,7 +10,7 @@ if (!defined('NV_MAINFILE')) die('Stop!!!');
 
 $module_version = array(
     'name' => 'Invoice',
-    'modfuncs' => 'main,detail,content,table,copy_invoice,statistic',
+    'modfuncs' => 'main,detail,content,table,copy_invoice,invoice,statistic,score,score-history',
     'change_alias' => '',
     'submenu' => 'main,statistic,content',
     'is_sysmod' => 0,

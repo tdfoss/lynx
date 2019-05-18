@@ -30,11 +30,40 @@ function nv_delete_invoice($id)
         if ($count) {
             $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_detail WHERE idinvoice = ' . $id);
             $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_transaction WHERE invoiceid = ' . $id);
+            $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_score_history WHERE invoiceid = ' . $id);
 
-            $content = sprintf($lang_module['logs_invoice_delete_note'], $workforce_list[$user_info['userid']]['fullname'], '[#' . $rows['code'] . '] ' . $rows['title']);
+            // cập nhật lại điểm tích lũy
+            $db->query('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . '_score SET score=score-' . $rows['score'] . ' WHERE customerid=' . $rows['customerid']);
+
+            $content = sprintf($lang_module['logs_invoice_delete_note'], $workforce_list[$user_info['userid']]['fullname'], '[' . $rows['code'] . '] ' . $rows['title']);
             nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_invoice_delete'], $content, $user_info['userid']);
         }
     }
+}
+
+
+function nv_score_customer($customerid, $invoiceid, $type, $score, $addtime, $useradd, $note){
+    global  $db, $module_name, $module_data,$workforce_list, $user_info;
+
+    $sql = "INSERT INTO " . NV_PREFIXLANG . "_score_history (customerid, invoiceid, type, score, addtime, useradd, note)
+        VALUES ( :customerid, :invoiceid, :type, :score, :addtime, :useradd, :note
+    )";
+        $data_insert = array();
+        $data_insert['customerid'] = $customerid;
+        $data_insert['invoiceid'] = $invoiceid;
+        $data_insert['type'] = $type;
+        $data_insert['score'] = $score;
+        $data_insert['addtime'] = NV_CURRENTTIME;
+        $data_insert['useradd'] = $lastname;
+        $data_insert['note'] = $user_info['userid'];
+        $customerid = $db->insert_id($sql, 'customerid', $data_insert);
+        if (!$customerid) {
+            nv_jsonOutput(array(
+                'error' => 1,
+                'msg' => $lang_module['add_histore_score_error']
+            ));
+        }
+
 }
 
 function nv_caculate_total($price, $quantity, $vat = 0)
@@ -70,6 +99,7 @@ function nv_sendmail_confirm($id)
                 'CREATETIME' => date('d/m/Y', $row['createtime']),
                 'DUETIME' => (empty($row['duetime'])) ? ($lang_module['non_identify']) : nv_date('d/m/Y', $row['duetime']),
                 'TERMS' => $row['terms'],
+                'SCORE' => $row['score'],
                 'DESCRIPTION' => $row['description'],
                 'TABLE' => nv_invoice_table($id)
             );
@@ -163,6 +193,27 @@ function nv_transaction_update($invoiceid)
     }
 }
 
+function nv_status_wallet_invoice($status)
+{
+    $nv_transaction_status = 1; // Đang thực hiện giao dịch
+
+    if ($status == 0) {
+        $nv_transaction_status = 0;
+    } elseif ($status == 1) {
+        $nv_transaction_status = 4;
+    } elseif ($status == 2) {
+        $nv_transaction_status = 4;
+    } elseif ($status == 3) {
+        $nv_transaction_status = 4;
+    } elseif ($status == 4) {
+        $nv_transaction_status = 1;
+    } elseif ($status == 5) {
+        $nv_transaction_status = 4;
+    }
+
+    return $nv_transaction_status;
+}
+
 function nv_invoice_confirm_payment($id)
 {
     global $db, $module_name, $module_data, $lang_module, $workforce_list, $user_info;
@@ -184,6 +235,7 @@ function nv_invoice_confirm_payment($id)
             $stmt->bindParam(':payment', $payment, PDO::PARAM_STR);
             $stmt->bindParam(':payment_amount', $payment_amount, PDO::PARAM_STR);
             if ($stmt->execute()) {
+
                 // nếu trước đó có gửi thông tin hóa đơn cho khách đã thì mới gửi thông báo xác nhận thanh toán
                 if ($rows['sended']) {
                     nv_sendmail_confirm($id);
