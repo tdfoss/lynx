@@ -25,7 +25,7 @@ $where = ' AND (' . nv_like_logic('first_name', $dbkeyword, $logic) . '
     )';
 
 require_once NV_ROOTDIR . '/modules/customer/site.functions.php';
-$where .= nv_customer_premission($m_values['module_name']);
+$where .= nv_customer_premission($m_values['module_name'], 't1.');
 
 $db_slave->sqlreset()
     ->select('COUNT(*)')
