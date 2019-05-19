@@ -1064,7 +1064,7 @@ function nv_get_keywords($content, $keyword_limit = 20)
  * @param string $files
  * @return
  */
-function nv_sendmail($from, $to, $subject, $message, $files = '', $AddEmbeddedImage = false, $queue = true)
+function nv_sendmail($from, $to, $subject, $message, $files = '', $AddEmbeddedImage = false, $queue = false)
 {
     global $global_config, $sys_info;
 
