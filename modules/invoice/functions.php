@@ -41,29 +41,28 @@ function nv_delete_invoice($id)
     }
 }
 
-
-function nv_score_customer($customerid, $invoiceid, $type, $score, $addtime, $useradd, $note){
-    global  $db, $module_name, $module_data,$workforce_list, $user_info;
+function nv_score_customer($customerid, $invoiceid, $type, $score, $addtime, $useradd, $note)
+{
+    global $db, $module_name, $module_data, $workforce_list, $user_info;
 
     $sql = "INSERT INTO " . NV_PREFIXLANG . "_score_history (customerid, invoiceid, type, score, addtime, useradd, note)
         VALUES ( :customerid, :invoiceid, :type, :score, :addtime, :useradd, :note
     )";
-        $data_insert = array();
-        $data_insert['customerid'] = $customerid;
-        $data_insert['invoiceid'] = $invoiceid;
-        $data_insert['type'] = $type;
-        $data_insert['score'] = $score;
-        $data_insert['addtime'] = NV_CURRENTTIME;
-        $data_insert['useradd'] = $lastname;
-        $data_insert['note'] = $user_info['userid'];
-        $customerid = $db->insert_id($sql, 'customerid', $data_insert);
-        if (!$customerid) {
-            nv_jsonOutput(array(
-                'error' => 1,
-                'msg' => $lang_module['add_histore_score_error']
-            ));
-        }
-
+    $data_insert = array();
+    $data_insert['customerid'] = $customerid;
+    $data_insert['invoiceid'] = $invoiceid;
+    $data_insert['type'] = $type;
+    $data_insert['score'] = $score;
+    $data_insert['addtime'] = NV_CURRENTTIME;
+    $data_insert['useradd'] = $lastname;
+    $data_insert['note'] = $user_info['userid'];
+    $customerid = $db->insert_id($sql, 'customerid', $data_insert);
+    if (!$customerid) {
+        nv_jsonOutput(array(
+            'error' => 1,
+            'msg' => $lang_module['add_histore_score_error']
+        ));
+    }
 }
 
 function nv_caculate_total($price, $quantity, $vat = 0)
@@ -270,7 +269,7 @@ function nv_invoice_check_date($date)
     }
 
     $data = array();
-    $result = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE duetime > 0 AND duetime >= ' . NV_CURRENTTIME . ' AND duetime <= ' . NV_CURRENTTIME . ' + ' . $time . '');
+    $result = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE duetime > 0 AND duetime >= ' . NV_CURRENTTIME . ' AND duetime <= ' . NV_CURRENTTIME . ' + ' . $time . ' AND status NOT IN (2)');
     while ($rows = $result->fetch()) {
 
         if (!isset($array_users[$rows['customerid']])) {
