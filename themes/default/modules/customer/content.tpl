@@ -242,6 +242,43 @@
             </div>
         </div>
     </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">{LANG.userid_link}</div>
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="col-sm-5 col-md-4 text-right"><strong>{LANG.userid_link_select}</strong></label>
+                <div class="col-sm-19 col-md-20">
+                    <!-- BEGIN: userid_link_type -->
+                    <label class="m-bottom"><input type="radio" name="userid_link_type" value="{OPTION.key}"{OPTION.checked}>{OPTION.title}</label>&nbsp;&nbsp;&nbsp;
+                    <!-- END: userid_link_type -->
+                    <div id="select_user"{ROW.userid_link_type_1_style}>
+                        <select name="userid_link" id="userid_link" class="form-control">
+                            <!-- BEGIN: user -->
+                            <option value="{USER.userid}" selected="selected">{USER.fullname}</option>
+                            <!-- END: user -->
+                        </select>
+                    </div>
+                    <div id="add_new_user"{ROW.userid_link_type_2_style}>
+                        <div class="row">
+                            <div class="col-xs-24 col-sm-6 col-md-6">
+                                <input type="email" class="form-control required" name="email" placeholder="Email" />
+                            </div>
+                            <div class="col-xs-24 col-sm-6 col-md-6">
+                                <input type="text" class="form-control required" name="username" placeholder="{LANG.username}" />
+                            </div>
+                            <div class="col-xs-24 col-sm-6 col-md-6">
+                                <input type="password" class="form-control" name="password" placeholder="{LANG.password}" />
+                            </div>
+                            <div class="col-xs-24 col-sm-6 col-md-6">
+                                <input type="password" class="form-control" name="password1" placeholder="{LANG.password1}" />
+                            </div>
+                        </div>
+                        <small class="help-block"><em>{LANG.userid_link_note}</em></small> <label><input type="checkbox" name="adduser_email" value="1" {ROW.ck_adduser_email} />{LANG.adduser_email}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="form-group text-center button_fixed_bottom">
         <input class="btn btn-primary" name="submit" type="submit" value="{LANG.save}" /> <a class="cancelLink" href="javascript:history.back()" type="reset">{LANG.cancel}</a>
     </div>
@@ -280,6 +317,76 @@
         nv_open_browse(script_name + "?" + nv_name_variable + "=upload&popup=1&area=" + area + "&path=" + path + "&type=" + type + "&currentpath=" + currentpath, "NVImg", 850, 420, "resizable=no,scrollbars=no,toolbar=no,location=no,status=no");
         return false;
     });
+    
+    $('input[name="userid_link_type"]').change(function() {
+        $('#add_new_user').hide();
+        $('#select_user').hide();
+        
+        if ($(this).val() == 0) {
+            //
+        }
+        
+        if ($(this).val() == 1) {
+            $('#select_user').show();
+        }
+        
+        if ($(this).val() == 2) {
+            $('#add_new_user').show();
+            var main_email = $('input[name="main_email"]').val();
+            var username = main_email.split('@')[0];
+            $('input[name="email"]').val(main_email);
+            $('input[name="username"]').val(username);
+            
+        }
+    });
+    
+    $(document).ready(function() {
+        $("#userid_link").select2({
+            language : "{NV_LANG_INTERFACE}",
+            theme : "bootstrap",
+            placeholder : "{LANG.userid_select}",
+            ajax : {
+                url : nv_base_siteurl + 'index.php?' + nv_lang_variable + '=' + nv_lang_data + '&' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=content&get_user_json=1',
+                dataType : 'json',
+                delay : 250,
+                data : function(params) {
+                    return {
+                        q : params.term, // search term
+                        page : params.page
+                    };
+                },
+                processResults : function(data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results : data,
+                        pagination : {
+                            more : (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache : true
+            },
+            escapeMarkup : function(markup) {
+                return markup;
+            }, // let our custom formatter work
+            minimumInputLength : 1,
+            templateResult : formatRepo, // omitted for brevity, see the source of this page
+            templateSelection : formatRepoSelection
+        // omitted for brevity, see the source of this page
+        });
+    });
+    
+    function formatRepo(repo) {
+        if (repo.loading)
+            return repo.text;
+        var markup = '<div class="clearfix">' + '<div class="col-sm-19">' + repo.fullname + '</div>' + '<div clas="col-sm-5"><span class="show text-right">' + repo.email + '</span></div>' + '</div>';
+        markup += '</div></div>';
+        return markup;
+    }
+
+    function formatRepoSelection(repo) {
+        return repo.fullname || repo.text;
+    }
 
     //]]>
 </script>

@@ -141,10 +141,66 @@ $customer_info['other_phone'] = nv_theme_crm_label($other_phone);
 $other_email = !empty($customer_info['other_email']) ? explode('|', $customer_info['other_email']) : array();
 $customer_info['other_email'] = nv_theme_crm_label($other_email);
 
-$page_title = $customer_info['fullname'];
-$array_mod_title[] = array(
-    'title' => $page_title
-);
+if ($customer_info['userid_link'] > 0) {
+    $user = $db->query('SELECT userid, first_name, last_name, username FROM ' . NV_USERS_GLOBALTABLE . ' WHERE userid=' . $customer_info['userid_link'])->fetch();
+    $customer_info['userid_link'] = nv_show_name_user($user['first_name'], $user['last_name'], $user['username']);
+} else {
+    $customer_info['userid_link'] = $lang_module['userid_link_empty'];
+}
+
+$xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
+$xtpl->assign('LANG', $lang_module);
+$xtpl->assign('CUSTOMER', $customer_info);
+$xtpl->assign('URL_EDIT', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=content&amp;id=' . $id . '&redirect=' . nv_redirect_encrypt($client_info['selfurl']));
+$xtpl->assign('URL_ADD', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=content');
+$xtpl->assign('URL_DELETE', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;delete_id=' . $id . '&amp;delete_checkss=' . md5($id . NV_CACHE_PREFIX . $client_info['session_id']));
+$xtpl->assign('URL_ADD_EMAIL', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=email&amp;' . NV_OP_VARIABLE . '=content&amp;customerid=' . $id . '&amp;redirect=' . nv_redirect_encrypt($client_info['selfurl']));
+$xtpl->assign('CURRENT_LINK', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=' . $op . '&id=' . $id);
+
+if (defined('NV_EMAIL')) {
+    if (!empty($array_email_list)) {
+        $i = 1;
+        foreach ($array_email_list as $email) {
+            $email['number'] = $i++;
+            $xtpl->assign('EMAIL', $email);
+            $xtpl->parse('main.email_tab_content.loop');
+        }
+    }
+    $xtpl->parse('main.email_tab_content');
+    $xtpl->parse('main.email_tab_title');
+}
+
+if (defined('NV_INVOICE')) {
+    if (!empty($array_invoice)) {
+        $i = 1;
+        foreach ($array_invoice as $invoice) {
+            $invoice['number'] = $i++;
+            $xtpl->assign('INVOICE', $invoice);
+            $xtpl->parse('main.invoice_tab_content.loop');
+        }
+    }
+    $xtpl->parse('main.invoice_tab_content');
+    $xtpl->parse('main.iscontacts.invoice_tab_title');
+}
+
+if ($customer_info['is_contacts'] == 0) {
+    if (defined('NV_SERVICES')) {
+        if (!empty($array_customer_service)) {
+            $i = 1;
+            foreach ($array_customer_service as $service) {
+                $service['number'] = $i++;
+                $service['service'] = $array_services[$service['serviceid']]['title'];
+                $service['begintime'] = (empty($service['begintime'])) ? '' : nv_date('d/m/Y', $service['begintime']);
+                $service['endtime'] = (empty($service['endtime'])) ? '' : nv_date('d/m/Y', $service['endtime']);
+                $service['addtime'] = (empty($service['addtime'])) ? '' : nv_date('H:i d/m/Y', $service['addtime']);
+                $xtpl->assign('SERVICE', $service);
+                $xtpl->parse('main.service_tab_content.loop');
+            }
+        }
+        $xtpl->parse('main.service_tab_content');
+        $xtpl->parse('main.iscontacts.service_tab_title');
+    }
+}
 
 $array_field_config = array();
 $result_field = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_field WHERE show_profile=1 ORDER BY weight ASC');
@@ -165,11 +221,17 @@ while ($row_field = $result_field->fetch()) {
     }
     $array_field_config[] = $row_field;
 }
+
 $sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_info WHERE rows_id=' . $id;
 $result_field = $db->query($sql);
 $custom_fields = $result_field->fetch();
 
 $contents = nv_theme_customer_detail($customer_info, $id);
+
+$page_title = $customer_info['fullname'];
+$array_mod_title[] = array(
+    'title' => $page_title
+);
 
 include NV_ROOTDIR . '/includes/header.php';
 echo nv_site_theme($contents);

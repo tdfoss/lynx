@@ -52,6 +52,10 @@ while (list ($lang) = $language_query->fetch(3)) {
 
     $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_customer ADD share_groups smallint(4) unsigned NOT NULL COMMENT 'share với group' AFTER share_acc;";
 
+    $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_customer_types ADD content text NOT NULL AFTER note;";
+
+    $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_customer_types ADD title_mail varchar(255) NOT NULL COMMENT 'tiêu đề mail' AFTER content;";
+
     $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_invoice ADD score smallint(4) NOT NULL DEFAULT '0' AFTER auto_create;";
 
     $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_invoice_score( customerid mediumint(8) unsigned NOT NULL, score smallint(4) NOT NULL DEFAULT '0', UNIQUE KEY customerid(customerid) ) ENGINE=MyISAM";
@@ -66,7 +70,13 @@ while (list ($lang) = $language_query->fetch(3)) {
 
     $sql[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', 'projects', 'default_status', '1,2,3');";
 
+    $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_customer ADD userid_link MEDIUMINT(8) UNSIGNED NOT NULL DEFAULT '0' COMMENT 'Tài khoản liên kết' AFTER edittime;";
+
+    $sql[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', 'projects', 'default_status', '1,2,3');";
+
     $sql[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', 'notification', 'slack_tocken', '');";
+
+    $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_customer_types ADD birthday_title VARCHAR(255) NOT NULL AFTER title_mail, ADD birthday_content TEXT NOT NULL AFTER birthday_title;";
 
     $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_invoice ADD paytime INT(11) UNSIGNED NOT NULL DEFAULT '0' AFTER duetime;";
 

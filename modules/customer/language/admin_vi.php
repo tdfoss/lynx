@@ -30,12 +30,22 @@ $lang_module['search_submit'] = 'Tìm kiếm';
 $lang_module['title'] = 'Tiêu đề';
 $lang_module['perform'] = 'Thực hiện';
 $lang_module['tags'] = 'Tag khách hàng';
+$lang_module['welcome_content'] = 'Nội dung thư chào mừng';
+$lang_module['birthday_content'] = 'Nội dung mừng sinh nhật';
 $lang_module['unit'] = 'Đơn vị';
 
 $lang_module['config_groups_admin'] = 'Nhóm quản lý';
 $lang_module['config_groups_manage'] = 'Nhóm làm việc';
 
 $lang_module['error_empty_data'] = 'Bạn cần chọn dữ liệu để thực hiện!';
+$lang_module['content'] = 'Nội dung';
+
+$lang_module['firstname'] = 'TÊN';
+$lang_module['lastname'] = 'HỌ';
+$lang_module['fullname'] = 'HỌ VÀ TÊN';
+
+$lang_module['error_required_title'] = 'Lỗi: Bạn cần nhập Tiêu đề';
+$lang_module['error_unknow'] = 'Vì lý do nào đó hệ thống không thể đáp ứng yêu cầu của bạn lúc này, vui lòng liên hệ với người quản trị để biết thêm thông tin!';
 
 $lang_module['fields'] = 'Tùy biến dữ liệu';
 $lang_module['captionform_add'] = 'Thêm trường dữ liệu';
