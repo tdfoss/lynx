@@ -52,7 +52,8 @@ function cron_customer_happy_birthday()
                 $array_replace = array(
                     'FIRSTNAME' => $customer['first_name'],
                     'LASTNAME' => $customer['last_name'],
-                    'FULLNAME' => $customer['fullname']
+                    'FULLNAME' => $customer['fullname'],
+                    'TIME_PROMOTION' => nv_date('d/m/Y', NV_CURRENTTIME) . ' - ' . nv_date('d/m/Y', strtotime('+10 day'))
                 );
 
                 foreach ($array_replace as $index => $value) {

@@ -33,6 +33,7 @@ $lang_module['tags'] = 'Tag khách hàng';
 $lang_module['welcome_content'] = 'Nội dung thư chào mừng';
 $lang_module['birthday_content'] = 'Nội dung mừng sinh nhật';
 $lang_module['unit'] = 'Đơn vị';
+$lang_module['time_promotion'] = 'Thời gian áp dụng khuyến mãi';
 
 $lang_module['config_groups_admin'] = 'Nhóm quản lý';
 $lang_module['config_groups_manage'] = 'Nhóm làm việc';

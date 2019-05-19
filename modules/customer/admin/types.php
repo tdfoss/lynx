@@ -215,8 +215,8 @@ if (!$nv_Request->isset_request('id', 'post,get')) {
 $array_replace = array(
     'FIRSTNAME' => $lang_module['firstname'],
     'LASTNAME' => $lang_module['lastname'],
-    'FULLNAME' => $lang_module['fullname']
-
+    'FULLNAME' => $lang_module['fullname'],
+    'TIME_PROMOTION' => $lang_module['time_promotion']
 );
 
 if (defined('NV_EDITOR')) {
