@@ -15,15 +15,15 @@ require NV_ROOTDIR . '/includes/core/user_functions.php';
 
 $result = $db->query('SELECT * FROM ' . $db_config['prefix'] . '_sendmail');
 while ($row = $result->fetch()) {
-    if ($check = nv_check_valid_email($row['from_email']) == '') {
-        $from = $row['from_email'];
+    if ($check = nv_check_valid_email($row['from_mail']) == '') {
+        $from = $row['from_mail'];
     } else {
-        $from = unserialize($row['from_email']);
+        $from = unserialize($row['from_mail']);
     }
-    if ($check = nv_check_valid_email($row['to_email']) == '') {
-        $to = $row['to_email'];
+    if ($check = nv_check_valid_email($row['to_mail']) == '') {
+        $to = $row['to_mail'];
     } else {
-        $to = unserialize($row['to_email']);
+        $to = unserialize($row['to_mail']);
     }
     if (nv_sendmail($from, $to, $row['subject'], $row['message'], '', false, false)) {
         $db->query('DELETE FROM ' . $db_config['prefix'] . '_sendmail WHERE id=' . $row['id']);
