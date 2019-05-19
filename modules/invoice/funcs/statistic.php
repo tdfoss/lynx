@@ -22,10 +22,11 @@ $array_money_in = $array_money_out = $array_money_real = array();
 // thu từ hóa đơn
 $result = $db->query('SELECT transaction_time, payment_amount FROM ' . NV_PREFIXLANG . '_' . $module_data . '_transaction WHERE DATE_FORMAT(FROM_UNIXTIME(transaction_time),"%Y") = ' . $year);
 while (list ($transaction_time, $payment_amount) = $result->fetch(3)) {
-    if (isset($array_data[intval(date('m', $transaction_time))])) {
-        $array_money_in[intval(date('m', $transaction_time))] += $payment_amount;
+    $time = intval(date('m', $transaction_time));
+    if (isset($array_money_in[$time])) {
+        $array_money_in[] += $payment_amount;
     } else {
-        $array_money_in[intval(date('m', $transaction_time))] = $payment_amount;
+        $array_money_in[$time] = $payment_amount;
     }
 }
 
@@ -42,17 +43,10 @@ for ($i = 1; $i <= $month; $i++) {
     }
 }
 
-if (isset($site_mods[$money])) {
-    // thu từ module money
-    $result = $db->query('SELECT date, money FROM ' . NV_PREFIXLANG . '_' . $site_mods[$money]['module_data'] . '_money WHERE DATE_FORMAT(FROM_UNIXTIME(date),"%Y") = ' . $year . ' AND type=1');
-    while (list ($date, $amount) = $result->fetch(3)) {
-        $array_money_in[intval(date('m', $date))] += $amount;
-    }
-
-    // chi từ module money
-    $result = $db->query('SELECT date, money FROM ' . NV_PREFIXLANG . '_' . $site_mods[$money]['module_data'] . '_money WHERE DATE_FORMAT(FROM_UNIXTIME(date),"%Y") = ' . $year . ' AND type=2');
-    while (list ($date, $amount) = $result->fetch(3)) {
-        $array_money_out[intval(date('m', $date))] += $amount;
+// thu chi từ các module khác
+foreach ($site_mods as $mod => $arr_mod) {
+    if (file_exists(NV_ROOTDIR . '/modules/' . $arr_mod['module_file'] . '/invoice.php')) {
+        include NV_ROOTDIR . '/modules/' . $arr_mod['module_file'] . '/invoice.php';
     }
 }
 

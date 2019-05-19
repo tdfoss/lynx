@@ -26,7 +26,7 @@
                 yAxes : [ {
                     ticks: {
                         beginAtZero: true,
-                        stepSize: 1000000,
+                        stepSize: 5000000,
 
                         // Return an empty string to draw the tick line but hide the tick label
                         // Return `null` or `undefined` to hide the tick line entirely
