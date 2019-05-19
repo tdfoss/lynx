@@ -148,7 +148,7 @@
                     <th>{LANG.grand_total}</th>
                     <th>{LANG.status}</th>
                     <!-- BEGIN: admin4 -->
-                    <th width="150">&nbsp;</th>
+                    <th width="80">&nbsp;</th>
                     <!-- END: admin4 -->
                 </tr>
             </thead>
@@ -172,7 +172,7 @@
                     <td>{VIEW.grand_total}</td>
                     <td>{VIEW.status_str}</td>
                     <!-- BEGIN: admin3 -->
-                    <td class="text-center"><i class="fa fa-edit fa-lg">&nbsp;</i> <a href="{VIEW.link_edit}">{LANG.edit}</a> - <em class="fa fa-trash-o fa-lg">&nbsp;</em> <a href="{VIEW.link_delete}" onclick="return confirm(nv_is_del_confirm[0]);">{LANG.delete}</a></td>
+                    <td class="text-center"><a href="{VIEW.link_edit}" class="btn btn-default btn-xs" data-toggle="tooltip" data-original-title="{LANG.edit}"><i class="fa fa-edit fa-lg"></i></a> <a href="{VIEW.link_delete}" onclick="return confirm(nv_is_del_confirm[0]);" data-toggle="tooltip" data-original-title="{LANG.delete}" class="btn btn-default btn-xs"><em class="fa fa-trash-o fa-lg"></em></a></td>
                     <!-- END: admin3 -->
                 </tr>
                 <!-- END: loop -->
