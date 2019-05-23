@@ -22,6 +22,7 @@ $where = ' AND (' . nv_like_logic('first_name', $dbkeyword, $logic) . '
         OR ' . nv_like_logic('skype', $dbkeyword, $logic) . '
         OR ' . nv_like_logic('zalo', $dbkeyword, $logic) . '
         OR ' . nv_like_logic('address', $dbkeyword, $logic) . '
+        OR ' . nv_like_logic('website', $dbkeyword, $logic) . '
     )';
 
 require_once NV_ROOTDIR . '/modules/customer/site.functions.php';
