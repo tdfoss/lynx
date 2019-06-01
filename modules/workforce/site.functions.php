@@ -8,6 +8,13 @@
  */
 if (!defined('NV_MAINFILE')) die('Stop!!!');
 
+$array_user = array();
+$_sql = 'SELECT * FROM ' . NV_USERS_GLOBALTABLE;
+$_query = $db->query($_sql);
+while ($_row = $_query->fetch()) {
+    $array_user[$_row['userid']] = $_row;
+}
+
 $sql = 'SELECT id, title, lev, numsub, subid FROM ' . NV_PREFIXLANG . '_workforce_part WHERE status=1 ORDER BY sort ASC';
 $result = $db->query($sql);
 $array_part_list = array();

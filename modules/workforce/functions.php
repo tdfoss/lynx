@@ -23,13 +23,6 @@ $array_status = array(
     2 => $lang_module['status_2']
 );
 
-$array_user = array();
-$_sql = 'SELECT * FROM ' . NV_USERS_GLOBALTABLE;
-$_query = $db->query($_sql);
-while ($_row = $_query->fetch()) {
-    $array_user[$_row['userid']] = $_row;
-}
-
 function nv_workforce_delete($id)
 {
     global $db, $module_data;

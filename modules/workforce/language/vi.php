@@ -137,3 +137,5 @@ $lang_module['endtime'] = 'Ngày chấm dứt';
 $lang_module['duetime'] = 'Thời hạn hơp đồng';
 $lang_module['cycle_month'] = '%d tháng';
 $lang_module['cycle_month_select'] = 'Chọn thời hạn hợp đồng';
+$lang_module['work_staff'] = 'Nhân viên';
+$lang_module['day_left'] = 'Số ngày còn lại';
