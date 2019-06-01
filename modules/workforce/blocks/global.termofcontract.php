@@ -35,7 +35,7 @@ if (!nv_function_exists('nv_termofcontract_list')) {
 
     function nv_termofcontract($block_config)
     {
-        global $db, $global_config, $site_mods, $module_name, $lang_module, $module_config, $array_config, $array_user;
+        global $db, $global_config, $site_mods, $module_name, $lang_module, $module_config, $array_config;
 
         $module = $block_config['module'];
         $mod_data = $site_mods[$module]['module_data'];
@@ -72,7 +72,7 @@ if (!nv_function_exists('nv_termofcontract_list')) {
             foreach ($list as $view) {
                 $view['day_left'] = floor(($view['duetime'] - NV_CURRENTTIME) / 86400);
                 $view['duetime'] = date('d/m/Y', $view['duetime']);
-                $view['accout_connect'] = nv_show_name_user($array_user[$view['userid']]['first_name'], $array_user[$view['userid']]['last_name'], $array_user[$view['userid']]['username']);
+                $view['accout_connect'] = nv_show_name_user($view['first_name'], $view['last_name']);
                 $view['link_view'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $mod_data . '&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $view['id'];
                 $xtpl->assign('TASK_VIEW', $view);
                 $xtpl->parse('main.task');

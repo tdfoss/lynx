@@ -33,10 +33,12 @@ function nv_theme_workforce_main($array_data)
  */
 function nv_theme_workforce_detail($result, $id)
 {
-    global $global_config, $module_name, $module_file, $lang_module, $module_config, $module_info, $op, $array_field_config, $custom_fields, $client_info, $array_status, $array_user;
+    global $db, $global_config, $module_name, $module_file, $lang_module, $module_config, $module_info, $op, $array_field_config, $custom_fields, $client_info, $array_status, $array_user;
     $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
 
-    $result['accout_connect'] = nv_show_name_user($array_user[$result['userid']]['first_name'], $array_user[$result['userid']]['last_name'], $array_user[$result['userid']]['username']);
+    $user = $db->query('SELECT userid, first_name, last_name, username FROM ' . NV_USERS_GLOBALTABLE . ' WHERE userid=' . $result['userid'])->fetch();
+    $result['accout_connect'] = nv_show_name_user($user['first_name'], $user['last_name'], $user['username']);
+
     $result['createtime'] = date('d/m/Y', $result['createtime']);
     $result['duetime'] = date('d/m/Y', $result['duetime']);
     $result['cycle'] = sprintf($lang_module['cycle_month'], $result['cycle']);
