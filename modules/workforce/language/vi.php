@@ -130,3 +130,12 @@ $lang_module['field_match_type_regex'] = 'Biểu thức quy tắc';
 $lang_module['field_match_type_callback'] = 'Sử dụng hàm';
 $lang_module['field_min_max_error'] = '%1$s cần nhập từ %2$s đến %3$s ký tự';
 $lang_module['field_min_max_value'] = '%1$s cần nhập từ %2$s đến %3$s';
+
+$lang_module['termofcontract'] = 'Hợp đồng';
+$lang_module['createtime'] = 'Ngày bắt đầu';
+$lang_module['endtime'] = 'Ngày chấm dứt';
+$lang_module['duetime'] = 'Thời hạn hơp đồng';
+$lang_module['cycle_month'] = '%d tháng';
+$lang_module['cycle_month_select'] = 'Chọn thời hạn hợp đồng';
+$lang_module['work_staff'] = 'Nhân viên';
+$lang_module['day_left'] = 'Số ngày còn lại';

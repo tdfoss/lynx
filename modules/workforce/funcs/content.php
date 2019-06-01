@@ -8,6 +8,18 @@
  */
 if (!defined('NV_IS_MOD_WORKFORCE')) die('Stop!!!');
 
+if ($nv_Request->isset_request('get_time_end', 'post')) {
+    $createtime = $nv_Request->get_title('createtime', 'post', '');
+    $cycle = $nv_Request->get_int('cycle', 'post', 0);
+    if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $createtime, $m)) {
+        $createtime = mktime(0, 0, 0, $m[2], $m[1], $m[3]);
+        if ($duetime = nv_caculate_duetime($createtime, $cycle)) {
+            die('OK_' . nv_date('d/m/Y', $duetime));
+        }
+    }
+    die('NO');
+}
+
 $error = array();
 $array_part = $db->query('SELECT id FROM ' . NV_PREFIXLANG . '_' . $module_data . '_part')->fetch();
 if (empty($array_part)) {
@@ -19,7 +31,6 @@ if (empty($array_part)) {
 }
 
 $row = array();
-$error = array();
 $row['id'] = $nv_Request->get_int('id', 'post,get', 0);
 
 $array_field_config = array();
@@ -50,7 +61,7 @@ if ($row['id'] > 0) {
         die();
     }
     $row['part'] = $row['part_old'] = !empty($row['part']) ? array_map('intval', explode(',', $row['part'])) : array();
-    
+
     // field
     $sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_info WHERE rows_id=' . $row['id'];
     $result = $db->query($sql);
@@ -79,6 +90,9 @@ if ($row['id'] > 0) {
     $row['username'] = '';
     $row['password'] = '';
     $row['looppassword'] = '';
+   $row['createtime'] = 0;
+    $row['duetime'] = 0;
+    $row['cycle'] = 0;
     $custom_field = array();
 }
 $row['redirect'] = $nv_Request->get_string('redirect', 'post,get', '');
@@ -119,9 +133,25 @@ if ($nv_Request->isset_request('submit', 'post')) {
     } else {
         $row['image'] = '';
     }
-    
+
+    if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $nv_Request->get_string('createtime', 'post'), $m)) {
+        $_hour = 23;
+        $_min = 23;
+        $row['createtime'] = mktime($_hour, $_min, 59, $m[2], $m[1], $m[3]);
+    } else {
+        $row['createtime'] = 0;
+    }
+    if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $nv_Request->get_string('duetime', 'post'), $m)) {
+        $_hour = 23;
+        $_min = 23;
+        $row['duetime'] = mktime($_hour, $_min, 59, $m[2], $m[1], $m[3]);
+    } else {
+        $row['duetime'] = 0;
+    }
+    $row['cycle'] = $nv_Request->get_int('cycle', 'post', 0);
+
     $ingroups = $array_config['groups_use'];
-    
+
     if (empty($row['first_name'])) {
         nv_jsonOutput(array(
             'error' => 1,
@@ -190,18 +220,18 @@ if ($nv_Request->isset_request('submit', 'post')) {
             ));
         }
     }
-    
+
     // field
     $custom_fields = $nv_Request->get_array('custom_fields', 'post');
     if (!empty($array_field_config)) {
         require NV_ROOTDIR . '/modules/' . $module_file . '/fields.check.php';
     }
-    
+
     if (empty($error)) {
         try {
             $part = !empty($row['part']) ? implode(',', $row['part']) : '';
             if (empty($row['id'])) {
-                $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (userid, first_name, last_name, gender, birthday, main_phone, other_phone, main_email, other_email, address, knowledge, image, jointime, position, part, addtime, edittime, useradd) VALUES (:userid, :first_name, :last_name, :gender, :birthday, :main_phone, :other_phone, :main_email, :other_email, :address, :knowledge, :image, :jointime, :position, :part, ' . NV_CURRENTTIME . ', ' . NV_CURRENTTIME . ', ' . $user_info['userid'] . ')';
+                $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (userid, first_name, last_name, gender, birthday, main_phone, other_phone, main_email, other_email, address, knowledge, image, jointime, position, part, addtime, edittime, useradd, createtime, duetime, cycle) VALUES (:userid, :first_name, :last_name, :gender, :birthday, :main_phone, :other_phone, :main_email, :other_email, :address, :knowledge, :image, :jointime, :position, :part, ' . NV_CURRENTTIME . ', ' . NV_CURRENTTIME . ', ' . $user_info['userid'] . ', :createtime, :duetime, :cycle)';
                 $data_insert = array();
                 $data_insert['userid'] = $userid;
                 $data_insert['first_name'] = $row['first_name'];
@@ -218,9 +248,12 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $data_insert['jointime'] = $row['jointime'];
                 $data_insert['position'] = $row['position'];
                 $data_insert['part'] = $part;
+                $data_insert['createtime'] = $row['createtime'];
+                $data_insert['duetime'] = $row['duetime'];
+                $data_insert['cycle'] = $row['cycle'];
                 $new_id = $db->insert_id($_sql, 'id', $data_insert);
             } else {
-                $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET userid = :userid, first_name = :first_name, last_name = :last_name, gender = :gender, birthday = :birthday, main_phone = :main_phone, other_phone = :other_phone, main_email = :main_email, other_email = :other_email, address = :address, knowledge = :knowledge, image = :image, jointime = :jointime, position = :position, part = :part, edittime = ' . NV_CURRENTTIME . ' WHERE id=' . $row['id']);
+                $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET userid = :userid, first_name = :first_name, last_name = :last_name, gender = :gender, birthday = :birthday, main_phone = :main_phone, other_phone = :other_phone, main_email = :main_email, other_email = :other_email, address = :address, knowledge = :knowledge, image = :image, jointime = :jointime, position = :position, part = :part, edittime = ' . NV_CURRENTTIME . ', createtime = :createtime, duetime = :duetime, cycle = :cycle WHERE id=' . $row['id']);
                 $stmt->bindParam(':userid', $row['userid'], PDO::PARAM_INT);
                 $stmt->bindParam(':first_name', $row['first_name'], PDO::PARAM_STR);
                 $stmt->bindParam(':last_name', $row['last_name'], PDO::PARAM_STR);
@@ -236,12 +269,15 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $stmt->bindParam(':jointime', $row['jointime'], PDO::PARAM_INT);
                 $stmt->bindParam(':position', $row['position'], PDO::PARAM_INT);
                 $stmt->bindParam(':part', $part, PDO::PARAM_INT);
+                $stmt->bindParam(':createtime', $row['createtime'], PDO::PARAM_INT);
+                $stmt->bindParam(':duetime', $row['duetime'], PDO::PARAM_INT);
+                $stmt->bindParam(':cycle', $row['cycle'], PDO::PARAM_INT);
                 if ($stmt->execute()) {
                     $new_id = $row['id'];
                 }
             }
             if ($new_id > 0) {
-                
+
                 if ($row['id'] > 0) {
                     if (!empty($array_field_config)) {
                         $db->query('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . '_info SET ' . implode(', ', $query_field) . ' WHERE rows_id=' . $new_id);
@@ -250,7 +286,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
                     $query_field['rows_id'] = $new_id;
                     $db->query('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_info (' . implode(', ', array_keys($query_field)) . ') VALUES (' . implode(', ', array_values($query_field)) . ')');
                 }
-                
+
                 if ($row['part'] != $row['part_old']) {
                     $sth = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_part_detail (userid, part) VALUES(:userid, :part)');
                     foreach ($row['part'] as $partid) {
@@ -266,20 +302,20 @@ if ($nv_Request->isset_request('submit', 'post')) {
                         }
                     }
                 }
-                
+
                 $nv_Cache->delMod($module_name);
                 $nv_Cache->delMod('users');
-                
+
                 if (!empty($row['redirect'])) {
                     $url = nv_redirect_decrypt($row['redirect']);
                 } else {
                     $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=detail&id=' . $new_id;
                 }
-                
+
                 nv_jsonOutput(array(
                     'error' => 0,
                     'redirect' => $url
-                
+
                 ));
             }
         } catch (PDOException $e) {
@@ -303,6 +339,18 @@ if ($row['userid'] > 0) {
     $userinfo['fullname'] = nv_show_name_user($userinfo['first_name'], $userinfo['last_name'], $userinfo['username']);
 }
 
+if (empty($row['createtime'])) {
+    $row['createtime'] = '';
+} else {
+    $row['createtime'] = date('d/m/Y', $row['createtime']);
+}
+
+if (empty($row['duetime'])) {
+    $row['duetime'] = '';
+} else {
+    $row['duetime'] = date('d/m/Y', $row['duetime']);
+}
+
 $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
 $xtpl->assign('LANG', $lang_module);
 $xtpl->assign('MODULE_NAME', $module_name);
@@ -310,6 +358,16 @@ $xtpl->assign('MODULE_UPLOAD', $module_upload);
 $xtpl->assign('OP', $op);
 $xtpl->assign('ROW', $row);
 $xtpl->assign('URL_USERS', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&get_user_json=1');
+
+for ($i = 1; $i <= $array_config['termofcontract']; $i++) {
+    $xtpl->assign('CYCLE', array(
+        'key' => $i,
+        'value' => sprintf($lang_module['cycle_month'], $i),
+        'selected' => $i == $row['cycle'] ? 'selected="selected"' : ''
+    ));
+    $xtpl->parse('main.cycle');
+}
+
 foreach ($array_gender as $index => $value) {
     $ck = $index == $row['gender'] ? 'checked="checked"' : '';
     $xtpl->assign('GENDER', array(

@@ -19,6 +19,12 @@
                     <!-- END: groups_use -->
                 </div>
             </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">{LANG.config_termofcontract}</label>
+                <div class="col-sm-20">
+                    <input class="form-control" type="number" name="termofcontract" value="{DATA.termofcontract}" />
+                </div>
+            </div>
         </div>
     </div>
     <div class="panel panel-default">
