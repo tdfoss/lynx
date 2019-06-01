@@ -269,7 +269,7 @@ function nv_invoice_check_date($date)
     }
 
     $data = array();
-    $result = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE duetime > 0 AND duetime >= ' . NV_CURRENTTIME . ' AND duetime <= ' . (NV_CURRENTTIME + $time) . ' AND status NOT IN (2)');
+    $result = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE duetime > 0 AND duetime >= ' . NV_CURRENTTIME . ' AND duetime <= ' . (NV_CURRENTTIME + $time) . ' AND status NOT IN (1,2)');
     while ($rows = $result->fetch()) {
         $rows['link_view'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $rows['id'];
         if (!isset($array_users[$rows['customerid']])) {
