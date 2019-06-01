@@ -59,7 +59,7 @@ if ($nv_Request->isset_request('sendinfo', 'post')) {
 
 $id = $nv_Request->get_int('id', 'get', 0);
 
-$rows = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id . nv_projects_premission($module_name))->fetch();
+$rows = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' t1 INNER JOIN ' . NV_PREFIXLANG . '_' . $module_data . '_performer t2 ON t1.id=t2.projectid WHERE id=' . $id . nv_projects_premission($module_name))->fetch();
 if (!$rows) {
     nv_redirect_location(NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name);
 }
