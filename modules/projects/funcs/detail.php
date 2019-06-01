@@ -148,6 +148,9 @@ $rows['content'] = nv_nl2br($rows['content']);
 $rows['type_id'] = !empty($rows['type_id']) ? $array_working_type_id[$rows['type_id']]['title'] : '';
 $rows['price'] = !empty($rows['price']) ? $rows['price'] : '-';
 $rows['vat'] = !empty($rows['vat']) ? $rows['vat'] : '-';
+$rows['useradd'] = $workforce_list[$rows['useradd']]['fullname'];
+$rows['addtime'] = !empty($rows['addtime']) ? nv_date('H:i d/m/Y', $rows['addtime']) : '-';
+$rows['edittime'] = !empty($rows['edittime']) ? nv_date('H:i d/m/Y', $rows['edittime']) : '-';
 
 $rows['performer_str'] = array();
 $performer = !empty($rows['workforceid']) ? explode(',', $rows['workforceid']) : array();

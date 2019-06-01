@@ -125,7 +125,7 @@ $where .= nv_projects_premission($module_name);
 $db->sqlreset()
     ->select('COUNT(*)')
     ->from(NV_PREFIXLANG . '_' . $module_data . ' t1')
-    ->join('INNER JOIN' . NV_PREFIXLANG . '_' . $module_data . '_performer t2 ON t1.id=t2.projectid')
+    ->join('INNER JOIN ' . NV_PREFIXLANG . '_' . $module_data . '_performer t2 ON t1.id=t2.projectid')
     ->where('1=1' . $where);
 $sth = $db->prepare($db->sql());
 $sth->execute();

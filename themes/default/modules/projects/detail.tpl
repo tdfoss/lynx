@@ -41,6 +41,9 @@
                             <option value="{STATUS.index}"{STATUS.selected}>{STATUS.value}</option>
                             <!-- END: status -->
                     </select></li>
+                    <li><label>{LANG.useradd}</label>{ROW.useradd}</li>
+                    <li><label>{LANG.addtime}</label>{ROW.addtime}</li>
+                    <li><label>{LANG.edittime}</label>{ROW.edittime}</li>
                 </ul>
             </div>
         </div>
