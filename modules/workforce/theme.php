@@ -36,13 +36,6 @@ function nv_theme_workforce_detail($result, $id)
     global $db, $global_config, $module_name, $module_file, $lang_module, $module_config, $module_info, $op, $array_field_config, $custom_fields, $client_info, $array_status, $array_user;
     $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
 
-    $user = $db->query('SELECT userid, first_name, last_name, username FROM ' . NV_USERS_GLOBALTABLE . ' WHERE userid=' . $result['userid'])->fetch();
-    $result['accout_connect'] = nv_show_name_user($user['first_name'], $user['last_name'], $user['username']);
-
-    $result['createtime'] = date('d/m/Y', $result['createtime']);
-    $result['duetime'] = date('d/m/Y', $result['duetime']);
-    $result['cycle'] = sprintf($lang_module['cycle_month'], $result['cycle']);
-
     $xtpl->assign('LANG', $lang_module);
     $xtpl->assign('URL_EDIT', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=content&amp;id=' . $id . '&amp;redirect=' . nv_redirect_encrypt($client_info['selfurl']));
     $xtpl->assign('URL_DELETE', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;delete_id=' . $id . '&amp;delete_checkss=' . md5($id . NV_CACHE_PREFIX . $client_info['session_id']));
