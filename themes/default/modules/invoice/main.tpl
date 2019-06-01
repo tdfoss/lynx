@@ -316,7 +316,7 @@
 <!-- END: main -->
 <!-- BEGIN: list -->
 <!-- BEGIN: list_invoice -->
-<tr onclick="nv_table_row_click(event, '{VIEW.link_view}', false);" class="pointer <!-- BEGIN: warning -->warning<!-- END: warning --> <!-- BEGIN: danger -->danger<!-- END: danger --> <!-- BEGIN: success -->success<!-- END: success -->">
+<tr onclick="nv_table_row_click(event, '{LIST.link_view}', false);" class="pointer <!-- BEGIN: warning -->warning<!-- END: warning --> <!-- BEGIN: danger -->danger<!-- END: danger --> <!-- BEGIN: success -->success<!-- END: success -->">
     <td>#{LIST.code}</td>
     <td>{LIST.title}</td>
     <td><a href="{LIST.customer.link}">{LIST.customer.fullname}</a></td>
