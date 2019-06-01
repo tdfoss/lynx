@@ -41,7 +41,7 @@ function nv_projects_premission($module, $type = 'where')
                 return ' AND (workforceid IN (' . $array_userid . ') OR useradd IN (' . $array_userid . '))';
             } else {
                 // thành viên nhóm nhìn thấy task cho mình thực hiện, do mình tạo ra
-                return ' AND (workforceid=' . $user_info['userid'] . ' OR useradd=' . $user_info['userid'] . ')';
+                return ' AND (t2.userid=' . $user_info['userid'] . ' OR useradd=' . $user_info['userid'] . ')';
             }
         } elseif ($type == 'array_userid') {
             return $array_userid;

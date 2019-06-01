@@ -21,7 +21,7 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
 } elseif ($nv_Request->isset_request('delete_list', 'post')) {
     $listall = $nv_Request->get_title('listall', 'post', '');
     $array_id = explode(',', $listall);
-    
+
     if (!empty($array_id)) {
         foreach ($array_id as $id) {
             nv_projects_delete($id);
@@ -82,31 +82,31 @@ if ($array_search['status'] > 0) {
 }
 
 if (!empty($array_search['daterange'])) {
-    
+
     $begin_time = substr($array_search['daterange'], 0, 10);
     $end_time = substr($array_search['daterange'], -10);
-    
+
     if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $begin_time, $m)) {
-        
+
         $begin_time = mktime(23, 59, 59, $m[2], $m[1], $m[3]);
     } else {
         $begin_time = 0;
     }
     if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $end_time, $m)) {
-        
+
         $end_time = mktime(23, 59, 59, $m[2], $m[1], $m[3]);
     } else {
         $end_time = 0;
     }
-    
+
     $base_url .= '&amp;daterange= ' . $array_search['daterange'];
     $where .= ' AND begintime >= ' . $begin_time . ' AND endtime <= ' . $end_time;
 }
 
 if (!empty($array_search['realtime'])) {
-    
+
     if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $array_search['realtime'], $m)) {
-        
+
         $_hour = 23;
         $_min = 23;
         $realtime = mktime($_hour, $_min, 59, $m[2], $m[1], $m[3]);
@@ -124,7 +124,8 @@ $where .= nv_projects_premission($module_name);
 
 $db->sqlreset()
     ->select('COUNT(*)')
-    ->from('' . NV_PREFIXLANG . '_' . $module_data . '')
+    ->from(NV_PREFIXLANG . '_' . $module_data . ' t1')
+    ->join('INNER JOIN' . NV_PREFIXLANG . '_' . $module_data . '_performer t2 ON t1.id=t2.projectid')
     ->where('1=1' . $where);
 $sth = $db->prepare($db->sql());
 $sth->execute();
@@ -143,12 +144,12 @@ if (!empty($array_search['customerid'])) {
 }
 
 while ($view = $sth->fetch()) {
-    
+
     $sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_info WHERE rows_id=' . $view['id'];
-    
+
     $result = $db->query($sql);
     $custom_fields = $result->fetch();
-    
+
     foreach ($array_field_config as $field_info) {
         if ($field_info['field_choices'] && $field_info['sql_choices']) {
             $field_info['field_choices'] = [];
@@ -171,20 +172,20 @@ while ($view = $sth->fetch()) {
             );
         }
     }
-    
+
     $view['price'] = number_format($view['price']);
     $view['begintime'] = (empty($view['begintime'])) ? '-' : nv_date('d/m/Y', $view['begintime']);
     $view['endtime'] = (empty($view['endtime'])) ? '-' : nv_date('d/m/Y', $view['endtime']);
     $view['realtime'] = (empty($view['realtime'])) ? '-' : nv_date('d/m/Y', $view['realtime']);
     $view['status'] = $lang_module['status_select_' . $view['status']];
-    
+
     $view['performer_str'] = array();
     $performer = !empty($view['workforceid']) ? explode(',', $view['workforceid']) : array();
     foreach ($performer as $userid) {
         $view['performer_str'][] = isset($workforce_list[$userid]) ? $workforce_list[$userid]['fullname'] : '-';
     }
     $view['performer_str'] = !empty($view['performer_str']) ? implode(', ', $view['performer_str']) : '';
-    
+
     if (!isset($array_users[$view['customerid']])) {
         $users = nv_crm_customer_info($view['customerid']);
         if ($users) {
@@ -199,7 +200,7 @@ while ($view = $sth->fetch()) {
     } else {
         $view['customer'] = $array_users[$view['customerid']];
     }
-    
+
     $array_data[$view['id']] = $view;
     $array_data_down[] = $view;
 }
@@ -232,11 +233,11 @@ if (!empty($array_data)) {
         $view['link_view'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $view['id'];
         $view['number'] = $number++;
         $xtpl->assign('VIEW', $view);
-        
+
         if (!empty($view['files'])) {
             $xtpl->parse('main.loop.files');
         }
-        
+
         $xtpl->parse('main.loop');
     }
 }
