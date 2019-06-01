@@ -10,19 +10,19 @@ if (!defined('NV_IS_MOD_WORKFORCE')) die('Stop!!!');
 
 if ($nv_Request->isset_request('change_status', 'post')) {
     $id = $nv_Request->get_int('id', 'post', 0);
-    
+
     if (empty($id)) {
         die('NO_' . $id);
     }
-    
+
     $new_status = $nv_Request->get_int('new_status', 'post');
-    
+
     $sql = 'UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET status=' . $new_status . ' WHERE id=' . $id;
     $db->query($sql);
-    
+
     $nv_Cache->delMod($module_name);
     $nv_Cache->delMod('users');
-    
+
     die('OK_' . $id);
 }
 

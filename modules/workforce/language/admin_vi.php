@@ -106,3 +106,4 @@ $lang_module['field_match_type_callback'] = 'Sử dụng hàm';
 $lang_module['field_min_max_error'] = '%1$s cần nhập từ %2$s đến %3$s ký tự';
 $lang_module['field_min_max_value'] = '%1$s cần nhập từ %2$s đến %3$s';
 $lang_module['config_default_status'] = 'Trạng thái mặc định';
+$lang_module['config_termofcontract'] = 'Cấu hình thời hạn hợp đồng tối đa (Tháng)';
