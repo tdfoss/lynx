@@ -90,7 +90,7 @@ if ($row['id'] > 0) {
     $row['username'] = '';
     $row['password'] = '';
     $row['looppassword'] = '';
-    $row['createtime'] = NV_CURRENTTIME;
+   $row['createtime'] = 0;
     $row['duetime'] = 0;
     $row['cycle'] = 0;
     $custom_field = array();
