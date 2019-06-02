@@ -72,13 +72,13 @@
             <tr>
                 <td class="text-center">{VIEW.number}</td>
                 <td>
-                    <a href={VIEW.url} target="_blank">{VIEW.code}</a>
+                    <a href={VIEW.url} target="_blank">#{VIEW.code}</a>
                 </td>
                 <td>
                     <a href={VIEW.url_customer} target="_blank">{VIEW.fullname}</a>
                 </td>
                 <td>{VIEW.main_phone}</td>
-                <td>{VIEW.main_email}</td>
+                <td><a href="mailto:{VIEW.main_email}">{VIEW.main_email}</a></td>
                 <td>{VIEW.addtime}</td>
             </tr>
             <!-- END: loop -->
