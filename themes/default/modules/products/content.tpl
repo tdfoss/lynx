@@ -59,8 +59,8 @@
                 <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.note}</strong></label>
                 <div class="col-sm-19 col-md-20">{ROW.note}</div>
             </div>
-            <div class="form-group text-center">
-                <input class="btn btn-primary" name="submit" type="submit" value="{LANG.save}" />
+            <div class="form-group text-center button_fixed_bottom">
+                <input class="btn btn-primary" name="submit" type="submit" value="{LANG.save}" /> <a class="cancelLink" href="javascript:history.back()" type="reset">Hủy</a>
             </div>
         </div>
     </div>
@@ -71,10 +71,10 @@
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/language/jquery.ui.datepicker-{NV_LANG_INTERFACE}.js"></script>
 <script src="//unpkg.com/autonumeric"></script>
 <script type="text/javascript">
-//<![CDATA[
-
+    //<![CDATA[
+    
     new AutoNumeric('.format_price');
-   
+    
     $('.select2').select2({
         language : '{NV_LANG_INTERFACE}',
         theme : 'bootstrap',

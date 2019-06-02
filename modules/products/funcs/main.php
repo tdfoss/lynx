@@ -13,7 +13,7 @@ if (!defined('NV_IS_MOD_PRODUCTS')) die('Stop!!!');
 if ($nv_Request->isset_request('change_status', 'post, get')) {
     $id = $nv_Request->get_int('id', 'post, get', 0);
     $content = 'NO_' . $id;
-    
+
     $query = 'SELECT active FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id;
     $row = $db->query($query)->fetch();
     if (isset($row['active'])) {
@@ -32,9 +32,9 @@ if ($nv_Request->isset_request('change_status', 'post, get')) {
 if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_request('delete_checkss', 'get')) {
     $id = $nv_Request->get_int('delete_id', 'get');
     $delete_checkss = $nv_Request->get_string('delete_checkss', 'get');
-    
+
     if ($id > 0 and $delete_checkss == md5($id . NV_CACHE_PREFIX . $client_info['session_id'])) {
-        
+
         nv_delete_products($id);
         nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_product'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['delete_product'] . " " . $fullname, $user_info['userid']);
         $nv_Cache->delMod($module_name);
@@ -44,19 +44,19 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
 } elseif ($nv_Request->isset_request('delete_list', 'post')) {
     $listall = $nv_Request->get_title('listall', 'post', '');
     $array_id = explode(',', $listall);
-    
+
     if (!empty($array_id)) {
         foreach ($array_id as $id) {
             $userid = $db->query('SELECT id FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetchColumn();
             if ($userid) {
                 $array_name[] = $workforce_list[$userid]['fullname'];
             }
-            
+
             nv_delete_products($id);
         }
-        
+
         nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_product'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['delete_many_product'] . " " . implode(', ', $array_name), $user_info['userid']);
-        
+
         $nv_Cache->delMod($module_name);
         die('OK');
     }
@@ -115,25 +115,25 @@ if (!$nv_Request->isset_request('id', 'post,get')) {
         ->select('COUNT(*)')
         ->from('' . NV_PREFIXLANG . '_' . $module_data . '')
         ->where('1=1 AND active=1' . $where);
-    
+
     if (!empty($q)) {
         $db->where('title LIKE :q_title OR price LIKE :q_price');
     }
     $sth = $db->prepare($db->sql());
-    
+
     if (!empty($q)) {
         $sth->bindValue(':q_title', '%' . $q . '%');
         $sth->bindValue(':q_price', '%' . $q . '%');
     }
     $sth->execute();
     $num_items = $sth->fetchColumn();
-    
+
     $db->select('*')
         ->order('id DESC')
         ->limit($per_page)
         ->offset(($page - 1) * $per_page);
     $sth = $db->prepare($db->sql());
-    
+
     if (!empty($q)) {
         $sth->bindValue(':q_title', '%' . $q . '%');
         $sth->bindValue(':q_price', '%' . $q . '%');
@@ -154,7 +154,7 @@ foreach ($array_type as $value) {
         'key' => $value['id'],
         'title' => $value['title'],
         'selected' => ($value['id'] == $array_search['catid']) ? ' selected="selected"' : ''
-    
+
     ));
     $xtpl->parse('main.select_type');
 }
@@ -173,7 +173,6 @@ while ($view = $sth->fetch()) {
     $view['vat'] = !empty($view['vat']) ? $view['vat'] : '-';
     $view['price'] = !empty($view['price']) ? nv_number_format($view['price']) : '';
     $view['price'] = !empty($view['price']) ? $view['price'] : '';
-    
     $view['price_unit'] = !empty($view['price_unit']) ? $array_price_unit[$view['price_unit']]['title'] : '';
     $xtpl->assign('CHECK', $view['active'] == 1 ? 'checked' : '');
     $view['link_view'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $module_info['alias']['detail'] . '&amp;id=' . $view['id'];
@@ -181,6 +180,9 @@ while ($view = $sth->fetch()) {
     $view['link_delete'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;delete_id=' . $view['id'] . '&amp;delete_checkss=' . md5($view['id'] . NV_CACHE_PREFIX . $client_info['session_id']);
     $view['catid'] = !empty($view['catid']) ? $array_type[$view['catid']]['title'] : '';
     $xtpl->assign('VIEW', $view);
+    if (!empty($view['url'])) {
+        $xtpl->parse('main.loop.url');
+    }
     $xtpl->parse('main.loop');
 }
 
