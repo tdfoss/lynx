@@ -120,7 +120,7 @@ if (!empty($array_search['tag_id'])) {
 }
 
 $join .= ' INNER JOIN ' . NV_PREFIXLANG . '_' . $module_data . '_share_acc t3 ON t1.id=t3.customerid';
-$where .= nv_customer_premission($module_name, 't1.');
+$where .= nv_customer_premission($module_name, 't3.');
 $where .= ' AND is_contacts=' . $array_search['is_contact'] . ' AND t3.userid=' . $user_info['userid'];
 
 $db->sqlreset()

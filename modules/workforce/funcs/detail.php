@@ -10,19 +10,19 @@ if (!defined('NV_IS_MOD_WORKFORCE')) die('Stop!!!');
 
 if ($nv_Request->isset_request('change_status', 'post')) {
     $id = $nv_Request->get_int('id', 'post', 0);
-    
+
     if (empty($id)) {
         die('NO_' . $id);
     }
-    
+
     $new_status = $nv_Request->get_int('new_status', 'post');
-    
+
     $sql = 'UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET status=' . $new_status . ' WHERE id=' . $id;
     $db->query($sql);
-    
+
     $nv_Cache->delMod($module_name);
     $nv_Cache->delMod('users');
-    
+
     die('OK_' . $id);
 }
 
@@ -86,6 +86,13 @@ $page_title = $result['fullname'];
 $array_mod_title[] = array(
     'title' => $page_title
 );
+
+$user = $db->query('SELECT userid, first_name, last_name, username FROM ' . NV_USERS_GLOBALTABLE . ' WHERE userid=' . $result['userid'])->fetch();
+$result['accout_connect'] = nv_show_name_user($user['first_name'], $user['last_name'], $user['username']);
+
+$result['createtime'] = date('d/m/Y', $result['createtime']);
+$result['duetime'] = date('d/m/Y', $result['duetime']);
+$result['cycle'] = sprintf($lang_module['cycle_month'], $result['cycle']);
 
 $contents = nv_theme_workforce_detail($result, $id);
 

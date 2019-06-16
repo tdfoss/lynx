@@ -249,7 +249,7 @@ function nv_invoice_confirm_payment($id)
 
 function nv_invoice_check_date($date)
 {
-    global $db, $module_data, $array_users, $lang_module, $module_file, $module_info;
+    global $db, $module_name, $module_data, $array_users, $lang_module, $module_file, $module_info;
 
     if ($date == 1) {
         $time = 604800;
@@ -269,9 +269,9 @@ function nv_invoice_check_date($date)
     }
 
     $data = array();
-    $result = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE duetime > 0 AND duetime >= ' . NV_CURRENTTIME . ' AND duetime <= ' . NV_CURRENTTIME . ' + ' . $time . ' AND status NOT IN (2)');
+    $result = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE duetime > 0 AND duetime >= ' . NV_CURRENTTIME . ' AND duetime <= ' . (NV_CURRENTTIME + $time) . ' AND status NOT IN (1,2)');
     while ($rows = $result->fetch()) {
-
+        $rows['link_view'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $rows['id'];
         if (!isset($array_users[$rows['customerid']])) {
             $users = nv_crm_customer_info($rows['customerid']);
             if ($users) {
@@ -297,13 +297,14 @@ function nv_invoice_check_date($date)
     $xtpl = new XTemplate('main.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
     $xtpl->assign('LANG', $lang_module);
 
-    if (empty($data)) {
+    if (!empty($data)) {
+        foreach ($data as $key => $value) {
+            $xtpl->assign('LIST', $value);
+            $xtpl->parse('list.list_invoice');
+        }
+    } else {
         $xtpl->assign('EMPTY', sprintf($lang_module['empty_data_invoice'], $lang));
         $xtpl->parse('list.empty_list_invoice');
-    }
-    foreach ($data as $key => $value) {
-        $xtpl->assign('LIST', $value);
-        $xtpl->parse('list.list_invoice');
     }
 
     $xtpl->parse('list');

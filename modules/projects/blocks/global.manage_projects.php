@@ -100,10 +100,11 @@ if (!nv_function_exists('nv_projects_list')) {
 
         if ($module != $module_name) {
             include NV_ROOTDIR . '/modules/projects/language/' . NV_LANG_DATA . '.php';
+            include NV_ROOTDIR . '/modules/projects/site.functions.php';
             $my_footer .= '<script type="text/javascript" src="' . NV_BASE_SITEURL . 'themes/' . $block_theme . '/js/projects.js"></script>';
         }
 
-        $sql = 'SELECT id, title, status, addtime, edittime, workforceid FROM ' . NV_PREFIXLANG . '_' . $mod_data . ' WHERE status IN (' . implode(',', $block_config['type']) . ')  ORDER BY ' . $block_config['updown'] . ' DESC  LIMIT ' . $block_config['numrow'];
+        $sql = 'SELECT id, title, status, addtime, edittime, workforceid FROM ' . NV_PREFIXLANG . '_' . $mod_data . ' t1 INNER JOIN ' . NV_PREFIXLANG . '_' . $mod_data . '_performer t2 ON t1.id=t2.projectid WHERE status IN (' . implode(',', $block_config['type']) . ') ' . nv_projects_premission($module) . ' ORDER BY ' . $block_config['updown'] . ' DESC  LIMIT ' . $block_config['numrow'];
         $list = $nv_Cache->db($sql, 'id', $module);
 
         if (empty($list)) return '';
