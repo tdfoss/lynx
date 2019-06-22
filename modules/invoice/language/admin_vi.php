@@ -16,7 +16,7 @@ $lang_translator['copyright'] = 'Copyright (C) ' . date( 'Y' ) . ' mynukeviet. A
 $lang_translator['info'] = '';
 $lang_translator['langtype'] = 'lang_module';
 
-$lang_module['main'] = 'Cấu hình gửi mail';
+$lang_module['main'] = 'Cấu hình nội dung';
 $lang_module['add'] = 'Thêm mới';
 $lang_module['edit'] = 'Sửa';
 $lang_module['delete'] = 'Xóa';
