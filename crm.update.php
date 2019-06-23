@@ -214,6 +214,8 @@ while (list ($lang) = $language_query->fetch(3)) {
         $sql[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', 'invoice', " . $db->quote($config_name) . ", " . $db->quote($config_value) . ")";
     }
 
+    $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_invoice CHANGE code code VARCHAR(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '';";
+
     foreach ($sql as $_sql) {
         try {
             $db->query($_sql);

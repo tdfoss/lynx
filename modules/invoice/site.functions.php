@@ -28,7 +28,7 @@ $array_transaction_status = array(
 );
 
 if (isset($site_mods['services'])) {
-    
+
     $_sql = 'SELECT t1.*,t2.title as title_unit FROM ' . NV_PREFIXLANG . '_services t1 LEFT JOIN  ' . NV_PREFIXLANG . '_services_price_unit t2 ON t1.price_unit = t2.id WHERE t1.active=1';
     $array_services = $nv_Cache->db($_sql, 'id', 'services');
 }
@@ -46,17 +46,17 @@ if (isset($site_mods['projects'])) {
 function nv_invoice_premission($module, $type = 'where')
 {
     global $db, $array_config, $user_info, $module_name, $module_config;
-    
+
     if ($module_name != $module) {
         $array_config = $module_config[$module];
     }
-    
+
     $array_userid = array(); // mảng chứa userid mà người này được quản lý
     $groups_admin = explode(',', $array_config['groups_admin']);
-    
+
     $group_manage = !empty($array_config['groups_manage']) ? explode(',', $array_config['groups_manage']) : array();
     $group_manage = array_map('intval', $group_manage);
-    
+
     if (!empty(array_intersect($groups_admin, $user_info['in_groups']))) {
         if (!defined('NV_INVOICE_ADMIN')) {
             define('NV_INVOICE_ADMIN', true);
@@ -76,7 +76,7 @@ function nv_invoice_premission($module, $type = 'where')
             }
         }
         $array_userid = array_unique($array_userid);
-        
+
         if ($type == 'where') {
             if (!empty($array_userid)) {
                 // nếu là trưởng nhóm, thấy nhân viên do mình quản lý
@@ -118,25 +118,25 @@ function nv_copy_invoice($id, $status = 0, $create_user_id = 0)
                 $i = 1;
                 $format_code = '%06s';
                 $auto_code = vsprintf($format_code, $new_id);
-                
+
                 $stmt = $db->prepare('SELECT id FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE code= :code');
                 $stmt->bindParam(':code', $auto_code, PDO::PARAM_STR);
                 $stmt->execute();
                 while ($stmt->rowCount()) {
                     $auto_code = vsprintf($format_code, ($new_id + $i++));
                 }
-                
+
                 $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET code= :code WHERE id=' . $new_id);
                 $stmt->bindParam(':code', $auto_code, PDO::PARAM_STR);
                 $stmt->execute();
-                
+
                 // copy chi tiet hoa don
                 $rows['detail'] = array();
                 $result = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_detail WHERE idinvoice=' . $rows['id'] . ' ORDER BY weight');
                 while ($_row = $result->fetch()) {
                     $rows['detail'][$_row['itemid']] = $_row;
                 }
-                
+
                 if (!empty($rows['detail'])) {
                     $sth = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_detail (idinvoice, idcustomer, module, itemid, quantity, price, vat, total, note, weight) VALUES(:idinvoice, :idcustomer, :module, :itemid, :quantity, :price, :vat, :total, :note, :weight)');
                     foreach ($rows['detail'] as $service) {
@@ -156,7 +156,7 @@ function nv_copy_invoice($id, $status = 0, $create_user_id = 0)
                         $sth->execute();
                     }
                 }
-                
+
                 if ($data_insert['status'] == 1) {
                     nv_sendmail_econtent($new_id, $user_info['userid']);
                 }
@@ -179,9 +179,9 @@ function nv_caculate_duetime($createtime, $cycle_number)
 function nv_sendmail_econtent($new_id, $adduser = 0, $location_file = array())
 {
     global $db, $module_name, $module_data, $row, $lang_module, $array_invoice_status, $user_info, $workforce_list;
-    
+
     $row = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $new_id)->fetch();
-    
+
     if ($row) {
         $customer_info = nv_crm_customer_info($row['customerid']);
         if ($customer_info) {
@@ -189,7 +189,7 @@ function nv_sendmail_econtent($new_id, $adduser = 0, $location_file = array())
             $sendto_id = array(
                 $row['customerid']
             );
-            
+
             $subject = sprintf($lang_module['sendmail_title'], $row['code'], $row['title']);
             $message = $db->query('SELECT econtent FROM ' . NV_PREFIXLANG . '_' . $module_data . '_econtent WHERE action="newinvoice"')->fetchColumn();
             $row['status'] = $array_invoice_status[$row['status']];
@@ -207,17 +207,17 @@ function nv_sendmail_econtent($new_id, $adduser = 0, $location_file = array())
                 'TABLE' => nv_invoice_table($new_id),
                 'TABLE_TRANSACTION' => nv_transaction_list($new_id)
             );
-            
+
             $message = nv_unhtmlspecialchars($message);
             foreach ($array_replace as $index => $value) {
                 $message = str_replace('[' . $index . ']', $value, $message);
             }
-            
+
             $cc_id = array();
             if (!empty($row['workforceid']) && $user_info['userid'] != $row['workforceid']) {
                 $cc_id[] = $row['workforceid'];
             }
-            
+
             $result = nv_email_send($subject, $message, $adduser, $sendto_id, $cc_id, $location_file);
             if ($result['status']) {
                 $db->query('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET sended=sended+1 WHERE id=' . $new_id);
@@ -230,10 +230,10 @@ function nv_sendmail_econtent($new_id, $adduser = 0, $location_file = array())
 function nv_invoice_table($id)
 {
     global $module_file, $lang_module, $array_invoice_products, $order_id, $db, $module_data, $array_services, $array_products, $array_control, $row, $module_name, $op, $global_config, $nv_Cache;
-    
+
     $row = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
     $row['vat_price'] = $row['item_total'] = $row['vat_total'] = 0;
-    
+
     $array_invoice_products = array();
     $order_id = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_detail WHERE idinvoice=' . $id);
     while ($order = $order_id->fetch()) {
@@ -242,32 +242,32 @@ function nv_invoice_table($id)
         $row['vat_total'] += $row['vat_price'];
         $array_invoice_products[] = $order;
     }
-    
-    $row['item_total'] = number_format($row['item_total']);
-    $row['vat_total'] = number_format($row['vat_total']);
+
+    $row['item_total'] = nv_number_format($row['item_total']);
+    $row['vat_total'] = nv_number_format($row['vat_total']);
     $row['grand_total_string'] = nv_convert_number_to_words($row['grand_total']);
-    $row['grand_total'] = number_format($row['grand_total']);
-    $row['discount_value'] = number_format($row['discount_value']);
-    
+    $row['grand_total'] = nv_number_format($row['grand_total']);
+    $row['discount_value'] = nv_number_format($row['discount_value']);
+
     $templateCSS = file_exists(NV_ROOTDIR . '/themes/' . $global_config['module_theme'] . '/css/pdf.css') ? $global_config['module_theme'] : 'default';
     $xtpl = new XTemplate('table.tpl', NV_ROOTDIR . '/themes/default/modules/' . $module_file);
     $xtpl->assign('LANG', $lang_module);
     $xtpl->assign('TEMPLATE_CSS', $templateCSS);
-    
+
     $templateCSS = file_exists(NV_ROOTDIR . '/themes/' . $global_config['module_theme'] . '/css/pdf.css') ? $global_config['module_theme'] : 'default';
     $xtpl->assign('TEMPLATE_CSS', $templateCSS);
-    
+
     if (!empty($array_invoice_products)) {
         $i = 1;
         foreach ($array_invoice_products as $orders) {
-            
+
             $orders['number'] = $i++;
             $orders['vat_price'] = ($orders['price'] * $orders['vat']) / 100;
-            $orders['vat_price'] = number_format($orders['vat_price']);
-            $orders['price'] = number_format($orders['price']);
-            $orders['unit_price'] = number_format($orders['unit_price']);
-            $orders['total'] = number_format($orders['total']);
-            
+            $orders['vat_price'] = nv_number_format($orders['vat_price']);
+            $orders['price'] = nv_number_format($orders['price']);
+            $orders['unit_price'] = nv_number_format($orders['unit_price']);
+            $orders['total'] = nv_number_format($orders['total']);
+
             if ($orders['module'] == 'services') {
                 $orders['money_unit'] = $array_services[$orders['itemid']]['title_unit'];
                 $orders['itemid'] = $array_services[$orders['itemid']]['title'];
@@ -275,27 +275,27 @@ function nv_invoice_table($id)
                 $orders['money_unit'] = $array_products[$orders['itemid']]['title_unit'];
                 $orders['itemid'] = $array_products[$orders['itemid']]['title'];
             }
-            
+
             $xtpl->assign('CONTROL', $array_control);
             $xtpl->assign('ORDERS', $orders);
-            
+
             if ($orders['vat'] > 0) {
                 $xtpl->parse('main.invoice_list.loop.vat');
             } else {
                 $xtpl->parse('main.invoice_list.loop.vat_empty');
             }
-            
+
             $xtpl->parse('main.invoice_list.loop');
         }
         $xtpl->parse('main.invoice_list');
     }
-    
+
     $xtpl->assign('ROW_SEND', $row);
-    
+
     if (!empty($row['discount_percent']) && !empty($row['discount_value'])) {
         $xtpl->parse('main.discount');
     }
-    
+
     $xtpl->parse('main');
     return $xtpl->text('main');
 }
@@ -303,19 +303,19 @@ function nv_invoice_table($id)
 function nv_invoice_template($id)
 {
     global $module_file, $lang_module, $module_info, $array_invoice_products, $order_id, $db, $module_data, $array_services, $array_products, $array_control, $row, $customer_info, $module_name, $workforce_list, $global_config, $array_invoice_status, $site_mods, $op, $client_info;
-    
+
     $invoice_info = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
-    
+
     $pdf_econtent = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_econtent WHERE action="contentpdf"')->fetch();
-    
+
     $ctmid = nv_crm_customer_info($invoice_info['customerid']);
-    
+
     $size = @getimagesize(NV_ROOTDIR . '/' . $global_config['site_logo']);
     $logo = preg_replace('/\.[a-z]+$/i', '.svg', $global_config['site_logo']);
     if (!file_exists(NV_ROOTDIR . '/' . $logo)) {
         $logo = $global_config['site_logo'];
     }
-    
+
     $message = $db->query('SELECT econtent FROM ' . NV_PREFIXLANG . '_' . $module_data . '_econtent WHERE action="contentpdf"')->fetchColumn();
     $array_replace = array(
         'FULLNAME' => $ctmid['fullname'],
@@ -337,12 +337,12 @@ function nv_invoice_template($id)
         'CUSTOMER_PHONE' => empty($ctmid['main_phone']) ? '-' : $ctmid['main_phone'],
         'CUSTOMER_ADDRESS' => empty($ctmid['address']) ? '-' : $ctmid['address']
     );
-    
+
     $message = nv_unhtmlspecialchars($message);
     foreach ($array_replace as $index => $value) {
         $message = str_replace('[' . $index . ']', $value, $message);
     }
-    
+
     return $message;
 }
 
@@ -395,27 +395,27 @@ function convert_number_to_words($number)
         1000000000000000 => 'ngàn triệu triệu',
         1000000000000000000 => 'tỷ tỷ'
     );
-    
+
     if (!is_numeric($number)) {
         return false;
     }
-    
+
     if (($number >= 0 && (int) $number < 0) || (int) $number < 0 - PHP_INT_MAX) {
         // overflow
         trigger_error('convert_number_to_words only accepts numbers between -' . PHP_INT_MAX . ' and ' . PHP_INT_MAX, E_USER_WARNING);
         return false;
     }
-    
+
     if ($number < 0) {
         return $negative . convert_number_to_words(abs($number));
     }
-    
+
     $string = $fraction = null;
-    
+
     if (strpos($number, '.') !== false) {
         list ($number, $fraction) = explode('.', $number);
     }
-    
+
     switch (true) {
         case $number < 21:
             $string = $dictionary[$number];
@@ -447,7 +447,7 @@ function convert_number_to_words($number)
             }
             break;
     }
-    
+
     if (null !== $fraction && is_numeric($fraction)) {
         $string .= $decimal;
         $words = array();
@@ -456,6 +456,6 @@ function convert_number_to_words($number)
         }
         $string .= implode(' ', $words);
     }
-    
+
     return ucfirst(strtolower($string));
 }

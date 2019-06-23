@@ -246,8 +246,8 @@ if ($id > 0) {
     $row['workforceid'] = !empty($row['workforceid']) ? $workforce_list[$row['workforceid']]['fullname'] : $lang_module['workforceid_empty'];
     $row['status_str'] = $array_invoice_status[$row['status']];
     $row['grand_total_string'] = nv_convert_number_to_words($row['grand_total']);
-    $row['grand_total'] = number_format($row['grand_total']);
-    $row['discount_value'] = number_format($row['discount_value']);
+    $row['grand_total'] = nv_number_format($row['grand_total']);
+    $row['discount_value'] = nv_number_format($row['discount_value']);
 } else {
     Header('Location: ' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name);
     die();
@@ -265,8 +265,8 @@ while ($order = $order_id->fetch()) {
     $array_invoice_products[] = $order;
 }
 
-$row['item_total'] = number_format($row['item_total']);
-$row['vat_total'] = number_format($row['vat_total']);
+$row['item_total'] = nv_number_format($row['item_total']);
+$row['vat_total'] = nv_number_format($row['vat_total']);
 
 $row['terms'] = nv_nl2br($row['terms']);
 $row['description'] = nv_nl2br($row['description']);
