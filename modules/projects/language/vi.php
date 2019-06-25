@@ -127,3 +127,4 @@ $lang_module['applyLabel'] = 'Áp dụng';
 $lang_module['cancelLabel'] = 'Hủy';
 $lang_module['fromLabel'] = 'Từ ngày';
 $lang_module['toLabel'] = 'Đến ngày';
+$lang_module['choice_time'] = 'Chọn thời gian';

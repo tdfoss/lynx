@@ -6,13 +6,13 @@
     <form action="{NV_BASE_SITEURL}index.php" method="get">
         <input type="hidden" name="{NV_LANG_VARIABLE}" value="{NV_LANG_DATA}" /> <input type="hidden" name="{NV_NAME_VARIABLE}" value="{MODULE_NAME}" /> <input type="hidden" name="{NV_OP_VARIABLE}" value="{OP}" /> <input type="hidden" name="search" value="1" /> <input type="hidden" name="serviceid" value="{SEARCH.serviceid}" />
         <div class="row">
-            <div class="col-xs-24 col-md-3">
+            <div class="col-xs-24 col-md-4">
                 <div class="form-group">
                     <input class="form-control" type="text" value="{SEARCH.q}" name="q" maxlength="255" placeholder="{LANG.search_title}" />
                 </div>
             </div>
             <!-- BEGIN: admin -->
-            <div class="col-xs-24 col-md-3">
+            <div class="col-xs-24 col-md-5">
                 <div class="form-group">
                     <select name="customerid" id="customerid" class="form-control">
                         <!-- BEGIN: customer -->
@@ -21,7 +21,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-xs-24 col-md-3">
+            <div class="col-xs-24 col-md-5">
                 <div class="form-group">
                     <select class="form-control select2" name="workforceid">
                         <option value="0">---{LANG.workforceid_select}---</option>
@@ -31,7 +31,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-xs-24 col-md-3">
+            <div class="col-xs-24 col-md-5">
                 <div class="form-group">
                     <select class="form-control select2" name="presenterid">
                         <option value="0">---{LANG.presenterid_select}---</option>
@@ -41,7 +41,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-xs-24 col-md-3">
+            <div class="col-xs-24 col-md-5">
                 <div class="form-group">
                     <select class="form-control select2" name="performerid">
                         <option value="0">---{LANG.performerid_select}---</option>

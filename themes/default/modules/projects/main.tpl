@@ -38,7 +38,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-md-4">
+            <div class="col-xs-12 col-md-5">
                 <div class="form-group">
                     <div class="form-group">
                         <div class="input-group">
@@ -53,7 +53,7 @@
             </div>
             <div class="col-xs-12 col-md-4">
                 <select class="form-control form-group" name="status">
-                    <option value="0">-- {LANG.status_select}--</option>
+                    <option value="0">---{LANG.status_select}---</option>
                     <!-- BEGIN: status -->
                     <option value="{STATUS.index}"{STATUS.selected}>{STATUS.value}</option>
                     <!-- END: status -->
@@ -195,6 +195,16 @@ $(function() {
     $('.select2').select2({
         language : '{NV_LANG_INTERFACE}',
         theme : 'bootstrap'
+    });
+
+
+    $(".datepicker").datepicker({
+        dateFormat : "dd/mm/yy",
+        changeMonth : !0,
+        changeYear : !0,
+        showOtherMonths : !0,
+        showOn : "focus",
+        yearRange : "-90:+0"
     });
 </script>
 <script type="text/javascript">

@@ -9,13 +9,18 @@
             <em class="fa fa-exchange">&nbsp;</em>{LANG.changecontacts}
         </button></li>
     <!-- END: iscontacts_change -->
-    <li><a href="{URL_ADD}" class="btn btn-primary btn-xs"><em class="fa fa-plus">&nbsp;</em>{LANG.customer_add}</a></li>
+    <!-- BEGIN: customer_add -->
+    <li><a href="{URL_ADD}" class="btn btn-primary btn-xs"><em class="fa fa-plus">&nbsp;</em> {LANG.customer_add}</a></li>
+    <!-- END: customer_add -->
+    <!-- BEGIN: contact_add -->
+    <li><a href="{URL_ADD_CONTACT}" class="btn btn-primary btn-xs"><em class="fa fa-plus">&nbsp;</em> {LANG.contact_add}</a></li>
+    <!-- END: contact_add -->
     <li><a href="{URL_ADD_EMAIL}" class="btn btn-primary btn-xs"><em class="fa fa-plus">&nbsp;</em>{LANG.email_add}</a></li>
     <!-- BEGIN: support -->
     <li><a href="{URL_ADD_SUPPORT}" class="btn btn-primary btn-xs"><em class="fa fa-user">&nbsp;</em>{LANG.add_support}</a></li>
     <!-- END: support -->
     <!-- BEGIN: admin -->
-    <li><a href="{URL_EDIT}" class="btn btn-default btn-xs"><em class="fa fa-edit">&nbsp;</em>{LANG.customer_edit}</a></li>
+    <li><a href="{URL_EDIT}" class="btn btn-default btn-xs"><em class="fa fa-edit">&nbsp;</em><!-- BEGIN: customer_edit -->{LANG.customer_edit}<!-- END: customer_edit --><!-- BEGIN: contact_edit -->{LANG.contact_edit}<!-- END: contact_edit --></a></li>
     <li><a href="{URL_DELETE}" class="btn btn-danger btn-xs" onclick="return confirm(nv_is_del_confirm[0]);"><em class="fa fa-trash-o">&nbsp;</em>{LANG.delete}</a></li>
     <!-- END: admin -->
 </ul>
