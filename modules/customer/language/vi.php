@@ -124,7 +124,27 @@ $lang_module['invoice_status_1'] = 'Đã thanh toán';
 $lang_module['invoice_status_2'] = 'Đã hủy';
 $lang_module['system'] = 'Hệ thống';
 $lang_module['add_support'] = 'Tạo phiếu hỗ trợ';
+$lang_module['userid_link'] = 'Tài khoản thành viên';
+$lang_module['userid_link_select'] = 'Chọn loại tài khoản';
+$lang_module['userid_link_0'] = 'Không liên kết';
+$lang_module['userid_link_1'] = 'Đã có tài khoản';
+$lang_module['userid_link_2'] = 'Tạo tài khoản mới';
+$lang_module['username'] = 'Tên truy cập';
+$lang_module['password'] = 'Mật khẩu';
+$lang_module['password1'] = 'Nhập lại mật khẩu';
+$lang_module['userid_link_note'] = 'Có thể để trống mật khẩu nếu muốn hệ thống tạo ngẫu nhiên';
+$lang_module['userid_link_empty'] = 'Chưa được liên kết';
+$lang_module['userid_select'] = 'Chọn tài khoản';
+$lang_module['adduser_email'] = 'Gửi email thông báo thông tin tài khoản đến khách hàng';
+$lang_module['adduser_register'] = 'Tài khoản của bạn đã được tạo';
+$lang_module['adduser_register1'] = 'Tài khoản của bạn đã được cập nhật';
+$lang_module['adduser_register_info'] = 'Xin chào %1$s,<br /><br />Tài khoản của bạn tại website %2$s đã được kích hoạt. Dưới đây là thông tin đăng nhập:<br /><br />URL: <a href="%3$s">%3$s</a><br />Tên tài khoản: %4$s<br /><br />Đây là thư tự động được gửi đến hòm thư điện tử của bạn từ website %2$s. Nếu bạn không hiểu gì về nội dung bức thư này, đơn giản hãy xóa nó đi.<br /><br />Quản trị site';
+$lang_module['adduser_register_info1'] = 'Xin chào %1$s,<br /><br />Tài khoản của bạn tại website %2$s đã được khởi tạo. Dưới đây là thông tin đăng nhập:<br /><br />URL: <a href="%3$s">%3$s</a><br />Tên tài khoản: %4$s<br />Mật khẩu: %5$s<br /><br />Chúng tôi khuyến cáo bạn nên đổi mật khẩu trước khi sử dụng tài khoản.<br /><br />Đây là thư tự động được gửi đến hòm thư điện tử của bạn từ website %2$s. Nếu bạn không hiểu gì về nội dung bức thư này, đơn giản hãy xóa nó đi.<br /><br />Quản trị site';
+$lang_module['adduser_register_info2'] = 'Xin chào %1$s,<br /><br />Tài khoản của bạn tại website %2$s đã được cập nhật. Dưới đây là thông tin đăng nhập mới:<br /><br />URL: <a href="%3$s">%3$s</a><br />Tên tài khoản: %4$s';
+$lang_module['adduser_register_info3'] = '<br />Mật khẩu: %1$s';
+$lang_module['adduser_register_info4'] = '<br /><br />Đây là thư tự động được gửi đến hòm thư điện tử của bạn từ website %1$s. Nếu bạn không hiểu gì về nội dung bức thư này, đơn giản hãy xóa nó đi.<br /><br />Quản trị site';
 $lang_module['unknow'] = 'Không khai báo';
+$lang_module['remider_birthday'] = 'Hôm nay là sinh nhật của %s';
 
 $lang_module['error_required_userid'] = 'Lỗi: bạn cần chọn Tài khoản thành viên';
 $lang_module['error_required_first_name'] = 'Lỗi: bạn cần nhập dữ liệu cho Tên';
@@ -134,6 +154,10 @@ $lang_module['error_required_birthday'] = 'Lỗi: bạn cần nhập dữ liệu
 $lang_module['error_exits_email'] = 'Lỗi: Email chính <strong>%s</strong> đã được thêm trước đó';
 $lang_module['error_exits_phone'] = 'Lỗi: Số điện thoại chính <strong>%s</strong> đã được thêm trước đó';
 $lang_module['error_empty_data'] = 'Bạn cần chọn dữ liệu để thực hiện!';
+$lang_module['error_required_userid_link'] = 'Lỗi: bạn cần chọn tài khoản liên kết';
+$lang_module['error_password_like'] = 'Lỗi: mật khẩu không giống nhau';
+$lang_module['error_unknow'] = 'Vì lý do nào đó hệ thống không thể thực hiện yêu cầu của bạn lúc này, vui lòng liên hệ với người quản trị để biết thêm thông tin, xin cảm ơn!';
+$lang_module['error_required_username'] = 'Lỗi: bạn cần nhập tên truy cập';
 
 $lang_module['export'] = 'Xuất danh sách';
 $lang_module['export_title'] = 'Lựa chọn dữ liệu';

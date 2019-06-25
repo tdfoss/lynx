@@ -9,7 +9,8 @@
     <div class="panel panel-default">
         <div class="panel-heading">{LANG.info}</div>
         <div class="panel-body">
-            <input type="hidden" name="id" value="{ROW.id}" /> <input type="hidden" name="redirect" value="{ROW.redirect}" />
+            <input type="hidden" name="id" value="{ROW.id}" />
+            <input type="hidden" name="redirect" value="{ROW.redirect}" />
             <div class="form-group">
                 <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.fullname}</strong> <span class="red">(*)</span></label>
                 <div class="col-sm-19 col-md-20">
@@ -83,7 +84,8 @@
                 <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.image}</strong></label>
                 <div class="col-sm-19 col-md-20">
                     <div class="input-group">
-                        <input class="form-control" type="text" name="image" value="{ROW.image}" id="id_image" /> <span class="input-group-btn">
+                        <input class="form-control" type="text" name="image" value="{ROW.image}" id="id_image" />
+                        <span class="input-group-btn">
                             <button class="btn btn-default selectfile" type="button">
                                 <em class="fa fa-folder-open-o fa-fix">&nbsp;</em>
                             </button>
@@ -102,7 +104,8 @@
                     <!-- END: textbox -->
                     <!-- BEGIN: date -->
                     <div class="input-group">
-                        <input class="form-control datepicker {FIELD.required}" id="{FIELD.field}" type="text" name="custom_fields[{FIELD.field}]" value="{FIELD.value}" pattern="^[0-9]{2,2}\/[0-9]{2,2}\/[0-9]{1,4}$" /> <span class="input-group-btn">
+                        <input class="form-control datepicker {FIELD.required}" id="{FIELD.field}" type="text" name="custom_fields[{FIELD.field}]" value="{FIELD.value}" pattern="^[0-9]{2,2}\/[0-9]{2,2}\/[0-9]{1,4}$" />
+                        <span class="input-group-btn">
                             <button class="btn btn-default" type="button">
                                 <em class="fa fa-calendar fa-fix"> </em>
                             </button>
@@ -144,78 +147,136 @@
             <!-- END: field -->
         </div>
     </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">{LANG.account}</div>
-        <div class="panel-body">
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.type_account}</strong><span class="red">(*)</span></label>
-                <div class="col-sm-19 col-md-20">
-                    <input class="col-sm-19 col-md-20 radio_btn" type="radio" name="portion_selection" id="button_one" value="" /> <label class="col-sm-19 col-md-4"><strong>{LANG.haveaccount}</strong></label> <input class="col-sm-19 col-md-20 radio_btn" type="radio" id="button_two" name="portion_selection" value="1" /> <label class="col-sm-19 col-md-4"><strong>{LANG.createaccount}</strong></label>
-                </div>
-            </div>
-            <div class="form-group" id="portion_one">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.user_account}</strong> <span class="red">(*)</span></label>
-                <div class="col-sm-19 col-md-20">
-                    <select name="userid" id="userid" class="form-control">
-                        <!-- BEGIN: user_info -->
-                        <option value="{USER_INFO.userid}" selected="selected">{USER_INFO.fullname}</option>
-                        <!-- END: user_info -->
-                    </select>
-                </div>
-            </div>
-            <div class="form-group" id="infoaccount" style="display: none">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.infoaccount}</strong><span class="red">(*)</span></label>
-                <div class="col-sm-19 col-md-20">
-                    <div class="row">
-                        <div class="col-xs-8">
-                            <input class="form-control us_pas" type="text" name="username" value="{ROW.username}" oninvalid="setCustomValidity( nv_required )" oninput="setCustomValidity('')" placeholder="{LANG.username}" />
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#account">{LANG.account}</a></li>
+        <li><a data-toggle="tab" href="#workinfo">{LANG.workinfo}</a></li>
+        <li><a data-toggle="tab" href="#termofcontract">{LANG.termofcontract}</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="account" class="tab-pane fade in active">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.type_account}</strong><span class="red">(*)</span></label>
+                        <div class="col-sm-19 col-md-20">
+                            <input class="col-sm-19 col-md-20 radio_btn" type="radio" name="portion_selection" id="button_one" value="" />
+                            <label class="col-sm-19 col-md-4"><strong>{LANG.haveaccount}</strong></label>
+                            <input class="col-sm-19 col-md-20 radio_btn" type="radio" id="button_two" name="portion_selection" value="1" />
+                            <label class="col-sm-19 col-md-4"><strong>{LANG.createaccount}</strong></label>
                         </div>
-                        <div class="col-xs-8">
-                            <input class="form-control us_pas" type="password" name="password" value="{ROW.password}" oninvalid="setCustomValidity( nv_required )" oninput="setCustomValidity('')" placeholder="{LANG.password}" />
+                    </div>
+                    <div class="form-group" id="portion_one">
+                        <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.user_account}</strong> <span class="red">(*)</span></label>
+                        <div class="col-sm-19 col-md-20">
+                            <select name="userid" id="userid" class="form-control">
+                                <!-- BEGIN: user_info -->
+                                <option value="{USER_INFO.userid}" selected="selected">{USER_INFO.fullname}</option>
+                                <!-- END: user_info -->
+                            </select>
                         </div>
-                        <div class="col-xs-8">
-                            <input class="form-control us_pas" type="password" name="looppassword" value="{ROW.looppassword}" oninvalid="setCustomValidity( nv_required )" oninput="setCustomValidity('')" placeholder="{LANG.looppassword}" />
+                    </div>
+                    <div class="form-group" id="infoaccount" style="display: none">
+                        <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.infoaccount}</strong><span class="red">(*)</span></label>
+                        <div class="col-sm-19 col-md-20">
+                            <div class="row">
+                                <div class="col-xs-8">
+                                    <input class="form-control us_pas" type="text" name="username" value="{ROW.username}" oninvalid="setCustomValidity( nv_required )" oninput="setCustomValidity('')" placeholder="{LANG.username}" />
+                                </div>
+                                <div class="col-xs-8">
+                                    <input class="form-control us_pas" type="password" name="password" value="{ROW.password}" oninvalid="setCustomValidity( nv_required )" oninput="setCustomValidity('')" placeholder="{LANG.password}" />
+                                </div>
+                                <div class="col-xs-8">
+                                    <input class="form-control us_pas" type="password" name="looppassword" value="{ROW.looppassword}" oninvalid="setCustomValidity( nv_required )" oninput="setCustomValidity('')" placeholder="{LANG.looppassword}" />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">{LANG.workinfo}</div>
-        <div class="panel-body">
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.part}</strong> <span class="red">(*)</span> </label>
-                <div class="col-sm-19 col-md-20">
-                    <select class="form-control " style="height: 200px;" cols="75" name="part[]" multiple="multiple" id="part">
-                        <!-- BEGIN: parent_loop -->
-                        <option value="{pid}"{pselect}>{ptitle}</option>
-                        <!-- END: parent_loop -->
-                    </select>
+        <div id="workinfo" class="tab-pane fade">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.part}</strong> <span class="red">(*)</span> </label>
+                        <div class="col-sm-19 col-md-20">
+                            <select class="form-control " style="height: 200px;" cols="75" name="part[]" multiple="multiple" id="part">
+                                <!-- BEGIN: parent_loop -->
+                                <option value="{pid}"{pselect}>{ptitle}</option>
+                                <!-- END: parent_loop -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.position}</strong></label>
+                        <div class="col-sm-19 col-md-20">
+                            <input class="form-control" type="text" name="position" value="{ROW.position}" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.jointime}</strong></label>
+                        <div class="col-sm-19 col-md-20">
+                            <div class="input-group">
+                                <input class="form-control datepicker" type="text" name="jointime" value="{ROW.jointime}" pattern="^[0-9]{2,2}\/[0-9]{2,2}\/[0-9]{1,4}$" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <em class="fa fa-calendar fa-fix"> </em>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.position}</strong></label>
-                <div class="col-sm-19 col-md-20">
-                    <input class="form-control" type="text" name="position" value="{ROW.position}" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.jointime}</strong></label>
-                <div class="col-sm-19 col-md-20">
-                    <div class="input-group">
-                        <input class="form-control datepicker" type="text" name="jointime" value="{ROW.jointime}" pattern="^[0-9]{2,2}\/[0-9]{2,2}\/[0-9]{1,4}$" /> <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">
-                                <em class="fa fa-calendar fa-fix"> </em>
-                            </button>
-                        </span>
+        </div>
+        <div id="termofcontract" class="tab-pane fade">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.createtime}</strong></label>
+                        <div class="col-sm-19 col-md-20">
+                            <div class="input-group">
+                                <input class="form-control" type="text" name="createtime" value="{ROW.createtime}" id="createtime" pattern="^[0-9]{2,2}\/[0-9]{2,2}\/[0-9]{1,4}$" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="createtime-btn">
+                                        <em class="fa fa-calendar fa-fix"> </em>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.duetime}</strong></label>
+                        <div class="col-sm-19 col-md-20">
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <select class="form-control" name="cycle" id="cycle">
+                                        <option value="0">--- {LANG.cycle_month_select} ---</option>
+                                        <!-- BEGIN: cycle -->
+                                        <option value="{CYCLE.key}"{CYCLE.selected}>{CYCLE.value}</option>
+                                        <!-- END: cycle -->
+                                    </select>
+                                </div>
+                                <div class="col-xs-18 col-sm-18 col-md-18">
+                                    <div class="input-group">
+                                        <input class="form-control" type="text" name="duetime" autocomplete="off" value="{ROW.duetime}" id="duetime" pattern="^[0-9]{2,2}\/[0-9]{2,2}\/[0-9]{1,4}$" />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="duetime-btn">
+                                                <em class="fa fa-calendar fa-fix"> </em>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="form-group text-center">
-        <input type="hidden" name="submit" value="1" /> <input class="btn btn-primary" type="submit" id="btn-submit" value="{LANG.save}" />
+        <input type="hidden" name="submit" value="1" />
+        <input class="btn btn-primary" type="submit" id="btn-submit" value="{LANG.save}" />
     </div>
 </form>
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/jquery-ui/jquery-ui.min.js"></script>
@@ -332,5 +393,29 @@
             }
         });
     });
+</script>
+<script type="text/javascript">
+    //<![CDATA[
+    $("#createtime,#duetime").datepicker({
+        dateFormat : "dd/mm/yy",
+        changeMonth : true,
+        changeYear : true,
+        showOtherMonths : true,
+        showOn : "focus",
+        yearRange : "-90:+5",
+    });    
+    
+    $('#cycle').change(function(){
+        var createtime = $('#createtime').val();
+        var cycle = $(this).val();
+        $.post(script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=content&nocache=' + new Date().getTime(), 'get_time_end=1&createtime=' + createtime + '&cycle=' + cycle, function(res) {
+            var r_split = res.split('_');
+            if (r_split[0] == 'OK') {
+                $('#duetime').val(r_split[1]);
+            }
+        });
+    });
+    
+    //]]>
 </script>
 <!-- END: main -->

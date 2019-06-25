@@ -39,6 +39,7 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   image varchar(255) NOT NULL,
   addtime int(11) unsigned NOT NULL COMMENT 'Thời gian thêm',
   edittime int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'Thời gian sửa',
+  userid_link mediumint(8) unsigned NOT NULL COMMENT 'Tài khoản liên kết',
   userid mediumint(8) unsigned NOT NULL COMMENT 'Người thêm',
   note text NOT NULL COMMENT 'Ghi chú',
   is_contacts tinyint(1) NOT NULL COMMENT 'Loại khách hàng',
@@ -55,6 +56,10 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   id smallint(4) NOT NULL AUTO_INCREMENT,
   title varchar(255) NOT NULL COMMENT 'Loại khách hàng',
   note text NOT NULL COMMENT 'Ghi chú',
+  title_mail varchar(255) NOT NULL COMMENT 'tiêu đề mail chào mừng',
+  content text NOT NULL COMMENT 'Nội dung mail chào mừng',
+  birthday_title varchar(255) NOT NULL COMMENT 'Tiêu đề chúc mừng sinh nhật',
+  birthday_content text NOT NULL COMMENT 'Nội dung chúc mừng sinh nhật',
   weight smallint(4) unsigned NOT NULL,
   active tinyint(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (id)
@@ -120,3 +125,5 @@ $array_config['groups_manage'] = '1,2,3';
 foreach ($data as $config_name => $config_value) {
     $sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', " . $db->quote($module_name) . ", " . $db->quote($config_name) . ", " . $db->quote($config_value) . ")";
 }
+
+$sql_create_module[] = "INSERT INTO " . NV_CRONJOBS_GLOBALTABLE . " (start_time, inter_val, run_file, run_func, params, del, is_sys, act, last_time, last_result, vi_cron_name) VALUES (1547838000, 1440, 'customer_happy_birthday.php', 'cron_customer_happy_birthday', '', 0, 0, 1, 1547865509, 1, 'Gửi thư chúc mừng sinh nhật khách hàng');";

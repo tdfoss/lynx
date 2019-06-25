@@ -82,7 +82,7 @@
                     <td>{VIEW.gender}</td>
                     <td>{VIEW.birthday}</td>
                     <td>{VIEW.main_phone}</td>
-                    <td>{VIEW.main_email}</td>
+                    <td><a href="mailto:{VIEW.main_email}">{VIEW.main_email}</a></td>
                     <!-- BEGIN: manage -->
                     <td class="text-center">
                         <i class="fa fa-edit fa-lg">&nbsp;</i> <a href="{VIEW.link_edit}">{LANG.edit}</a> - <em class="fa fa-trash-o fa-lg">&nbsp;</em> <a href="{VIEW.link_delete}" onclick="return confirm(nv_is_del_confirm[0]);">{LANG.delete}</a>

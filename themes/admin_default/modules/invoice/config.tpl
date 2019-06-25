@@ -29,6 +29,29 @@
             </div>
         </div>
     </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">{LANG.score}</div>
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="col-sm-4 text-right">{LANG.config_score_allow}</label>
+                <div class="col-sm-20">
+                    <label><input type="checkbox" name="score_allow" value="1" {DATA.ck_score_allow} />{LANG.config_score_allow_note}</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">{LANG.config_score_money}</label>
+                <div class="col-sm-20">
+                    <input class="form-control" type="text" name="score_money" value="{DATA.score_money}" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">{LANG.config_money_score}</label>
+                <div class="col-sm-20">
+                    <input class="form-control" type="text" name="money_score" value="{DATA.money_score}" />
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="text-center">
         <input type="submit" class="btn btn-primary" value="{LANG.save}" name="savesetting" />
     </div>

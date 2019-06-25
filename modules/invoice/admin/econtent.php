@@ -56,12 +56,14 @@ $array_replace = array(
     'TABLE' => $lang_module['list_pro_ser'],
     'TABLE_TRANSACTION' => $lang_module['transaction_history'],
     'URL' => $lang_module['url'],
+    'URL_PAYMENT' => $lang_module['url_payment'],
     'LOGO' => $lang_module['logo_site'],
     'SITE_NAME' => $lang_module['site_name'],
     'SITE_DESCRIPTION' => $lang_module['site_description'],
     'CUSTOMER_EMAIL' => $lang_module['customer_email'],
     'CUSTOMER_PHONE' => $lang_module['customer_phone'],
     'CUSTOMER_ADDRESS' => $lang_module['customer_address'],
+    'SCORE' => $lang_module['score'],
 );
 
 $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $global_config['module_theme'] . '/modules/' . $module_file);

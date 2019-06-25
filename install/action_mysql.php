@@ -246,6 +246,17 @@ $sql_create_table[] = "CREATE TABLE " . $db_config['prefix'] . "_logs (
   PRIMARY KEY (id)
 ) ENGINE=MyISAM";
 
+$sql_create_table[] = "CREATE TABLE " . $db_config['prefix'] . "_sendmail (
+  id mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  from_mail varchar(255) NOT NULL,
+  to_mail varchar(255) NOT NULL,
+  subject varchar(255) NOT NULL,
+  message text NOT NULL,
+  files varchar(255) NOT NULL DEFAULT '',
+  embeddedimage tinyint(1) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (id)
+) ENGINE=MyISAM";
+
 $sql_create_table[] = "CREATE TABLE " . $db_config['prefix'] . "_upload_dir (
   did mediumint(8) NOT NULL AUTO_INCREMENT,
   dirname varchar(250) DEFAULT NULL,

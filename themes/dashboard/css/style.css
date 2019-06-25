@@ -2302,7 +2302,7 @@ button.close {
 .sum-voting {
 	margin-top:5px;
 }
-.comment-list {
+.media-body .comment-list {
     padding-left: 50px !important;
 }
 

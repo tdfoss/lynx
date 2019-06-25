@@ -22,10 +22,11 @@ $where = ' AND (' . nv_like_logic('first_name', $dbkeyword, $logic) . '
         OR ' . nv_like_logic('skype', $dbkeyword, $logic) . '
         OR ' . nv_like_logic('zalo', $dbkeyword, $logic) . '
         OR ' . nv_like_logic('address', $dbkeyword, $logic) . '
+        OR ' . nv_like_logic('website', $dbkeyword, $logic) . '
     )';
 
 require_once NV_ROOTDIR . '/modules/customer/site.functions.php';
-$where .= nv_customer_premission($m_values['module_name']);
+$where .= nv_customer_premission($m_values['module_name'], 't1.');
 
 $db_slave->sqlreset()
     ->select('COUNT(*)')

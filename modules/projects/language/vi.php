@@ -100,6 +100,9 @@ $lang_module['logs_project_delete'] = 'Xóa dự án';
 $lang_module['logs_project_delete_note'] = 'Xóa dự án <strong>%s</strong>';
 $lang_module['logs_project_change_status'] = 'Thay đổi trạng thái dự án';
 $lang_module['logs_project_change_status_note'] = 'Thay đổi trạng thái dự án <strong>%s</strong> từ <strong>%s</strong> thành <strong>%s</strong>';
+$lang_module['useradd'] = 'Người khởi tạo';
+$lang_module['addtime'] = 'Thời gian tạo';
+$lang_module['edittime'] = 'Cập nhật lần cuối';
 
 $lang_module['field_match_type_error'] = '%s không đúng quy tắc';
 $lang_module['field_match_type_required'] = '%s bắt buộc nhập';

@@ -111,13 +111,6 @@
                             <th>{LANG.status}</th>
                         </tr>
                     </thead>
-                    <!-- BEGIN: generate_page -->
-                    <tfoot>
-                        <tr>
-                            <td class="text-center" colspan="10">{NV_GENERATE_PAGE}</td>
-                        </tr>
-                    </tfoot>
-                    <!-- END: generate_page -->
                     <tbody id="tbody">
                         <!-- BEGIN: empty_data_invoice -->
                         <td colspan="8" class="text-center">{LANG.empty_data_invoice}</td>
@@ -155,7 +148,7 @@
                     <th>{LANG.grand_total}</th>
                     <th>{LANG.status}</th>
                     <!-- BEGIN: admin4 -->
-                    <th width="150">&nbsp;</th>
+                    <th width="80">&nbsp;</th>
                     <!-- END: admin4 -->
                 </tr>
             </thead>
@@ -169,23 +162,17 @@
             <tbody>
                 <!-- BEGIN: loop -->
                 <tr onclick="nv_table_row_click(event, '{VIEW.link_view}', false);" class="pointer <!-- BEGIN: warning -->warning<!-- END: warning --> <!-- BEGIN: danger -->danger<!-- END: danger --> <!-- BEGIN: success -->success<!-- END: success -->">
-                    <td class="text-center">
-                        <input type="checkbox" onclick="nv_UncheckAll(this.form, 'idcheck[]', 'check_all[]', this.checked);" value="{VIEW.id}" name="idcheck[]" class="post">
-                    </td>
+                    <td class="text-center"><input type="checkbox" onclick="nv_UncheckAll(this.form, 'idcheck[]', 'check_all[]', this.checked);" value="{VIEW.id}" name="idcheck[]" class="post"></td>
                     <td>#{VIEW.code}</td>
                     <td>{VIEW.title}</td>
-                    <td>
-                        <a href="{VIEW.customer.link}">{VIEW.customer.fullname}</a>
-                    </td>
+                    <td><a href="{VIEW.customer.link}">{VIEW.customer.fullname}</a></td>
                     <td>{VIEW.createtime}</td>
                     <td>{VIEW.duetime}</td>
                     <td>{VIEW.addtime}</td>
                     <td>{VIEW.grand_total}</td>
                     <td>{VIEW.status_str}</td>
                     <!-- BEGIN: admin3 -->
-                    <td class="text-center">
-                        <i class="fa fa-edit fa-lg">&nbsp;</i> <a href="{VIEW.link_edit}">{LANG.edit}</a> - <em class="fa fa-trash-o fa-lg">&nbsp;</em> <a href="{VIEW.link_delete}" onclick="return confirm(nv_is_del_confirm[0]);">{LANG.delete}</a>
-                    </td>
+                    <td class="text-center"><a href="{VIEW.link_edit}" class="btn btn-default btn-xs" data-toggle="tooltip" data-original-title="{LANG.edit}"><i class="fa fa-edit fa-lg"></i></a> <a href="{VIEW.link_delete}" onclick="return confirm(nv_is_del_confirm[0]);" data-toggle="tooltip" data-original-title="{LANG.delete}" class="btn btn-default btn-xs"><em class="fa fa-trash-o fa-lg"></em></a></td>
                     <!-- END: admin3 -->
                 </tr>
                 <!-- END: loop -->
@@ -210,57 +197,34 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script type="text/javascript">
-$(function() {
-
-  $('input[name="daterange"]').daterangepicker({
-      autoUpdateInput: false,
-      showDropdowns: true,
-      opens: "center",
-      locale: {
-          cancelLabel: 'Clear',
-          format: 'DD/MM/YYYY',
-          separator: " - ",
-          applyLabel: "{LANG.applyLabel}",
-          cancelLabel: "{LANG.cancelLabel}",
-          fromLabel: "{LANG.fromLabel}",
-          toLabel: "{LANG.toLabel}",
-          customRangeLabel: "Custom",
-          daysOfWeek: [
-              "{LANG_GLOBAL.sun}",
-              "{LANG_GLOBAL.mon}",
-              "{LANG_GLOBAL.tue}",
-              "{LANG_GLOBAL.wed}",
-              "{LANG_GLOBAL.thu}",
-              "{LANG_GLOBAL.fri}",
-              "{LANG_GLOBAL.sat}"  
-              ],
-          monthNames: [
-              "{LANG_GLOBAL.january}",
-              "{LANG_GLOBAL.february}",
-              "{LANG_GLOBAL.march}",
-              "{LANG_GLOBAL.april}",
-              "{LANG_GLOBAL.may}",
-              "{LANG_GLOBAL.june}",
-              "{LANG_GLOBAL.july}",
-              "{LANG_GLOBAL.august}",
-              "{LANG_GLOBAL.september}",
-              "{LANG_GLOBAL.october}",
-              "{LANG_GLOBAL.december}"  
-              ]   
-      }
-  });
-
- 
-
-  $('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
-      $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
-  });
-
-  $('input[name="daterange"]').on('cancel.daterangepicker', function(ev, picker) {
-      $(this).val('');
-  });
-
-});
+    $(function() {
+        $('input[name="daterange"]').daterangepicker({
+            autoUpdateInput : false,
+            showDropdowns : true,
+            opens : "center",
+            locale : {
+                cancelLabel : 'Clear',
+                format : 'DD/MM/YYYY',
+                separator : " - ",
+                applyLabel : "{LANG.applyLabel}",
+                cancelLabel : "{LANG.cancelLabel}",
+                fromLabel : "{LANG.fromLabel}",
+                toLabel : "{LANG.toLabel}",
+                customRangeLabel : "Custom",
+                daysOfWeek : [ "{LANG_GLOBAL.sun}", "{LANG_GLOBAL.mon}", "{LANG_GLOBAL.tue}", "{LANG_GLOBAL.wed}", "{LANG_GLOBAL.thu}", "{LANG_GLOBAL.fri}", "{LANG_GLOBAL.sat}" ],
+                monthNames : [ "{LANG_GLOBAL.january}", "{LANG_GLOBAL.february}", "{LANG_GLOBAL.march}", "{LANG_GLOBAL.april}", "{LANG_GLOBAL.may}", "{LANG_GLOBAL.june}", "{LANG_GLOBAL.july}", "{LANG_GLOBAL.august}", "{LANG_GLOBAL.september}", "{LANG_GLOBAL.october}", "{LANG_GLOBAL.december}" ]
+            }
+        });
+        
+        $('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
+            $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
+        });
+        
+        $('input[name="daterange"]').on('cancel.daterangepicker', function(ev, picker) {
+            $(this).val('');
+        });
+        
+    });
 </script>
 <script>
     $(".datepicker").datepicker({
@@ -282,16 +246,16 @@ $(function() {
     
     var confirm_confirm_payment = '{LANG.confirm_confirm_payment}';
     var list_error = '{LANG.error_unknow}';
-
-    $('#list_invoice').change(function(){      
+    
+    $('#list_invoice').change(function() {
         var date = $('#list_invoice').val();
-        $.post(script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '={OP}&nocache=' + new Date().getTime(), 'get_info_invoice_json=1&date=' + date, function(json) {            
+        $.post(script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '={OP}&nocache=' + new Date().getTime(), 'get_info_invoice_json=1&date=' + date, function(json) {
             $("#tbody").empty();
             $("#tbody").append(json);
-         
+            
         });
     });
-
+    
     $(document).ready(function() {
         
         $(".select2").select2({
@@ -352,12 +316,10 @@ $(function() {
 <!-- END: main -->
 <!-- BEGIN: list -->
 <!-- BEGIN: list_invoice -->
-<tr onclick="nv_table_row_click(event, '{VIEW.link_view}', false);" class="pointer <!-- BEGIN: warning -->warning<!-- END: warning --> <!-- BEGIN: danger -->danger<!-- END: danger --> <!-- BEGIN: success -->success<!-- END: success -->">
+<tr onclick="nv_table_row_click(event, '{LIST.link_view}', false);" class="pointer <!-- BEGIN: warning -->warning<!-- END: warning --> <!-- BEGIN: danger -->danger<!-- END: danger --> <!-- BEGIN: success -->success<!-- END: success -->">
     <td>#{LIST.code}</td>
     <td>{LIST.title}</td>
-    <td>
-        <a href="{LIST.customer.link}">{LIST.customer.fullname}</a>
-    </td>
+    <td><a href="{LIST.customer.link}">{LIST.customer.fullname}</a></td>
     <td>{LIST.createtime}</td>
     <td>{LIST.duetime}</td>
     <td>{LIST.addtime}</td>

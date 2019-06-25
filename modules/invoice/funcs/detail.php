@@ -8,6 +8,24 @@
  */
 if (!defined('NV_IS_MOD_INVOICE')) die('Stop!!!');
 
+if ($nv_Request->isset_request('get_score_info', 'post')) {
+    $amount = $nv_Request->get_title('amount', 'post', 0);
+    $score = nv_invoice_get_amount($amount);
+    $customerid = $nv_Request->get_int('customerid', 'post', 0);
+    $customer_score = nv_invoice_get_customer_score($customerid);
+    if ($customer_score['score'] < $score) {
+        nv_jsonOutput(array(
+            'error' => 1,
+            'msg' => $lang_module['score_error'],
+            'input' => 'amount'
+        ));
+    }
+    nv_jsonOutput(array(
+        'error' => 0,
+        'msg' => sprintf($lang_module['score_note'], $score)
+    ));
+}
+
 if ($nv_Request->isset_request('transaction_list', 'post')) {
     $invoiceid = $nv_Request->get_int('invoiceid', 'post', 0);
     $contents = nv_transaction_list($invoiceid);
@@ -16,26 +34,28 @@ if ($nv_Request->isset_request('transaction_list', 'post')) {
 
 if ($nv_Request->isset_request('transaction_update', 'post')) {
     $row = array();
+    $row['transaction_type'] = $nv_Request->get_int('transaction_type', 'post', 1);
     $row['invoiceid'] = $nv_Request->get_int('invoiceid', 'post', 0);
     $row['transaction_status'] = 4;
+    $row['customerid'] = $nv_Request->get_int('customerid', 'post', 0);
     $row['payment'] = '';
     $row['payment_amount'] = $nv_Request->get_title('amount', 'post', '');
     $row['payment_data'] = '';
     $row['note'] = $nv_Request->get_textarea('note', '', NV_ALLOWED_HTML_TAGS);
-    
+
     if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $nv_Request->get_string('transaction_time', 'post'), $m)) {
         $row['transaction_time'] = mktime(23, 59, 59, $m[2], $m[1], $m[3]);
     } else {
         $row['transaction_time'] = 0;
     }
-    
+
     if (empty($row['invoiceid'])) {
         nv_jsonOutput(array(
             'error' => 1,
             'msg' => $lang_module['error_required_invoiceid']
         ));
     }
-    
+
     if (empty($row['payment_amount'])) {
         nv_jsonOutput(array(
             'error' => 1,
@@ -43,7 +63,7 @@ if ($nv_Request->isset_request('transaction_update', 'post')) {
             'input' => 'amount'
         ));
     }
-    
+
     $rows = $db->query('SELECT title, code FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $row['invoiceid'])->fetch();
     if (!$rows) {
         nv_jsonOutput(array(
@@ -51,7 +71,29 @@ if ($nv_Request->isset_request('transaction_update', 'post')) {
             'msg' => $lang_module['error_required_invoiceid']
         ));
     }
-    
+
+    if (defined('NV_INVOICE_SCORE') && $row['transaction_type'] == 2) {
+        // đổi số tiền cần thanh toán thành điểm
+        $score = nv_invoice_get_amount($row['payment_amount']);
+
+        // điểm hiện có của khách hàng
+        $customer_score = nv_invoice_get_customer_score($row['customerid']);
+
+        // so sánh xem khách hàng có đủ điểm để thanh toán hay không
+        if ($customer_score['score'] < $score) {
+            nv_jsonOutput(array(
+                'error' => 1,
+                'msg' => $lang_module['score_error'],
+                'input' => 'amount'
+            ));
+        }
+        $row['payment'] = 'score';
+        $row['payment_data'] = array(
+            'score' => $score
+        );
+        $row['payment_data'] = serialize($row['payment_data']);
+    }
+
     $stmt = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_transaction(invoiceid, transaction_time, transaction_status, payment, payment_amount, payment_data, note) VALUES(:invoiceid, ' . $row['transaction_time'] . ', :transaction_status, :payment, :payment_amount, :payment_data, :note)');
     $stmt->bindParam(':invoiceid', $row['invoiceid'], PDO::PARAM_INT);
     $stmt->bindParam(':transaction_status', $row['transaction_status'], PDO::PARAM_INT);
@@ -60,13 +102,35 @@ if ($nv_Request->isset_request('transaction_update', 'post')) {
     $stmt->bindParam(':payment_data', $row['payment_data'], PDO::PARAM_STR);
     $stmt->bindParam(':note', $row['note'], PDO::PARAM_STR, strlen($row['note']));
     if ($stmt->execute()) {
-        
+
         // tính toán, cập nhật lại trạng thái hóa đơn
         nv_transaction_update($row['invoiceid']);
-        
+
+        // cập nhật điểm tích lũy
+        if (defined('NV_INVOICE_SCORE')) {
+            // quy tiền thành điểm
+            $score = nv_invoice_get_score($row['payment_amount']);
+
+            // cập nhật điểm tổng cho khách hàng khi mua hàng
+            try {
+                $db->query('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_score (customerid, score) VALUES(' . $row['customerid'] . ', ' . $score . ')');
+            } catch (Exception $e) {
+                $db->query('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . '_score SET score=score+' . ($score) . ' WHERE customerid=' . $row['customerid']);
+            }
+
+            // cập nhật điểm tổng cho mỗi đơn hàng
+            $db->query('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET score=score+' . ($score) . ' WHERE customerid=' . $row['customerid'] . ' AND id=' . $row['invoiceid']);
+
+            // Nếu lấy điểm thanh toán thì trừ điểm
+            if ($row['transaction_type'] == 2) {
+                $score = nv_invoice_get_amount($row['payment_amount']);
+                $db->query('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . '_score SET score=score-' . $score . ' WHERE customerid=' . $row['customerid']);
+            }
+        }
+
         $content = sprintf($lang_module['logs_transaction_add'], $workforce_list[$user_info['userid']]['fullname'], $rows['code'], $rows['title'], nv_number_format($row['payment_amount']));
         nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['transaction_add'], $content, $user_info['userid']);
-        
+
         nv_jsonOutput(array(
             'error' => 0,
             'invoiceid' => $row['invoiceid']
@@ -80,7 +144,7 @@ if ($nv_Request->isset_request('transaction_update', 'post')) {
 
 if ($nv_Request->isset_request('transaction_content', 'post')) {
     $id = $nv_Request->get_int('id', 'post', 0);
-    
+
     if ($id > 0) {
         $rows = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_transaction WHERE id=' . $id)->fetch();
     } else {
@@ -93,17 +157,28 @@ if ($nv_Request->isset_request('transaction_content', 'post')) {
         $rows['payment_amount'] = 0;
         $rows['payment_data'] = '';
     }
-    
-    $contents = nv_theme_invoice_transaction($rows);
+
+    $invoice = array();
+    if ($rows['invoiceid']) {
+        $invoice = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $rows['invoiceid'])->fetch();
+        $invoice['customer'] = nv_crm_customer_info($invoice['customerid']);
+    }
+
+    if (defined('NV_INVOICE_SCORE')) {
+        $invoice['customer'] += nv_invoice_get_customer_score($invoice['customerid']);
+    }
+
+    $contents = nv_theme_invoice_transaction($invoice, $rows);
     nv_htmlOutput($contents);
 }
+
 
 if ($nv_Request->isset_request('downpdf', 'get')) {
     $id = $nv_Request->get_int('id', 'get', 0);
     $code = $db->query('SELECT code FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetchColumn();
     $filename = '#' . $code . '.pdf';
     $contents = nv_invoice_template($id);
-    
+
     if (class_exists('Mpdf\Mpdf')) {
         $mpdf = new \Mpdf\Mpdf();
         $mpdf->WriteHTML($contents);
@@ -112,10 +187,10 @@ if ($nv_Request->isset_request('downpdf', 'get')) {
 }
 
 if ($nv_Request->isset_request('sendmail', 'post')) {
-    
+
     $id = $nv_Request->get_int('id', 'post', 0);
     $code = $db->query('SELECT code FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetchColumn();
-    
+
     $location_file = array();
     if (class_exists('Mpdf\Mpdf')) {
         $contents = nv_invoice_template($id);
@@ -125,7 +200,7 @@ if ($nv_Request->isset_request('sendmail', 'post')) {
         $mpdf->Output($location, \Mpdf\Output\Destination::FILE);
         $location_file[] = str_replace(NV_ROOTDIR . '/', '', $location);
     }
-    
+
     $result = nv_sendmail_econtent($id, $user_info['userid'], $location_file);
     if ($result['status']) {
         if (file_exists($location)) {
@@ -164,15 +239,15 @@ if ($id > 0) {
         Header('Location: ' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name);
         die();
     }
-    
+
     $row['createtime'] = date('d/m/Y', $row['createtime']);
     $row['duetime'] = (empty($row['duetime'])) ? ($lang_module['non_identify']) : nv_date('d/m/Y', $row['duetime']);
     $row['customer'] = nv_crm_customer_info($row['customerid']);
     $row['workforceid'] = !empty($row['workforceid']) ? $workforce_list[$row['workforceid']]['fullname'] : $lang_module['workforceid_empty'];
     $row['status_str'] = $array_invoice_status[$row['status']];
     $row['grand_total_string'] = nv_convert_number_to_words($row['grand_total']);
-    $row['grand_total'] = number_format($row['grand_total']);
-    $row['discount_value'] = number_format($row['discount_value']);
+    $row['grand_total'] = nv_number_format($row['grand_total']);
+    $row['discount_value'] = nv_number_format($row['discount_value']);
 } else {
     Header('Location: ' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name);
     die();
@@ -190,8 +265,8 @@ while ($order = $order_id->fetch()) {
     $array_invoice_products[] = $order;
 }
 
-$row['item_total'] = number_format($row['item_total']);
-$row['vat_total'] = number_format($row['vat_total']);
+$row['item_total'] = nv_number_format($row['item_total']);
+$row['vat_total'] = nv_number_format($row['vat_total']);
 
 $row['terms'] = nv_nl2br($row['terms']);
 $row['description'] = nv_nl2br($row['description']);
@@ -213,13 +288,13 @@ if (isset($site_mods['comment']) and isset($array_config['activecomm'])) {
     if ($allowed == '-1') {
         $allowed = $rows['allowed_comm'];
     }
-    
+
     define('NV_PER_PAGE_COMMENT', 5);
-    
+
     require_once NV_ROOTDIR . '/modules/comment/comment.php';
     $area = (defined('NV_COMM_AREA')) ? NV_COMM_AREA : 0;
     $checkss = md5($module_name . '-' . $area . '-' . NV_COMM_ID . '-' . $allowed . '-' . NV_CACHE_PREFIX);
-    
+
     $url_info = parse_url($client_info['selfurl']);
     $content_comment = nv_comment_module($module_name, $checkss, $area, NV_COMM_ID, $allowed, 1);
 } else {

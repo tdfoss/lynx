@@ -13,9 +13,7 @@ $redirect = $nv_Request->get_string('redirect', 'get', '');
 
 //tìm kiếm hóa đơn sắp hết hạn
 if ($nv_Request->isset_request('get_info_invoice_json', 'post, get')) {
-    
     $date = $nv_Request->get_int('date', 'post', '');
-    
     nv_jsonOutput(nv_invoice_check_date($date));
 }
 
@@ -36,7 +34,7 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
 } elseif ($nv_Request->isset_request('delete_list', 'post')) {
     $listall = $nv_Request->get_title('listall', 'post', '');
     $array_id = explode(',', $listall);
-    
+
     if (!empty($array_id)) {
         foreach ($array_id as $id) {
             nv_delete_invoice($id);
@@ -50,7 +48,7 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
 if ($nv_Request->isset_request('confirm_payment', 'post')) {
     $listall = $nv_Request->get_title('listall', 'post', '');
     $array_id = explode(',', $listall);
-    
+
     if (!empty($array_id)) {
         foreach ($array_id as $id) {
             nv_invoice_confirm_payment($id);
@@ -108,23 +106,23 @@ if (!empty($array_search['performerid'])) {
 }
 
 if (!empty($array_search['daterange'])) {
-    
+
     $begin_time = substr($array_search['daterange'], 0, 10);
     $end_time = substr($array_search['daterange'], -10);
-    
+
     if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $begin_time, $m)) {
-        
+
         $begin_time = mktime(23, 59, 59, $m[2], $m[1], $m[3]);
     } else {
         $begin_time = 0;
     }
     if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $end_time, $m)) {
-        
+
         $end_time = mktime(23, 59, 59, $m[2], $m[1], $m[3]);
     } else {
         $end_time = 0;
     }
-    
+
     $base_url .= '&amp;daterange= ' . $array_search['daterange'];
     $where .= ' AND createtime >= ' . $begin_time . ' AND duetime <= ' . $end_time;
 }
@@ -173,7 +171,6 @@ $xtpl->assign('OP', $op);
 $xtpl->assign('ROW', $row);
 $xtpl->assign('SEARCH', $array_search);
 $xtpl->assign('BASE_URL', $base_url);
-
 $xtpl->assign('URL_ADD', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=content');
 
 if (empty(nv_invoice_check_date(1))) {
@@ -216,23 +213,23 @@ while ($view = $sth->fetch()) {
     $view['link_view'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $view['id'];
     $view['link_edit'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=content&amp;id=' . $view['id'] . '&amp;redirect=' . nv_redirect_encrypt($client_info['selfurl']);
     $view['link_delete'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;delete_id=' . $view['id'] . '&amp;delete_checkss=' . md5($view['id'] . NV_CACHE_PREFIX . $client_info['session_id']) . '&amp;redirect=' . nv_redirect_encrypt($client_info['selfurl']);
-    
+
     $xtpl->assign('VIEW', $view);
-    
+
     if (empty($view['status'])) {
         $xtpl->parse('main.loop.warning');
     }
-    
+
     if ($view['status'] == 2) {
         $xtpl->parse('main.loop.danger');
     } elseif ($view['status'] == 3) {
         $xtpl->parse('main.loop.success');
     }
-    
+
     if (defined('NV_INVOICE_ADMIN')) {
         $xtpl->parse('main.loop.admin3');
     }
-    
+
     $xtpl->parse('main.loop');
 }
 
@@ -276,12 +273,12 @@ if (defined('NV_INVOICE_ADMIN')) {
             $xtpl->parse('main.admin.user2');
         }
     }
-    
+
     if (!empty($customer_info)) {
         $xtpl->assign('CUSTOMER', $customer_info);
         $xtpl->parse('main.admin.customer');
     }
-    
+
     $array_action = array(
         'delete_list_id' => $lang_global['delete'],
         'confirm_payment' => $lang_module['confirm_payment']

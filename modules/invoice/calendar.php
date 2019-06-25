@@ -14,7 +14,7 @@ $result = $db->query('SELECT id, title, duetime FROM ' . NV_PREFIXLANG . '_' . $
 while (list ($id, $title, $endtime) = $result->fetch(3)) {
     $array_data[] = array(
         'id' => $id,
-        'title' => $title,
+        'title' => nv_unhtmlspecialchars($title),
         'start' => date('Y-m-d', $endtime),
         'url' => NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $mod . '&' . NV_OP_VARIABLE . '=detail&id=' . $id,
         'color' => '#f5c412'

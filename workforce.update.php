@@ -25,24 +25,29 @@ while (list ($lang) = $language_query->fetch(3)) {
         $data['workdays'] = 24; // tổng số ngày công trong tháng
         $data['insurrance'] = 10.5; // hệ số tính bảo hiểm
         $data['overtime'] = 150; // tỉ lệ lương làm thêm giờ
-        
+        $data['termofcontract'] = 60; // Thời hạn hợp đồng tối đa
+
         foreach ($data as $config_name => $config_value) {
             $sql[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', " . $db->quote($mod) . ", " . $db->quote($config_name) . ", " . $db->quote($config_value) . ")";
         }
-        
+
         $result_info_workforce = $db->query('SELECT id FROM ' . NV_PREFIXLANG . '_' . $mod_data);
-        while (list ($id) = $result_info_workforce ->fetch(3)) {
+        while (list ($id) = $result_info_workforce->fetch(3)) {
             $sql[] = "INSERT INTO " . NV_PREFIXLANG . '_' . $mod_data . "_info (rows_id) VALUES ('" . $id . "')";
         }
-        
+
+        $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $mod_data . " ADD  createtime int(11) unsigned NOT NULL DEFAULT '0' AFTER edittime;";
+        $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $mod_data . " ADD  duetime int(11) unsigned NOT NULL DEFAULT '0' AFTER createtime;";
+        $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $mod_data . " ADD  cycle tinyint(1) unsigned NOT NULL DEFAULT '0' AFTER duetime;";
+
         $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $mod_data . " ADD  position varchar(100) NOT NULL AFTER jointime;";
-        
+
         $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $mod_data . " ADD  part varchar(100) NOT NULL COMMENT 'Thuộc bộ phận' AFTER position;";
-        
+
         $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $mod_data . "_salary ADD holiday DOUBLE UNSIGNED NOT NULL DEFAULT '0' AFTER workday, ADD holiday_salary DOUBLE UNSIGNED NOT NULL DEFAULT '0' AFTER holiday;";
-        
+
         $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $mod_data . "_salary ADD bhxh DOUBLE UNSIGNED NOT NULL DEFAULT '0' AFTER total;";
-        
+
         $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $mod_data . "_part(
           id smallint(4) unsigned NOT NULL AUTO_INCREMENT,
           parentid smallint(4) unsigned NOT NULL DEFAULT '0',
@@ -63,13 +68,13 @@ while (list ($lang) = $language_query->fetch(3)) {
           status tinyint(1) NOT NULL COMMENT 'Trạng thái',
           PRIMARY KEY (id)
           ) ENGINE=MyISAM";
-        
+
         $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $mod_data . "_part_detail(
           userid mediumint(8) unsigned NOT NULL,
           part smallint(4) NOT NULL COMMENT 'Thuộc bộ phận',
           UNIQUE KEY userid(userid, part)
           ) ENGINE=MyISAM";
-        
+
         $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $mod_data . "_history_salary(
           id smallint(4) unsigned NOT NULL AUTO_INCREMENT,
           userid mediumint(8) unsigned NOT NULL,
@@ -80,8 +85,8 @@ while (list ($lang) = $language_query->fetch(3)) {
           PRIMARY KEY (id),
           UNIQUE KEY userid (userid,addtime)
           ) ENGINE=MyISAM";
-        
-        $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang .  "_" . $mod_data . "_field (
+
+        $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $mod_data . "_field (
     	fid mediumint(8) NOT NULL AUTO_INCREMENT,
     	field varchar(25) NOT NULL,
     	weight int(10) unsigned NOT NULL DEFAULT '1',
@@ -101,12 +106,12 @@ while (list ($lang) = $language_query->fetch(3)) {
     	PRIMARY KEY (fid),
     	UNIQUE KEY field (field)
     ) ENGINE=MyISAM";
-        
+
         $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $mod_data . "_info (
     	rows_id mediumint(8) unsigned NOT NULL,
     	PRIMARY KEY (rows_id)
     ) ENGINE=MyISAM";
-        
+
         foreach ($sql as $_sql) {
             try {
                 $db->query($_sql);

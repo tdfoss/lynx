@@ -142,6 +142,10 @@
                         <!-- END: loop -->
                         <!-- END: field -->
                         <tr>
+                            <th>{LANG.userid_link}</th>
+                            <td>{CUSTOMER.userid_link}</td>
+                        </tr>
+                        <tr>
                             <th>{LANG.note}</th>
                             <td colspan="3">{CUSTOMER.note}</td>
                         </tr>

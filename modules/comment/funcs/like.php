@@ -7,8 +7,7 @@
  * @License GNU/GPL version 2 or any later version
  * @Createdate Mon, 27 Jan 2014 00:08:04 GMT
  */
-
-if (! defined('NV_IS_MOD_COMMENT')) {
+if (!defined('NV_IS_MOD_COMMENT')) {
     die('Stop!!!');
 }
 
@@ -25,12 +24,33 @@ if ($cid > 0 and $checkss == md5($cid . '_' . NV_CHECK_SESSION)) {
     } else {
         $nv_Request->set_Cookie($module_data . '_like_' . $cid, 1, 86400);
 
-        $_sql = 'SELECT cid, likes, dislikes FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE cid=' . $cid;
+        $_sql = 'SELECT cid, likes, dislikes, userid, content, module, area, id FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE cid=' . $cid;
         $row = $db->query($_sql)->fetch();
         if (isset($row['cid'])) {
             $like = $nv_Request->get_int('like', 'post');
             $query = 'UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET';
             if ($like > 0) {
+
+                // thông báo like bình luận
+                if ($row['userid'] != $user_info['userid']) {
+                    $content = sprintf($lang_module['comment_like_notification'], $workforce_list[$user_info['userid']]['fullname'], strip_tags($row['content']));
+                    $url = $area = '';
+                    foreach ($site_mods['projects']['funcs'] as $funcs) {
+                        if ($funcs['func_id'] == $row['area']) {
+                            $area = $funcs['func_name'];
+                            break;
+                        }
+                    }
+                    if (!empty($area)) {
+                        $url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $row['module'] . '&amp;' . NV_OP_VARIABLE . '=' . $area . '&amp;id=' . $row['id'] . '#cid_' . $row['cid'];
+                    }
+
+                    require_once NV_ROOTDIR . '/modules/notification/site.functions.php';
+                    nv_send_notification(array(
+                        $row['userid']
+                    ), $content, 'comment_like', 'comment', $url);
+                }
+
                 $contents = 'OK_like' . $cid . '_' . ($row['likes'] + 1);
                 $query .= ' likes=likes+1';
             } else {
