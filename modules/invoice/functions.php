@@ -246,6 +246,7 @@ function nv_invoice_check_date($date)
         } else {
             $rows['customer'] = $array_users[$rows['customerid']];
         }
+        $rows['grand_total'] = nv_number_format($rows['grand_total']);
         $rows['status_str'] = $lang_module['status_' . $rows['status']];
         $rows['createtime'] = (empty($rows['createtime'])) ? '' : nv_date('d/m/Y', $rows['createtime']);
         $rows['duetime'] = (empty($rows['duetime'])) ? ($lang_module['non_identify']) : nv_date('d/m/Y', $rows['duetime']);
