@@ -219,3 +219,6 @@ $lang_module['field_match_type_regex'] = 'Biểu thức quy tắc';
 $lang_module['field_match_type_callback'] = 'Sử dụng hàm';
 $lang_module['field_min_max_error'] = '%1$s cần nhập từ %2$s đến %3$s ký tự';
 $lang_module['field_min_max_value'] = '%1$s cần nhập từ %2$s đến %3$s';
+
+$lang_module['contact_add'] = 'Thêm liên hệ';
+$lang_module['contact_edit'] = 'Sửa liên hệ';
