@@ -347,3 +347,9 @@ body>div.login-box>div>div>div>div>h2 {
 .icon_select{
     font-size: 25px;
 }
+
+.cancelLink {
+    font-size: 14px;
+    padding-left: 10px;
+    color: red;
+}
