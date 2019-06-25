@@ -37,7 +37,7 @@ if ($nv_Request->isset_request('act', 'get')) {
         group_id, username, md5username, password, email, first_name, last_name, gender, photo, birthday, sig,
         regdate, question,
         answer, passlostkey, view_mail, remember, in_groups, active, checknum,
-        last_login, last_ip, last_agent, last_openid, idsite, email_verification_time
+        last_login, last_ip, last_agent, last_openid, idsite, email_verification_time, active_obj
     ) VALUES (
         :group_id,
         :username,
@@ -53,7 +53,7 @@ if ($nv_Request->isset_request('act', 'get')) {
         " . $row['regdate'] . ",
         :question,
         :answer,
-        '', 0, 0, '', 1, '', 0, '', '', '', " . $global_config['idsite'] . ", -2
+        '', 0, 0, '', 1, '', 0, '', '', '', " . $global_config['idsite'] . ", -2, '" . $admin_info['userid'] . "'
     )";
 
     $data_insert = array();
@@ -119,7 +119,7 @@ if ($nv_Request->isset_request('act', 'get')) {
                 $_url = NV_MY_DOMAIN . $_url;
             }
             $message = sprintf($lang_module['adduser_register_info'], $full_name, $global_config['site_name'], $_url, $row['username']);
-            @nv_sendmail($global_config['site_email'], $row['email'], $subject, $message);
+            @nv_sendmail([$global_config['site_name'], $global_config['site_email']], $row['email'], $subject, $message);
         } else {
             $db->query('DELETE FROM ' . NV_MOD_TABLE . ' WHERE userid=' . $userid);
         }
@@ -269,6 +269,11 @@ foreach ($users_list as $u) {
 if (!empty($generate_page)) {
     $xtpl->assign('GENERATE_PAGE', $generate_page);
     $xtpl->parse('main.generate_page');
+}
+
+if ($num_items > 0) {
+    $xtpl->assign('RESEND_URL', NV_BASE_ADMINURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=user_waiting_remail');
+    $xtpl->parse('main.resend_email');
 }
 
 $xtpl->parse('main');
