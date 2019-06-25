@@ -6,7 +6,6 @@
  * @Copyright (C) 2018 TDFOSS.,LTD. All rights reserved
  * @Createdate Tue, 16 Jan 2018 04:11:39 GMT
  */
-
 if (!defined('NV_SYSTEM')) die('Stop!!!');
 
 define('NV_IS_MOD_SERVICES', true);
@@ -27,9 +26,14 @@ $array_price_unit = $nv_Cache->db($_sql, 'id', $module_name);
 function nv_delete_service($id)
 {
     global $db, $module_data;
-
+    
     $count = $db->exec('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_customer WHERE id=' . $id);
     if ($count) {
         //
     }
 }
+
+
+
+
+

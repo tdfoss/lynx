@@ -22,16 +22,21 @@ while (list ($lang) = $language_query->fetch(3)) {
     $mquery = $db->query("SELECT title, module_data FROM " . $db_config['prefix'] . "_" . $lang . "_modules WHERE module_file = 'projects'");
     while (list ($mod, $mod_data) = $mquery->fetch(3)) {
         $sql = array();
-
+        
+        $result_info_project = $db->query('SELECT id FROM ' . NV_PREFIXLANG . '_' . $mod_data);
+        while (list ($id) = $result_info_project->fetch(3)) {
+            $sql[] = "INSERT INTO " . NV_PREFIXLANG . '_' . $mod_data . "_info (rows_id) VALUES ('" . $id . "')";
+        }
+        
         $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $mod_data . " CHANGE workforceid workforceid VARCHAR(255) NOT NULL COMMENT 'Nhân viên phụ trách' ";
-
+        
         $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $mod_data . "_performer(
           projectid int(11) unsigned NOT NULL,
           userid mediumint(8) unsigned NOT NULL,
           follow tinyint(1) unsigned NOT NULL DEFAULT '1',
           UNIQUE KEY projectid (projectid,userid)
         ) ENGINE=MyISAM";
-
+        
         foreach ($sql as $_sql) {
             try {
                 $db->query($_sql);

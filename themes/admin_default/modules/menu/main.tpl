@@ -25,7 +25,9 @@
 				<td> {ROW.menu_item} </td>
 				<td class="text-center">
 					<em class="fa fa-edit fa-lg">&nbsp;</em> <a href="{ROW.edit_url}">{LANG.edit}</a> &nbsp;
+                    <!-- BEGIN: delete -->
 					<em class="fa fa-trash-o fa-lg">&nbsp;</em> <a href="javascript:void(0);" onclick="nv_menu_delete({ROW.id});">{LANG.delete}</a>
+                    <!-- END: delete -->
 				</td>
 			</tr>
 			<!-- END: loop1 -->

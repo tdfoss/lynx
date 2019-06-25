@@ -43,3 +43,12 @@ table.row-click tr{
 .error {
     color: #FF0040;
 }
+
+.cancelLink {
+    font-size: 14px;
+    padding-left: 10px;
+    color: red;
+}
+.margin-left{
+	margin-left: 5px;
+}

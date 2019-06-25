@@ -11,7 +11,11 @@ if (!defined('NV_ADMIN') or !defined('NV_MAINFILE') or !defined('NV_IS_MODADMIN'
 
 define('NV_IS_FILE_ADMIN', true);
 
+$_sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_price_unit WHERE active=1';
+$array_price_unit = $nv_Cache->db($_sql, 'id', $module_name);
+
 $allow_func = array(
     'main',
-    'config'
+    'config',
+    'unit'
 );

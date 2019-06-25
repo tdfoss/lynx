@@ -12,6 +12,11 @@ $sql_drop_module = array();
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data;
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_types";
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_tags";
+$sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_tags_customer";
+$sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_share_acc";
+$sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_units";
+$sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_field";
+$sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_info";
 
 $sql_create_module = $sql_drop_module;
 $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "(
@@ -26,29 +31,35 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   facebook varchar(255) NOT NULL,
   skype varchar(50) NOT NULL,
   zalo varchar(255) NOT NULL,
-  gender tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT 'Giới tính',
+  website varchar(255) NOT NULL,
+  gender tinyint(1) unsigned NOT NULL DEFAULT '2' COMMENT 'Giới tính',
   address varchar(255) NOT NULL COMMENT 'Địa chỉ',
   unit varchar(255) NOT NULL COMMENT 'Đơn vị công tác',
-  trading_person varchar(255) NOT NULL COMMENT 'Người giao dịch',
-  unit_name varchar(255) NOT NULL COMMENT 'Đơn vị',
-  tax_code varchar(30) NOT NULL COMMENT 'Mã số thuế',
-  address_invoice varchar(255) NOT NULL COMMENT 'Địa chỉ đơn vị',
-  care_staff smallint(4) unsigned NOT NULL COMMENT 'Nhân viên chăm sóc KH',
+  care_staff mediumint(8) unsigned NOT NULL COMMENT 'Nhân viên chăm sóc KH',
   image varchar(255) NOT NULL,
   addtime int(11) unsigned NOT NULL COMMENT 'Thời gian thêm',
   edittime int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'Thời gian sửa',
+  userid_link mediumint(8) unsigned NOT NULL COMMENT 'Tài khoản liên kết',
   userid mediumint(8) unsigned NOT NULL COMMENT 'Người thêm',
   note text NOT NULL COMMENT 'Ghi chú',
   is_contacts tinyint(1) NOT NULL COMMENT 'Loại khách hàng',
   type_id smallint(4) unsigned NOT NULL DEFAULT '0',
   tag_id varchar(100) NOT NULL,
-  PRIMARY KEY (id)
+  share_acc varchar(100) NOT NULL COMMENT 'share với tài khoản',
+  share_groups smallint(4) unsigned NOT NULL COMMENT 'share với group',
+  PRIMARY KEY (id),
+  UNIQUE KEY main_phone (main_phone),
+  UNIQUE KEY main_email (main_email)
 ) ENGINE=MyISAM";
 
 $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_types(
   id smallint(4) NOT NULL AUTO_INCREMENT,
   title varchar(255) NOT NULL COMMENT 'Loại khách hàng',
   note text NOT NULL COMMENT 'Ghi chú',
+  title_mail varchar(255) NOT NULL COMMENT 'tiêu đề mail chào mừng',
+  content text NOT NULL COMMENT 'Nội dung mail chào mừng',
+  birthday_title varchar(255) NOT NULL COMMENT 'Tiêu đề chúc mừng sinh nhật',
+  birthday_content text NOT NULL COMMENT 'Nội dung chúc mừng sinh nhật',
   weight smallint(4) unsigned NOT NULL,
   active tinyint(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (id)
@@ -67,6 +78,46 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   UNIQUE KEY tid (tid, customerid)
 ) ENGINE=MyISAM;";
 
+$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_units(
+  tid smallint(4) NOT NULL AUTO_INCREMENT,
+  title varchar(255) NOT NULL COMMENT 'Tiêu đề',
+  note text NOT NULL DEFAULT '' COMMENT 'Ghi chú',
+  PRIMARY KEY (tid)
+) ENGINE=MyISAM;";
+
+$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_share_acc(
+  userid smallint(4) NOT NULL,
+  customerid mediumint(8) unsigned NOT NULL,
+  permisson tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT 'Quyền',
+  UNIQUE KEY tid (userid, customerid, permisson)
+) ENGINE=MyISAM;";
+
+$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_field (
+	fid mediumint(8) NOT NULL AUTO_INCREMENT,
+	field varchar(25) NOT NULL,
+	weight int(10) unsigned NOT NULL DEFAULT '1',
+	field_type enum('number','date','textbox','textarea','editor','select','radio','checkbox','multiselect') NOT NULL DEFAULT 'textbox',
+	field_choices text NOT NULL,
+	sql_choices text NOT NULL,
+	match_type enum('none','alphanumeric','email','url','regex','callback') NOT NULL DEFAULT 'none',
+	match_regex varchar(250) NOT NULL DEFAULT '',
+	func_callback varchar(75) NOT NULL DEFAULT '',
+	min_length int(11) NOT NULL DEFAULT '0',
+	max_length bigint(20) unsigned NOT NULL DEFAULT '0',
+	required tinyint(3) unsigned NOT NULL DEFAULT '0',
+	show_profile tinyint(4) NOT NULL DEFAULT '1',
+	class varchar(50) NOT NULL DEFAULT '',
+	language text NOT NULL,
+	default_value varchar(255) NOT NULL DEFAULT '',
+	PRIMARY KEY (fid),
+	UNIQUE KEY field (field)
+) ENGINE=MyISAM";
+
+$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_info (
+	rows_id mediumint(8) unsigned NOT NULL,
+	PRIMARY KEY (rows_id)
+) ENGINE=MyISAM";
+
 $data = array();
 $array_config['groups_admin'] = '1';
 $array_config['groups_manage'] = '1,2,3';
@@ -74,3 +125,5 @@ $array_config['groups_manage'] = '1,2,3';
 foreach ($data as $config_name => $config_value) {
     $sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', " . $db->quote($module_name) . ", " . $db->quote($config_name) . ", " . $db->quote($config_value) . ")";
 }
+
+$sql_create_module[] = "INSERT INTO " . NV_CRONJOBS_GLOBALTABLE . " (start_time, inter_val, run_file, run_func, params, del, is_sys, act, last_time, last_result, vi_cron_name) VALUES (1547838000, 1440, 'customer_happy_birthday.php', 'cron_customer_happy_birthday', '', 0, 0, 1, 1547865509, 1, 'Gửi thư chúc mừng sinh nhật khách hàng');";

@@ -17,8 +17,7 @@
 }
 
 [class^="icon-"],
-[class*=" icon-"] {
-    display:inline-block;
+[class*=" icon-"] {    display:inline-block;
     font:normal normal normal 14px/1 NukeVietIcons;
     font-size:inherit;
     text-rendering:auto;
@@ -1728,6 +1727,16 @@ a.btn {
 }
 
 /* panel-body */
+
+.panel-body p {
+    margin:0;
+}
+
+.panel-body ul {
+    margin:0;
+    padding:0;
+}
+
 .panel-body ul li {
     margin-bottom:10px;
 }
@@ -2082,11 +2091,27 @@ button.close {
     padding: 4px;
     display: inline-block;
 }
-
-a.btn-default {
-    color: #333;
+div.news_column ul.related li{
+	    display: block;
 }
-
-.comment-list{
-padding-left: 50px !important
+div.news_column ul.related>a>h4{
+	display:inline;
+}
+ul.nv-list-item > li{margin-bottom: 5px !important;}
+ul.nv-list-item > li > h3{display:contents;}
+.caret-down{
+	position: absolute;
+	top: 19px;
+	right: 0;
+	color: #fff;
+	font-size: 13px;
+}
+.closeup{
+	
+}
+#menu-site-default > ul:nth-child(1) > li.dropdown.open > ul{
+display:block;
+}
+#menu-site-default > ul:nth-child(1) > li.dropdown.open.close-up > ul{
+display:none;
 }

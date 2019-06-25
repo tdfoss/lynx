@@ -33,6 +33,7 @@ $lang_module['comment_content'] = 'Nội dung';
 $lang_module['comment_seccode'] = 'Mã an toàn';
 $lang_module['comment_submit'] = 'Gửi bình luận';
 $lang_module['comment_timeout'] = 'Bạn đã bình chọn, vui lòng đợi %s sau để có thể gửi bình luận tiếp.';
+$lang_module['comment_like_notification'] = '<strong>%s</strong> thích bình luận của bạn: %s';
 
 $lang_module['sortcomm'] = 'Sắp xếp bình luận';
 $lang_module['sortcomm_0'] = 'Sắp xếp theo bình luận mới';

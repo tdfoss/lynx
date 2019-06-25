@@ -96,37 +96,65 @@ $row['id'] = $nv_Request->get_int('id', 'post,get', 0);
 if ($nv_Request->isset_request('submit', 'post')) {
     $row['title'] = $nv_Request->get_title('title', 'post', '');
     $row['note'] = $nv_Request->get_string('note', 'post', '');
+    $row['title_mail'] = $nv_Request->get_title('title_mail', 'post', '');
+    $row['content'] = $nv_Request->get_editor('content', '', NV_ALLOWED_HTML_TAGS);
+    $row['birthday_title'] = $nv_Request->get_title('birthday_title', 'post', '');
+    $row['birthday_content'] = $nv_Request->get_editor('birthday_content', '', NV_ALLOWED_HTML_TAGS);
 
     if (empty($row['title'])) {
-        $error[] = $lang_module['error_required_title'];
+        nv_jsonOutput(array(
+            'error' => 1,
+            'msg' => $lang_module['error_required_title'],
+            'input' => 'title'
+        ));
     }
 
-    if (empty($error)) {
-        try {
-            if (empty($row['id'])) {
-                $stmt = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_types (title, note, weight, active) VALUES (:title, :note, :weight, :active)');
+    if (!empty($row['content']) && empty($row['title_mail'])) {
+        nv_jsonOutput(array(
+            'error' => 1,
+            'msg' => $lang_module['error_required_title'],
+            'input' => 'welcome_title'
+        ));
+    }
 
-                $weight = $db->query('SELECT max(weight) FROM ' . NV_PREFIXLANG . '_' . $module_data . '_types')->fetchColumn();
-                $weight = intval($weight) + 1;
-                $stmt->bindParam(':weight', $weight, PDO::PARAM_INT);
+    if (!empty($row['birthday_content']) && empty($row['birthday_title'])) {
+        nv_jsonOutput(array(
+            'error' => 1,
+            'msg' => $lang_module['error_required_title'],
+            'input' => 'birthday_title'
+        ));
+    }
 
-                $stmt->bindValue(':active', 1, PDO::PARAM_INT);
-            } else {
-                $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . '_types SET title = :title, note = :note WHERE id=' . $row['id']);
-            }
-            $stmt->bindParam(':title', $row['title'], PDO::PARAM_STR);
-            $stmt->bindParam(':note', $row['note'], PDO::PARAM_STR, strlen($row['note']));
+    try {
+        if (empty($row['id'])) {
+            $stmt = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_types (title, note, content, title_mail, birthday_title, birthday_content, weight) VALUES (:title, :note, :content, :title_mail, :birthday_title, :birthday_content, :weight)');
 
-            $exc = $stmt->execute();
-            if ($exc) {
-                $nv_Cache->delMod($module_name);
-                Header('Location: ' . NV_BASE_ADMINURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=' . $op);
-                die();
-            }
-        } catch (PDOException $e) {
-            trigger_error($e->getMessage());
-            die($e->getMessage()); //Remove this line after checks finished
+            $weight = $db->query('SELECT max(weight) FROM ' . NV_PREFIXLANG . '_' . $module_data . '_types')->fetchColumn();
+            $weight = intval($weight) + 1;
+            $stmt->bindParam(':weight', $weight, PDO::PARAM_INT);
+        } else {
+            $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . '_types SET title = :title, note = :note, content = :content, title_mail = :title_mail, birthday_title = :birthday_title, birthday_content = :birthday_content WHERE id=' . $row['id']);
         }
+        $stmt->bindParam(':title', $row['title'], PDO::PARAM_STR);
+        $stmt->bindParam(':title_mail', $row['title_mail'], PDO::PARAM_STR);
+        $stmt->bindParam(':content', $row['content'], PDO::PARAM_STR);
+        $stmt->bindParam(':birthday_title', $row['birthday_title'], PDO::PARAM_STR);
+        $stmt->bindParam(':birthday_content', $row['birthday_content'], PDO::PARAM_STR);
+        $stmt->bindParam(':note', $row['note'], PDO::PARAM_STR, strlen($row['note']));
+        $exc = $stmt->execute();
+        if ($exc) {
+            $nv_Cache->delMod($module_name);
+            nv_jsonOutput(array(
+                'error' => 0,
+                'redirect' => NV_BASE_ADMINURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=' . $op
+            ));
+        }
+    } catch (PDOException $e) {
+        trigger_error($e->getMessage());
+        nv_jsonOutput(array(
+            'error' => 1,
+            'msg' => $lang_module['error_unknow']
+        ));
     }
 } elseif ($row['id'] > 0) {
     $row = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_types WHERE id=' . $row['id'])->fetch();
@@ -137,7 +165,11 @@ if ($nv_Request->isset_request('submit', 'post')) {
 } else {
     $row['id'] = 0;
     $row['title'] = '';
+    $row['title_mail'] = '';
     $row['note'] = '';
+    $row['content'] = '';
+    $row['birthday_content'] = '';
+    $row['birthday_title'] = '';
     $row['active'] = 1;
 }
 
@@ -178,6 +210,31 @@ if (!$nv_Request->isset_request('id', 'post,get')) {
         $sth->bindValue(':q_active', '%' . $q . '%');
     }
     $sth->execute();
+}
+
+$array_replace = array(
+    'FIRSTNAME' => $lang_module['firstname'],
+    'LASTNAME' => $lang_module['lastname'],
+    'FULLNAME' => $lang_module['fullname'],
+    'TIME_PROMOTION' => $lang_module['time_promotion']
+);
+
+if (defined('NV_EDITOR')) {
+    require_once NV_ROOTDIR . '/' . NV_EDITORSDIR . '/' . NV_EDITOR . '/nv.php';
+}
+
+$row['content'] = htmlspecialchars(nv_editor_br2nl($row['content']));
+if (defined('NV_EDITOR') and nv_function_exists('nv_aleditor')) {
+    $row['content'] = nv_aleditor('content', '100%', '300px', $row['content'], 'Basic');
+} else {
+    $row['content'] = '<textarea style="width:100%;height:300px" name="content">' . $row['content'] . '</textarea>';
+}
+
+$row['birthday_content'] = htmlspecialchars(nv_editor_br2nl($row['birthday_content']));
+if (defined('NV_EDITOR') and nv_function_exists('nv_aleditor')) {
+    $row['birthday_content'] = nv_aleditor('birthday_content', '100%', '300px', $row['birthday_content'], 'Basic');
+} else {
+    $row['birthday_content'] = '<textarea style="width:100%;height:300px" name="birthday_content">' . $row['birthday_content'] . '</textarea>';
 }
 
 $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $global_config['module_theme'] . '/modules/' . $module_file);
@@ -230,9 +287,12 @@ if ($show_view) {
     $xtpl->parse('main.view');
 }
 
-if (!empty($error)) {
-    $xtpl->assign('ERROR', implode('<br />', $error));
-    $xtpl->parse('main.error');
+foreach ($array_replace as $index => $value) {
+    $xtpl->assign('NOTE', array(
+        'index' => $index,
+        'value' => $value
+    ));
+    $xtpl->parse('main.note');
 }
 
 $xtpl->parse('main');

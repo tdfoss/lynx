@@ -7,14 +7,13 @@
  * @License GNU/GPL version 2 or any later version
  * @Createdate Tue, 02 Jan 2018 08:50:17 GMT
  */
-
 if (!defined('NV_IS_FILE_ADMIN')) die('Stop!!!');
 
 //change status
 if ($nv_Request->isset_request('change_status', 'post, get')) {
     $id = $nv_Request->get_int('id', 'post, get', 0);
     $content = 'NO_' . $id;
-
+    
     $query = 'SELECT active FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id;
     $row = $db->query($query)->fetch();
     if (isset($row['active'])) {
@@ -62,7 +61,7 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
         $sql = 'SELECT weight FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id =' . $db->quote($id);
         $result = $db->query($sql);
         list ($weight) = $result->fetch(3);
-
+        
         $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '  WHERE id = ' . $db->quote($id));
         if ($weight > 0) {
             $sql = 'SELECT id, weight FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE weight >' . $weight;
@@ -87,11 +86,12 @@ if ($nv_Request->isset_request('submit', 'post')) {
     $row['price_unit'] = $nv_Request->get_int('price_unit', 'post', 0);
     $row['vat'] = $nv_Request->get_float('vat', 'post', 0);
     $row['note'] = $nv_Request->get_textarea('note', '', NV_ALLOWED_HTML_TAGS);
-
+    $row['price'] = floatval(preg_replace('/[^0-9.]/', '', $row['price']));
+    
     if (empty($row['title'])) {
         $error[] = $lang_module['error_required_title'];
     }
-
+    
     if (empty($error)) {
         try {
             if (empty($row['id'])) {
@@ -99,7 +99,6 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $weight = $db->query('SELECT max(weight) FROM ' . NV_PREFIXLANG . '_' . $module_data . '')->fetchColumn();
                 $weight = intval($weight) + 1;
                 $stmt->bindParam(':weight', $weight, PDO::PARAM_INT);
-
             } else {
                 $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET title = :title, price = :price, price_unit = :price_unit, vat = :vat, note = :note WHERE id=' . $row['id']);
             }
@@ -108,7 +107,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
             $stmt->bindParam(':price_unit', $row['price_unit'], PDO::PARAM_INT);
             $stmt->bindParam(':vat', $row['vat'], PDO::PARAM_STR);
             $stmt->bindParam(':note', $row['note'], PDO::PARAM_STR, strlen($row['note']));
-
+            
             $exc = $stmt->execute();
             if ($exc) {
                 $nv_Cache->delMod($module_name);
@@ -146,12 +145,12 @@ if (!$nv_Request->isset_request('id', 'post,get')) {
     $db->sqlreset()
         ->select('COUNT(*)')
         ->from('' . NV_PREFIXLANG . '_' . $module_data . '');
-
+    
     if (!empty($q)) {
         $db->where('title LIKE :q_title OR price LIKE :q_price OR price_unit LIKE :q_price_unit');
     }
     $sth = $db->prepare($db->sql());
-
+    
     if (!empty($q)) {
         $sth->bindValue(':q_title', '%' . $q . '%');
         $sth->bindValue(':q_price', '%' . $q . '%');
@@ -159,13 +158,13 @@ if (!$nv_Request->isset_request('id', 'post,get')) {
     }
     $sth->execute();
     $num_items = $sth->fetchColumn();
-
+    
     $db->select('*')
         ->order('weight ASC')
         ->limit($per_page)
         ->offset(($page - 1) * $per_page);
     $sth = $db->prepare($db->sql());
-
+    
     if (!empty($q)) {
         $sth->bindValue(':q_title', '%' . $q . '%');
         $sth->bindValue(':q_price', '%' . $q . '%');
@@ -182,7 +181,6 @@ $xtpl->assign('MODULE_NAME', $module_name);
 $xtpl->assign('MODULE_UPLOAD', $module_upload);
 $xtpl->assign('OP', $op);
 $xtpl->assign('ROW', $row);
-
 $xtpl->assign('Q', $q);
 
 if ($show_view) {
@@ -197,8 +195,8 @@ if ($show_view) {
     }
     $number = $page > 1 ? ($per_page * ($page - 1)) + 1 : 1;
     while ($view = $sth->fetch()) {
-        $view['price'] = !empty($view['price']) ? $view['price'] : '';
-
+        $view['price'] = !empty($view['price']) ? nv_number_format($view['price']) : '';
+        
         $view['price_unit'] = !empty($view['price_unit']) ? $array_price_unit[$view['price_unit']]['title'] : '';
         for ($i = 1; $i <= $num_items; ++$i) {
             $xtpl->assign('WEIGHT', array(

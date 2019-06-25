@@ -55,6 +55,7 @@ hr {
 h1#install_title {
 	line-height: 73px;
 	background: transparent url(../images/logo.png) left center no-repeat;
+    background-position-x: 40px;
 	padding-left: 200px;
 	font-size: 18px;
 	color: #fff;
@@ -263,6 +264,7 @@ div.step_content_title {
 }
 
 #footer {
+    display: none;
 	font-family: Tahoma, sans-serif;
 	padding: 10px 20px;
 	color: #666;
@@ -478,6 +480,7 @@ div.infoerror a {
 	padding: 5px 0 5px 30px;
 }
 #thanks {
+    display: none;
 	margin-top: 20px;
 	border-top: 1px solid #e6e6e6;
 }

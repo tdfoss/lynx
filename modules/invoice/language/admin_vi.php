@@ -16,7 +16,7 @@ $lang_translator['copyright'] = 'Copyright (C) ' . date( 'Y' ) . ' mynukeviet. A
 $lang_translator['info'] = '';
 $lang_translator['langtype'] = 'lang_module';
 
-$lang_module['main'] = 'Cấu hình gửi mail';
+$lang_module['main'] = 'Cấu hình nội dung';
 $lang_module['add'] = 'Thêm mới';
 $lang_module['edit'] = 'Sửa';
 $lang_module['delete'] = 'Xóa';
@@ -64,10 +64,16 @@ $lang_module['transaction_status_2'] = 'Đang tạm giữ';
 $lang_module['transaction_status_3'] = 'Thất bại';
 $lang_module['transaction_status_4'] = 'Thành công';
 $lang_module['transaction_status_5'] = 'Sai checksum (thanh toán không thành công)';
+$lang_module['transaction_history'] = 'Lịch sử giao dịch';
 $lang_module['general'] = 'Chung';
+$lang_module['score'] = 'Điểm tích lũy';
+$lang_module['note_allowus'] = 'Tích chọn để cho phép chọn người giao việc';
 
 $lang_module['config_groups_manage'] = 'Nhóm quản lý';
 $lang_module['config_groups_admin'] = 'Nhóm điều hành';
 $lang_module['config_default_status'] = 'Trạng thái mặc định';
 $lang_module['config_allow_useradd'] = 'Cho phép chọn người giao việc';
-$lang_module['note_allowus'] = 'Tích chọn để cho phép chọn người giao việc';
+$lang_module['config_score_allow'] = 'Sử dụng điểm tích lũy';
+$lang_module['config_score_allow_note'] = 'Kích hoạt hệ thống tích lũy điểm hóa đơn';
+$lang_module['config_score_money'] = 'Giá trị quy đổi 1 điểm (VNĐ)';
+$lang_module['config_money_score'] = 'Giá trị sử dụng 1 điểm (VNĐ)';

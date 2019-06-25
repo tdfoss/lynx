@@ -7,7 +7,6 @@
  * @License GNU/GPL version 2 or any later version
  * @Createdate 2-1-2010 21:51
  */
-
 if (!defined('NV_IS_FILE_DATABASE')) {
     die('Stop!!!');
 }
@@ -24,14 +23,56 @@ $array_ignore_save = array(
     $db_config['prefix'] . '_upload_dir',
     $db_config['prefix'] . '_upload_file'
 );
+
+// lynx
+$array_ignore_save[] = NV_NOTIFICATION_GLOBALTABLE;
+$array_ignore_save[] = NV_PREFIXLANG . '_comment';
+$array_truncate_data = array(
+    NV_PREFIXLANG . '_email',
+    NV_PREFIXLANG . '_email_sendto',
+    NV_PREFIXLANG . '_customer',
+    NV_PREFIXLANG . '_customer_share_acc',
+    NV_PREFIXLANG . '_customer_tags',
+    NV_PREFIXLANG . '_customer_tags_customer',
+    NV_PREFIXLANG . '_customer_types',
+    NV_PREFIXLANG . '_customer_units',
+    NV_PREFIXLANG . '_customer_units_customer',
+    NV_PREFIXLANG . '_customer_field',
+    NV_PREFIXLANG . '_customer_info',
+    NV_PREFIXLANG . '_projects',
+    NV_PREFIXLANG . '_projects_field',
+    NV_PREFIXLANG . '_projects_info',
+    NV_PREFIXLANG . '_projects_performer',
+    NV_PREFIXLANG . '_projects_task',
+    NV_PREFIXLANG . '_projects_types',
+    NV_PREFIXLANG . '_invoice',
+    NV_PREFIXLANG . '_invoice_detail',
+    NV_PREFIXLANG . '_invoice_transaction',
+    NV_PREFIXLANG . '_products',
+    NV_PREFIXLANG . '_products_cat',
+    NV_PREFIXLANG . '_products_price_unit',
+    NV_PREFIXLANG . '_services',
+    NV_PREFIXLANG . '_services_customer',
+    NV_PREFIXLANG . '_services_price_unit',
+    NV_PREFIXLANG . '_workreport',
+    NV_PREFIXLANG . '_workforce_field',
+    NV_PREFIXLANG . '_workforce_info'
+);
+
 $array_ignore_drop = array(
     $db_config['prefix'] . '_config',
     NV_USERS_GLOBALTABLE
 );
 $array_method_update = array(
     $db_config['prefix'] . '_config' => array(
-        'key' => array('lang', 'module', 'config_name'),
-        'value' => array('config_value'),
+        'key' => array(
+            'lang',
+            'module',
+            'config_name'
+        ),
+        'value' => array(
+            'config_value'
+        ),
         'ignore' => array(
             0 => array(
                 'module' => 'global',
@@ -102,7 +143,7 @@ if ($nv_Request->isset_request('startwrite', 'get')) {
         'reload' => false
     );
 
-    $array_request =  array();
+    $array_request = array();
     $array_request['sample_name'] = nv_strtolower(nv_substr($nv_Request->get_title('sample_name', 'post', ''), 0, 50));
     $array_request['delifexists'] = $nv_Request->get_int('delifexists', 'post', 0);
     $array_request['offsettable'] = $nv_Request->get_int('offsettable', 'post', 0);
@@ -179,7 +220,7 @@ if ($nv_Request->isset_request('startwrite', 'get')) {
                 }
 
                 // Xuất dữ liệu
-                if (!empty($table['numrow'])) {
+                if (!empty($table['numrow']) && !in_array($table['name'], $array_truncate_data)) {
                     $columns = array();
                     $columns_array = $db->columns_array($table['name']);
                     foreach ($columns_array as $col) {
@@ -190,7 +231,11 @@ if ($nv_Request->isset_request('startwrite', 'get')) {
                     $from = 0;
                     $a = 0;
                     for ($i = 0; $i < $maxi; ++$i) {
-                        $db->sqlreset()->select('*')->from($table['name'])->limit($table['limit'])->offset($from);
+                        $db->sqlreset()
+                            ->select('*')
+                            ->from($table['name'])
+                            ->limit($table['limit'])
+                            ->offset($from);
                         $result = $db->query($db->sql());
                         while ($row = $result->fetch()) {
                             // Bỏ qua tài khoản có userid = 1
@@ -341,7 +386,7 @@ $array = array();
 foreach ($files as $file) {
     $array[] = array(
         'title' => substr(substr($file, 5), 0, -4),
-        'creattime' => nv_date('H:i d/m/Y', filemtime(NV_ROOTDIR . '/install/samples/' . $file)),
+        'creattime' => nv_date('H:i d/m/Y', filemtime(NV_ROOTDIR . '/install/samples/' . $file))
     );
 }
 

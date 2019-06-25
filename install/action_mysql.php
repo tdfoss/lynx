@@ -74,6 +74,7 @@ $sql_create_table[] = "CREATE TABLE " . NV_CRONJOBS_GLOBALTABLE . " (
   id mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   start_time int(11) unsigned NOT NULL DEFAULT '0',
   inter_val int(11) unsigned NOT NULL DEFAULT '0',
+  inter_val_type tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '0: Lặp lại sau thời điểm bắt đầu thực tế, 1:lặp lại sau thời điểm bắt đầu trong CSDL',
   run_file varchar(255) NOT NULL,
   run_func varchar(255) NOT NULL,
   params varchar(255) DEFAULT NULL,
@@ -245,6 +246,17 @@ $sql_create_table[] = "CREATE TABLE " . $db_config['prefix'] . "_logs (
   PRIMARY KEY (id)
 ) ENGINE=MyISAM";
 
+$sql_create_table[] = "CREATE TABLE " . $db_config['prefix'] . "_sendmail (
+  id mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  from_mail varchar(255) NOT NULL,
+  to_mail varchar(255) NOT NULL,
+  subject varchar(255) NOT NULL,
+  message text NOT NULL,
+  files varchar(255) NOT NULL DEFAULT '',
+  embeddedimage tinyint(1) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (id)
+) ENGINE=MyISAM";
+
 $sql_create_table[] = "CREATE TABLE " . $db_config['prefix'] . "_upload_dir (
   did mediumint(8) NOT NULL AUTO_INCREMENT,
   dirname varchar(250) DEFAULT NULL,
@@ -274,17 +286,6 @@ $sql_create_table[] = "CREATE TABLE " . $db_config['prefix'] . "_upload_file (
   UNIQUE KEY did (did,title),
   KEY userid (userid),
   KEY type (type)
-) ENGINE=MyISAM";
-
-$sql_create_table[] = "CREATE TABLE " . $db_config['prefix'] . "_googleplus (
-  gid smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-  title varchar(255) NOT NULL DEFAULT '',
-  idprofile varchar(25) NOT NULL DEFAULT '',
-  weight mediumint(8) unsigned NOT NULL DEFAULT '0',
-  add_time int(11) unsigned NOT NULL DEFAULT '0',
-  edit_time int(11) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (gid),
-  UNIQUE KEY idprofile (idprofile)
 ) ENGINE=MyISAM";
 
 $sql_create_table[] = "CREATE TABLE " . $db_config['prefix'] . "_plugin (

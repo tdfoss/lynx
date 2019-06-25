@@ -116,10 +116,10 @@ function nv_admin_checkdata($adm_session_value)
         return array();
     }
 
-    if (strcasecmp($array_admin['checknum'], $admin_info['check_num']) != 0 or    //check_num
-        !isset($array_admin['current_agent']) or empty($array_admin['current_agent']) or strcasecmp($array_admin['current_agent'], $admin_info['current_agent']) != 0 or    //user_agent
-        !isset($array_admin['current_ip']) or empty($array_admin['current_ip']) or strcasecmp($array_admin['current_ip'], $admin_info['current_ip']) != 0 or    //IP
-        !isset($array_admin['current_login']) or empty($array_admin['current_login']) or strcasecmp($array_admin['current_login'], intval($admin_info['current_login'])) != 0) {    //current_login
+    if (($array_admin['checknum'] !== $admin_info['check_num']) or    //check_num
+        !isset($array_admin['current_agent']) or empty($array_admin['current_agent']) or ($array_admin['current_agent'] !== $admin_info['current_agent']) or    //user_agent
+        !isset($array_admin['current_ip']) or empty($array_admin['current_ip']) or ($array_admin['current_ip'] !== $admin_info['current_ip']) or    //IP
+        !isset($array_admin['current_login']) or empty($array_admin['current_login']) or ($array_admin['current_login'] !== intval($admin_info['current_login']))) {    //current_login
         return array();
     }
 
@@ -168,7 +168,12 @@ function nv_admin_checkdata($adm_session_value)
     $admin_info['2step_require'] = $check_in_groups[1];
     $admin_info['current_openid'] = '';
     $admin_info['st_login'] = !empty($admin_info['password']) ? true : false;
-    $admin_info['valid_question'] = (!empty($admin_info['question']) and !empty($admin_info['answer'])) ? true : false;
+    if ($global_config['allowquestion']) {
+        $admin_info['valid_question'] = (!empty($admin_info['question']) and !empty($admin_info['answer'])) ? true : false;
+    } else {
+        $admin_info['valid_question'] = true;
+    }
+
     $admin_info['current_mode'] = 5;
 
     unset($admin_info['lev'], $admin_info['files_level'], $admin_info['password'], $admin_info['question'], $admin_info['answer'], $admin_info['check_num']);

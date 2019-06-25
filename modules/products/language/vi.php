@@ -22,7 +22,7 @@ $lang_module['add'] = 'Thêm mới';
 $lang_module['edit'] = 'Sửa';
 $lang_module['delete'] = 'Xóa';
 $lang_module['number'] = 'STT';
-$lang_module['active'] = 'Kích hoạt';
+$lang_module['active'] = 'Hoạt động';
 $lang_module['search_title'] = 'Nhập từ khóa tìm kiếm';
 $lang_module['search_submit'] = 'Tìm kiếm';
 $lang_module['title'] = 'Tiêu đề';
@@ -45,3 +45,16 @@ $lang_module['delete_product'] = 'xóa sản phẩm';
 $lang_module['delete_many_product'] = 'xóa nhiều sản phẩm';
 $lang_module['product_type'] = 'Loại sản phẩm';
 $lang_module['typeid'] = 'Chọn loại sản phẩm';
+
+// lang for function detail
+$lang_module['product_detail'] = 'Chi tiết sản phẩm';
+$lang_module['add_product'] = 'Thêm sản phẩm';
+$lang_module['list_buy_product'] = 'Danh sách khách hàng mua sản phẩm';
+$lang_module['fullname'] = 'Họ tên';
+$lang_module['phone'] = 'Số điện thoại';
+$lang_module['email'] = 'Email';
+$lang_module['quantity'] = 'Số lượng';
+$lang_module['date'] = 'Ngày mua';
+$lang_module['total_buy'] = 'Tổng số hóa đơn:';
+$lang_module['idinvoice'] = 'Hóa đơn';
+

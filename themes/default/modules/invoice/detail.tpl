@@ -1,4 +1,6 @@
 <!-- BEGIN: main -->
+<link type="text/css" href="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
+<!-- BEGIN: admin -->
 <!-- BEGIN: dompdf_link -->
 <link rel="StyleSheet" href="{NV_BASE_SITEURL}themes/{TEMPLATE_CSS}/css/invoice_pdf.css" type="text/css" />
 <!-- END: dompdf_link -->
@@ -11,7 +13,7 @@
     <li><a href="javascript:void(0);" onclick="nv_invoice_sendmail_confirm({ROW.id}); return !1;" class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="{LANG.send_mail_note_confirm}"><em class="fa fa-check-circle">&nbsp;</em>{LANG.confirm_payment}</a></li>
     <!-- END: invoice_payment_confirm -->
     <!--     <li><a href="javascript:void(0);" onclick="nv_invoice_sendmail({ROW.id}); return !1;" class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="{LANG.send_mail_note}"><em class="fa fa-envelope">&nbsp;</em>{LANG.send_mail}</a></li> -->
-    <li><a href="{CONTROL.url_sendmail}" onclick="nv_invoice_sendmail({ROW.id}); return !1;" class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="{LANG.send_mail_note}"><em class="fa fa-envelope">&nbsp;</em>{LANG.send_mail}</a></li>
+    <li><a href="{CONTROL.url_sendmail}" onclick="nv_invoice_sendmail({ROW.id}); return !1;" class="btn btn-primary btn-xs loading" data-toggle="tooltip" data-original-title="{LANG.send_mail_note}"><em class="fa fa-envelope">&nbsp;</em>{LANG.send_mail}</a></li>
     <li><a href="{CONTROL.url_edit}" class="btn btn-default btn-xs" data-toggle="tooltip" data-original-title="{LANG.edit_invoice}"><em class="fa fa-edit">&nbsp;</em>{LANG.edit}</a></li>
     <li><a href="{CONTROL.url_delete}" class="btn btn-danger btn-xs" onclick="return confirm(nv_is_del_confirm[0]);" data-toggle="tooltip" data-original-title="{LANG.delete_invoice}"><em class="fa fa-trash-o">&nbsp;</em>{LANG.delete}</a></li>
 </ul>
@@ -25,10 +27,13 @@
         <!-- BEGIN: support -->
         <li><a href="{CONTROL.url_support}"><em class="fa fa-user">&nbsp;</em>{LANG.new_ticket}</a></li>
         <!-- END: support -->
+        <!-- BEGIN: export_pdf -->
         <li><a href="{CONTROL.url_export_pdf}"><em class="fa fa-download">&nbsp;</em>{LANG.export_pdf}</a></li>
+        <!-- END: export_pdf -->
     </ul>
 </div>
 <!-- END: button_funs -->
+<!-- END: admin -->
 <div class="clearfix"></div>
 <div class="row">
     <div class="col-xs-24 col-sm-24 col-md-24">
@@ -47,28 +52,48 @@
                     <div class="col-sm-12 col-md-12 col-pdf-12">
                         <table class="info_customer">
                             <tr>
-                                <td width="150"><strong>{LANG.customerid}:</strong></td>
-                                <td><strong><a href="{ROW.customer.link_view}">{ROW.customer.fullname}</a></strong></td>
+                                <td width="150">
+                                    <strong>{LANG.customerid}:</strong>
+                                </td>
+                                <td>
+                                    <strong><a href="{ROW.customer.link_view}">{ROW.customer.fullname}</a></strong>
+                                </td>
                             </tr>
                             <tr>
-                                <td><p>{LANG.createtime}:&nbsp;</p></td>
-                                <td><p>{ROW.createtime}</p></td>
+                                <td>
+                                    <p>{LANG.createtime}:&nbsp;</p>
+                                </td>
+                                <td>
+                                    <p>{ROW.createtime}</p>
+                                </td>
                             </tr>
                             <tr>
-                                <td><p>{LANG.status}:</p></td>
-                                <td><p>{ROW.status_str}</p></td>
+                                <td>
+                                    <p>{LANG.status}:</p>
+                                </td>
+                                <td>
+                                    <p>{ROW.status_str}</p>
+                                </td>
                             </tr>
                         </table>
                     </div>
                     <div class="col-sm-12 col-md-12 col-pdf-12">
                         <table class="info_customer">
                             <tr>
-                                <td width="150"><strong>{LANG.workforceid}:&nbsp;</strong></td>
-                                <td><strong>{ROW.workforceid}</strong></td>
+                                <td width="150">
+                                    <strong>{LANG.workforceid}:&nbsp;</strong>
+                                </td>
+                                <td>
+                                    <strong>{ROW.workforceid}</strong>
+                                </td>
                             </tr>
                             <tr>
-                                <td><p>{LANG.duetime}:</p></td>
-                                <td><p>{ROW.duetime}</p></td>
+                                <td>
+                                    <p>{LANG.duetime}:</p>
+                                </td>
+                                <td>
+                                    <p>{ROW.duetime}</p>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -81,10 +106,11 @@
                             <tr>
                                 <th width="50" class="text-center stt">{LANG.number}</th>
                                 <th class="title_th">{LANG.title}</th>
+                                <th width="150">{LANG.unit_price}</th>
+                                <th width="150">{LANG.money_unit}</th>
                                 <th class="quantity text-center" width="100">{LANG.quantity}</th>
                                 <th class="price_string" width="150">{LANG.price_string}</th>
                                 <th class="vat" width="150">{LANG.vat}</th>
-                                <th class="vat_price" width="300">{LANG.vat_price}</th>
                                 <th class="total">{LANG.total}</th>
                             </tr>
                         </thead>
@@ -92,37 +118,55 @@
                             <!-- BEGIN: loop -->
                             <tr>
                                 <td class="text-center">{ORDERS.number}</td>
-                                <td><strong>{ORDERS.itemid}</strong> <span class="help-block">{ORDERS.note}</span></td>
+                                <td>
+                                    <strong>{ORDERS.itemid}</strong> <span class="help-block">{ORDERS.note}</span>
+                                </td>
+                                <td>{ORDERS.unit_price}</td>
+                                <td>{ORDERS.money_unit}</td>
                                 <td class="text-center">{ORDERS.quantity}</td>
-                                <td>{ORDERS.price} {LANG.vnd}</td>
-                                <td>{ORDERS.vat}</td>
-                                <td>{ORDERS.vat_price} {LANG.vnd}</td>
-                                <td>{ORDERS.total} {LANG.vnd}</td>
+                                <td>{ORDERS.price}</td>
+                                <td>
+                                    <!-- BEGIN: vat -->
+                                    {ORDERS.vat_price} ({ORDERS.vat}%)
+                                    <!-- END: vat -->
+                                    <!-- BEGIN: vat_empty -->
+                                    -
+                                    <!-- END: vat_empty -->
+                                </td>
+                                <td>{ORDERS.total}</td>
                             </tr>
                             <!-- END: loop -->
                         </tbody>
                         <!--  END: invoice_list -->
                         <tfoot>
                             <tr>
-                                <td colspan="6" class="text-right"><strong>{LANG.item_total}</strong></td>
-                                <td>{ROW.item_total} {LANG.vnd}</td>
+                                <td colspan="7" class="text-right">
+                                    <strong>{LANG.item_total}</strong>
+                                </td>
+                                <td>{ROW.item_total}</td>
                             </tr>
                             <tr>
-                                <th colspan="6" class="text-right"><strong>{LANG.vat_total}</strong></th>
-                                <td>{ROW.vat_total} {LANG.vnd}</td>
+                                <th colspan="7" class="text-right"><strong>{LANG.vat_total}</strong></th>
+                                <td>{ROW.vat_total}</td>
                             </tr>
                             <!-- BEGIN: discount -->
                             <tr>
-                                <td colspan="6" class="text-right"><strong>{LANG.discount}</strong></td>
-                                <td>{ROW.discount_value} {LANG.vnd} ({ROW.discount_percent}%)</td>
+                                <td colspan="7" class="text-right">
+                                    <strong>{LANG.discount}</strong>
+                                </td>
+                                <td>{ROW.discount_value} ({ROW.discount_percent}%)</td>
                             </tr>
                             <!-- END: discount -->
                             <tr>
-                                <td colspan="6" class="text-right"><strong>{LANG.grand_total}</strong></td>
-                                <td>{ROW.grand_total} {LANG.vnd}</td>
+                                <td colspan="7" class="text-right">
+                                    <strong>{LANG.grand_total}</strong>
+                                </td>
+                                <td>{ROW.grand_total}</td>
                             </tr>
                             <tr>
-                                <td colspan="6" class="text-right"><strong>{LANG.grand_total_string}</strong></td>
+                                <td colspan="7" class="text-right">
+                                    <strong>{LANG.grand_total_string}</strong>
+                                </td>
                                 <td>{ROW.grand_total_string}</td>
                             </tr>
                         </tfoot>
@@ -132,7 +176,10 @@
         </div>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <span class="pull-left">{LANG.transaction_history}</span> <span class="pull-right"><button data-invoiceid="{ROW.id}" data-lang-add="{LANG.transaction_add}" id="btn-transaction-add" class="btn btn-primary btn-xs">{LANG.transaction_add}</button></span>
+                <span class="pull-left">{LANG.transaction_history}</span>
+                <!-- BEGIN: transaction_add -->
+                <span class="pull-right"><button data-invoiceid="{ROW.id}" data-lang-add="{LANG.transaction_add}" id="btn-transaction-add" class="btn btn-primary btn-xs">{LANG.transaction_add}</button></span>
+                <!-- END: transaction_add -->
                 <div class="clearfix"></div>
             </div>
             <div id="transaction-body">{TRANSACTION}</div>
@@ -150,7 +197,15 @@
         </div>
         <!-- END: description -->
     </div>
+    <div class="col-xs-24 col-sm-24 col-md-24">
+        <!-- BEGIN: comment -->
+        <div class="panel panel-default">
+            <div class="panel-body">{COMMENT}</div>
+        </div>
+        <!-- END: comment -->
+    </div>
 </div>
+<script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/jquery-ui/jquery-ui.min.js"></script>
 <script>
 	var invoice_sendmail_confirm = '{LANG.invoice_sendmail_confirm}';
 	var invoice_sendmail_confirm_payment = '{LANG.invoice_sendmail_confirm_payment}';

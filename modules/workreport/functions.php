@@ -35,6 +35,12 @@ if (defined('NV_IS_USER')) {
     }
 }
 
+$is_admin = 0;
+$group_manage = !empty($array_config['admin_groups']) ? explode(',', $array_config['admin_groups']) : array();
+if (!empty(array_intersect($group_manage, $user_info['in_groups']))) {
+    $is_admin = 1;
+}
+
 function nv_check_action($addtime)
 {
     global $array_config, $is_admin;
@@ -82,11 +88,23 @@ function nv_workreport_premission($type = 'where')
             return $array_userid;
         }
     } else {
-        $array_userid = array_keys($workforce_list);
+        $array_userid = !empty($workforce_list) ? array_keys($workforce_list) : array(
+            0
+        );
         if ($type == 'where') {
             return ' AND userid IN (' . implode(',', $array_userid) . ')';
         } elseif ($type == 'array_userid') {
             return array_keys($workforce_list);
         }
     }
+}
+
+function nv_workreport_dateDifference($date_1, $date_2, $differenceFormat = '%a')
+{
+    $datetime1 = date_create($date_1);
+    $datetime2 = date_create($date_2);
+
+    $interval = date_diff($datetime1, $datetime2);
+
+    return $interval->format($differenceFormat);
 }

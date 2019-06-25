@@ -70,25 +70,59 @@
 <!-- BEGIN: error -->
 <div class="alert alert-warning">{ERROR}</div>
 <!-- END: error -->
-<form class="form-horizontal box-center" action="{NV_BASE_ADMINURL}index.php?{NV_LANG_VARIABLE}={NV_LANG_DATA}&amp;{NV_NAME_VARIABLE}={MODULE_NAME}&amp;{NV_OP_VARIABLE}={OP}" method="post">
+<form class="form-horizontal box-center" action="{NV_BASE_ADMINURL}index.php?{NV_LANG_VARIABLE}={NV_LANG_DATA}&amp;{NV_NAME_VARIABLE}={MODULE_NAME}&amp;{NV_OP_VARIABLE}={OP}" method="post" id="frm-submit">
+    <input type="hidden" name="submit" value="1" />
     <div class="panel panel-default col-md-24">
         <div class="panel-body">
             <input type="hidden" name="id" value="{ROW.id}" />
             <div class="form-group">
                 <div class="col-sm-24 col-md-24">
-                    <label class="control-label"><strong>{LANG.title}</strong> <span class="red">(*)</span></label> <input class="form-control" type="text" name="title" value="{ROW.title}" required="required" oninvalid="setCustomValidity( nv_required )" oninput="setCustomValidity('')" />
+                    <label class="control-label"><strong>{LANG.title}</strong> <span class="red">(*)</span></label> <input class="form-control" type="text" name="title" id="title" value="{ROW.title}" required="required" oninvalid="setCustomValidity( nv_required )" oninput="setCustomValidity('')" />
                 </div>
                 <div class="col-sm-24 col-md-24">
                     <label class="control-label"><strong>{LANG.note}</strong></label>
                     <textarea class="form-control" style="height: 100px;" cols="75" rows="5" name="note">{ROW.note}</textarea>
                 </div>
             </div>
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#welcome" aria-controls="welcome" role="tab" data-toggle="tab">{LANG.welcome_content}</a></li>
+                <li role="presentation"><a href="#birthday" aria-controls="birthday" role="tab" data-toggle="tab">{LANG.birthday_content}</a></li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="welcome">
+                    <div class="col-sm-24 col-md-24">
+                        <label class="control-label"><strong>{LANG.title}</strong> <span class="red">(*)</span></label> <input class="form-control" type="text" name="title_mail" id="welcome_title" value="{ROW.title_mail}" />
+                    </div>
+                    <div class="col-sm-24 col-md-24">
+                        <label class="control-label"><strong>{LANG.content}</strong></label>
+                        <div>{ROW.content}</div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="birthday">
+                    <div role="tabpanel" class="tab-pane active" id="birthday">
+                        <div class="col-sm-24 col-md-24">
+                            <label class="control-label"><strong>{LANG.title}</strong> <span class="red">(*)</span></label> <input class="form-control" type="text" name="birthday_title" id="birthday_title" value="{ROW.birthday_title}" />
+                        </div>
+                        <div class="col-sm-24 col-md-24">
+                            <label class="control-label"><strong>{LANG.content}</strong></label>
+                            <div>{ROW.birthday_content}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- BEGIN: note -->
+            <div class="col-xs-24 col-sm-12 col-md-8" style="margin-top: 10px">
+                <strong>[{NOTE.index}]</strong>: {NOTE.value}
+            </div>
+            <!-- END: note -->
         </div>
     </div>
     <div class="form-group text-center">
         <input class="btn btn-primary" name="submit" type="submit" value="{LANG.save}" />
     </div>
 </form>
+<script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/select2/select2.min.js"></script>
+<script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/select2/i18n/{NV_LANG_INTERFACE}.js"></script>
 <script type="text/javascript">
 //<![CDATA[
 	function nv_change_weight(id) {
@@ -123,6 +157,27 @@
 		return;
 	}
 
+	$('#frm-submit').submit(function(e){
+	   e.preventDefault();
+	   
+	    for(var instanceName in CKEDITOR.instances){
+	        CKEDITOR.instances[instanceName].updateElement();
+	    }
+	    
+	   $.ajax({
+	   	type : 'POST',
+	   	url : script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=types&nocache=' + new Date().getTime(),
+	   	data : $(this).serialize(),
+	   	success : function(json) {
+	   		if(json.error){
+	   		    alert(json.msg);
+	   		    $('#' + json.input).focus();
+	   		}else{
+	   		    window.location.href = json.redirect;
+	   		}
+	   	}
+	   });	   
+	});
 
 //]]>
 </script>

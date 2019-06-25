@@ -47,6 +47,7 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
 $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_price_unit(
   id tinyint(2) NOT NULL AUTO_INCREMENT,
   title varchar(255) NOT NULL,
+  note text NOT NULL,
   active tinyint(1) unsigned NOT NULL DEFAULT '1',
   weight tinyint(2) NOT NULL DEFAULT '0',
   PRIMARY KEY (id)

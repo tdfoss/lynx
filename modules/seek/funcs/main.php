@@ -25,6 +25,8 @@ $search = array(
     'content' => ''
 );
 
+$ajax = $nv_Request->isset_request('ajax', 'get,post');
+
 if ($nv_Request->isset_request('q', 'get')) {
     $is_search = true;
 
@@ -50,6 +52,9 @@ if ($nv_Request->isset_request('q', 'get')) {
     }
     if ($search['page'] > 1) {
         $base_url_rewrite .= '&page=' . $search['page'];
+    }
+    if ($ajax) {
+        $base_url_rewrite .= '&ajax=1';
     }
     $base_url_rewrite = nv_url_rewrite($base_url_rewrite, true);
     $request_uri = $_SERVER['REQUEST_URI'];
@@ -99,6 +104,10 @@ if ($nv_Request->isset_request('q', 'get')) {
             $search['content'] = $lang_module['search_none'] . ' &quot;' . $search['key'] . '&quot;';
         }
     }
+}
+
+if($ajax){
+    nv_htmlOutput($search['content']);
 }
 
 $contents = search_main_theme($is_search, $search, $array_mod);

@@ -5,56 +5,74 @@
  * @Createdate Mon, 26 Feb 2018 03:48:37 GMT
  */
 .red {
-    color: red
+	color: red
 }
 
 table.table-middle td {
-    vertical-align: middle !important
+	vertical-align: middle !important
 }
 
-table.table-middle td span.help-block, table.table-middle td span.help-block ul {
-    margin-bottom: 0;
-    font-size: 12px
+table.table-middle td span.help-block, table.table-middle td span.help-block ul
+	{
+	margin-bottom: 0;
+	font-size: 12px
 }
 
 .title_invoice {
-    margin-bottom: 10px;
+	margin-bottom: 10px;
 }
 
 .title_invoice h3 {
-    font-size: 20px;
-    text-transform: uppercase;
+	font-size: 20px;
+	text-transform: uppercase;
 }
 
 .title_invoice p {
-    font-size: 16px;
+	font-size: 16px;
 }
 
 .table_infoinvoice {
-    margin-top: 20px;
+	margin-top: 20px;
 }
 
 .info_customer {
-    margin: auto;
+	margin: auto;
 }
 
 .title_table {
-    font-size: 16px;
-    font-weight: bold;
-    text-transform: uppercase;
-    padding-bottom: 10px;
+	font-size: 16px;
+	font-weight: bold;
+	text-transform: uppercase;
+	padding-bottom: 10px;
 }
 
 .button_fixed_bottom {
-    background-color: #ccc;
-    z-index: 999999;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    padding: 10px;
-    margin: 0;
+	background-color: #ccc;
+	z-index: 999999;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	padding: 10px;
+	margin: 0;
 }
 
-#ui-datepicker-div{
-    z-index: 9999999999 !important
+#ui-datepicker-div {
+	z-index: 9999999999 !important
+}
+
+.cancelLink {
+	font-size: 14px;
+	padding-left: 10px;
+	color: red;
+}
+
+.ajax-load-qa {
+	background: url("../images/invoice/loading.gif") no-repeat center center
+		rgba(255, 255, 255, 0.5);
+	position: fixed;
+	z-index: 9999999999;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
 }

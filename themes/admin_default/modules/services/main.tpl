@@ -75,7 +75,7 @@
 			<div class="form-group">
 				<label class="col-sm-5 col-md-4 control-label"><strong>{LANG.price}</strong></label>
 				<div class="col-sm-19 col-md-20">
-					<input class="form-control" type="text" name="price" value="{ROW.price}" />
+					<input class="form-control myInput" type="text" name="price" value="{ROW.price}" />
 				</div>
 			</div>
 			<div class="form-group">
@@ -107,8 +107,10 @@
 		</div>
 	</div>
 </form>
+<script src="//unpkg.com/autonumeric"></script>
 <script type="text/javascript">
 //<![CDATA[
+     new AutoNumeric('.myInput');
 	function nv_change_weight(id) {
 		var nv_timer = nv_settimeout_disable('id_weight_' + id, 5000);
 		var new_vid = $('#id_weight_' + id).val();

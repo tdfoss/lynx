@@ -10,7 +10,11 @@ if (!defined('NV_MAINFILE')) die('Stop!!!');
 
 function nv_projects_premission($module, $type = 'where')
 {
-    global $db, $array_config, $user_info, $workforce_list;
+    global $db, $array_config, $user_info, $workforce_list, $module_name, $module_config;
+
+    if($module_name != $module){
+        $array_config = $module_config[$module];
+    }
 
     $array_userid = array(); // mảng chứa userid mà người này được quản lý
 
@@ -37,13 +41,15 @@ function nv_projects_premission($module, $type = 'where')
                 return ' AND (workforceid IN (' . $array_userid . ') OR useradd IN (' . $array_userid . '))';
             } else {
                 // thành viên nhóm nhìn thấy task cho mình thực hiện, do mình tạo ra
-                return ' AND (workforceid=' . $user_info['userid'] . ' OR useradd=' . $user_info['userid'] . ')';
+                return ' AND (t2.userid=' . $user_info['userid'] . ' OR useradd=' . $user_info['userid'] . ')';
             }
         } elseif ($type == 'array_userid') {
             return $array_userid;
         }
     } else {
-        $array_userid = array_keys($workforce_list);
+        $array_userid = !empty($workforce_list) ? array_keys($workforce_list) : array(
+            0
+        );
         if ($type == 'where') {
             return ' AND (workforceid IN (' . implode(',', $array_userid) . ') OR useradd IN (' . implode(',', $array_userid) . '))';
         } elseif ($type == 'array_userid') {

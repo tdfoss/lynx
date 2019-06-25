@@ -31,12 +31,9 @@ $app->post('/api/customer/add/', function (Request $request, Response $response,
     $row['facebook'] = $request->getParam('facebook');
     $row['skype'] = $request->getParam('skype');
     $row['zalo'] = $request->getParam('zalo');
+    $row['website'] = $request->getParam('website');
     $row['gender'] = $request->getParam('gender');
     $row['address'] = $request->getParam('address');
-    $row['trading_person'] = $request->getParam('trading_person');
-    $row['unit_name'] = $request->getParam('unit_name');
-    $row['tax_code'] = $request->getParam('tax_code');
-    $row['address_invoice'] = $request->getParam('address_invoice');
     $row['care_staff'] = $request->getParam('care_staff');
     $row['image'] = $request->getParam('image');
     $row['note'] = $request->getParam('note');
@@ -62,15 +59,36 @@ $app->post('/api/customer/add/', function (Request $request, Response $response,
         $row['image'] = '';
     }
 
+    if (!empty($row['website'])) {
+        foreach ($row['website'] as $index => $url) {
+            if (!nv_is_url($url)) {
+                unset($row['website'][$index]);
+            }
+        }
+    }
+
     if (empty($row['first_name'])) {
         nv_jsonOutput(array(
             'error' => 1,
             'msg' => $lang_module['error_required_fullname']
         ));
+    } elseif (empty($row['id']) && !empty($row['main_email']) && $db->query('SELECT COUNT(*) FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE main_email=' . $db->quote($row['main_email']))
+        ->fetchColumn() > 0) {
+            nv_jsonOutput(array(
+                'error' => 1,
+                'msg' => sprintf($lang_module['error_exits_email'], $row['main_email'])
+            ));
+    } elseif (empty($row['id']) && !empty($row['main_phone']) && $db->query('SELECT COUNT(*) FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE main_phone=' . $db->quote($row['main_phone']))
+        ->fetchColumn() > 0) {
+            nv_jsonOutput(array(
+                'error' => 1,
+                'msg' => sprintf($lang_module['error_exits_email'], $row['main_email'])
+            ));
     }
 
     try {
-        $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_customer (note, first_name, last_name, main_phone, other_phone, main_email, other_email, birthday, facebook, skype, zalo, gender, address, trading_person, unit_name, tax_code, address_invoice, care_staff, image, addtime, userid, is_contacts, type_id) VALUES (:note, :first_name, :last_name, :main_phone, :other_phone, :main_email, :other_email, :birthday, :facebook, :skype, :zalo, :gender, :address, :trading_person, :unit_name, :tax_code, :address_invoice, :care_staff, :image, ' . NV_CURRENTTIME . ', 1, :is_contacts, :type_id)';
+        $website = !empty($row['website']) ? implode(',', $row['website']) : '';
+        $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_customer (note, first_name, last_name, main_phone, other_phone, main_email, other_email, birthday, facebook, skype, zalo, website, gender, address, care_staff, image, addtime, userid, is_contacts, type_id) VALUES (:note, :first_name, :last_name, :main_phone, :other_phone, :main_email, :other_email, :birthday, :facebook, :skype, :zalo, :website, :gender, :address, :care_staff, :image, ' . NV_CURRENTTIME . ', 1, :is_contacts, :type_id)';
         $data_insert = array();
         $data_insert['first_name'] = $row['first_name'];
         $data_insert['last_name'] = $row['last_name'];
@@ -82,12 +100,9 @@ $app->post('/api/customer/add/', function (Request $request, Response $response,
         $data_insert['facebook'] = $row['facebook'];
         $data_insert['skype'] = $row['skype'];
         $data_insert['zalo'] = $row['zalo'];
+        $data_insert['website'] = $website;
         $data_insert['gender'] = $row['gender'];
         $data_insert['address'] = $row['address'];
-        $data_insert['trading_person'] = $row['trading_person'];
-        $data_insert['unit_name'] = $row['unit_name'];
-        $data_insert['tax_code'] = $row['tax_code'];
-        $data_insert['address_invoice'] = $row['address_invoice'];
         $data_insert['care_staff'] = $row['care_staff'];
         $data_insert['image'] = $row['image'];
         $data_insert['note'] = $row['note'];
@@ -123,12 +138,9 @@ $app->post('/api/customer/update/{id}/', function (Request $request, Response $r
     $row['facebook'] = $request->getParam('facebook');
     $row['skype'] = $request->getParam('skype');
     $row['zalo'] = $request->getParam('zalo');
+    $row['website'] = $request->getParam('website');
     $row['gender'] = $request->getParam('gender');
     $row['address'] = $request->getParam('address');
-    $row['trading_person'] = $request->getParam('trading_person');
-    $row['unit_name'] = $request->getParam('unit_name');
-    $row['tax_code'] = $request->getParam('tax_code');
-    $row['address_invoice'] = $request->getParam('address_invoice');
     $row['care_staff'] = $request->getParam('care_staff');
     $row['image'] = $request->getParam('image');
     $row['note'] = $request->getParam('note');
@@ -154,6 +166,14 @@ $app->post('/api/customer/update/{id}/', function (Request $request, Response $r
         $row['image'] = '';
     }
 
+    if (!empty($row['website'])) {
+        foreach ($row['website'] as $index => $url) {
+            if (!nv_is_url($url)) {
+                unset($row['website'][$index]);
+            }
+        }
+    }
+
     if (empty($row['first_name'])) {
         nv_jsonOutput(array(
             'error' => 1,
@@ -162,7 +182,8 @@ $app->post('/api/customer/update/{id}/', function (Request $request, Response $r
     }
 
     try {
-        $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_customer SET first_name = :first_name, last_name = :last_name, main_phone = :main_phone, other_phone = :other_phone, main_email = :main_email, other_email = :other_email, birthday = :birthday, facebook = :facebook, skype = :skype, zalo = :zalo, gender = :gender, address = :address, trading_person = :trading_person, unit_name = :unit_name, tax_code = :tax_code, address_invoice = :address_invoice, care_staff = :care_staff, image = :image, edittime=' . NV_CURRENTTIME . ', note = :note, type_id = :type_id WHERE id=' . $id);
+        $website = !empty($row['website']) ? implode(',', $row['website']) : '';
+        $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_customer SET first_name = :first_name, last_name = :last_name, main_phone = :main_phone, other_phone = :other_phone, main_email = :main_email, other_email = :other_email, birthday = :birthday, facebook = :facebook, skype = :skype, zalo = :zalo, website = :website, gender = :gender, address = :address, care_staff = :care_staff, image = :image, edittime=' . NV_CURRENTTIME . ', note = :note, type_id = :type_id WHERE id=' . $id);
         $stmt->bindParam(':first_name', $row['first_name'], PDO::PARAM_STR);
         $stmt->bindParam(':last_name', $row['last_name'], PDO::PARAM_STR);
         $stmt->bindParam(':main_phone', $row['main_phone'], PDO::PARAM_STR);
@@ -173,12 +194,9 @@ $app->post('/api/customer/update/{id}/', function (Request $request, Response $r
         $stmt->bindParam(':facebook', $row['facebook'], PDO::PARAM_STR);
         $stmt->bindParam(':skype', $row['skype'], PDO::PARAM_STR);
         $stmt->bindParam(':zalo', $row['zalo'], PDO::PARAM_STR);
+        $stmt->bindParam(':website', $website, PDO::PARAM_STR);
         $stmt->bindParam(':gender', $row['gender'], PDO::PARAM_INT);
         $stmt->bindParam(':address', $row['address'], PDO::PARAM_STR);
-        $stmt->bindParam(':trading_person', $row['trading_person'], PDO::PARAM_STR);
-        $stmt->bindParam(':unit_name', $row['unit_name'], PDO::PARAM_STR);
-        $stmt->bindParam(':tax_code', $row['tax_code'], PDO::PARAM_STR);
-        $stmt->bindParam(':address_invoice', $row['address_invoice'], PDO::PARAM_STR);
         $stmt->bindParam(':care_staff', $row['care_staff'], PDO::PARAM_INT);
         $stmt->bindParam(':image', $row['image'], PDO::PARAM_STR);
         $stmt->bindParam(':note', $row['note'], PDO::PARAM_STR, strlen($row['note']));

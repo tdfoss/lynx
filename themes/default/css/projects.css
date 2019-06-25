@@ -8,16 +8,46 @@
     color: red
 }
 
-.ui-timepicker-container{
+.ui-timepicker-container {
     z-index: 99999999 !important
 }
 
-ul.list-info label{
+ul.list-info label {
     width: 180px;
     text-align: right;
     margin-right: 15px
 }
 
-#ui-datepicker-div{
+#ui-datepicker-div {
     z-index: 9999999999 !important
+}
+
+#view_files ul {
+    margin: 0;
+    padding: 0
+}
+
+#view_files ul li {
+    border-bottom: 1px dashed #ddd;
+    padding-bottom: 8px;
+}
+
+.namefiles {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 25px;
+    -webkit-line-clamp: 1;
+    display: block;
+    -webkit-box-orient: vertical;
+}
+
+#print {
+    padding: 10px;
+    background-color: #fff
+}
+
+.cancelLink {
+    font-size: 14px;
+    padding-left: 10px;
+    color: red;
 }

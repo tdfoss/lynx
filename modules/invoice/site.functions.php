@@ -6,11 +6,11 @@
  * @Copyright (C) 2018 TDFOSS.,LTD. All rights reserved
  * @Createdate Mon, 26 Feb 2018 03:48:37 GMT
  */
-if (! defined('NV_MAINFILE')) {
+if (!defined('NV_MAINFILE')) {
     die('Stop!!!');
 }
 
-$array_status = array(
+$array_invoice_status = array(
     0 => $lang_module['status_0'],
     1 => $lang_module['status_1'],
     3 => $lang_module['status_3'],
@@ -28,18 +28,71 @@ $array_transaction_status = array(
 );
 
 if (isset($site_mods['services'])) {
-    $_sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_services WHERE active=1';
+
+    $_sql = 'SELECT t1.*,t2.title as title_unit FROM ' . NV_PREFIXLANG . '_services t1 LEFT JOIN  ' . NV_PREFIXLANG . '_services_price_unit t2 ON t1.price_unit = t2.id WHERE t1.active=1';
     $array_services = $nv_Cache->db($_sql, 'id', 'services');
 }
 
 if (isset($site_mods['products'])) {
-    $_sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_products WHERE active=1';
+    $_sql = 'SELECT t1.*,t2.title as title_unit FROM ' . NV_PREFIXLANG . '_products t1 INNER JOIN  ' . NV_PREFIXLANG . '_products_price_unit t2 ON t1.price_unit = t2.id WHERE t1.active=1';
     $array_products = $nv_Cache->db($_sql, 'id', 'products');
 }
 
 if (isset($site_mods['projects'])) {
     $_sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_projects';
     $array_projects = $nv_Cache->db($_sql, 'id', 'projects');
+}
+
+function nv_invoice_premission($module, $type = 'where')
+{
+    global $db, $array_config, $user_info, $module_name, $module_config;
+
+    if ($module_name != $module) {
+        $array_config = $module_config[$module];
+    }
+
+    $array_userid = array(); // mảng chứa userid mà người này được quản lý
+    $groups_admin = explode(',', $array_config['groups_admin']);
+
+    $group_manage = !empty($array_config['groups_manage']) ? explode(',', $array_config['groups_manage']) : array();
+    $group_manage = array_map('intval', $group_manage);
+
+    if (!empty(array_intersect($groups_admin, $user_info['in_groups']))) {
+        if (!defined('NV_INVOICE_ADMIN')) {
+            define('NV_INVOICE_ADMIN', true);
+        }
+        return '';
+    } elseif (!empty(array_intersect($group_manage, $user_info['in_groups']))) {
+        if (!defined('NV_INVOICE_ADMIN')) {
+            define('NV_INVOICE_ADMIN', true);
+        }
+        // kiểm tra tư cách trong nhóm (trưởng nhóm / thành viên nhóm)
+        $result = $db->query('SELECT * FROM ' . NV_USERS_GLOBALTABLE . '_groups_users WHERE is_leader=1 AND approved=1 AND userid=' . $user_info['userid']);
+        while ($row = $result->fetch()) {
+            // lấy danh sách userid thuộc nhóm do người này quản lý
+            $_result = $db->query('SELECT userid FROM ' . NV_USERS_GLOBALTABLE . '_groups_users WHERE approved=1 AND group_id=' . $row['group_id']);
+            while (list ($userid) = $_result->fetch(3)) {
+                $array_userid[] = $userid;
+            }
+        }
+        $array_userid = array_unique($array_userid);
+
+        if ($type == 'where') {
+            if (!empty($array_userid)) {
+                // nếu là trưởng nhóm, thấy nhân viên do mình quản lý
+                $array_userid = implode(',', $array_userid);
+                return ' AND (workforceid IN (' . $array_userid . ') OR useradd IN (' . $array_userid . '))';
+            } else {
+                // thành viên nhóm nhìn thấy ticket cho mình thực hiện, do mình tạo ra
+                return ' AND (workforceid=' . $user_info['userid'] . ' OR useradd=' . $user_info['userid'] . ')';
+            }
+        } elseif ($type == 'array_userid') {
+            return $array_userid;
+        }
+    } else {
+        // khách hàng
+        return ' AND customerid=' . $user_info['userid'];
+    }
 }
 
 function nv_copy_invoice($id, $status = 0, $create_user_id = 0)
@@ -70,7 +123,7 @@ function nv_copy_invoice($id, $status = 0, $create_user_id = 0)
                 $stmt->bindParam(':code', $auto_code, PDO::PARAM_STR);
                 $stmt->execute();
                 while ($stmt->rowCount()) {
-                    $auto_code = vsprintf($format_code, ($new_id + $i ++));
+                    $auto_code = vsprintf($format_code, ($new_id + $i++));
                 }
 
                 $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET code= :code WHERE id=' . $new_id);
@@ -84,10 +137,10 @@ function nv_copy_invoice($id, $status = 0, $create_user_id = 0)
                     $rows['detail'][$_row['itemid']] = $_row;
                 }
 
-                if (! empty($rows['detail'])) {
+                if (!empty($rows['detail'])) {
                     $sth = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_detail (idinvoice, idcustomer, module, itemid, quantity, price, vat, total, note, weight) VALUES(:idinvoice, :idcustomer, :module, :itemid, :quantity, :price, :vat, :total, :note, :weight)');
                     foreach ($rows['detail'] as $service) {
-                        $service['note'] = ! empty($service['note']) ? $service['note'] : '';
+                        $service['note'] = !empty($service['note']) ? $service['note'] : '';
                         $total = $service['price'] * $service['quantity'];
                         $total = $total + (($total * $service['vat']) / 100);
                         $sth->bindParam(':idinvoice', $new_id, PDO::PARAM_INT);
@@ -123,11 +176,12 @@ function nv_caculate_duetime($createtime, $cycle_number)
     return strtotime('+' . $cycle_number . ' month', $createtime);
 }
 
-function nv_sendmail_econtent($new_id, $adduser = 0, $location_file = '')
+function nv_sendmail_econtent($new_id, $adduser = 0, $location_file = array())
 {
-    global $db, $module_name, $module_data, $row, $lang_module, $array_status, $user_info, $workforce_list;
+    global $db, $module_name, $module_data, $row, $lang_module, $array_invoice_status, $user_info, $workforce_list;
 
     $row = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $new_id)->fetch();
+
     if ($row) {
         $customer_info = nv_crm_customer_info($row['customerid']);
         if ($customer_info) {
@@ -138,19 +192,20 @@ function nv_sendmail_econtent($new_id, $adduser = 0, $location_file = '')
 
             $subject = sprintf($lang_module['sendmail_title'], $row['code'], $row['title']);
             $message = $db->query('SELECT econtent FROM ' . NV_PREFIXLANG . '_' . $module_data . '_econtent WHERE action="newinvoice"')->fetchColumn();
-            $row['status'] = $array_status[$row['status']];
+            $row['status'] = $array_invoice_status[$row['status']];
             $array_replace = array(
                 'FULLNAME' => $customer_info['fullname'],
                 'TITLE' => $row['title'],
                 'STATUS' => $row['status'],
-                'URL' => NV_MY_DOMAIN . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=invoice&amp;id=' . $id . '&amp;checksum=' . md5($new_id . $global_config['sitekey'] . $client_info['session_id']),
+                'URL' => NV_MY_DOMAIN . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=invoice&amp;id=' . $new_id . '&amp;checksum=' . md5($new_id . $global_config['sitekey'] . $client_info['session_id']),
                 'CODE' => $row['code'],
                 'WORKFORCE' => $workforce_list[$row['workforceid']]['fullname'],
                 'CREATETIME' => date('d/m/Y', $row['createtime']),
                 'DUETIME' => (empty($row['duetime'])) ? ($lang_module['non_identify']) : nv_date('d/m/Y', $row['duetime']),
                 'TERMS' => $row['terms'],
                 'DESCRIPTION' => $row['description'],
-                'TABLE' => nv_invoice_table($new_id)
+                'TABLE' => nv_invoice_table($new_id),
+                'TABLE_TRANSACTION' => nv_transaction_list($new_id)
             );
 
             $message = nv_unhtmlspecialchars($message);
@@ -159,15 +214,13 @@ function nv_sendmail_econtent($new_id, $adduser = 0, $location_file = '')
             }
 
             $cc_id = array();
-            if (! empty($row['workforceid']) && $user_info['userid'] != $row['workforceid']) {
+            if (!empty($row['workforceid']) && $user_info['userid'] != $row['workforceid']) {
                 $cc_id[] = $row['workforceid'];
             }
 
             $result = nv_email_send($subject, $message, $adduser, $sendto_id, $cc_id, $location_file);
             if ($result['status']) {
-                if (empty($row['sended'])) {
-                    $db->query('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET sended=1 WHERE id=' . $new_id);
-                }
+                $db->query('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET sended=sended+1 WHERE id=' . $new_id);
             }
         }
     }
@@ -176,7 +229,7 @@ function nv_sendmail_econtent($new_id, $adduser = 0, $location_file = '')
 
 function nv_invoice_table($id)
 {
-    global $module_file, $lang_module, $array_invoice_products, $order_id, $db, $module_data, $array_services, $array_products, $array_control, $row, $module_name, $op, $global_config;
+    global $module_file, $lang_module, $array_invoice_products, $order_id, $db, $module_data, $array_services, $array_products, $array_control, $row, $module_name, $op, $global_config, $nv_Cache;
 
     $row = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
     $row['vat_price'] = $row['item_total'] = $row['vat_total'] = 0;
@@ -185,43 +238,53 @@ function nv_invoice_table($id)
     $order_id = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_detail WHERE idinvoice=' . $id);
     while ($order = $order_id->fetch()) {
         $row['vat_price'] = ($order['price'] * $order['vat']) / 100;
-        $row['item_total'] += ($order['price'] * $order['quantity']);
+        $row['item_total'] += $order['price'];
         $row['vat_total'] += $row['vat_price'];
         $array_invoice_products[] = $order;
     }
 
-    $row['item_total'] = number_format($row['item_total']);
-    $row['vat_total'] = number_format($row['vat_total']);
+    $row['item_total'] = nv_number_format($row['item_total']);
+    $row['vat_total'] = nv_number_format($row['vat_total']);
     $row['grand_total_string'] = nv_convert_number_to_words($row['grand_total']);
-    $row['grand_total'] = number_format($row['grand_total']);
-    $row['discount_value'] = number_format($row['discount_value']);
+    $row['grand_total'] = nv_number_format($row['grand_total']);
+    $row['discount_value'] = nv_number_format($row['discount_value']);
 
     $templateCSS = file_exists(NV_ROOTDIR . '/themes/' . $global_config['module_theme'] . '/css/pdf.css') ? $global_config['module_theme'] : 'default';
     $xtpl = new XTemplate('table.tpl', NV_ROOTDIR . '/themes/default/modules/' . $module_file);
     $xtpl->assign('LANG', $lang_module);
-
     $xtpl->assign('TEMPLATE_CSS', $templateCSS);
 
     $templateCSS = file_exists(NV_ROOTDIR . '/themes/' . $global_config['module_theme'] . '/css/pdf.css') ? $global_config['module_theme'] : 'default';
     $xtpl->assign('TEMPLATE_CSS', $templateCSS);
 
-    if (! empty($array_invoice_products)) {
+    if (!empty($array_invoice_products)) {
         $i = 1;
         foreach ($array_invoice_products as $orders) {
-            $orders['number'] = $i ++;
-            $orders['vat_price'] = ($orders['price'] * $orders['vat'] * $orders['quantity']) / 100;
-            $orders['vat_price'] = number_format($orders['vat_price']);
-            $orders['price'] = number_format($orders['price']);
-            $orders['total'] = number_format($orders['total']);
+
+            $orders['number'] = $i++;
+            $orders['vat_price'] = ($orders['price'] * $orders['vat']) / 100;
+            $orders['vat_price'] = nv_number_format($orders['vat_price']);
+            $orders['price'] = nv_number_format($orders['price']);
+            $orders['unit_price'] = nv_number_format($orders['unit_price']);
+            $orders['total'] = nv_number_format($orders['total']);
 
             if ($orders['module'] == 'services') {
+                $orders['money_unit'] = $array_services[$orders['itemid']]['title_unit'];
                 $orders['itemid'] = $array_services[$orders['itemid']]['title'];
             } elseif ($orders['module'] == 'products') {
+                $orders['money_unit'] = $array_products[$orders['itemid']]['title_unit'];
                 $orders['itemid'] = $array_products[$orders['itemid']]['title'];
             }
 
             $xtpl->assign('CONTROL', $array_control);
             $xtpl->assign('ORDERS', $orders);
+
+            if ($orders['vat'] > 0) {
+                $xtpl->parse('main.invoice_list.loop.vat');
+            } else {
+                $xtpl->parse('main.invoice_list.loop.vat_empty');
+            }
+
             $xtpl->parse('main.invoice_list.loop');
         }
         $xtpl->parse('main.invoice_list');
@@ -229,7 +292,7 @@ function nv_invoice_table($id)
 
     $xtpl->assign('ROW_SEND', $row);
 
-    if (! empty($row['discount_percent']) && ! empty($row['discount_value'])) {
+    if (!empty($row['discount_percent']) && !empty($row['discount_value'])) {
         $xtpl->parse('main.discount');
     }
 
@@ -239,7 +302,7 @@ function nv_invoice_table($id)
 
 function nv_invoice_template($id)
 {
-    global $module_file, $lang_module, $module_info, $array_invoice_products, $order_id, $db, $module_data, $array_services, $array_products, $array_control, $row, $customer_info, $module_name, $workforce_list, $global_config, $array_status, $site_mods, $op, $client_info;
+    global $module_file, $lang_module, $module_info, $array_invoice_products, $order_id, $db, $module_data, $array_services, $array_products, $array_control, $row, $customer_info, $module_name, $workforce_list, $global_config, $array_invoice_status, $site_mods, $op, $client_info;
 
     $invoice_info = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
 
@@ -249,7 +312,7 @@ function nv_invoice_template($id)
 
     $size = @getimagesize(NV_ROOTDIR . '/' . $global_config['site_logo']);
     $logo = preg_replace('/\.[a-z]+$/i', '.svg', $global_config['site_logo']);
-    if (! file_exists(NV_ROOTDIR . '/' . $logo)) {
+    if (!file_exists(NV_ROOTDIR . '/' . $logo)) {
         $logo = $global_config['site_logo'];
     }
 
@@ -257,7 +320,7 @@ function nv_invoice_template($id)
     $array_replace = array(
         'FULLNAME' => $ctmid['fullname'],
         'TITLE' => $invoice_info['title'],
-        'STATUS' => $array_status[$invoice_info['status']],
+        'STATUS' => $array_invoice_status[$invoice_info['status']],
         'URL' => NV_MY_DOMAIN . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $id,
         'CODE' => $invoice_info['code'],
         'WORKFORCE' => $workforce_list[$invoice_info['workforceid']]['fullname'],
@@ -266,6 +329,7 @@ function nv_invoice_template($id)
         'TERMS' => $invoice_info['terms'],
         'DESCRIPTION' => $invoice_info['description'],
         'TABLE' => nv_invoice_table($id),
+        'TABLE_TRANSACTION' => nv_transaction_list($id),
         'LOGO' => NV_BASE_SITEURL . $logo,
         'SITE_NAME' => $global_config['site_name'],
         'SITE_DESCRIPTION' => $global_config['site_description'],
@@ -332,7 +396,7 @@ function convert_number_to_words($number)
         1000000000000000000 => 'tỷ tỷ'
     );
 
-    if (! is_numeric($number)) {
+    if (!is_numeric($number)) {
         return false;
     }
 

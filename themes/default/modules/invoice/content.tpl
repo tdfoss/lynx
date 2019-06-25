@@ -52,7 +52,7 @@
                         </div>
                         <div class="col-xs-18 col-sm-18 col-md-18">
                             <div class="input-group">
-                                <input class="form-control" type="text" name="duetime" value="{ROW.duetime}" id="duetime" pattern="^[0-9]{2,2}\/[0-9]{2,2}\/[0-9]{1,4}$" /> <span class="input-group-btn">
+                                <input class="form-control" type="text" name="duetime" autocomplete="off" value="{ROW.duetime}" id="duetime" pattern="^[0-9]{2,2}\/[0-9]{2,2}\/[0-9]{1,4}$" /> <span class="input-group-btn">
                                     <button class="btn btn-default" type="button" id="duetime-btn">
                                         <em class="fa fa-calendar fa-fix"> </em>
                                     </button>
@@ -145,6 +145,7 @@
                 <tr>
                     <th width="50">{LANG.number}</th>
                     <th>{LANG.title}</th>
+                    <th width="150">{LANG.unit_price}</th>
                     <th width="150">{LANG.quantity}</th>
                     <th width="150">{LANG.price_string}</th>
                     <th width="150">{LANG.vat}</th>
@@ -184,8 +185,9 @@
                             </select>
                             <!-- END: projects -->
                         </div> <textarea class="form-control" name="detail[{ITEM.index}][note]" placeholder="{LANG.note}">{ITEM.note}</textarea></td>
-                    <td><input type="number" class="form-control" onchange="nv_item_change_input();" name="detail[{ITEM.index}][quantity]" value="{ITEM.quantity}"></td>
-                    <td><input type="text" class="form-control price" onchange="nv_item_change_input();" name="detail[{ITEM.index}][price]" value="{ITEM.price}"></td>
+                    <td><input type="text" class="form-control unit_price input_price" onchange="nv_item_change_input();" name="detail[{ITEM.index}][unit_price]" value="{ITEM.unit_price}"></td>
+                    <td><input type="number" class="form-control quantity" onchange="nv_item_change_input();" name="detail[{ITEM.index}][quantity]" value="{ITEM.quantity}"></td>
+                    <td><input type="text" class="form-control price" readonly="readonly" name="detail[{ITEM.index}][price]" value="{ITEM.price}"></td>
                     <td><input type="text" class="form-control vat" onchange="nv_item_change_input();" name="detail[{ITEM.index}][vat]" value="{ITEM.vat}"></td>
                     <td><input type="text" class="form-control vat_price" readonly="readonly" name="detail[{ITEM.index}][vat_price]" value="{ITEM.vat_price}"></td>
                     <td class="total">{ITEM.total}</td>
@@ -225,16 +227,25 @@
         </tbody>
     </table>
     <div class="form-group text-center button_fixed_bottom">
-        <input class="btn btn-primary" name="submit" type="submit" value="{LANG.save}" />
+        <input class="btn btn-primary" name="submit" type="submit" value="{LANG.save}" /> <a class="cancelLink" href="javascript:history.back()" type="reset">{LANG.cancel}</a>
     </div>
 </form>
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/jquery-ui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/language/jquery.ui.datepicker-{NV_LANG_INTERFACE}.js"></script>
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/select2/select2.min.js"></script>
 <script type="text/javascript" src="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/select2/i18n/{NV_LANG_INTERFACE}.js"></script>
+<script src="//unpkg.com/autonumeric"></script>
 <script type="text/javascript">
     //<![CDATA[
+        
+    new AutoNumeric('.input_price', {
+        digitGroupSeparator: ',',
+        decimalCharacter : '.',
+        decimalPlaces: 2
+    });
+        
     $(document).ready(function() {
+        
         $(".select2").select2({
             language : "{NV_LANG_INTERFACE}",
             theme : "bootstrap",
@@ -298,8 +309,9 @@
         html += '		<option value="{SERVICES.id}">{SERVICES.title}</option>';
         <!-- END: services_js -->
     	html += '	 </select></div><textarea class="form-control" name="detail[' + count + '][note]" placeholder="{LANG.note}"></textarea></td>';
+	    html += '    <td><input type="number" class="form-control unit_price input_price" onchange="nv_item_change_input();" name="detail[' + count + '][unit_price]" value="0"></td>';
 	    html += '    <td><input type="number" class="form-control quantity" onchange="nv_item_change_input();" name="detail[' + count + '][quantity]" value="1"></td>';
-        html += '    <td><input type="text" class="form-control price" onchange="nv_item_change_input();" name="detail[' + count + '][price]"></td>';
+        html += '    <td><input type="text" class="form-control price" readonly="readonly" name="detail[' + count + '][price]"></td>';
         html += '    <td><input type="text" class="form-control vat" onchange="nv_item_change_input();" name="detail[' + count + '][vat]"></td>';
         html += '    <td><input type="text" class="form-control vat_price" readonly="readonly" name="detail[' + count + '][vat_price]"></td>';
         html += '    <td class="total"></td>';
@@ -308,6 +320,7 @@
         
         $('#item-detail').append(html);
         $('.number').addNumber();
+        new AutoNumeric('.input_price');
         
         $(".select2_js").select2({
             language : "{NV_LANG_INTERFACE}",
@@ -329,8 +342,9 @@
         html += '		<option value="{PRODUCTS.id}">{PRODUCTS.title}</option>';
         <!-- END: products_js -->
     	html += '	 </select></div><textarea class="form-control" name="detail[' + count + '][note]" placeholder="{LANG.note}"></textarea></td>';
+    	html += '    <td><input type="number" class="form-control unit_price input_price" onchange="nv_item_change_input();" name="detail[' + count + '][unit_price]" value="0"></td>';
 	    html += '    <td><input type="number" class="form-control quantity" onchange="nv_item_change_input();" name="detail[' + count + '][quantity]" value="1"></td>';
-        html += '    <td><input type="text" class="form-control price" onchange="nv_item_change_input();" name="detail[' + count + '][price]"></td>';
+        html += '    <td><input type="text" class="form-control price" readonly="readonly" name="detail[' + count + '][price]"></td>';
         html += '    <td><input type="text" class="form-control vat" onchange="nv_item_change_input();" name="detail[' + count + '][vat]"></td>';
         html += '    <td><input type="text" class="form-control vat_price" readonly="readonly" name="detail[' + count + '][vat_price]"></td>';
         html += '    <td class="total"></td>';
@@ -339,6 +353,7 @@
         
         $('#item-detail').append(html);
         $('.number').addNumber();
+        new AutoNumeric('.input_price');
         
         $(".select2_js").select2({
             language : "{NV_LANG_INTERFACE}",
@@ -360,8 +375,9 @@
         html += '		<option value="{PROJECTS.id}">{PROJECTS.title}</option>';
         <!-- END: projects_js -->
     	html += '	 </select></div><textarea class="form-control" name="detail[' + count + '][note]" placeholder="{LANG.note}"></textarea></td>';
+    	html += '    <td><input type="number" class="form-control unit_price input_price" onchange="nv_item_change_input();" name="detail[' + count + '][unit_price]" value="0"></td>';
 	    html += '    <td><input type="number" class="form-control quantity" onchange="nv_item_change_input();" name="detail[' + count + '][quantity]" value="1"></td>';
-        html += '    <td><input type="text" class="form-control price" onchange="nv_item_change_input();" name="detail[' + count + '][price]"></td>';
+        html += '    <td><input type="text" class="form-control price" readonly="readonly" name="detail[' + count + '][price]"></td>';
         html += '    <td><input type="text" class="form-control vat" onchange="nv_item_change_input();" name="detail[' + count + '][vat]"></td>';
         html += '    <td><input type="text" class="form-control vat_price" readonly="readonly" name="detail[' + count + '][vat_price]"></td>';
         html += '    <td class="total"></td>';
@@ -370,6 +386,7 @@
         
         $('#item-detail').append(html);
         $('.number').addNumber();
+        new AutoNumeric('.input_price');
         
         $(".select2_js").select2({
             language : "{NV_LANG_INTERFACE}",

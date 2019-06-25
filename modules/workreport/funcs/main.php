@@ -9,13 +9,18 @@
  */
 if (!defined('NV_IS_MOD_WORKREPORT')) die('Stop!!!');
 
+if (empty($workforce_list)) {
+    $contents = nv_theme_alert($lang_module['error_required_workforcelist'], $lang_module['error_required_workforcelist_content'], 'warning');
+    include NV_ROOTDIR . '/includes/header.php';
+    echo nv_site_theme($contents);
+    include NV_ROOTDIR . '/includes/footer.php';
+}
+
 if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_request('delete_checkss', 'get')) {
     $id = $nv_Request->get_int('delete_id', 'get');
     $delete_checkss = $nv_Request->get_string('delete_checkss', 'get');
     $redirect = $nv_Request->get_string('redirect', 'get', '');
-
     $addtime = $db->query('SELECT addtime FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetchColumn();
-
     if ($id > 0 and $delete_checkss == md5($id . NV_CACHE_PREFIX . $client_info['session_id']) and nv_check_action($addtime)) {
         $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '  WHERE id = ' . $db->quote($id));
         $nv_Cache->delMod($module_name);
@@ -41,7 +46,12 @@ if ($nv_Request->isset_request('submit', 'post')) {
     } else {
         $row['fortime'] = 0;
     }
-    $row['content'] = $nv_Request->get_string('content', 'post', '');
+    if (intval($array_config['type_content']) == 1) {
+        $row['content'] = $nv_Request->get_textarea('content', '', NV_ALLOWED_HTML_TAGS);
+    } elseif (intval($array_config['type_content']) == 2) {
+        $row['content'] = $nv_Request->get_editor('content', '', NV_ALLOWED_HTML_TAGS);
+    }
+
     $row['time'] = $nv_Request->get_string('time', 'post', 0);
     $row['time'] = preg_replace('/\,/', '.', $row['time']);
     $row['time'] = preg_replace('/[^0-9\.]/', '', $row['time']);
@@ -54,6 +64,8 @@ if ($nv_Request->isset_request('submit', 'post')) {
         $error[] = $lang_module['error_required_content'];
     } elseif (empty($row['id']) && $db->query('SELECT COUNT(*) FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE fortime=' . $row['fortime'] . ' AND userid=' . $user_info['userid'])->fetchColumn() > 0) {
         $error[] = $lang_module['error_required_fortime'];
+    } elseif (nv_workreport_dateDifference(date('Y/m/d', $row['fortime']), date('Y/m/d', NV_CURRENTTIME)) > $array_config['allow_days'] && !$is_admin) {
+        $error[] = sprintf($lang_module['error_allow_fortime'], date('d/m/Y', $row['fortime']));
     }
 
     if (empty($error)) {
@@ -66,7 +78,6 @@ if ($nv_Request->isset_request('submit', 'post')) {
             $stmt->bindParam(':time', $row['time'], PDO::PARAM_STR);
             $stmt->bindParam(':fortime', $row['fortime'], PDO::PARAM_INT);
             $stmt->bindParam(':content', $row['content'], PDO::PARAM_STR, strlen($row['content']));
-
             $exc = $stmt->execute();
             if ($exc) {
                 $nv_Cache->delMod($module_name);
@@ -99,15 +110,22 @@ if ($nv_Request->isset_request('submit', 'post')) {
 
 $base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name;
 $where = '';
-$per_page = 20;
+$per_page = 31;
 $page = $nv_Request->get_int('page', 'post,get', 1);
+$current_year = date('Y', NV_CURRENTTIME);
 $current_month = date('m', NV_CURRENTTIME);
 $array_users = array();
 
 $array_search = array(
+    'year' => $nv_Request->get_int('year', 'get', date('Y', NV_CURRENTTIME)),
     'month' => $nv_Request->get_int('month', 'get', date('m', NV_CURRENTTIME)),
-    'userid' => $nv_Request->get_int('userid', 'get', 0)
+    'userid' => $nv_Request->get_int('userid', 'get', $user_info['userid'])
 );
+
+if (!empty($array_search['year'])) {
+    $base_url .= '&year=' . $array_search['year'];
+    $current_year = $array_search['year'];
+}
 
 if (!empty($array_search['month'])) {
     $base_url .= '&month=' . $array_search['month'];
@@ -126,7 +144,7 @@ $where .= nv_workreport_premission();
 $db->sqlreset()
     ->select('COUNT(*)')
     ->from(NV_PREFIXLANG . '_' . $module_data . '')
-    ->where('DATE_FORMAT(FROM_UNIXTIME(fortime),"%m")=' . $current_month . $where);
+    ->where('DATE_FORMAT(FROM_UNIXTIME(fortime),"%m%Y")=' . $current_month . $current_year . $where);
 
 $sth = $db->prepare($db->sql());
 
@@ -144,6 +162,31 @@ $sth->execute();
 //tinh tong thoi gian lam viec
 
 $row['fortime'] = !empty($row['fortime']) ? nv_date('d/m/Y', $row['fortime']) : '';
+if (intval($array_config['type_content']) == 2) {
+    if (defined('NV_EDITOR')) {
+        require_once NV_ROOTDIR . '/' . NV_EDITORSDIR . '/' . NV_EDITOR . '/nv.php';
+    } elseif (!nv_function_exists('nv_aleditor') and file_exists(NV_ROOTDIR . '/' . NV_EDITORSDIR . '/ckeditor/ckeditor.js')) {
+        define('NV_EDITOR', true);
+        define('NV_IS_CKEDITOR', true);
+        $my_head .= '<script type="text/javascript" src="' . NV_BASE_SITEURL . NV_EDITORSDIR . '/ckeditor/ckeditor.js"></script>';
+        function nv_aleditor($textareaname, $width = '100%', $height = '450px', $val = '', $customtoolbar = '')
+        {
+            global $module_data;
+            $return = '<textarea style="width: ' . $width . '; height:' . $height . ';" id="' . $module_data . '_' . $textareaname . '" name="' . $textareaname . '">' . $val . '</textarea>';
+            $return .= "<script type=\"text/javascript\">
+		CKEDITOR.replace( '" . $module_data . "_" . $textareaname . "', {" . (!empty($customtoolbar) ? 'toolbar : "' . $customtoolbar . '",' : '') . " width: '" . $width . "',height: '" . $height . "',});
+		</script>";
+            return $return;
+        }
+    }
+}
+
+$row['content'] = htmlspecialchars(nv_editor_br2nl($row['content']));
+if (defined('NV_EDITOR') and nv_function_exists('nv_aleditor') && intval($array_config['type_content']) == 2) {
+    $row['content'] = nv_aleditor('content', '100%', '300px', $row['content'], 'Basic');
+} else {
+    $row['content'] = '<textarea style="width:100%;height:100px" name="content">' . $row['content'] . '</textarea>';
+}
 
 $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
 $xtpl->assign('LANG', $lang_module);
@@ -162,14 +205,12 @@ $total = 0;
 while ($view = $sth->fetch()) {
     $view['number'] = $number++;
     $total += $view['time'];
-
     $allow_action = 0;
     if (nv_check_action($view['addtime'])) {
         $allow_action = 1;
         $view['link_edit'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;id=' . $view['id'] . '&amp;redirect=' . nv_redirect_encrypt($client_info['selfurl']);
-        $view['link_delete'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;delete_id=' . $view['id'] . '&amp;delete_checkss=' . md5($view['id'] . NV_CACHE_PREFIX . $client_info['session_id'] . '&amp;redirect=' . nv_redirect_encrypt($client_info['selfurl']));
+        $view['link_delete'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;delete_id=' . $view['id'] . '&amp;delete_checkss=' . md5($view['id'] . NV_CACHE_PREFIX . $client_info['session_id']);
     }
-
     $view['day_in_weeks'] = nv_date('l', $view['fortime']);
     $view['fortime'] = (empty($view['fortime'])) ? '' : nv_date('d/m/Y', $view['fortime']);
     $view['addtime'] = (empty($view['addtime'])) ? '' : nv_date('H:i d/m/Y', $view['addtime']);
@@ -185,6 +226,15 @@ while ($view = $sth->fetch()) {
 }
 
 $xtpl->assign('TOTAL', $total);
+
+$begin_year = date('Y', filemtime(NV_ROOTDIR . '/' . NV_CONFIG_FILENAME));
+for ($i = date('Y', NV_CURRENTTIME); $i >= $begin_year; $i--) {
+    $xtpl->assign('YEAR', array(
+        'index' => $i,
+        'selected' => $i == $current_year ? 'selected="selected"' : ''
+    ));
+    $xtpl->parse('main.year');
+}
 
 for ($i = 1; $i <= 12; $i++) {
     $xtpl->assign('MONTH', array(
@@ -206,7 +256,6 @@ if (!empty($workforce_list)) {
             }
         }
         $xtpl->parse('main.users');
-
         $xtpl->assign('URL_ADMIN', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $module_info['alias']['admin']);
         $xtpl->parse('main.admin');
     }

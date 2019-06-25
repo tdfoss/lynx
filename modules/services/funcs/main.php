@@ -7,7 +7,6 @@
  * @License GNU/GPL version 2 or any later version
  * @Createdate Tue, 02 Jan 2018 08:50:17 GMT
  */
-
 if (!defined('NV_IS_MOD_SERVICES')) die('Stop!!!');
 
 //change status
@@ -84,12 +83,23 @@ $row['id'] = $nv_Request->get_int('id', 'post,get', 0);
 if ($nv_Request->isset_request('submit', 'post')) {
     $row['title'] = $nv_Request->get_title('title', 'post', '');
     $row['price'] = $nv_Request->get_title('price', 'post', '');
-    $row['price_unit'] = $nv_Request->get_int('price_unit', 'post', 0);
+    $row['price_unit'] = $nv_Request->get_title('price_unit', 'post', 0);
     $row['vat'] = $nv_Request->get_float('vat', 'post', 0);
     $row['note'] = $nv_Request->get_textarea('note', '', NV_ALLOWED_HTML_TAGS);
+    $row['price'] = floatval(preg_replace('/[^0-9.]/', '', $row['price']));
     
     if (empty($row['title'])) {
         $error[] = $lang_module['error_required_title'];
+    }
+    
+    if (!empty($row['price_unit'])) {
+        if (!is_numeric($row['price_unit'])) {
+            $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_price_unit(title) VALUES (:title)';
+            $data_insert = array(
+                'title' => $row['price_unit']
+            );
+            $row['price_unit'] = $db->insert_id($_sql, 'id', $data_insert);
+        }
     }
     
     if (empty($error)) {
@@ -99,7 +109,6 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $weight = $db->query('SELECT max(weight) FROM ' . NV_PREFIXLANG . '_' . $module_data . '')->fetchColumn();
                 $weight = intval($weight) + 1;
                 $stmt->bindParam(':weight', $weight, PDO::PARAM_INT);
-                
             } else {
                 $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET title = :title, price = :price, price_unit = :price_unit, vat = :vat, note = :note WHERE id=' . $row['id']);
             }
@@ -144,8 +153,8 @@ if (!$nv_Request->isset_request('id', 'post,get')) {
     $per_page = 20;
     $page = $nv_Request->get_int('page', 'post,get', 1);
     $db->sqlreset()
-    ->select('COUNT(*)')
-    ->from('' . NV_PREFIXLANG . '_' . $module_data . '');
+        ->select('COUNT(*)')
+        ->from('' . NV_PREFIXLANG . '_' . $module_data . '');
     
     if (!empty($q)) {
         $db->where('title LIKE :q_title OR price LIKE :q_price OR price_unit LIKE :q_price_unit');
@@ -161,9 +170,9 @@ if (!$nv_Request->isset_request('id', 'post,get')) {
     $num_items = $sth->fetchColumn();
     
     $db->select('*')
-    ->order('weight ASC')
-    ->limit($per_page)
-    ->offset(($page - 1) * $per_page);
+        ->order('weight ASC')
+        ->limit($per_page)
+        ->offset(($page - 1) * $per_page);
     $sth = $db->prepare($db->sql());
     
     if (!empty($q)) {
@@ -175,6 +184,30 @@ if (!$nv_Request->isset_request('id', 'post,get')) {
 }
 
 $row['price'] = !empty($row['price']) ? $row['price'] : '';
+
+if (defined('NV_EDITOR')) {
+    require_once NV_ROOTDIR . '/' . NV_EDITORSDIR . '/' . NV_EDITOR . '/nv.php';
+} elseif (!nv_function_exists('nv_aleditor') and file_exists(NV_ROOTDIR . '/' . NV_EDITORSDIR . '/ckeditor/ckeditor.js')) {
+    define('NV_EDITOR', true);
+    define('NV_IS_CKEDITOR', true);
+    $my_head .= '<script type="text/javascript" src="' . NV_BASE_SITEURL . NV_EDITORSDIR . '/ckeditor/ckeditor.js"></script>';
+    
+    function nv_aleditor($textareaname, $width = '100%', $height = '450px', $val = '', $customtoolbar = '')
+    {
+        global $module_data;
+        $return = '<textarea style="width: ' . $width . '; height:' . $height . ';" id="' . $module_data . '_' . $textareaname . '" name="' . $textareaname . '">' . $val . '</textarea>';
+        $return .= "<script type=\"text/javascript\">
+		CKEDITOR.replace( '" . $module_data . "_" . $textareaname . "', {" . (!empty($customtoolbar) ? 'toolbar : "' . $customtoolbar . '",' : '') . " width: '" . $width . "',height: '" . $height . "',});
+		</script>";
+        return $return;
+    }
+}
+$row['note'] = htmlspecialchars(nv_editor_br2nl($row['note']));
+if (defined('NV_EDITOR') and nv_function_exists('nv_aleditor')) {
+    $row['note'] = nv_aleditor('note', '100%', '300px', $row['note'], 'Basic');
+} else {
+    $row['note'] = '<textarea style="width:100%;height:300px" name="note">' . $row['note'] . '</textarea>';
+}
 
 $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
 $xtpl->assign('LANG', $lang_module);
@@ -196,8 +229,10 @@ if ($show_view) {
         $xtpl->parse('main.view.generate_page');
     }
     $number = $page > 1 ? ($per_page * ($page - 1)) + 1 : 1;
+    
     while ($view = $sth->fetch()) {
-        $view['price'] = !empty($view['price']) ? $view['price'] : '';
+        
+        $view['price'] = !empty($view['price']) ? nv_number_format($view['price']) : '';
         
         $view['price_unit'] = !empty($view['price_unit']) ? $array_price_unit[$view['price_unit']]['title'] : '';
         for ($i = 1; $i <= $num_items; ++$i) {
@@ -209,14 +244,15 @@ if ($show_view) {
             $xtpl->parse('main.view.loop.weight_loop');
         }
         $xtpl->assign('CHECK', $view['active'] == 1 ? 'checked' : '');
+        $view['link_view'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $module_info['alias']['detail'] . '&amp;id=' . $view['id'];
         $view['link_edit'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;id=' . $view['id'];
         $view['link_delete'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;delete_id=' . $view['id'] . '&amp;delete_checkss=' . md5($view['id'] . NV_CACHE_PREFIX . $client_info['session_id']);
-        if(isset($site_mods['invoice'])){
+        if (isset($site_mods['invoice'])) {
             $view['link_invoice'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=invoice&amp;serviceid=' . $view['id'];
         }
         $xtpl->assign('VIEW', $view);
         
-        if(isset($site_mods['invoice'])){
+        if (isset($site_mods['invoice'])) {
             $xtpl->parse('main.view.loop.invoice');
         }
         

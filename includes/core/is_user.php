@@ -50,11 +50,10 @@ if (defined('NV_IS_ADMIN')) {
     if ($nv_Request->get_bool('nvloginhash', 'cookie', false)) {
         $user = $nv_Request->get_string('nvloginhash', 'cookie', '');
         if (!empty($user) and $global_config['allowuserlogin']) {
-            $user = unserialize($user);
-
+            $user = json_decode($user, true);
             if (isset($user['userid']) and isset($user['checknum']) and isset($user['checkhash'])) {
                 $user['userid'] = intval($user['userid']);
-                if ($user['checkhash'] == md5($user['userid'] . $user['checknum'] . $global_config['sitekey'] . $client_info['browser']['key'])) {
+                if ($user['checkhash'] === md5($user['userid'] . $user['checknum'] . $global_config['sitekey'] . $client_info['browser']['key'])) {
                     $_sql = 'SELECT userid, group_id, username, email, first_name, last_name, gender, photo, birthday, regdate,
 						view_mail, remember, in_groups, active2step, checknum, last_agent AS current_agent, last_ip AS current_ip, last_login AS current_login,
 						last_openid AS current_openid, password, question, answer, safemode, email_verification_time
@@ -63,11 +62,10 @@ if (defined('NV_IS_ADMIN')) {
                     $user_info = $db->query($_sql)->fetch();
                     if (!empty($user_info)) {
                         if (empty($global_config['allowuserloginmulti'])) {
-                            if (strcasecmp($user['checknum'], $user_info['checknum']) == 0 and //checknum
-                            isset($user['current_agent']) and strcasecmp($user['current_agent'], $user_info['current_agent']) == 0 and //user_agent
-                            isset($user['current_ip']) and strcasecmp($user['current_ip'], $user_info['current_ip']) == 0 and //current IP
-                            isset($user['current_login']) and strcasecmp($user['current_login'], intval($user_info['current_login'])) == 0) {
-                                //current login
+                            if (($user['checknum'] === $user_info['checknum']) and //checknum
+                                isset($user['current_agent']) and ($user['current_agent'] === $user_info['current_agent']) and //user_agent
+                                isset($user['current_ip']) and ($user['current_ip'] === $user_info['current_ip']) and //current IP
+                                isset($user['current_login']) and ($user['current_login'] === intval($user_info['current_login']))) { //current login
                                 $checknum = true;
                             } else {
                                 $checknum = false;
@@ -86,7 +84,11 @@ if (defined('NV_IS_ADMIN')) {
                             $user_info['last_ip'] = $user['last_ip'];
                             $user_info['last_openid'] = $user['last_openid'];
                             $user_info['st_login'] = !empty($user_info['password']) ? true : false;
-                            $user_info['valid_question'] = (!empty($user_info['question']) and !empty($user_info['answer'])) ? true : false;
+                            if ($global_config['allowquestion']) {
+                                $user_info['valid_question'] = (!empty($user_info['question']) and !empty($user_info['answer'])) ? true : false;
+                            } else {
+                                $user_info['valid_question'] = true;
+                            }
                             $user_info['current_mode'] = isset($user['current_mode']) ? $user['current_mode'] : 0;
 
                             unset($user_info['checknum'], $user_info['password'], $user_info['question'], $user_info['answer'], $check_in_groups);

@@ -13,7 +13,7 @@ $id = $nv_Request->get_int('id', 'post,get', 0);
 
 $row = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
 if (empty($row)) {
-    Header('Location: ' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=' . $op);
+    Header('Location: ' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name);
     die();
 }
 
@@ -39,6 +39,8 @@ while (list ($customerid) = $result->fetch(3)) {
 
 if (!empty($row['sendto'])) {
     $row['sendto'] = implode(', ', $row['sendto']);
+} else {
+    $row['sendto'] = '';
 }
 
 $row['addtime'] = nv_date('H:i d/m/Y', $row['addtime']);
@@ -54,11 +56,18 @@ $array_control = array(
     'url_delete' => NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;delete_id=' . $row['id'] . '&amp;delete_checkss=' . md5($row['id'] . NV_CACHE_PREFIX . $client_info['session_id'])
 );
 
+$status = $row['status'];
+$row['status'] = $array_email_status[$row['status']];
+
 $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
 $xtpl->assign('LANG', $lang_module);
 $xtpl->assign('MODULE_NAME', $module_name);
 $xtpl->assign('EMAILIF', $row);
 $xtpl->assign('CONTROL', $array_control);
+
+if ($status == 0) {
+    $xtpl->parse('main.send');
+}
 
 if (!empty($row['cc_id'])) {
     $xtpl->parse('main.cc');

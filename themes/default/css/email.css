@@ -17,3 +17,9 @@ ul.list-info label {
 .detail .content ul{
     list-style: inherit;
 }
+
+.cancelLink {
+    font-size: 14px;
+    padding-left: 10px;
+    color: red;
+}

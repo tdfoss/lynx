@@ -5,6 +5,10 @@
  * @Createdate Tue, 02 Jan 2018 08:34:29 GMT
  */
 
+$('#current-month, #partid').change(function() {
+    window.location.href = script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=salary-content&month=' + $('#current-month').val() + '&partid=' + $('#partid').val();
+});
+
 function nv_list_action(action, url_action, del_confirm_no_post) {
     var listall = [];
     $('input.post:checked').each(function() {
@@ -34,10 +38,30 @@ function nv_list_action(action, url_action, del_confirm_no_post) {
     return false;
 }
 
+// $('#form-workforce').submit(function(e) {
+// e.preventDefault();
+// $.ajax({
+// url : script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=content&nocache=' + new Date().getTime(),
+// type : 'post',
+// data : $(this).serialize(),
+// success : function(json) {
+// if (json.error) {
+// alert(json.msg);
+// } else {
+// alert('Thêm dữ liệu thành công !');
+// location.reload();
+// }
+//           
+// }
+//    
+// });
+// });
+
 function nv_table_row_click(e, t, n) {
     var r = e.target.tagName.toLowerCase(), i = e.target.parentNode.tagName.toLowerCase(), a = e.target.parentNode.parentNode.parentNode;
     return void ("button" != r && "a" != r && "button" != i && "a" != i && "td" != i && (n ? window.open(t) : window.location.href = t))
 }
+
 function nv_chang_status(vid) {
     var nv_timer = nv_settimeout_disable('change_status_' + vid, 1000);
     var new_status = $('#change_status_' + vid).val();

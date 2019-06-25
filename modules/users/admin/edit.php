@@ -56,35 +56,14 @@ if ($admin_info['admin_id'] == $userid and $admin_info['safemode'] == 1) {
     include NV_ROOTDIR . '/includes/header.php';
     echo nv_admin_theme($contents);
     include NV_ROOTDIR . '/includes/footer.php';
-    exit();
 }
 
 $groups_list = nv_groups_list($module_data);
-
-$array_old_groups = array();
+$array_field_config = nv_get_users_field_config();
+$array_old_groups = [];
 $result_gru = $db->query('SELECT group_id FROM ' . NV_MOD_TABLE . '_groups_users WHERE userid=' . $userid);
 while ($row_gru = $result_gru->fetch()) {
     $array_old_groups[] = $row_gru['group_id'];
-}
-
-$array_field_config = array();
-$result_field = $db->query('SELECT * FROM ' . NV_MOD_TABLE . '_field ORDER BY weight ASC');
-while ($row_field = $result_field->fetch()) {
-    $language = unserialize($row_field['language']);
-    $row_field['title'] = (isset($language[NV_LANG_DATA])) ? $language[NV_LANG_DATA][0] : $row_field['field'];
-    $row_field['description'] = (isset($language[NV_LANG_DATA])) ? nv_htmlspecialchars($language[NV_LANG_DATA][1]) : '';
-    if (!empty($row_field['field_choices'])) {
-        $row_field['field_choices'] = unserialize($row_field['field_choices']);
-    } elseif (!empty($row_field['sql_choices'])) {
-        $row_field['sql_choices'] = explode('|', $row_field['sql_choices']);
-        $query = 'SELECT ' . $row_field['sql_choices'][2] . ', ' . $row_field['sql_choices'][3] . ' FROM ' . $row_field['sql_choices'][1];
-        $result = $db->query($query);
-        $weight = 0;
-        while (list($key, $val) = $result->fetch(3)) {
-            $row_field['field_choices'][$key] = $val;
-        }
-    }
-    $array_field_config[$row_field['field']] = $row_field;
 }
 
 if (defined('NV_EDITOR')) {
@@ -434,6 +413,7 @@ if (defined('NV_IS_USER_FORUM')) {
     }
 
     $have_custom_fields = false;
+    $have_name_field = false;
     foreach ($array_field_config as $row) {
         $row['value'] = (isset($custom_fields[$row['field']])) ? $custom_fields[$row['field']] : $row['default_value'];
         $row['required'] = ($row['required']) ? 'required' : '';
@@ -450,6 +430,7 @@ if (defined('NV_IS_USER_FORUM')) {
             $xtpl->assign('FIELD', $row);
             if ($row['field'] == 'first_name' or $row['field'] == 'last_name') {
                 $show_key = 'name_show_' . $global_config['name_show'] . '.show_' . $row['field'];
+                $have_name_field = true;
             } else {
                 $show_key = 'show_' . $row['field'];
             }
@@ -467,9 +448,6 @@ if (defined('NV_IS_USER_FORUM')) {
                 $xtpl->parse('main.edit_user.' . $show_key . '.description');
             }
             $xtpl->parse('main.edit_user.' . $show_key);
-            if ($row['field'] == 'gender') {
-                $xtpl->parse('main.edit_user.name_show_' . $global_config['name_show']);
-            }
         } else {
             if ($row['required']) {
                 $xtpl->parse('main.edit_user.field.loop.required');
@@ -547,6 +525,9 @@ if (defined('NV_IS_USER_FORUM')) {
             $xtpl->parse('main.edit_user.field.loop');
             $have_custom_fields = true;
         }
+    }
+    if ($have_name_field) {
+        $xtpl->parse('main.edit_user.name_show_' . $global_config['name_show']);
     }
     if ($have_custom_fields) {
         $xtpl->parse('main.edit_user.field');

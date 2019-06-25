@@ -10,7 +10,7 @@
             </div>
             <div class="col-xs-24 col-md-4">
                 <div class="form-group">
-                     <select class="form-control" name="catid">
+                    <select class="form-control" name="catid">
                         <option value="0">---{LANG.typeid}---</option>
                         <!-- BEGIN: select_type -->
                         <option value="{TYPE.key}"{TYPE.selected}>{TYPE.title}</option>
@@ -37,15 +37,15 @@
 </form>
 <form action="{NV_BASE_ADMINURL}index.php?{NV_LANG_VARIABLE}={NV_LANG_DATA}&amp;{NV_NAME_VARIABLE}={MODULE_NAME}&amp;{NV_OP_VARIABLE}={OP}" method="post">
     <div class="table-responsive">
-        <table class="table table-striped table-bordered table-hover">
+        <table class="table table-striped table-bordered table-hover row-click">
             <thead>
                 <tr>
                     <th class="text-center" width="50"><input name="check_all[]" type="checkbox" value="yes" onclick="nv_checkAll(this.form, 'idcheck[]', 'check_all[]',this.checked);"></th>
                     <th>{LANG.title}</th>
                     <th>{LANG.product_type}</th>
-                    <th>{LANG.url}</th>
                     <th>{LANG.price}</th>
                     <th>{LANG.vat}</th>
+                    <th>{LANG.price_unit}</th>
                     <th width="100" class="text-center">{LANG.active}</th>
                     <th width="150">&nbsp;</th>
                 </tr>
@@ -53,19 +53,20 @@
             <!-- BEGIN: generate_page -->
             <tfoot>
                 <tr>
-                    <td class="text-center" colspan="8">{NV_GENERATE_PAGE}</td>
+                    <td class="text-center" colspan="7">{NV_GENERATE_PAGE}</td>
                 </tr>
             </tfoot>
             <!-- END: generate_page -->
             <tbody>
                 <!-- BEGIN: loop -->
-                <tr>
+                <tr onclick="nv_table_row_click(event, '{VIEW.link_view}', false);">
                     <td class="text-center"><input type="checkbox" onclick="nv_UncheckAll(this.form, 'idcheck[]', 'check_all[]', this.checked);" value="{VIEW.id}" name="idcheck[]" class="post"></td>
-                    <td>{VIEW.title}</td>
+                    <td>{VIEW.title} <span class="pull-right"><a href={VIEW.url} target="_blank" data-toggle="tooltip" data-original-title="{LANG.url}"><em class="fa fa-external-link"></em></span></a>
+                    </td>
                     <td>{VIEW.catid}</td>
-                    <td><a href={VIEW.url} target="_blank">{VIEW.url}</a></td>
                     <td>{VIEW.price}</td>
                     <td>{VIEW.vat}</td>
+                    <td>{VIEW.price_unit}</td>
                     <td class="text-center"><input type="checkbox" name="active" id="change_status_{VIEW.id}" value="{VIEW.id}" {CHECK} onclick="nv_change_status({VIEW.id});" /></td>
                     <td class="text-center"><i class="fa fa-edit fa-lg">&nbsp;</i> <a href="{VIEW.link_edit}">{LANG.edit}</a> - <em class="fa fa-trash-o fa-lg">&nbsp;</em> <a href="{VIEW.link_delete}" onclick="return confirm(nv_is_del_confirm[0]);">{LANG.delete}</a></td>
                 </tr>

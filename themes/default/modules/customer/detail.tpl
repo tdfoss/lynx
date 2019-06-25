@@ -14,8 +14,10 @@
     <!-- BEGIN: support -->
     <li><a href="{URL_ADD_SUPPORT}" class="btn btn-primary btn-xs"><em class="fa fa-user">&nbsp;</em>{LANG.add_support}</a></li>
     <!-- END: support -->
+    <!-- BEGIN: admin -->
     <li><a href="{URL_EDIT}" class="btn btn-default btn-xs"><em class="fa fa-edit">&nbsp;</em>{LANG.customer_edit}</a></li>
     <li><a href="{URL_DELETE}" class="btn btn-danger btn-xs" onclick="return confirm(nv_is_del_confirm[0]);"><em class="fa fa-trash-o">&nbsp;</em>{LANG.delete}</a></li>
+    <!-- END: admin -->
 </ul>
 <div class="clearfix"></div>
 <div class="panel with-nav-tabs panel-success">
@@ -60,7 +62,9 @@
                         </tr>
                         <tr>
                             <th>{LANG.main_email}</th>
-                            <td>{CUSTOMER.main_email}</td>
+                            <td>
+                                <a href="mailto:{CUSTOMER.main_email}">{CUSTOMER.main_email}</a>
+                            </td>
                             <th>{LANG.other_email}</th>
                             <td>{CUSTOMER.other_email}</td>
                         </tr>
@@ -72,22 +76,37 @@
                         </tr>
                         <tr>
                             <th>Facebook</th>
-                            <td>{CUSTOMER.facebook}</td>
+                            <td>
+                                <a href="{CUSTOMER.facebook}">{CUSTOMER.facebook}</a>
+                            </td>
                             <th>Skype</th>
-                            <td>{CUSTOMER.skype}</td>
+                            <td>
+                                <a href="skype:{CUSTOMER.skype}">{CUSTOMER.skype}</a>
+                            </td>
                         </tr>
                         <tr>
                             <th>Zalo</th>
                             <td>{CUSTOMER.zalo}</td>
+                            <th>Website</th>
+                            <td>{CUSTOMER.website_str}</td>
+                        </tr>
+                        <tr>
                             <th>{LANG.address}</th>
                             <td>{CUSTOMER.address}</td>
+                            <th></th>
+                            <td></td>
                         </tr>
                         <tr>
                             <th>{LANG.gender}</th>
                             <td>{CUSTOMER.gender}</td>
                             <th>{LANG.unit}</th>
-                            <td>{CUSTOMER.unit}</td>
-                        </tr>
+                            <td>
+                                <!-- BEGIN: unit -->
+                                <label class="label label-default">{UNITS}</label>
+                                <!-- END: unit -->
+                            </td>
+                        
+                        
                         <tr>
                             <th>{LANG.addtime}</th>
                             <td>{CUSTOMER.addtime}</td>
@@ -103,6 +122,28 @@
                                 <label class="label label-default">{TAGS}</label>
                                 <!-- END: tags -->
                             </td>
+                        </tr>
+                        <tr>
+                            <th>{LANG.share_people}</th>
+                            <td>
+                                <!-- BEGIN: share_accs -->
+                                <label class="label label-primary">{SHAREACC}</label>
+                                <!-- END: share_accs -->
+                            </td>
+                            <th><label class="control-label"><strong>{LANG.share_groups}</strong></label></th>
+                            <td>{CUSTOMER.share_groups}</td>
+                        </tr>
+                        <!-- BEGIN: field -->
+                        <!-- BEGIN: loop -->
+                        <tr>
+                            <th>{FIELD.title}</th>
+                            <td>{FIELD.value}</td>
+                        </tr>
+                        <!-- END: loop -->
+                        <!-- END: field -->
+                        <tr>
+                            <th>{LANG.userid_link}</th>
+                            <td>{CUSTOMER.userid_link}</td>
                         </tr>
                         <tr>
                             <th>{LANG.note}</th>
@@ -214,7 +255,7 @@
                     <!-- END: generate_page -->
                     <tbody>
                         <!-- BEGIN: loop -->
-                        <tr>
+                        <tr onclick="nv_table_row_click(event, '{PROJECT.link_view}', false);" class="pointer">
                             <td class="text-center">{PROJECT.number}</td>
                             <td>{PROJECT.title}</td>
                             <td>{PROJECT.begintime}</td>
@@ -303,5 +344,4 @@
         $('.nav-tabs a[href="#' + url.split('#')[1] + '"]').tab('show');
     }
 </script>
-
 <!-- END: main -->

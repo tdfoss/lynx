@@ -34,3 +34,4 @@ $lang_module['note'] = 'Ghi chú';
 $lang_module['price_type_select'] = 'Chọn đơn vị';
 $lang_module['error_required_title'] = 'Lỗi: bạn cần nhập dữ liệu cho Tiêu đề';
 $lang_module['config_general'] = 'Chung';
+$lang_module['unit'] = 'Đơn vị';

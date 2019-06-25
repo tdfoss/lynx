@@ -25,9 +25,9 @@ if ($nv_Request->isset_request('change_contacts', 'post')) {
 }
 
 $id = $nv_Request->get_int('id', 'post,get', 0);
-$customer_info = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id . nv_customer_premission($module_name))->fetch();
+$customer_info = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' t1 INNER JOIN ' . NV_PREFIXLANG . '_' . $module_data . '_share_acc t2 ON t1.id=t2.customerid WHERE id=' . $id . nv_customer_premission($module_name, 't2.'))->fetch();
 if (!$customer_info) {
-    Header('Location: ' . NV_BASE_ADMINURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=manage_cusomer');
+    Header('Location: ' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=manage_cusomer');
     die();
 }
 
@@ -38,6 +38,16 @@ $customer_info['edittime'] = !empty($customer_info['edittime']) ? nv_date('H:i d
 $customer_info['care_staff'] = !empty($customer_info['care_staff']) ? $workforce_list[$customer_info['care_staff']]['fullname'] : '';
 $customer_info['type_id'] = !empty($customer_info['type_id']) ? $array_customer_type_id[$customer_info['type_id']]['title'] : '';
 $customer_info['birthday'] = !empty($customer_info['birthday']) ? nv_date('d/m/Y', $customer_info['birthday']) : '';
+$customer_info['share_groups'] = !empty($customer_info['share_groups']) ? $array_part_list[$customer_info['share_groups']]['title'] : '';
+$customer_info['website_str'] = '';
+if (!empty($customer_info['website'])) {
+    $customer_info['website_str'] = array();
+    $customer_info['website'] = explode(',', $customer_info['website']);
+    foreach ($customer_info['website'] as $url) {
+        $customer_info['website_str'][] = '<a target="_blank" href="' . $url . '">' . $url . '</a>';
+    }
+    $customer_info['website_str'] = implode(', ', $customer_info['website_str']);
+}
 
 $array_customer_service = array();
 $array_customer_products = array();
@@ -63,6 +73,7 @@ if (isset($site_mods['projects'])) {
 
     $result = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_projects WHERE customerid=' . $id . ' ORDER BY id DESC');
     while ($row = $result->fetch()) {
+        $row['link_view'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=projects&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $row['id'];
         $array_customer_projects[] = $row;
     }
     $customer_info['count_projects'] = sizeof($array_customer_projects);
@@ -76,6 +87,7 @@ if (isset($site_mods['email'])) {
         $row['link_view'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=email&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $row['id'];
         $row['addtime'] = nv_date('H:i d/m/Y', $row['addtime']);
         $row['useradd'] = !empty($row['useradd']) ? $workforce_list[$row['useradd']]['fullname'] : $lang_module['system'];
+
         $array_email_list[] = $row;
     }
     $customer_info['count_emails'] = sizeof($array_email_list);
@@ -84,11 +96,8 @@ if (isset($site_mods['email'])) {
 if (isset($site_mods['invoice'])) {
     define('NV_INVOICE', true);
     $array_invoice = array();
-    $array_invoice_status = array(
-        0 => $lang_module['invoice_status_0'],
-        1 => $lang_module['invoice_status_1'],
-        2 => $lang_module['invoice_status_2']
-    );
+    require_once NV_ROOTDIR . '/modules/invoice/language/' . NV_LANG_INTERFACE . '.php';
+    require_once NV_ROOTDIR . '/modules/invoice/site.functions.php';
     $result = $db->query('SELECT id, title, code, addtime, duetime, grand_total, status FROM ' . NV_PREFIXLANG . '_invoice WHERE customerid=' . $id . ' ORDER BY id DESC');
     while ($row = $result->fetch()) {
         $row['createtime'] = !empty($row['createtime']) ? nv_date('H:i d/m/Y', $row['createtime']) : '';
@@ -102,6 +111,14 @@ if (isset($site_mods['invoice'])) {
     $customer_info['count_invoices'] = sizeof($array_invoice);
 }
 
+$customer_info['share_accs'] = array();
+if (!empty($customer_info['share_acc'])) {
+    $customer_info['share_acc'] = explode(',', $customer_info['share_acc']);
+    foreach ($customer_info['share_acc'] as $share_acc) {
+        $customer_info['share_accs'][] = $workforce_list[$share_acc]['fullname'];
+    }
+}
+
 $customer_info['tags'] = array();
 if (!empty($customer_info['tag_id'])) {
     $customer_info['tag_id'] = explode(',', $customer_info['tag_id']);
@@ -110,11 +127,26 @@ if (!empty($customer_info['tag_id'])) {
     }
 }
 
+$customer_info['units'] = array();
+if (!empty($customer_info['unit'])) {
+    $customer_info['unit'] = explode(',', $customer_info['unit']);
+    foreach ($customer_info['unit'] as $units) {
+        $customer_info['units'][] = $array_customer_units[$units]['title'];
+    }
+}
+
 $other_phone = !empty($customer_info['other_phone']) ? explode('|', $customer_info['other_phone']) : array();
 $customer_info['other_phone'] = nv_theme_crm_label($other_phone);
 
 $other_email = !empty($customer_info['other_email']) ? explode('|', $customer_info['other_email']) : array();
 $customer_info['other_email'] = nv_theme_crm_label($other_email);
+
+if ($customer_info['userid_link'] > 0) {
+    $user = $db->query('SELECT userid, first_name, last_name, username FROM ' . NV_USERS_GLOBALTABLE . ' WHERE userid=' . $customer_info['userid_link'])->fetch();
+    $customer_info['userid_link'] = nv_show_name_user($user['first_name'], $user['last_name'], $user['username']);
+} else {
+    $customer_info['userid_link'] = $lang_module['userid_link_empty'];
+}
 
 $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
 $xtpl->assign('LANG', $lang_module);
@@ -168,44 +200,33 @@ if ($customer_info['is_contacts'] == 0) {
         $xtpl->parse('main.service_tab_content');
         $xtpl->parse('main.iscontacts.service_tab_title');
     }
+}
 
-    if (defined('NV_SERVICES')) {
-        if (!empty($array_customer_projects)) {
-            $i = 1;
-            foreach ($array_customer_projects as $project) {
-                $project['number'] = $i++;
-                $project['begintime'] = (empty($project['begintime'])) ? '-' : nv_date('d/m/Y', $project['begintime']);
-                $project['endtime'] = (empty($project['endtime'])) ? '-' : nv_date('d/m/Y', $project['endtime']);
-                $project['realtime'] = (empty($project['realtime'])) ? '-' : nv_date('d/m/Y', $project['realtime']);
-                $project['status'] = $lang_module['project_status_' . $project['status']];
-                $xtpl->assign('PROJECT', $project);
-                $xtpl->parse('main.projects_tab_content.loop');
-                $i++;
-            }
+$array_field_config = array();
+$result_field = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_field WHERE show_profile=1 ORDER BY weight ASC');
+while ($row_field = $result_field->fetch()) {
+    $language = unserialize($row_field['language']);
+    $row_field['title'] = (isset($language[NV_LANG_DATA])) ? $language[NV_LANG_DATA][0] : $row['field'];
+    $row_field['description'] = (isset($language[NV_LANG_DATA])) ? nv_htmlspecialchars($language[NV_LANG_DATA][1]) : '';
+    if (!empty($row_field['field_choices'])) {
+        $row_field['field_choices'] = unserialize($row_field['field_choices']);
+    } elseif (!empty($row_field['sql_choices'])) {
+        $row_field['sql_choices'] = explode('|', $row_field['sql_choices']);
+        $query = 'SELECT ' . $row_field['sql_choices'][2] . ', ' . $row_field['sql_choices'][3] . ' FROM ' . $row_field['sql_choices'][1];
+        $result = $db->query($query);
+        $weight = 0;
+        while (list ($key, $val) = $result->fetch(3)) {
+            $row_field['field_choices'][$key] = $val;
         }
-        $xtpl->parse('main.projects_tab_content');
-        $xtpl->parse('main.iscontacts.projects_tab_title');
     }
-
-    $xtpl->parse('main.iscontacts');
-} else {
-    $xtpl->parse('main.iscontacts_change');
+    $array_field_config[] = $row_field;
 }
 
-if (isset($site_mods['support'])) {
-    $xtpl->assign('URL_ADD_SUPPORT', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=support&' . NV_OP_VARIABLE . '=content&customerid=' . $id);
-    $xtpl->parse('main.support');
-}
+$sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_info WHERE rows_id=' . $id;
+$result_field = $db->query($sql);
+$custom_fields = $result_field->fetch();
 
-if (!empty($customer_info['tags'])) {
-    foreach ($customer_info['tags'] as $tags) {
-        $xtpl->assign('TAGS', $tags);
-        $xtpl->parse('main.tags');
-    }
-}
-
-$xtpl->parse('main');
-$contents = $xtpl->text('main');
+$contents = nv_theme_customer_detail($customer_info, $id);
 
 $page_title = $customer_info['fullname'];
 $array_mod_title[] = array(

@@ -1103,6 +1103,22 @@ if ($step == 1) {
             }
         }
 
+        // Cập nhật lại trường in_groups
+        $in_groups = array();
+        $result = $db->query('SELECT group_id FROM ' . $db_config['prefix'] . '_users_groups_users WHERE userid=1');
+        while (list ($group_id) = $result->fetch(3)) {
+            $in_groups[] = $group_id;
+        }
+        $in_groups = !empty($in_groups) ? implode(',', $in_groups) : '';
+        $db->query('UPDATE ' . $db_config['prefix'] . '_users SET in_groups=' . $db->quote($in_groups) . ' WHERE userid=1');
+
+        // Tạo nhân viên mặc định
+        $db->query('TRUNCATE TABLE ' . $db_config['prefix'] . '_' . NV_LANG_DATA . '_workforce');
+        $db->query('TRUNCATE TABLE ' . $db_config['prefix'] . '_' . NV_LANG_DATA . '_workforce_part_detail');
+        list($username, $email) = $db->query('SELECT username, email FROM ' . $db_config['prefix'] . '_users WHERE userid=1')->fetch(3);
+        $db->query('INSERT INTO ' . $db_config['prefix'] . '_' . NV_LANG_DATA . '_workforce(id, userid, first_name, last_name, gender, birthday, main_phone, other_phone, main_email, other_email, address, knowledge, image, jointime, position, part, addtime, useradd) VALUES (1, 1, ' . $db->quote($username) . ', "", 1, 0, "", "", ' . $db->quote($email) . ', "", "", "", "", ' . NV_CURRENTTIME . ', "", "1", ' . NV_CURRENTTIME . ', 1)');
+        $db->query('INSERT INTO ' . $db_config['prefix'] . '_' . NV_LANG_DATA . '_workforce_part_detail(userid, part) VALUES (1, 1)');
+
         define('NV_CONFIG_GLOBALTABLE', $db_config['prefix'] . '_config');
         $db->query("UPDATE " . NV_CONFIG_GLOBALTABLE . " SET config_value = " . $db->quote(NV_SERVER_NAME) . " WHERE lang = 'sys' AND module = 'global' AND config_name = 'my_domains'");
 
