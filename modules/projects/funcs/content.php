@@ -112,9 +112,10 @@ if ($nv_Request->isset_request('submit', 'post')) {
     $row['workforceid'] = $nv_Request->get_typed_array('workforceid', 'post', 'int');
     $row['title'] = $nv_Request->get_title('title', 'post', '');
     $row['price'] = $nv_Request->get_title('price', 'post', 0);
+    $row['price'] = nv_price_format($row['price']);
     $row['vat'] = $nv_Request->get_title('vat', 'post', 0);
+    $row['vat'] = nv_price_format($row['vat']);
     $row['files'] = $nv_Request->get_array('files', 'post');
-    $row['price'] = floatval(preg_replace('/[^0-9.]/', '', $row['price']));
 
     if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $nv_Request->get_string('begintime', 'post'), $m)) {
         $_hour = 23;
@@ -321,7 +322,6 @@ if ($nv_Request->isset_request('submit', 'post')) {
             ));
         }
     } catch (PDOException $e) {
-        var_dump($e); die;
         trigger_error($e->getMessage());
         nv_jsonOutput(array(
             'error' => 1,
