@@ -5,12 +5,12 @@
         <input type="hidden" name="{NV_NAME_VARIABLE}" value="{MODULE_NAME}" />
         <input type="hidden" name="{NV_OP_VARIABLE}" value="{OP}" />
         <div class="row">
-            <div class="col-xs-24 col-md-6">
+            <div class="col-xs-24 col-md-4">
                 <div class="form-group">
                     <input class="form-control" type="text" value="{Q}" name="q" maxlength="255" placeholder="{LANG.search_title}" />
                 </div>
             </div>
-            <div class="col-xs-24 col-md-6">
+            <div class="col-xs-24 col-md-4">
                 <div class="form-group">
                     <select class="form-control" name="part">
                         <option value="0">---{LANG.select_part}---</option>
@@ -20,7 +20,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-xs-24 col-md-6">
+            <div class="col-xs-24 col-md-4">
                 <div class="form-group">
                     <select class="form-control" name="status">
 
