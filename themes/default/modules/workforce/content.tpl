@@ -36,8 +36,7 @@
                 <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.birthday}</strong> <span class="red">(*)</span></label>
                 <div class="col-sm-19 col-md-20">
                     <div class="input-group">
-                        <input class="form-control datepicker" type="text" name="birthday" value="{ROW.birthday}" autocomplete="off" />
-                        <span class="input-group-btn">
+                        <input class="form-control datepicker" type="text" name="birthday" id="birthday" value="{ROW.birthday}" autocomplete="off" /> <span class="input-group-btn">
                             <button class="btn btn-default" type="button" id="birthday-btn">
                                 <em class="fa fa-calendar fa-fix"> </em>
                             </button>
