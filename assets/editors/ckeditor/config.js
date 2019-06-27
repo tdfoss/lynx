@@ -4,6 +4,7 @@
  */
 
 CKEDITOR.editorConfig = function( config ) {
+    config.removePlugins= 'autosave';
     config.enterMode = CKEDITOR.ENTER_BR;
     config.language = nv_lang_interface;
     config.allowedContent = true;
