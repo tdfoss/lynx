@@ -12,16 +12,15 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
 $app = new \Slim\App();
-$app->get('/api/hello/{name}/', function (Request $request, Response $response, array $args) {
-    $name = $args['name'];
-    $response->getBody()
-        ->write("Hello, $name");
 
-    return $response;
-});
+if (isset($site_mods[$array_op[0]])) {
+    $module_name = $array_op[0];
+    $module_file = $site_mods[$module_name]['module_file'];
+    $module_data = $site_mods[$module_name]['module_data'];
+    $module_upload = $site_mods[$module_name]['module_upload'];
 
-if (isset($site_mods[$array_op[0]]) && file_exists(NV_ROOTDIR . '/modules/' . $array_op[0] . '/api.php')) {
-    require_once NV_ROOTDIR . '/modules/' . $array_op[0] . '/api.php';
+    if (file_exists(NV_ROOTDIR . '/modules/' . $module_file . '/api.php')) {
+        require_once NV_ROOTDIR . '/modules/' . $module_file . '/api.php';
+        $app->run();
+    }
 }
-
-$app->run();
