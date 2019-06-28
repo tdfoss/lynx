@@ -11,13 +11,11 @@ if (!defined('NV_IS_MOD_API')) die('Stop!!!');
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
-$app = new \Slim\App();
-
 require_once NV_ROOTDIR . '/modules/customer/language/' . NV_LANG_DATA . '.php';
 
 // add customer
 $app->post('/api/customer/add/', function (Request $request, Response $response, array $args) {
-    global $db, $lang_module;
+    global $db, $lang_module, $module_data;
 
     $row = array();
     $row['first_name'] = $request->getParam('first_name');
@@ -72,17 +70,17 @@ $app->post('/api/customer/add/', function (Request $request, Response $response,
             'error' => 1,
             'msg' => $lang_module['error_required_fullname']
         ));
-    } elseif (empty($row['id']) && !empty($row['main_email']) && $db->query('SELECT COUNT(*) FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE main_email=' . $db->quote($row['main_email']))
+    } elseif (empty($row['id']) && !empty($row['main_email']) && $db->query('SELECT COUNT(*) FROM ' . NV_PREFIXLANG . '_customer WHERE main_email=' . $db->quote($row['main_email']))
         ->fetchColumn() > 0) {
             nv_jsonOutput(array(
                 'error' => 1,
                 'msg' => sprintf($lang_module['error_exits_email'], $row['main_email'])
             ));
-    } elseif (empty($row['id']) && !empty($row['main_phone']) && $db->query('SELECT COUNT(*) FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE main_phone=' . $db->quote($row['main_phone']))
+    } elseif (empty($row['id']) && !empty($row['main_phone']) && $db->query('SELECT COUNT(*) FROM ' . NV_PREFIXLANG . '_customer WHERE main_phone=' . $db->quote($row['main_phone']))
         ->fetchColumn() > 0) {
             nv_jsonOutput(array(
                 'error' => 1,
-                'msg' => sprintf($lang_module['error_exits_email'], $row['main_email'])
+                'msg' => sprintf($lang_module['error_exits_phone'], $row['main_phone'])
             ));
     }
 
