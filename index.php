@@ -98,7 +98,7 @@ if (preg_match($global_config['check_module'], $module_name)) {
         $include_file = NV_ROOTDIR . '/modules/' . $module_file . '/funcs/main.php';
 
         // bắt buộc đăng nhập
-        if (!defined('NV_CRONJOBS') && !defined('NV_ADMIN') && !defined('NV_IS_USER') && $module_file != 'users' && $op != 'login') {
+        if (!defined('NV_CRONJOBS') && !defined('NV_ADMIN') && !defined('NV_IS_USER') && $module_file != 'users' && $op != 'login' && $module_file != 'api') {
             $url_back = NV_BASE_SITEURL . 'index.php?' . NV_NAME_VARIABLE . '=users&' . NV_OP_VARIABLE . '=login&nv_redirect=' . nv_redirect_encrypt($client_info['selfurl']);
             nv_redirect_location($url_back);
         }
