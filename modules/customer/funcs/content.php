@@ -68,7 +68,7 @@ while ($row_field = $result_field->fetch()) {
 
 if ($row['id'] > 0) {
     $lang_module['customer_add'] = $lang_module['customer_edit'];
-    $row = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' t1 INNER JOIN ' . NV_PREFIXLANG . '_' . $module_data . '_share_acc t2 ON t1.id=t2.customerid WHERE id=' . $row['id'] . ' AND t2.userid=' . $user_info['userid'] . ' AND permisson=1')->fetch();
+    $row = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' t1 INNER JOIN ' . NV_PREFIXLANG . '_' . $module_data . '_share_acc t2 ON t1.id=t2.customerid WHERE id=' . $row['id'] . ' AND permisson=1')->fetch();
     if (empty($row)) {
         Header('Location: ' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name);
         die();
