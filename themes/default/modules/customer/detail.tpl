@@ -324,10 +324,7 @@
     }
 
     //Change hash for page-reload
-    $('.nav-tabs a').on('shown.bs.tab', function(e) {
-        window.location.hash = e.target.hash;
-    })
-
+   
     function nv_change_contacts() {
         if (confirm('{LANG.queue_confirm}')) {
             $.ajax({

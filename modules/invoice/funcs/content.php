@@ -148,7 +148,8 @@ if ($row['id'] > 0) {
     $row['customerid'] = 0;
     $row['createtime'] = NV_CURRENTTIME;
     $row['duetime'] = 0;
-    $row['performerid'] = $row['presenterid'] = $row['workforceid'] = $row['workforceid_old'] = 0;
+    $row['performerid'] = $row['workforceid_old'] = 0;
+    $row['presenterid'] = $row['workforceid'] = $user_info['userid'];
     $row['terms'] = '';
     $row['description'] = '';
     $row['detail'] = $row['detail_old'] = array();

@@ -48,6 +48,7 @@ $lang_module['product_add'] = 'Thêm sản phẩm';
 $lang_module['product_select'] = 'Chọn sản phẩm';
 $lang_module['service_add'] = 'Thêm dịch vụ';
 $lang_module['service_select'] = 'Chọn dịch vụ';
+$lang_module['projects'] = 'Dự án';
 $lang_module['projects_add'] = 'Thêm dự án';
 $lang_module['projects_select'] = 'Chọn dự án';
 $lang_module['vat'] = 'Thuế';

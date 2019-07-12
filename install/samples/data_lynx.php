@@ -5,7 +5,7 @@
  * @Author VINADES.,JSC <contact@vinades.vn>
  * @Copyright (C) 2019 VINADES.,JSC. All rights reserved
  * @License GNU/GPL version 2 or any later version
- * @Createdate Sat, 01 Jun 2019 03:53:33 GMT
+ * @Createdate Tue, 25 Jun 2019 10:42:38 GMT
  */
 
 if (!defined('NV_MAINFILE')) {
@@ -21,15 +21,15 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_banners_plans`
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `blang` char(2) DEFAULT '',
   `title` varchar(250) NOT NULL,
-  `description` text,
+  `description` text DEFAULT NULL,
   `form` varchar(100) NOT NULL,
-  `width` smallint(4) unsigned NOT NULL DEFAULT '0',
-  `height` smallint(4) unsigned NOT NULL DEFAULT '0',
-  `act` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `require_image` tinyint(1) unsigned NOT NULL DEFAULT '1',
+  `width` smallint(4) unsigned NOT NULL DEFAULT 0,
+  `height` smallint(4) unsigned NOT NULL DEFAULT 0,
+  `act` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `require_image` tinyint(1) unsigned NOT NULL DEFAULT 1,
   `uploadtype` varchar(255) NOT NULL DEFAULT '',
   `uploadgroup` varchar(255) NOT NULL DEFAULT '',
-  `exp_time` int(11) unsigned NOT NULL DEFAULT '0',
+  `exp_time` int(11) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `title` (`title`)
 ) ENGINE=MyISAM  AUTO_INCREMENT=4  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
@@ -41,24 +41,24 @@ $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_banner
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_banners_rows` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
-  `pid` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `clid` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `pid` smallint(5) unsigned NOT NULL DEFAULT 0,
+  `clid` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `file_name` varchar(255) NOT NULL,
   `file_ext` varchar(100) NOT NULL,
   `file_mime` varchar(100) NOT NULL,
-  `width` int(4) unsigned NOT NULL DEFAULT '0',
-  `height` int(4) unsigned NOT NULL DEFAULT '0',
+  `width` int(4) unsigned NOT NULL DEFAULT 0,
+  `height` int(4) unsigned NOT NULL DEFAULT 0,
   `file_alt` varchar(255) DEFAULT '',
   `imageforswf` varchar(255) DEFAULT '',
   `click_url` varchar(255) DEFAULT '',
   `target` varchar(10) NOT NULL DEFAULT '_blank',
   `bannerhtml` mediumtext NOT NULL,
-  `add_time` int(11) unsigned NOT NULL DEFAULT '0',
-  `publ_time` int(11) unsigned NOT NULL DEFAULT '0',
-  `exp_time` int(11) unsigned NOT NULL DEFAULT '0',
-  `hits_total` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `act` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `weight` int(11) NOT NULL DEFAULT '0',
+  `add_time` int(11) unsigned NOT NULL DEFAULT 0,
+  `publ_time` int(11) unsigned NOT NULL DEFAULT 0,
+  `exp_time` int(11) unsigned NOT NULL DEFAULT 0,
+  `hits_total` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `act` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `weight` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`),
   KEY `clid` (`clid`)
@@ -83,7 +83,7 @@ $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'site', 'googleAnalyticsID', '')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'site', 'googleAnalyticsSetDomainName', '0')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'site', 'googleAnalyticsMethod', 'classic')";
-$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'site', 'googleMapsAPI', 'AIzaSyC8ODAzZ75hsAufVBSffnwvKfTOT6TnnNQ')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'site', 'cors_restrict_domains', '1')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'site', 'searchEngineUniqueID', '')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'site', 'metaTagsOgp', '1')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'site', 'pageTitleMode', 'pagetitle')";
@@ -144,9 +144,9 @@ $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'gzip_method', '1')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'authors_detail_main', '0')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'spadmin_add_admin', '1')";
-$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'timestamp', '7')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'timestamp', '1561457638')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'captcha_type', '1')";
-$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'version', '4.3.05')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'version', '4.3.06')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'cookie_httponly', '1')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'admin_check_pass_time', '1800')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'global', 'cookie_secure', '0')";
@@ -195,7 +195,7 @@ $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'autologosize3', '30')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'autologomod', '')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'name_show', '0')";
-$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'cronjobs_next_time', '1559361421')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'cronjobs_next_time', '1561459559')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'disable_site_content', 'Vì lý do kỹ thuật website tạm ngưng hoạt động. Thành thật xin lỗi các bạn vì sự bất tiện này!')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'seotools', 'prcservice', '')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'about', 'auto_postcomm', '1')";
@@ -368,36 +368,37 @@ $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'invoice', 'score_money', '100000')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'invoice', 'money_score', '10000')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'workforce', 'termofcontract', '60')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'site', 'cors_valid_domains', '')";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_cronjobs`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_cronjobs` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `start_time` int(11) unsigned NOT NULL DEFAULT '0',
-  `inter_val` int(11) unsigned NOT NULL DEFAULT '0',
-  `inter_val_type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '0: Lặp lại sau thời điểm bắt đầu thực tế, 1:lặp lại sau thời điểm bắt đầu trong CSDL',
+  `start_time` int(11) unsigned NOT NULL DEFAULT 0,
+  `inter_val` int(11) unsigned NOT NULL DEFAULT 0,
+  `inter_val_type` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT '0: Lặp lại sau thời điểm bắt đầu thực tế, 1:lặp lại sau thời điểm bắt đầu trong CSDL',
   `run_file` varchar(255) NOT NULL,
   `run_func` varchar(255) NOT NULL,
   `params` varchar(255) DEFAULT NULL,
-  `del` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `is_sys` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `act` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `last_time` int(11) unsigned NOT NULL DEFAULT '0',
-  `last_result` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `del` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `is_sys` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `act` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `last_time` int(11) unsigned NOT NULL DEFAULT 0,
+  `last_result` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `vi_cron_name` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `is_sys` (`is_sys`)
 ) ENGINE=MyISAM  AUTO_INCREMENT=15  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (1, 1514880771, 5, 0, 'online_expired_del.php', 'cron_online_expired_del', '', 0, 1, 1, 1559361121, 1, 'Xóa các dòng ghi trạng thái online đã cũ trong CSDL')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (2, 1514880771, 1440, 0, 'dump_autobackup.php', 'cron_dump_autobackup', '', 0, 1, 1, 1559349885, 1, 'Tự động lưu CSDL')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (3, 1514880771, 60, 0, 'temp_download_destroy.php', 'cron_auto_del_temp_download', '', 0, 1, 1, 1559361121, 1, 'Xóa các file tạm trong thư mục tmp')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (4, 1514880771, 30, 0, 'ip_logs_destroy.php', 'cron_del_ip_logs', '', 0, 1, 1, 1559361121, 1, 'Xóa IP log files, Xóa các file nhật ký truy cập')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (5, 1514880771, 1440, 0, 'error_log_destroy.php', 'cron_auto_del_error_log', '', 0, 1, 1, 1559349885, 1, 'Xóa các file error_log quá hạn')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (1, 1514880771, 5, 0, 'online_expired_del.php', 'cron_online_expired_del', '', 0, 1, 1, 1561459259, 1, 'Xóa các dòng ghi trạng thái online đã cũ trong CSDL')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (2, 1514880771, 1440, 0, 'dump_autobackup.php', 'cron_dump_autobackup', '', 0, 1, 1, 1561432726, 1, 'Tự động lưu CSDL')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (3, 1514880771, 60, 0, 'temp_download_destroy.php', 'cron_auto_del_temp_download', '', 0, 1, 1, 1561456295, 1, 'Xóa các file tạm trong thư mục tmp')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (4, 1514880771, 30, 0, 'ip_logs_destroy.php', 'cron_del_ip_logs', '', 0, 1, 1, 1561458097, 1, 'Xóa IP log files, Xóa các file nhật ký truy cập')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (5, 1514880771, 1440, 0, 'error_log_destroy.php', 'cron_auto_del_error_log', '', 0, 1, 1, 1561432726, 1, 'Xóa các file error_log quá hạn')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (6, 1514880771, 360, 0, 'error_log_sendmail.php', 'cron_auto_sendmail_error_log', '', 0, 1, 0, 0, 0, 'Gửi email các thông báo lỗi cho admin')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (7, 1514880771, 60, 0, 'ref_expired_del.php', 'cron_ref_expired_del', '', 0, 1, 1, 1559361121, 1, 'Xóa các referer quá hạn')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (8, 1514880771, 60, 0, 'check_version.php', 'cron_auto_check_version', '', 0, 1, 1, 1559361121, 1, 'Kiểm tra phiên bản NukeViet')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (9, 1514880771, 1440, 0, 'notification_autodel.php', 'cron_notification_autodel', '', 0, 1, 1, 1559349885, 1, 'Xóa thông báo cũ')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (13, 1547513100, 1440, 0, 'workforce_birthday_reminder.php', 'cron_workforce_birthday_reminder', '', 0, 0, 1, 1559349885, 1, 'Nhắc nhở sinh nhật nhân viên')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (14, 1558116000, 1440, 1, 'customer_happy_birthday.php', 'cron_customer_happy_birthday', '', 0, 0, 1, 1559325600, 1, 'Chúc mừng sinh nhật khách hàng')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (7, 1514880771, 60, 0, 'ref_expired_del.php', 'cron_ref_expired_del', '', 0, 1, 1, 1561456295, 1, 'Xóa các referer quá hạn')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (8, 1514880771, 60, 0, 'check_version.php', 'cron_auto_check_version', '', 0, 1, 1, 1561456295, 1, 'Kiểm tra phiên bản NukeViet')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (9, 1514880771, 1440, 0, 'notification_autodel.php', 'cron_notification_autodel', '', 0, 1, 1, 1561432726, 1, 'Xóa thông báo cũ')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (13, 1547513100, 1440, 0, 'workforce_birthday_reminder.php', 'cron_workforce_birthday_reminder', '', 0, 0, 1, 1561432726, 1, 'Nhắc nhở sinh nhật nhân viên')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (14, 1558116000, 1440, 1, 'customer_happy_birthday.php', 'cron_customer_happy_birthday', '', 0, 0, 1, 1561399200, 1, 'Chúc mừng sinh nhật khách hàng')";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_extension_files`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_extension_files` (
@@ -405,8 +406,8 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_extension_file
   `type` varchar(10) NOT NULL DEFAULT 'other',
   `title` varchar(55) NOT NULL DEFAULT '',
   `path` varchar(255) NOT NULL DEFAULT '',
-  `lastmodified` int(11) unsigned NOT NULL DEFAULT '0',
-  `duplicate` smallint(4) unsigned NOT NULL DEFAULT '0',
+  `lastmodified` int(11) unsigned NOT NULL DEFAULT 0,
+  `duplicate` smallint(4) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`idfile`)
 ) ENGINE=MyISAM  AUTO_INCREMENT=159  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_extension_files` (`idfile`, `type`, `title`, `path`, `lastmodified`, `duplicate`) VALUES (1, 'module', 'home', 'modules/home/funcs/.htaccess', 1517879613, 0)";
@@ -455,9 +456,9 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_extension_files
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_ips`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_ips` (
   `id` mediumint(8) NOT NULL AUTO_INCREMENT,
-  `type` tinyint(4) unsigned NOT NULL DEFAULT '0',
+  `type` tinyint(4) unsigned NOT NULL DEFAULT 0,
   `ip` varchar(32) DEFAULT NULL,
-  `mask` tinyint(4) NOT NULL DEFAULT '0',
+  `mask` tinyint(4) NOT NULL DEFAULT 0,
   `area` tinyint(3) NOT NULL,
   `begintime` int(11) DEFAULT NULL,
   `endtime` int(11) DEFAULT NULL,
@@ -470,7 +471,7 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_ips` (`id`, `ty
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_language`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_language` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `idfile` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `idfile` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `langtype` varchar(50) NOT NULL DEFAULT 'lang_module',
   `lang_key` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
@@ -495,11 +496,10 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_plugin` (
   `weight` tinyint(4) NOT NULL,
   PRIMARY KEY (`pid`),
   UNIQUE KEY `plugin_file` (`plugin_file`)
-) ENGINE=MyISAM  AUTO_INCREMENT=13  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+) ENGINE=MyISAM  AUTO_INCREMENT=16  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_plugin` (`pid`, `plugin_file`, `plugin_area`, `weight`) VALUES (1, 'qrcode.php', 1, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_plugin` (`pid`, `plugin_file`, `plugin_area`, `weight`) VALUES (2, 'cdn_js_css_image.php', 3, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_plugin` (`pid`, `plugin_file`, `plugin_area`, `weight`) VALUES (12, 'crm_check.php', 2, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_plugin` (`pid`, `plugin_file`, `plugin_area`, `weight`) VALUES (10, 'crm_check_login.php', 3, 2)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_sendmail`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_sendmail` (
@@ -509,21 +509,21 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_sendmail` (
   `subject` varchar(255) NOT NULL,
   `message` text NOT NULL,
   `files` varchar(255) NOT NULL DEFAULT '',
-  `embeddedimage` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `embeddedimage` tinyint(1) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_setup_extensions`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_setup_extensions` (
-  `id` int(11) NOT NULL DEFAULT '0',
+  `id` int(11) NOT NULL DEFAULT 0,
   `type` varchar(10) NOT NULL DEFAULT 'other',
   `title` varchar(55) NOT NULL,
-  `is_sys` tinyint(1) NOT NULL DEFAULT '0',
-  `is_virtual` tinyint(1) NOT NULL DEFAULT '0',
+  `is_sys` tinyint(1) NOT NULL DEFAULT 0,
+  `is_virtual` tinyint(1) NOT NULL DEFAULT 0,
   `basename` varchar(50) NOT NULL DEFAULT '',
   `table_prefix` varchar(55) NOT NULL DEFAULT '',
   `version` varchar(50) NOT NULL,
-  `addtime` int(11) NOT NULL DEFAULT '0',
+  `addtime` int(11) NOT NULL DEFAULT 0,
   `author` text NOT NULL,
   `note` varchar(255) DEFAULT '',
   UNIQUE KEY `title` (`type`,`title`),
@@ -531,16 +531,16 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_setup_extensio
   KEY `type` (`type`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'theme', 'simple', 0, 0, 'simple', 'simple', '4.0.0 1515233523', 1515233523, 'hongoctrien', 'Theme for NukeViet 4')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (19, 'module', 'banners', 1, 0, 'banners', 'banners', '4.3.05 1552640400', 1514880771, 'VINADES <contact@vinades.vn>', '')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (284, 'module', 'seek', 1, 0, 'seek', 'seek', '4.3.05 1552640400', 1514880771, 'VINADES <contact@vinades.vn>', '')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (24, 'module', 'users', 1, 1, 'users', 'users', '4.3.05 1552640400', 1514880771, 'VINADES <contact@vinades.vn>', '')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (29, 'module', 'menu', 0, 0, 'menu', 'menu', '4.3.05 1552640400', 1514880771, 'VINADES <contact@vinades.vn>', '')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (283, 'module', 'feeds', 1, 0, 'feeds', 'feeds', '4.3.05 1552640400', 1514880771, 'VINADES <contact@vinades.vn>', '')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (282, 'module', 'page', 1, 1, 'page', 'page', '4.3.05 1552640400', 1514880771, 'VINADES <contact@vinades.vn>', '')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (281, 'module', 'comment', 1, 0, 'comment', 'comment', '4.3.05 1552640400', 1514880771, 'VINADES <contact@vinades.vn>', '')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (327, 'module', 'two-step-verification', 1, 0, 'two-step-verification', 'two_step_verification', '4.3.05 1552640400', 1514880771, 'VINADES <contact@vinades.vn>', '')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (307, 'theme', 'default', 0, 0, 'default', 'default', '4.3.05 1552640400', 1514880771, 'VINADES <contact@vinades.vn>', '')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (311, 'theme', 'mobile_default', 0, 0, 'mobile_default', 'mobile_default', '4.3.05 1552640400', 1514880771, 'VINADES <contact@vinades.vn>', '')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (19, 'module', 'banners', 1, 0, 'banners', 'banners', '4.3.06 1561107600', 1514880771, 'VINADES <contact@vinades.vn>', '')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (284, 'module', 'seek', 1, 0, 'seek', 'seek', '4.3.06 1561107600', 1514880771, 'VINADES <contact@vinades.vn>', '')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (24, 'module', 'users', 1, 1, 'users', 'users', '4.3.06 1561107600', 1514880771, 'VINADES <contact@vinades.vn>', '')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (29, 'module', 'menu', 0, 0, 'menu', 'menu', '4.3.06 1561107600', 1514880771, 'VINADES <contact@vinades.vn>', '')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (283, 'module', 'feeds', 1, 0, 'feeds', 'feeds', '4.3.06 1561107600', 1514880771, 'VINADES <contact@vinades.vn>', '')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (282, 'module', 'page', 1, 1, 'page', 'page', '4.3.06 1561107600', 1514880771, 'VINADES <contact@vinades.vn>', '')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (281, 'module', 'comment', 1, 0, 'comment', 'comment', '4.3.06 1561107600', 1514880771, 'VINADES <contact@vinades.vn>', '')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (327, 'module', 'two-step-verification', 1, 0, 'two-step-verification', 'two_step_verification', '4.3.06 1561107600', 1514880771, 'VINADES <contact@vinades.vn>', '')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (307, 'theme', 'default', 0, 0, 'default', 'default', '4.3.06 1561107600', 1514880771, 'VINADES <contact@vinades.vn>', '')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (311, 'theme', 'mobile_default', 0, 0, 'mobile_default', 'mobile_default', '4.3.06 1561107600', 1514880771, 'VINADES <contact@vinades.vn>', '')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'module', 'projects', 0, 0, 'projects', 'projects', '1.0.00 1515748446', 1515750959, 'TDFOSS.,LTD (contact@tdfoss.vn)', '')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'module', 'services', 0, 0, 'services', 'services', '1.0.00 1516075899', 1516096778, 'TDFOSS.,LTD (contact@tdfoss.vn)', '')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'module', 'notification', 0, 1, 'notification', 'notification', '4.0.11 1430878940', 1517809309, 'VINADES (contact@vinades.vn)', '')";
@@ -553,42 +553,42 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extension
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'module', 'workforce', 1, 0, 'workforce', 'workforce', '1.0.00 1525563940', 1525568595, 'TDFOSS.,LTD (contact@tdfoss.vn)', '')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'module', 'api', 0, 0, 'api', 'api', '1.0.00 1523071996', 1526207356, 'mynukeviet (contact@mynukeviet.com)', '')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'theme', 'dashboard', 0, 0, 'dashboard', 'dashboard', '4.3.05 1555329366', 1555329366, 'TDFOSS.,LTD', 'CÔNG TY TNHH PHÁT TRIỂN VÀ DỊCH VỤ NGUỒN MỞ THUẬN ĐỨC. (THUAN DUC OPEN SOURCE DEVELOPMENT AND SERVICES COMPANY LIMITED - TDFOSS.,LTD).')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'module', 'contact', 0, 1, 'contact', 'contact', '4.3.04 1542337192', 1555580665, 'VINADES <contact@vinades.vn>', '')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'module', 'freecontent', 0, 0, 'freecontent', 'freecontent', '4.3.04 1542337192', 1555580665, 'VINADES <contact@vinades.vn>', '')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'module', 'news', 0, 1, 'news', 'news', '4.3.04 1542337192', 1555580665, 'VINADES <contact@vinades.vn>', '')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'module', 'statistics', 0, 0, 'statistics', 'statistics', '4.3.04 1542337192', 1555580665, 'VINADES <contact@vinades.vn>', '')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'module', 'voting', 0, 0, 'voting', 'voting', '4.3.04 1542337192', 1555580665, 'VINADES <contact@vinades.vn>', '')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'module', 'contact', 0, 1, 'contact', 'contact', '4.3.06 1561107600', 1555580665, 'VINADES <contact@vinades.vn>', '')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'module', 'freecontent', 0, 0, 'freecontent', 'freecontent', '4.3.06 1561107600', 1555580665, 'VINADES <contact@vinades.vn>', '')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'module', 'news', 0, 1, 'news', 'news', '4.3.06 1561107600', 1555580665, 'VINADES <contact@vinades.vn>', '')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'module', 'statistics', 0, 0, 'statistics', 'statistics', '4.3.06 1561107600', 1555580665, 'VINADES <contact@vinades.vn>', '')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'module', 'voting', 0, 0, 'voting', 'voting', '4.3.06 1561107600', 1555580665, 'VINADES <contact@vinades.vn>', '')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'module', 'money', 0, 1, 'money', 'money', '1.0.00 1510838877', 1555580846, 'mynukeviet (contact@mynukeviet.com)', '')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_extensions` (`id`, `type`, `title`, `is_sys`, `is_virtual`, `basename`, `table_prefix`, `version`, `addtime`, `author`, `note`) VALUES (0, 'module', 'calendar', 1, 0, 'calendar', 'calendar', '1.0.00 1556793708', 1556793858, 'mynukeviet (contact@mynukeviet.com)', '')";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_setup_language`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_setup_language` (
   `lang` char(2) NOT NULL,
-  `setup` tinyint(1) NOT NULL DEFAULT '0',
-  `weight` smallint(4) unsigned NOT NULL DEFAULT '0',
+  `setup` tinyint(1) NOT NULL DEFAULT 0,
+  `weight` smallint(4) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`lang`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_setup_language` (`lang`, `setup`, `weight`) VALUES ('vi', 1, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users` (`userid`, `group_id`, `username`, `md5username`, `password`, `email`, `first_name`, `last_name`, `gender`, `photo`, `birthday`, `sig`, `regdate`, `question`, `answer`, `passlostkey`, `view_mail`, `remember`, `in_groups`, `active`, `active2step`, `secretkey`, `checknum`, `last_login`, `last_ip`, `last_agent`, `last_openid`, `idsite`, `safemode`, `safekey`, `email_verification_time`) VALUES (2, 4, 'admin02', '6e60a28384bc05fa5b33cc579d040c56', '{SSHA512}AV7m+5XNlJ3yFdaX7ZEjjf1+whlKfoxdBc1ZXH5/IpKJPprM4xS/6y5tlIyOTWJwBaIgSaHdsIc5NkyrBptIYGRmM2E=', 'phonghai88@gmail.com', 'Đặng', 'Phong', '1', '', 0, NULL, 1556156007, '', '', '', 0, 1, '1,2', 1, 0, '', '', 0, '', '', '', 0, 0, '', 0)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users` (`userid`, `group_id`, `username`, `md5username`, `password`, `email`, `first_name`, `last_name`, `gender`, `photo`, `birthday`, `sig`, `regdate`, `question`, `answer`, `passlostkey`, `view_mail`, `remember`, `in_groups`, `active`, `active2step`, `secretkey`, `checknum`, `last_login`, `last_ip`, `last_agent`, `last_openid`, `idsite`, `safemode`, `safekey`, `email_verification_time`) VALUES (3, 4, 'admin03', '7dc2466ad3ff5911f6a5e47e043e0abc', '{SSHA512}KOVM0oaq0dUG9Lg7prnZXhQ0wFQLod26Kv0n71SlzMwCjsa6ovXqznbfyjHQsrA+BA0iTr4Xmv3hTvIVsu5b8DRhNzA=', 'leloc09@gmail.com', 'Lê', 'Lộc', '1', '', 0, NULL, 1556156131, '', '', '', 0, 1, '1,2', 1, 0, '', '', 0, '', '', '', 0, 0, '', 0)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users` (`userid`, `group_id`, `username`, `md5username`, `password`, `email`, `first_name`, `last_name`, `gender`, `photo`, `birthday`, `sig`, `regdate`, `question`, `answer`, `passlostkey`, `view_mail`, `remember`, `in_groups`, `active`, `active2step`, `secretkey`, `checknum`, `last_login`, `last_ip`, `last_agent`, `last_openid`, `idsite`, `safemode`, `safekey`, `email_verification_time`) VALUES (4, 4, 'admin01', '18c6d818ae35a3e8279b5330eda01498', '{SSHA512}E3nyML7ZRx084tYbj6YxSqJw13kBcVKowCL4Qn8zwWkJY931pfWptd9sMYJlIOstFbzZjNqEUFuW//BXh9fCdzk2ZGY=', 'phonghai8811@gmail.com', 'Đặng', 'Phong', '1', '', 0, NULL, 1557277400, '', '', '', 0, 1, '1,2', 1, 0, '', '', 0, '', '', '', 0, 0, '', 0)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users` (`userid`, `group_id`, `username`, `md5username`, `password`, `email`, `first_name`, `last_name`, `gender`, `photo`, `birthday`, `sig`, `regdate`, `question`, `answer`, `passlostkey`, `view_mail`, `remember`, `in_groups`, `active`, `active2step`, `secretkey`, `checknum`, `last_login`, `last_ip`, `last_agent`, `last_openid`, `idsite`, `safemode`, `safekey`, `email_verification_time`) VALUES (5, 4, 'hongoctrien1', '951ffb90e5c95e748c4da613846c47f1', '{SSHA512}ACNzLMT7W9tNs+Ag9675adpCVSUSGRhblZhRd9db4yBXDd97/cyE2f1XlfrOVPNb27UaP4Y/H2jtQKZrzqmoCWQ1ODk=', 'hongoctrien1@tdfoss.vn', 'Trien', 'Ngoc', 'M', '', 0, '', 1558192164, '', '', '', 0, 1, '', 1, 0, '', '', 0, '', '', '', 0, 0, '', -1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users` (`userid`, `group_id`, `username`, `md5username`, `password`, `email`, `first_name`, `last_name`, `gender`, `photo`, `birthday`, `sig`, `regdate`, `question`, `answer`, `passlostkey`, `view_mail`, `remember`, `in_groups`, `active`, `active2step`, `secretkey`, `checknum`, `last_login`, `last_ip`, `last_agent`, `last_openid`, `idsite`, `safemode`, `safekey`, `email_verification_time`, `active_obj`) VALUES (2, 4, 'admin02', '6e60a28384bc05fa5b33cc579d040c56', '{SSHA512}AV7m+5XNlJ3yFdaX7ZEjjf1+whlKfoxdBc1ZXH5/IpKJPprM4xS/6y5tlIyOTWJwBaIgSaHdsIc5NkyrBptIYGRmM2E=', 'phonghai88@gmail.com', 'Đặng', 'Phong', '1', '', 0, NULL, 1556156007, '', '', '', 0, 1, '1,2', 1, 0, '', '', 0, '', '', '', 0, 0, '', 0, 'SYSTEM')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users` (`userid`, `group_id`, `username`, `md5username`, `password`, `email`, `first_name`, `last_name`, `gender`, `photo`, `birthday`, `sig`, `regdate`, `question`, `answer`, `passlostkey`, `view_mail`, `remember`, `in_groups`, `active`, `active2step`, `secretkey`, `checknum`, `last_login`, `last_ip`, `last_agent`, `last_openid`, `idsite`, `safemode`, `safekey`, `email_verification_time`, `active_obj`) VALUES (3, 4, 'admin03', '7dc2466ad3ff5911f6a5e47e043e0abc', '{SSHA512}KOVM0oaq0dUG9Lg7prnZXhQ0wFQLod26Kv0n71SlzMwCjsa6ovXqznbfyjHQsrA+BA0iTr4Xmv3hTvIVsu5b8DRhNzA=', 'leloc09@gmail.com', 'Lê', 'Lộc', '1', '', 0, NULL, 1556156131, '', '', '', 0, 1, '1,2', 1, 0, '', '', 0, '', '', '', 0, 0, '', 0, 'SYSTEM')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users` (`userid`, `group_id`, `username`, `md5username`, `password`, `email`, `first_name`, `last_name`, `gender`, `photo`, `birthday`, `sig`, `regdate`, `question`, `answer`, `passlostkey`, `view_mail`, `remember`, `in_groups`, `active`, `active2step`, `secretkey`, `checknum`, `last_login`, `last_ip`, `last_agent`, `last_openid`, `idsite`, `safemode`, `safekey`, `email_verification_time`, `active_obj`) VALUES (4, 4, 'admin01', '18c6d818ae35a3e8279b5330eda01498', '{SSHA512}E3nyML7ZRx084tYbj6YxSqJw13kBcVKowCL4Qn8zwWkJY931pfWptd9sMYJlIOstFbzZjNqEUFuW//BXh9fCdzk2ZGY=', 'phonghai8811@gmail.com', 'Đặng', 'Phong', '1', '', 0, NULL, 1557277400, '', '', '', 0, 1, '1,2', 1, 0, '', '', 0, '', '', '', 0, 0, '', 0, 'SYSTEM')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users` (`userid`, `group_id`, `username`, `md5username`, `password`, `email`, `first_name`, `last_name`, `gender`, `photo`, `birthday`, `sig`, `regdate`, `question`, `answer`, `passlostkey`, `view_mail`, `remember`, `in_groups`, `active`, `active2step`, `secretkey`, `checknum`, `last_login`, `last_ip`, `last_agent`, `last_openid`, `idsite`, `safemode`, `safekey`, `email_verification_time`, `active_obj`) VALUES (5, 4, 'hongoctrien1', '951ffb90e5c95e748c4da613846c47f1', '{SSHA512}ACNzLMT7W9tNs+Ag9675adpCVSUSGRhblZhRd9db4yBXDd97/cyE2f1XlfrOVPNb27UaP4Y/H2jtQKZrzqmoCWQ1ODk=', 'hongoctrien1@tdfoss.vn', 'Trien', 'Ngoc', 'M', '', 0, '', 1558192164, '', '', '', 0, 1, '', 1, 0, '', '', 0, '', '', '', 0, 0, '', -1, 'SYSTEM')";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_users_backupcodes`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_users_backupcodes` (
   `userid` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `code` varchar(20) NOT NULL,
-  `is_used` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `time_used` int(11) unsigned NOT NULL DEFAULT '0',
-  `time_creat` int(11) unsigned NOT NULL DEFAULT '0',
+  `is_used` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `time_used` int(11) unsigned NOT NULL DEFAULT 0,
+  `time_creat` int(11) unsigned NOT NULL DEFAULT 0,
   UNIQUE KEY `userid` (`userid`,`code`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_users_config`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_users_config` (
   `config` varchar(100) NOT NULL,
-  `content` text,
-  `edit_time` int(11) unsigned NOT NULL DEFAULT '0',
+  `content` text DEFAULT NULL,
+  `edit_time` int(11) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`config`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_config` (`config`, `content`, `edit_time`) VALUES ('access_admin', 'a:6:{s:12:\"access_addus\";a:3:{i:1;b:1;i:2;b:1;i:3;b:1;}s:14:\"access_waiting\";a:3:{i:1;b:1;i:2;b:1;i:3;b:1;}s:13:\"access_editus\";a:3:{i:1;b:1;i:2;b:1;i:3;b:1;}s:12:\"access_delus\";a:3:{i:1;b:1;i:2;b:1;i:3;b:1;}s:13:\"access_passus\";a:3:{i:1;b:1;i:2;b:1;i:3;b:1;}s:13:\"access_groups\";a:3:{i:1;b:1;i:2;b:1;i:3;b:1;}}', 1526601221)";
@@ -607,7 +607,7 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_config` (
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_users_edit`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_users_edit` (
   `userid` mediumint(8) unsigned NOT NULL,
-  `lastedit` int(11) unsigned NOT NULL DEFAULT '0',
+  `lastedit` int(11) unsigned NOT NULL DEFAULT 0,
   `info_basic` text NOT NULL,
   `info_custom` text NOT NULL,
   PRIMARY KEY (`userid`)
@@ -617,23 +617,23 @@ $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_users_
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_users_field` (
   `fid` mediumint(8) NOT NULL AUTO_INCREMENT,
   `field` varchar(25) NOT NULL,
-  `weight` int(10) unsigned NOT NULL DEFAULT '1',
+  `weight` int(10) unsigned NOT NULL DEFAULT 1,
   `field_type` enum('number','date','textbox','textarea','editor','select','radio','checkbox','multiselect') NOT NULL DEFAULT 'textbox',
   `field_choices` text NOT NULL,
   `sql_choices` text NOT NULL,
   `match_type` enum('none','alphanumeric','email','url','regex','callback') NOT NULL DEFAULT 'none',
   `match_regex` varchar(250) NOT NULL DEFAULT '',
   `func_callback` varchar(75) NOT NULL DEFAULT '',
-  `min_length` int(11) NOT NULL DEFAULT '0',
-  `max_length` bigint(20) unsigned NOT NULL DEFAULT '0',
-  `required` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `show_register` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `user_editable` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `show_profile` tinyint(4) NOT NULL DEFAULT '1',
+  `min_length` int(11) NOT NULL DEFAULT 0,
+  `max_length` bigint(20) unsigned NOT NULL DEFAULT 0,
+  `required` tinyint(3) unsigned NOT NULL DEFAULT 0,
+  `show_register` tinyint(3) unsigned NOT NULL DEFAULT 0,
+  `user_editable` tinyint(3) unsigned NOT NULL DEFAULT 0,
+  `show_profile` tinyint(4) NOT NULL DEFAULT 1,
   `class` varchar(50) NOT NULL,
   `language` text NOT NULL,
   `default_value` varchar(255) NOT NULL DEFAULT '',
-  `system` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `system` tinyint(1) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`fid`),
   UNIQUE KEY `field` (`field`)
 ) ENGINE=MyISAM  AUTO_INCREMENT=10  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
@@ -652,21 +652,21 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_users_groups` 
   `group_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(240) NOT NULL,
   `email` varchar(100) DEFAULT '',
-  `description` text,
-  `content` text,
-  `group_type` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '0:Sys, 1:approval, 2:public',
+  `description` text DEFAULT NULL,
+  `content` text DEFAULT NULL,
+  `group_type` tinyint(4) unsigned NOT NULL DEFAULT 0 COMMENT '0:Sys, 1:approval, 2:public',
   `group_color` varchar(10) NOT NULL,
   `group_avatar` varchar(255) NOT NULL,
-  `require_2step_admin` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `require_2step_site` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `is_default` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `require_2step_admin` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `require_2step_site` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `is_default` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `add_time` int(11) NOT NULL,
   `exp_time` int(11) NOT NULL,
-  `weight` int(11) unsigned NOT NULL DEFAULT '0',
+  `weight` int(11) unsigned NOT NULL DEFAULT 0,
   `act` tinyint(1) unsigned NOT NULL,
-  `idsite` int(11) unsigned NOT NULL DEFAULT '0',
-  `numbers` mediumint(9) unsigned NOT NULL DEFAULT '0',
-  `siteus` tinyint(4) unsigned NOT NULL DEFAULT '0',
+  `idsite` int(11) unsigned NOT NULL DEFAULT 0,
+  `numbers` mediumint(9) unsigned NOT NULL DEFAULT 0,
+  `siteus` tinyint(4) unsigned NOT NULL DEFAULT 0,
   `config` varchar(250) DEFAULT '',
   PRIMARY KEY (`group_id`),
   UNIQUE KEY `ktitle` (`title`,`idsite`),
@@ -689,10 +689,10 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_groups` (
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_users_groups_users`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_users_groups_users` (
-  `group_id` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `userid` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `is_leader` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `approved` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `group_id` smallint(5) unsigned NOT NULL DEFAULT 0,
+  `userid` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `is_leader` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `approved` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `data` text NOT NULL,
   PRIMARY KEY (`group_id`,`userid`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
@@ -718,7 +718,7 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_users_info` (`u
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_users_openid`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_users_openid` (
-  `userid` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `userid` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `openid` varchar(255) NOT NULL DEFAULT '',
   `opid` varchar(50) NOT NULL DEFAULT '',
   `email` varchar(100) NOT NULL DEFAULT '',
@@ -732,9 +732,9 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_users_question
   `qid` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(240) NOT NULL DEFAULT '',
   `lang` char(2) NOT NULL DEFAULT '',
-  `weight` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `add_time` int(11) unsigned NOT NULL DEFAULT '0',
-  `edit_time` int(11) unsigned NOT NULL DEFAULT '0',
+  `weight` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `add_time` int(11) unsigned NOT NULL DEFAULT 0,
+  `edit_time` int(11) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`qid`),
   UNIQUE KEY `title` (`title`,`lang`)
 ) ENGINE=MyISAM  AUTO_INCREMENT=8  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
@@ -757,13 +757,13 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_users_reg` (
   `last_name` varchar(255) NOT NULL DEFAULT '',
   `gender` char(1) NOT NULL DEFAULT '',
   `birthday` int(11) NOT NULL,
-  `sig` text,
-  `regdate` int(11) unsigned NOT NULL DEFAULT '0',
+  `sig` text DEFAULT NULL,
+  `regdate` int(11) unsigned NOT NULL DEFAULT 0,
   `question` varchar(255) NOT NULL,
   `answer` varchar(255) NOT NULL DEFAULT '',
   `checknum` varchar(50) NOT NULL DEFAULT '',
-  `users_info` text,
-  `openid_info` text,
+  `users_info` text DEFAULT NULL,
+  `openid_info` text DEFAULT NULL,
   PRIMARY KEY (`userid`),
   UNIQUE KEY `login` (`username`),
   UNIQUE KEY `md5username` (`md5username`),
@@ -777,20 +777,20 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_about` (
   `alias` varchar(250) NOT NULL,
   `image` varchar(255) DEFAULT '',
   `imagealt` varchar(255) DEFAULT '',
-  `imageposition` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `description` text,
+  `imageposition` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `description` text DEFAULT NULL,
   `bodytext` mediumtext NOT NULL,
-  `keywords` text,
-  `socialbutton` tinyint(4) NOT NULL DEFAULT '0',
+  `keywords` text DEFAULT NULL,
+  `socialbutton` tinyint(4) NOT NULL DEFAULT 0,
   `activecomm` varchar(255) DEFAULT '',
   `layout_func` varchar(100) DEFAULT '',
-  `weight` smallint(4) NOT NULL DEFAULT '0',
-  `admin_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `add_time` int(11) NOT NULL DEFAULT '0',
-  `edit_time` int(11) NOT NULL DEFAULT '0',
-  `status` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `hitstotal` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `hot_post` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `weight` smallint(4) NOT NULL DEFAULT 0,
+  `admin_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `add_time` int(11) NOT NULL DEFAULT 0,
+  `edit_time` int(11) NOT NULL DEFAULT 0,
+  `status` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `hitstotal` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `hot_post` tinyint(1) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `alias` (`alias`)
 ) ENGINE=MyISAM  AUTO_INCREMENT=9  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
@@ -1020,13 +1020,13 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_blocks_grou
   `link` varchar(255) DEFAULT NULL,
   `template` varchar(55) DEFAULT NULL,
   `position` varchar(55) DEFAULT NULL,
-  `exp_time` int(11) DEFAULT '0',
+  `exp_time` int(11) DEFAULT 0,
   `active` varchar(10) DEFAULT '1',
-  `act` tinyint(1) unsigned NOT NULL DEFAULT '1',
+  `act` tinyint(1) unsigned NOT NULL DEFAULT 1,
   `groups_view` varchar(255) DEFAULT '',
-  `all_func` tinyint(4) NOT NULL DEFAULT '0',
-  `weight` int(11) NOT NULL DEFAULT '0',
-  `config` text,
+  `all_func` tinyint(4) NOT NULL DEFAULT 0,
+  `weight` int(11) NOT NULL DEFAULT 0,
+  `config` text DEFAULT NULL,
   PRIMARY KEY (`bid`),
   KEY `theme` (`theme`),
   KEY `module` (`module`),
@@ -1062,9 +1062,9 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_group
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_blocks_weight`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_blocks_weight` (
-  `bid` mediumint(8) NOT NULL DEFAULT '0',
-  `func_id` mediumint(8) NOT NULL DEFAULT '0',
-  `weight` mediumint(8) NOT NULL DEFAULT '0',
+  `bid` mediumint(8) NOT NULL DEFAULT 0,
+  `func_id` mediumint(8) NOT NULL DEFAULT 0,
+  `weight` mediumint(8) NOT NULL DEFAULT 0,
   UNIQUE KEY `bid` (`bid`,`func_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_blocks_weight` (`bid`, `func_id`, `weight`) VALUES (16, 1, 1)";
@@ -3585,9 +3585,9 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_contact_dep
   `others` text NOT NULL,
   `cats` text NOT NULL,
   `admins` text NOT NULL,
-  `act` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `act` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `weight` smallint(5) NOT NULL,
-  `is_default` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `is_default` tinyint(1) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `full_name` (`full_name`),
   UNIQUE KEY `alias` (`alias`)
@@ -3598,10 +3598,10 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_contact_depa
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_contact_reply`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_contact_reply` (
   `rid` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `id` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `reply_content` text,
-  `reply_time` int(11) unsigned NOT NULL DEFAULT '0',
-  `reply_aid` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `reply_content` text DEFAULT NULL,
+  `reply_time` int(11) unsigned NOT NULL DEFAULT 0,
+  `reply_aid` mediumint(8) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`rid`),
   KEY `id` (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
@@ -3609,19 +3609,19 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_contact_rep
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_contact_send`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_contact_send` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `cid` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `cid` smallint(5) unsigned NOT NULL DEFAULT 0,
   `cat` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `content` text NOT NULL,
-  `send_time` int(11) unsigned NOT NULL DEFAULT '0',
-  `sender_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `send_time` int(11) unsigned NOT NULL DEFAULT 0,
+  `sender_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `sender_name` varchar(100) NOT NULL,
   `sender_address` varchar(250) NOT NULL,
   `sender_email` varchar(100) NOT NULL,
   `sender_phone` varchar(20) DEFAULT '',
   `sender_ip` varchar(15) NOT NULL,
-  `is_read` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `is_reply` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `is_read` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `is_reply` tinyint(1) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `sender_name` (`sender_name`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
@@ -3635,7 +3635,7 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_contact_sup
   `phone` varchar(255) NOT NULL,
   `email` varchar(100) NOT NULL,
   `others` text NOT NULL,
-  `act` tinyint(1) unsigned NOT NULL DEFAULT '1',
+  `act` tinyint(1) unsigned NOT NULL DEFAULT 1,
   `weight` smallint(5) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
@@ -3649,44 +3649,44 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_customer` (
   `other_phone` varchar(255) NOT NULL COMMENT 'Số điện thoại khác',
   `main_email` varchar(100) NOT NULL COMMENT 'Email',
   `other_email` varchar(255) NOT NULL COMMENT 'Email khác',
-  `birthday` int(11) unsigned NOT NULL DEFAULT '0',
+  `birthday` int(11) unsigned NOT NULL DEFAULT 0,
   `facebook` varchar(255) NOT NULL,
   `skype` varchar(50) NOT NULL,
   `zalo` varchar(255) NOT NULL,
   `website` varchar(255) NOT NULL,
-  `gender` tinyint(1) unsigned NOT NULL DEFAULT '2' COMMENT 'Giới tính',
+  `gender` tinyint(1) unsigned NOT NULL DEFAULT 2 COMMENT 'Giới tính',
   `address` varchar(255) NOT NULL COMMENT 'Địa chỉ',
   `unit` varchar(255) NOT NULL COMMENT 'Đơn vị công tác',
   `care_staff` mediumint(8) unsigned NOT NULL COMMENT 'Nhân viên chăm sóc KH',
   `image` varchar(255) NOT NULL,
   `addtime` int(11) unsigned NOT NULL COMMENT 'Thời gian thêm',
-  `edittime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'Thời gian sửa',
-  `userid_link` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT 'Tài khoản liên kết',
+  `edittime` int(11) unsigned NOT NULL DEFAULT 0 COMMENT 'Thời gian sửa',
+  `userid_link` mediumint(8) unsigned NOT NULL DEFAULT 0 COMMENT 'Tài khoản liên kết',
   `userid` mediumint(8) unsigned NOT NULL COMMENT 'Người thêm',
   `note` text NOT NULL COMMENT 'Ghi chú',
   `is_contacts` tinyint(1) NOT NULL COMMENT 'Loại khách hàng',
-  `type_id` smallint(4) unsigned NOT NULL DEFAULT '0',
+  `type_id` smallint(4) unsigned NOT NULL DEFAULT 0,
   `tag_id` varchar(100) NOT NULL,
   `share_acc` varchar(100) NOT NULL COMMENT 'share với tài khoản',
   `share_groups` smallint(4) unsigned NOT NULL COMMENT 'share với group',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  AUTO_INCREMENT=24  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+) ENGINE=MyISAM  AUTO_INCREMENT=25  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_customer_field`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_customer_field` (
   `fid` mediumint(8) NOT NULL AUTO_INCREMENT,
   `field` varchar(25) NOT NULL,
-  `weight` int(10) unsigned NOT NULL DEFAULT '1',
+  `weight` int(10) unsigned NOT NULL DEFAULT 1,
   `field_type` enum('number','date','textbox','textarea','editor','select','radio','checkbox','multiselect') NOT NULL DEFAULT 'textbox',
   `field_choices` text NOT NULL,
   `sql_choices` text NOT NULL,
   `match_type` enum('none','alphanumeric','email','url','regex','callback') NOT NULL DEFAULT 'none',
   `match_regex` varchar(250) NOT NULL DEFAULT '',
   `func_callback` varchar(75) NOT NULL DEFAULT '',
-  `min_length` int(11) NOT NULL DEFAULT '0',
-  `max_length` bigint(20) unsigned NOT NULL DEFAULT '0',
-  `required` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `show_profile` tinyint(4) NOT NULL DEFAULT '1',
+  `min_length` int(11) NOT NULL DEFAULT 0,
+  `max_length` bigint(20) unsigned NOT NULL DEFAULT 0,
+  `required` tinyint(3) unsigned NOT NULL DEFAULT 0,
+  `show_profile` tinyint(4) NOT NULL DEFAULT 1,
   `class` varchar(50) NOT NULL DEFAULT '',
   `language` text NOT NULL,
   `default_value` varchar(255) NOT NULL DEFAULT '',
@@ -3705,7 +3705,7 @@ $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_cus
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_customer_share_acc` (
   `userid` smallint(4) NOT NULL,
   `customerid` mediumint(8) unsigned NOT NULL,
-  `permisson` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT 'Quyền',
+  `permisson` tinyint(1) unsigned NOT NULL DEFAULT 1 COMMENT 'Quyền',
   UNIQUE KEY `tid` (`userid`,`customerid`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 
@@ -3735,7 +3735,7 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_customer_ty
   `birthday_title` varchar(255) NOT NULL,
   `birthday_content` text NOT NULL,
   `weight` smallint(4) unsigned NOT NULL,
-  `active` tinyint(1) unsigned NOT NULL DEFAULT '1',
+  `active` tinyint(1) unsigned NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  AUTO_INCREMENT=3  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 
@@ -3763,9 +3763,9 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_email` (
   `content` text NOT NULL,
   `files` varchar(255) NOT NULL,
   `addtime` int(11) NOT NULL,
-  `status` tinyint(1) unsigned NOT NULL DEFAULT '1',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  AUTO_INCREMENT=27  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+) ENGINE=MyISAM  AUTO_INCREMENT=30  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_email_sendto`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_email_sendto` (
@@ -3780,7 +3780,7 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_email_templ
   `title` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL,
   `weight` smallint(4) unsigned NOT NULL,
-  `status` tinyint(1) unsigned NOT NULL DEFAULT '1',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 
@@ -3796,15 +3796,15 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_freecontent_
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_freecontent_rows`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_freecontent_rows` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `bid` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `bid` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `title` varchar(255) NOT NULL DEFAULT '',
   `description` mediumtext NOT NULL,
   `link` varchar(255) NOT NULL DEFAULT '',
   `target` varchar(10) NOT NULL DEFAULT '' COMMENT '_blank|_self|_parent|_top',
   `image` varchar(255) NOT NULL DEFAULT '',
-  `start_time` int(11) NOT NULL DEFAULT '0',
-  `end_time` int(11) NOT NULL DEFAULT '0',
-  `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '0: In-Active, 1: Active, 2: Expired',
+  `start_time` int(11) NOT NULL DEFAULT 0,
+  `end_time` int(11) NOT NULL DEFAULT 0,
+  `status` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT '0: In-Active, 1: Active, 2: Expired',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  AUTO_INCREMENT=6  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_freecontent_rows` (`id`, `bid`, `title`, `description`, `link`, `target`, `image`, `start_time`, `end_time`, `status`) VALUES (1, 1, 'Hệ quản trị nội dung NukeViet', '<ul>
@@ -3830,30 +3830,30 @@ $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_inv
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_invoice` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
-  `code` varchar(6) NOT NULL,
+  `code` varchar(6) NOT NULL DEFAULT '',
   `customerid` mediumint(8) unsigned NOT NULL,
-  `createtime` int(11) unsigned NOT NULL DEFAULT '0',
-  `duetime` int(11) unsigned NOT NULL DEFAULT '0',
-  `paytime` int(11) unsigned NOT NULL DEFAULT '0',
-  `cycle` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `status` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `createtime` int(11) unsigned NOT NULL DEFAULT 0,
+  `duetime` int(11) unsigned NOT NULL DEFAULT 0,
+  `paytime` int(11) unsigned NOT NULL DEFAULT 0,
+  `cycle` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `status` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `workforceid` smallint(4) unsigned NOT NULL,
-  `presenterid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT 'Người giới thiệu',
-  `performerid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT 'Người thực hiện',
+  `presenterid` mediumint(8) unsigned NOT NULL DEFAULT 0 COMMENT 'Người giới thiệu',
+  `performerid` mediumint(8) unsigned NOT NULL DEFAULT 0 COMMENT 'Người thực hiện',
   `terms` text NOT NULL,
   `description` text NOT NULL,
-  `grand_total` double unsigned NOT NULL DEFAULT '0',
-  `discount_percent` tinyint(2) unsigned NOT NULL DEFAULT '0',
-  `discount_value` double unsigned NOT NULL DEFAULT '0',
-  `sended` smallint(4) unsigned NOT NULL DEFAULT '0' COMMENT 'Số lượt gửi thông tin hóa đơn',
+  `grand_total` double unsigned NOT NULL DEFAULT 0,
+  `discount_percent` tinyint(2) unsigned NOT NULL DEFAULT 0,
+  `discount_value` double unsigned NOT NULL DEFAULT 0,
+  `sended` smallint(4) unsigned NOT NULL DEFAULT 0 COMMENT 'Số lượt gửi thông tin hóa đơn',
   `addtime` int(11) unsigned NOT NULL,
-  `updatetime` int(11) unsigned NOT NULL DEFAULT '0',
+  `updatetime` int(11) unsigned NOT NULL DEFAULT 0,
   `useradd` mediumint(8) unsigned NOT NULL,
-  `reminder` tinyint(1) unsigned NOT NULL DEFAULT '1',
-  `auto_create` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `score` smallint(4) NOT NULL DEFAULT '0',
+  `reminder` tinyint(1) unsigned NOT NULL DEFAULT 1,
+  `auto_create` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `score` smallint(4) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  AUTO_INCREMENT=14  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+) ENGINE=MyISAM  AUTO_INCREMENT=15  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_invoice_detail`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_invoice_detail` (
@@ -3862,16 +3862,16 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_invoice_det
   `idcustomer` mediumint(8) unsigned NOT NULL,
   `module` varchar(50) NOT NULL,
   `itemid` mediumint(8) NOT NULL,
-  `unit_price` double NOT NULL DEFAULT '0',
+  `unit_price` double NOT NULL DEFAULT 0,
   `quantity` int(11) unsigned NOT NULL COMMENT 'Số lượng',
   `price` double unsigned NOT NULL,
-  `vat` smallint(4) unsigned NOT NULL DEFAULT '0',
+  `vat` smallint(4) unsigned NOT NULL DEFAULT 0,
   `total` double unsigned NOT NULL,
   `note` text NOT NULL,
-  `weight` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `weight` mediumint(8) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `idinvoice` (`idinvoice`,`idcustomer`,`module`,`itemid`)
-) ENGINE=MyISAM  AUTO_INCREMENT=13  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+) ENGINE=MyISAM  AUTO_INCREMENT=14  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_invoice_econtent`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_invoice_econtent` (
@@ -3968,7 +3968,7 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_invoice_econ
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_invoice_score`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_invoice_score` (
   `customerid` mediumint(8) unsigned NOT NULL,
-  `score` smallint(4) NOT NULL DEFAULT '0',
+  `score` smallint(4) NOT NULL DEFAULT 0,
   UNIQUE KEY `customerid` (`customerid`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_invoice_score` (`customerid`, `score`) VALUES (19, 3)";
@@ -3980,7 +3980,7 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_invoice_tra
   `transaction_time` int(11) unsigned NOT NULL,
   `transaction_status` int(11) NOT NULL,
   `payment` varchar(100) NOT NULL DEFAULT '',
-  `payment_amount` double NOT NULL DEFAULT '0',
+  `payment_amount` double NOT NULL DEFAULT 0,
   `payment_data` text NOT NULL,
   `note` text NOT NULL,
   PRIMARY KEY (`id`)
@@ -3999,23 +3999,23 @@ $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_men
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_menu_rows` (
   `id` mediumint(5) NOT NULL AUTO_INCREMENT,
   `parentid` mediumint(5) unsigned NOT NULL,
-  `mid` smallint(5) NOT NULL DEFAULT '0',
+  `mid` smallint(5) NOT NULL DEFAULT 0,
   `title` varchar(255) NOT NULL,
   `link` text NOT NULL,
   `icon` varchar(255) DEFAULT '',
   `image` varchar(255) DEFAULT '',
   `note` varchar(255) DEFAULT '',
   `weight` int(11) NOT NULL,
-  `sort` int(11) NOT NULL DEFAULT '0',
-  `lev` int(11) NOT NULL DEFAULT '0',
-  `subitem` text,
+  `sort` int(11) NOT NULL DEFAULT 0,
+  `lev` int(11) NOT NULL DEFAULT 0,
+  `subitem` text DEFAULT NULL,
   `groups_view` varchar(255) DEFAULT '',
   `module_name` varchar(255) DEFAULT '',
   `op` varchar(255) DEFAULT '',
-  `target` tinyint(4) DEFAULT '0',
+  `target` tinyint(4) DEFAULT 0,
   `css` varchar(255) DEFAULT '',
-  `active_type` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `status` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `active_type` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `status` tinyint(1) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `parentid` (`parentid`,`mid`)
 ) ENGINE=MyISAM  AUTO_INCREMENT=73  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
@@ -4048,9 +4048,9 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_modfuncs` (
   `func_custom_name` varchar(255) NOT NULL,
   `func_site_title` varchar(255) NOT NULL DEFAULT '',
   `in_module` varchar(50) NOT NULL,
-  `show_func` tinyint(4) NOT NULL DEFAULT '0',
-  `in_submenu` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `subweight` smallint(2) unsigned NOT NULL DEFAULT '1',
+  `show_func` tinyint(4) NOT NULL DEFAULT 0,
+  `in_submenu` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `subweight` smallint(2) unsigned NOT NULL DEFAULT 1,
   `setting` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`func_id`),
   UNIQUE KEY `func_name` (`func_name`,`in_module`),
@@ -4334,19 +4334,19 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_modules` (
   `custom_title` varchar(255) NOT NULL,
   `site_title` varchar(255) NOT NULL DEFAULT '',
   `admin_title` varchar(255) NOT NULL DEFAULT '',
-  `set_time` int(11) unsigned NOT NULL DEFAULT '0',
-  `main_file` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `admin_file` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `set_time` int(11) unsigned NOT NULL DEFAULT 0,
+  `main_file` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `admin_file` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `theme` varchar(100) DEFAULT '',
   `mobile` varchar(100) DEFAULT '',
   `description` varchar(255) DEFAULT '',
-  `keywords` text,
+  `keywords` text DEFAULT NULL,
   `groups_view` varchar(255) NOT NULL,
-  `weight` tinyint(3) unsigned NOT NULL DEFAULT '1',
-  `act` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `weight` tinyint(3) unsigned NOT NULL DEFAULT 1,
+  `act` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `admins` varchar(255) DEFAULT '',
-  `rss` tinyint(4) NOT NULL DEFAULT '1',
-  `sitemap` tinyint(4) NOT NULL DEFAULT '1',
+  `rss` tinyint(4) NOT NULL DEFAULT 1,
+  `sitemap` tinyint(4) NOT NULL DEFAULT 1,
   PRIMARY KEY (`title`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_modules` (`title`, `module_file`, `module_data`, `module_upload`, `module_theme`, `custom_title`, `site_title`, `admin_title`, `set_time`, `main_file`, `admin_file`, `theme`, `mobile`, `description`, `keywords`, `groups_view`, `weight`, `act`, `admins`, `rss`, `sitemap`) VALUES ('users', 'users', 'users', 'users', 'users', 'Thành viên', '', 'Tài khoản', 1514880771, 1, 1, '', '', '', '', '6', 3, 1, '', 0, 1)";
@@ -4386,36 +4386,36 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_money_money
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_news_1`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_news_1` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `catid` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `catid` smallint(5) unsigned NOT NULL DEFAULT 0,
   `listcatid` varchar(255) NOT NULL DEFAULT '',
-  `topicid` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `admin_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `topicid` smallint(5) unsigned NOT NULL DEFAULT 0,
+  `admin_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `author` varchar(250) DEFAULT '',
-  `sourceid` mediumint(8) NOT NULL DEFAULT '0',
-  `addtime` int(11) unsigned NOT NULL DEFAULT '0',
-  `edittime` int(11) unsigned NOT NULL DEFAULT '0',
-  `status` tinyint(4) NOT NULL DEFAULT '1',
-  `weight` int(11) unsigned NOT NULL DEFAULT '0',
-  `publtime` int(11) unsigned NOT NULL DEFAULT '0',
-  `exptime` int(11) unsigned NOT NULL DEFAULT '0',
-  `archive` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `sourceid` mediumint(8) NOT NULL DEFAULT 0,
+  `addtime` int(11) unsigned NOT NULL DEFAULT 0,
+  `edittime` int(11) unsigned NOT NULL DEFAULT 0,
+  `status` tinyint(4) NOT NULL DEFAULT 1,
+  `weight` int(11) unsigned NOT NULL DEFAULT 0,
+  `publtime` int(11) unsigned NOT NULL DEFAULT 0,
+  `exptime` int(11) unsigned NOT NULL DEFAULT 0,
+  `archive` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `title` varchar(250) NOT NULL DEFAULT '',
   `alias` varchar(250) NOT NULL DEFAULT '',
   `hometext` text NOT NULL,
   `homeimgfile` varchar(255) DEFAULT '',
   `homeimgalt` varchar(255) DEFAULT '',
-  `homeimgthumb` tinyint(4) NOT NULL DEFAULT '0',
-  `inhome` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `homeimgthumb` tinyint(4) NOT NULL DEFAULT 0,
+  `inhome` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `allowed_comm` varchar(255) DEFAULT '',
-  `allowed_rating` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `external_link` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `hitstotal` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `hitscm` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `total_rating` int(11) NOT NULL DEFAULT '0',
-  `click_rating` int(11) NOT NULL DEFAULT '0',
-  `instant_active` tinyint(1) NOT NULL DEFAULT '0',
+  `allowed_rating` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `external_link` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `hitstotal` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `hitscm` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `total_rating` int(11) NOT NULL DEFAULT 0,
+  `click_rating` int(11) NOT NULL DEFAULT 0,
+  `instant_active` tinyint(1) NOT NULL DEFAULT 0,
   `instant_template` varchar(100) NOT NULL DEFAULT '',
-  `instant_creatauto` tinyint(1) NOT NULL DEFAULT '0',
+  `instant_creatauto` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `catid` (`catid`),
   KEY `topicid` (`topicid`),
@@ -4441,36 +4441,36 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_news_1` (`id
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_news_10`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_news_10` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `catid` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `catid` smallint(5) unsigned NOT NULL DEFAULT 0,
   `listcatid` varchar(255) NOT NULL DEFAULT '',
-  `topicid` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `admin_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `topicid` smallint(5) unsigned NOT NULL DEFAULT 0,
+  `admin_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `author` varchar(250) DEFAULT '',
-  `sourceid` mediumint(8) NOT NULL DEFAULT '0',
-  `addtime` int(11) unsigned NOT NULL DEFAULT '0',
-  `edittime` int(11) unsigned NOT NULL DEFAULT '0',
-  `status` tinyint(4) NOT NULL DEFAULT '1',
-  `weight` int(11) unsigned NOT NULL DEFAULT '0',
-  `publtime` int(11) unsigned NOT NULL DEFAULT '0',
-  `exptime` int(11) unsigned NOT NULL DEFAULT '0',
-  `archive` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `sourceid` mediumint(8) NOT NULL DEFAULT 0,
+  `addtime` int(11) unsigned NOT NULL DEFAULT 0,
+  `edittime` int(11) unsigned NOT NULL DEFAULT 0,
+  `status` tinyint(4) NOT NULL DEFAULT 1,
+  `weight` int(11) unsigned NOT NULL DEFAULT 0,
+  `publtime` int(11) unsigned NOT NULL DEFAULT 0,
+  `exptime` int(11) unsigned NOT NULL DEFAULT 0,
+  `archive` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `title` varchar(250) NOT NULL DEFAULT '',
   `alias` varchar(250) NOT NULL DEFAULT '',
   `hometext` text NOT NULL,
   `homeimgfile` varchar(255) DEFAULT '',
   `homeimgalt` varchar(255) DEFAULT '',
-  `homeimgthumb` tinyint(4) NOT NULL DEFAULT '0',
-  `inhome` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `homeimgthumb` tinyint(4) NOT NULL DEFAULT 0,
+  `inhome` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `allowed_comm` varchar(255) DEFAULT '',
-  `allowed_rating` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `external_link` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `hitstotal` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `hitscm` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `total_rating` int(11) NOT NULL DEFAULT '0',
-  `click_rating` int(11) NOT NULL DEFAULT '0',
-  `instant_active` tinyint(1) NOT NULL DEFAULT '0',
+  `allowed_rating` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `external_link` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `hitstotal` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `hitscm` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `total_rating` int(11) NOT NULL DEFAULT 0,
+  `click_rating` int(11) NOT NULL DEFAULT 0,
+  `instant_active` tinyint(1) NOT NULL DEFAULT 0,
   `instant_template` varchar(100) NOT NULL DEFAULT '',
-  `instant_creatauto` tinyint(1) NOT NULL DEFAULT '0',
+  `instant_creatauto` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `catid` (`catid`),
   KEY `topicid` (`topicid`),
@@ -4490,36 +4490,36 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_news_10` (`i
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_news_11`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_news_11` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `catid` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `catid` smallint(5) unsigned NOT NULL DEFAULT 0,
   `listcatid` varchar(255) NOT NULL DEFAULT '',
-  `topicid` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `admin_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `topicid` smallint(5) unsigned NOT NULL DEFAULT 0,
+  `admin_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `author` varchar(250) DEFAULT '',
-  `sourceid` mediumint(8) NOT NULL DEFAULT '0',
-  `addtime` int(11) unsigned NOT NULL DEFAULT '0',
-  `edittime` int(11) unsigned NOT NULL DEFAULT '0',
-  `status` tinyint(4) NOT NULL DEFAULT '1',
-  `weight` int(11) unsigned NOT NULL DEFAULT '0',
-  `publtime` int(11) unsigned NOT NULL DEFAULT '0',
-  `exptime` int(11) unsigned NOT NULL DEFAULT '0',
-  `archive` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `sourceid` mediumint(8) NOT NULL DEFAULT 0,
+  `addtime` int(11) unsigned NOT NULL DEFAULT 0,
+  `edittime` int(11) unsigned NOT NULL DEFAULT 0,
+  `status` tinyint(4) NOT NULL DEFAULT 1,
+  `weight` int(11) unsigned NOT NULL DEFAULT 0,
+  `publtime` int(11) unsigned NOT NULL DEFAULT 0,
+  `exptime` int(11) unsigned NOT NULL DEFAULT 0,
+  `archive` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `title` varchar(250) NOT NULL DEFAULT '',
   `alias` varchar(250) NOT NULL DEFAULT '',
   `hometext` text NOT NULL,
   `homeimgfile` varchar(255) DEFAULT '',
   `homeimgalt` varchar(255) DEFAULT '',
-  `homeimgthumb` tinyint(4) NOT NULL DEFAULT '0',
-  `inhome` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `homeimgthumb` tinyint(4) NOT NULL DEFAULT 0,
+  `inhome` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `allowed_comm` varchar(255) DEFAULT '',
-  `allowed_rating` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `external_link` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `hitstotal` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `hitscm` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `total_rating` int(11) NOT NULL DEFAULT '0',
-  `click_rating` int(11) NOT NULL DEFAULT '0',
-  `instant_active` tinyint(1) NOT NULL DEFAULT '0',
+  `allowed_rating` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `external_link` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `hitstotal` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `hitscm` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `total_rating` int(11) NOT NULL DEFAULT 0,
+  `click_rating` int(11) NOT NULL DEFAULT 0,
+  `instant_active` tinyint(1) NOT NULL DEFAULT 0,
   `instant_template` varchar(100) NOT NULL DEFAULT '',
-  `instant_creatauto` tinyint(1) NOT NULL DEFAULT '0',
+  `instant_creatauto` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `catid` (`catid`),
   KEY `topicid` (`topicid`),
@@ -4544,36 +4544,36 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_news_11` (`i
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_news_12`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_news_12` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `catid` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `catid` smallint(5) unsigned NOT NULL DEFAULT 0,
   `listcatid` varchar(255) NOT NULL DEFAULT '',
-  `topicid` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `admin_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `topicid` smallint(5) unsigned NOT NULL DEFAULT 0,
+  `admin_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `author` varchar(250) DEFAULT '',
-  `sourceid` mediumint(8) NOT NULL DEFAULT '0',
-  `addtime` int(11) unsigned NOT NULL DEFAULT '0',
-  `edittime` int(11) unsigned NOT NULL DEFAULT '0',
-  `status` tinyint(4) NOT NULL DEFAULT '1',
-  `weight` int(11) unsigned NOT NULL DEFAULT '0',
-  `publtime` int(11) unsigned NOT NULL DEFAULT '0',
-  `exptime` int(11) unsigned NOT NULL DEFAULT '0',
-  `archive` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `sourceid` mediumint(8) NOT NULL DEFAULT 0,
+  `addtime` int(11) unsigned NOT NULL DEFAULT 0,
+  `edittime` int(11) unsigned NOT NULL DEFAULT 0,
+  `status` tinyint(4) NOT NULL DEFAULT 1,
+  `weight` int(11) unsigned NOT NULL DEFAULT 0,
+  `publtime` int(11) unsigned NOT NULL DEFAULT 0,
+  `exptime` int(11) unsigned NOT NULL DEFAULT 0,
+  `archive` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `title` varchar(250) NOT NULL DEFAULT '',
   `alias` varchar(250) NOT NULL DEFAULT '',
   `hometext` text NOT NULL,
   `homeimgfile` varchar(255) DEFAULT '',
   `homeimgalt` varchar(255) DEFAULT '',
-  `homeimgthumb` tinyint(4) NOT NULL DEFAULT '0',
-  `inhome` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `homeimgthumb` tinyint(4) NOT NULL DEFAULT 0,
+  `inhome` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `allowed_comm` varchar(255) DEFAULT '',
-  `allowed_rating` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `external_link` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `hitstotal` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `hitscm` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `total_rating` int(11) NOT NULL DEFAULT '0',
-  `click_rating` int(11) NOT NULL DEFAULT '0',
-  `instant_active` tinyint(1) NOT NULL DEFAULT '0',
+  `allowed_rating` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `external_link` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `hitstotal` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `hitscm` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `total_rating` int(11) NOT NULL DEFAULT 0,
+  `click_rating` int(11) NOT NULL DEFAULT 0,
+  `instant_active` tinyint(1) NOT NULL DEFAULT 0,
   `instant_template` varchar(100) NOT NULL DEFAULT '',
-  `instant_creatauto` tinyint(1) NOT NULL DEFAULT '0',
+  `instant_creatauto` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `catid` (`catid`),
   KEY `topicid` (`topicid`),
@@ -4594,36 +4594,36 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_news_12` (`i
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_news_2`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_news_2` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `catid` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `catid` smallint(5) unsigned NOT NULL DEFAULT 0,
   `listcatid` varchar(255) NOT NULL DEFAULT '',
-  `topicid` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `admin_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `topicid` smallint(5) unsigned NOT NULL DEFAULT 0,
+  `admin_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `author` varchar(250) DEFAULT '',
-  `sourceid` mediumint(8) NOT NULL DEFAULT '0',
-  `addtime` int(11) unsigned NOT NULL DEFAULT '0',
-  `edittime` int(11) unsigned NOT NULL DEFAULT '0',
-  `status` tinyint(4) NOT NULL DEFAULT '1',
-  `weight` int(11) unsigned NOT NULL DEFAULT '0',
-  `publtime` int(11) unsigned NOT NULL DEFAULT '0',
-  `exptime` int(11) unsigned NOT NULL DEFAULT '0',
-  `archive` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `sourceid` mediumint(8) NOT NULL DEFAULT 0,
+  `addtime` int(11) unsigned NOT NULL DEFAULT 0,
+  `edittime` int(11) unsigned NOT NULL DEFAULT 0,
+  `status` tinyint(4) NOT NULL DEFAULT 1,
+  `weight` int(11) unsigned NOT NULL DEFAULT 0,
+  `publtime` int(11) unsigned NOT NULL DEFAULT 0,
+  `exptime` int(11) unsigned NOT NULL DEFAULT 0,
+  `archive` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `title` varchar(250) NOT NULL DEFAULT '',
   `alias` varchar(250) NOT NULL DEFAULT '',
   `hometext` text NOT NULL,
   `homeimgfile` varchar(255) DEFAULT '',
   `homeimgalt` varchar(255) DEFAULT '',
-  `homeimgthumb` tinyint(4) NOT NULL DEFAULT '0',
-  `inhome` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `homeimgthumb` tinyint(4) NOT NULL DEFAULT 0,
+  `inhome` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `allowed_comm` varchar(255) DEFAULT '',
-  `allowed_rating` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `external_link` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `hitstotal` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `hitscm` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `total_rating` int(11) NOT NULL DEFAULT '0',
-  `click_rating` int(11) NOT NULL DEFAULT '0',
-  `instant_active` tinyint(1) NOT NULL DEFAULT '0',
+  `allowed_rating` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `external_link` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `hitstotal` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `hitscm` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `total_rating` int(11) NOT NULL DEFAULT 0,
+  `click_rating` int(11) NOT NULL DEFAULT 0,
+  `instant_active` tinyint(1) NOT NULL DEFAULT 0,
   `instant_template` varchar(100) NOT NULL DEFAULT '',
-  `instant_creatauto` tinyint(1) NOT NULL DEFAULT '0',
+  `instant_creatauto` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `catid` (`catid`),
   KEY `topicid` (`topicid`),
@@ -4645,36 +4645,36 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_news_2` (`id
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_news_8`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_news_8` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `catid` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `catid` smallint(5) unsigned NOT NULL DEFAULT 0,
   `listcatid` varchar(255) NOT NULL DEFAULT '',
-  `topicid` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `admin_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `topicid` smallint(5) unsigned NOT NULL DEFAULT 0,
+  `admin_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `author` varchar(250) DEFAULT '',
-  `sourceid` mediumint(8) NOT NULL DEFAULT '0',
-  `addtime` int(11) unsigned NOT NULL DEFAULT '0',
-  `edittime` int(11) unsigned NOT NULL DEFAULT '0',
-  `status` tinyint(4) NOT NULL DEFAULT '1',
-  `weight` int(11) unsigned NOT NULL DEFAULT '0',
-  `publtime` int(11) unsigned NOT NULL DEFAULT '0',
-  `exptime` int(11) unsigned NOT NULL DEFAULT '0',
-  `archive` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `sourceid` mediumint(8) NOT NULL DEFAULT 0,
+  `addtime` int(11) unsigned NOT NULL DEFAULT 0,
+  `edittime` int(11) unsigned NOT NULL DEFAULT 0,
+  `status` tinyint(4) NOT NULL DEFAULT 1,
+  `weight` int(11) unsigned NOT NULL DEFAULT 0,
+  `publtime` int(11) unsigned NOT NULL DEFAULT 0,
+  `exptime` int(11) unsigned NOT NULL DEFAULT 0,
+  `archive` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `title` varchar(250) NOT NULL DEFAULT '',
   `alias` varchar(250) NOT NULL DEFAULT '',
   `hometext` text NOT NULL,
   `homeimgfile` varchar(255) DEFAULT '',
   `homeimgalt` varchar(255) DEFAULT '',
-  `homeimgthumb` tinyint(4) NOT NULL DEFAULT '0',
-  `inhome` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `homeimgthumb` tinyint(4) NOT NULL DEFAULT 0,
+  `inhome` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `allowed_comm` varchar(255) DEFAULT '',
-  `allowed_rating` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `external_link` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `hitstotal` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `hitscm` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `total_rating` int(11) NOT NULL DEFAULT '0',
-  `click_rating` int(11) NOT NULL DEFAULT '0',
-  `instant_active` tinyint(1) NOT NULL DEFAULT '0',
+  `allowed_rating` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `external_link` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `hitstotal` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `hitscm` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `total_rating` int(11) NOT NULL DEFAULT 0,
+  `click_rating` int(11) NOT NULL DEFAULT 0,
+  `instant_active` tinyint(1) NOT NULL DEFAULT 0,
   `instant_template` varchar(100) NOT NULL DEFAULT '',
-  `instant_creatauto` tinyint(1) NOT NULL DEFAULT '0',
+  `instant_creatauto` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `catid` (`catid`),
   KEY `topicid` (`topicid`),
@@ -4694,36 +4694,36 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_news_8` (`id
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_news_9`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_news_9` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `catid` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `catid` smallint(5) unsigned NOT NULL DEFAULT 0,
   `listcatid` varchar(255) NOT NULL DEFAULT '',
-  `topicid` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `admin_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `topicid` smallint(5) unsigned NOT NULL DEFAULT 0,
+  `admin_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `author` varchar(250) DEFAULT '',
-  `sourceid` mediumint(8) NOT NULL DEFAULT '0',
-  `addtime` int(11) unsigned NOT NULL DEFAULT '0',
-  `edittime` int(11) unsigned NOT NULL DEFAULT '0',
-  `status` tinyint(4) NOT NULL DEFAULT '1',
-  `weight` int(11) unsigned NOT NULL DEFAULT '0',
-  `publtime` int(11) unsigned NOT NULL DEFAULT '0',
-  `exptime` int(11) unsigned NOT NULL DEFAULT '0',
-  `archive` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `sourceid` mediumint(8) NOT NULL DEFAULT 0,
+  `addtime` int(11) unsigned NOT NULL DEFAULT 0,
+  `edittime` int(11) unsigned NOT NULL DEFAULT 0,
+  `status` tinyint(4) NOT NULL DEFAULT 1,
+  `weight` int(11) unsigned NOT NULL DEFAULT 0,
+  `publtime` int(11) unsigned NOT NULL DEFAULT 0,
+  `exptime` int(11) unsigned NOT NULL DEFAULT 0,
+  `archive` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `title` varchar(250) NOT NULL DEFAULT '',
   `alias` varchar(250) NOT NULL DEFAULT '',
   `hometext` text NOT NULL,
   `homeimgfile` varchar(255) DEFAULT '',
   `homeimgalt` varchar(255) DEFAULT '',
-  `homeimgthumb` tinyint(4) NOT NULL DEFAULT '0',
-  `inhome` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `homeimgthumb` tinyint(4) NOT NULL DEFAULT 0,
+  `inhome` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `allowed_comm` varchar(255) DEFAULT '',
-  `allowed_rating` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `external_link` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `hitstotal` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `hitscm` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `total_rating` int(11) NOT NULL DEFAULT '0',
-  `click_rating` int(11) NOT NULL DEFAULT '0',
-  `instant_active` tinyint(1) NOT NULL DEFAULT '0',
+  `allowed_rating` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `external_link` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `hitstotal` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `hitscm` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `total_rating` int(11) NOT NULL DEFAULT 0,
+  `click_rating` int(11) NOT NULL DEFAULT 0,
+  `instant_active` tinyint(1) NOT NULL DEFAULT 0,
   `instant_template` varchar(100) NOT NULL DEFAULT '',
-  `instant_creatauto` tinyint(1) NOT NULL DEFAULT '0',
+  `instant_creatauto` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `catid` (`catid`),
   KEY `topicid` (`topicid`),
@@ -4742,14 +4742,14 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_news_9` (`id
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_news_admins`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_news_admins` (
-  `userid` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `catid` smallint(5) NOT NULL DEFAULT '0',
-  `admin` tinyint(4) NOT NULL DEFAULT '0',
-  `add_content` tinyint(4) NOT NULL DEFAULT '0',
-  `pub_content` tinyint(4) NOT NULL DEFAULT '0',
-  `edit_content` tinyint(4) NOT NULL DEFAULT '0',
-  `del_content` tinyint(4) NOT NULL DEFAULT '0',
-  `app_content` tinyint(4) NOT NULL DEFAULT '0',
+  `userid` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `catid` smallint(5) NOT NULL DEFAULT 0,
+  `admin` tinyint(4) NOT NULL DEFAULT 0,
+  `add_content` tinyint(4) NOT NULL DEFAULT 0,
+  `pub_content` tinyint(4) NOT NULL DEFAULT 0,
+  `edit_content` tinyint(4) NOT NULL DEFAULT 0,
+  `del_content` tinyint(4) NOT NULL DEFAULT 0,
+  `app_content` tinyint(4) NOT NULL DEFAULT 0,
   UNIQUE KEY `userid` (`userid`,`catid`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 
@@ -4773,16 +4773,16 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_news_block` 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_news_block_cat`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_news_block_cat` (
   `bid` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-  `adddefault` tinyint(4) NOT NULL DEFAULT '0',
-  `numbers` smallint(5) NOT NULL DEFAULT '10',
+  `adddefault` tinyint(4) NOT NULL DEFAULT 0,
+  `numbers` smallint(5) NOT NULL DEFAULT 10,
   `title` varchar(250) NOT NULL DEFAULT '',
   `alias` varchar(250) NOT NULL DEFAULT '',
   `image` varchar(255) DEFAULT '',
   `description` varchar(255) DEFAULT '',
-  `weight` smallint(5) NOT NULL DEFAULT '0',
-  `keywords` text,
-  `add_time` int(11) NOT NULL DEFAULT '0',
-  `edit_time` int(11) NOT NULL DEFAULT '0',
+  `weight` smallint(5) NOT NULL DEFAULT 0,
+  `keywords` text DEFAULT NULL,
+  `add_time` int(11) NOT NULL DEFAULT 0,
+  `edit_time` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`bid`),
   UNIQUE KEY `title` (`title`),
   UNIQUE KEY `alias` (`alias`)
@@ -4793,30 +4793,30 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_news_block_c
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_news_cat`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_news_cat` (
   `catid` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-  `parentid` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `parentid` smallint(5) unsigned NOT NULL DEFAULT 0,
   `title` varchar(250) NOT NULL,
   `titlesite` varchar(250) DEFAULT '',
   `alias` varchar(250) NOT NULL DEFAULT '',
-  `description` text,
-  `descriptionhtml` text,
+  `description` text DEFAULT NULL,
+  `descriptionhtml` text DEFAULT NULL,
   `image` varchar(255) DEFAULT '',
-  `viewdescription` tinyint(2) NOT NULL DEFAULT '0',
-  `weight` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `sort` smallint(5) NOT NULL DEFAULT '0',
-  `lev` smallint(5) NOT NULL DEFAULT '0',
+  `viewdescription` tinyint(2) NOT NULL DEFAULT 0,
+  `weight` smallint(5) unsigned NOT NULL DEFAULT 0,
+  `sort` smallint(5) NOT NULL DEFAULT 0,
+  `lev` smallint(5) NOT NULL DEFAULT 0,
   `viewcat` varchar(50) NOT NULL DEFAULT 'viewcat_page_new',
-  `numsubcat` smallint(5) NOT NULL DEFAULT '0',
+  `numsubcat` smallint(5) NOT NULL DEFAULT 0,
   `subcatid` varchar(255) DEFAULT '',
-  `numlinks` tinyint(2) unsigned NOT NULL DEFAULT '3',
-  `newday` tinyint(2) unsigned NOT NULL DEFAULT '2',
-  `featured` int(11) NOT NULL DEFAULT '0',
+  `numlinks` tinyint(2) unsigned NOT NULL DEFAULT 3,
+  `newday` tinyint(2) unsigned NOT NULL DEFAULT 2,
+  `featured` int(11) NOT NULL DEFAULT 0,
   `ad_block_cat` varchar(255) NOT NULL DEFAULT '',
-  `keywords` text,
-  `admins` text,
-  `add_time` int(11) unsigned NOT NULL DEFAULT '0',
-  `edit_time` int(11) unsigned NOT NULL DEFAULT '0',
+  `keywords` text DEFAULT NULL,
+  `admins` text DEFAULT NULL,
+  `add_time` int(11) unsigned NOT NULL DEFAULT 0,
+  `edit_time` int(11) unsigned NOT NULL DEFAULT 0,
   `groups_view` varchar(255) DEFAULT '',
-  `status` smallint(4) NOT NULL DEFAULT '1',
+  `status` smallint(4) NOT NULL DEFAULT 1,
   PRIMARY KEY (`catid`),
   UNIQUE KEY `alias` (`alias`),
   KEY `parentid` (`parentid`),
@@ -4848,13 +4848,13 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_news_detail
   `bodyhtml` longtext NOT NULL,
   `keywords` varchar(255) DEFAULT '',
   `sourcetext` varchar(255) DEFAULT '',
-  `files` text,
-  `imgposition` tinyint(1) NOT NULL DEFAULT '1',
+  `files` text DEFAULT NULL,
+  `imgposition` tinyint(1) NOT NULL DEFAULT 1,
   `layout_func` varchar(100) DEFAULT '',
-  `copyright` tinyint(1) NOT NULL DEFAULT '0',
-  `allowed_send` tinyint(1) NOT NULL DEFAULT '0',
-  `allowed_print` tinyint(1) NOT NULL DEFAULT '0',
-  `allowed_save` tinyint(1) NOT NULL DEFAULT '0',
+  `copyright` tinyint(1) NOT NULL DEFAULT 0,
+  `allowed_send` tinyint(1) NOT NULL DEFAULT 0,
+  `allowed_print` tinyint(1) NOT NULL DEFAULT 0,
+  `allowed_save` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_news_detail` (`id`, `titlesite`, `description`, `bodyhtml`, `keywords`, `sourcetext`, `files`, `imgposition`, `layout_func`, `copyright`, `allowed_send`, `allowed_print`, `allowed_save`) VALUES (1, '', '', '<p style=\"text-align: justify;\">Để chuyên nghiệp hóa việc phát hành mã nguồn mở NukeViet, Ban quản trị NukeViet quyết định thành lập doanh nghiệp chuyên quản NukeViet mang tên Công ty cổ phần Phát triển nguồn mở Việt Nam (Viết tắt là VINADES.,JSC), chính thức ra mắt vào ngày 25-2-2010 (trụ sở tại Hà Nội) nhằm phát triển, phổ biến hệ thống NukeViet tại Việt Nam.<br /> <br /> Theo ông Nguyễn Anh Tú, Chủ tịch HĐQT VINADES, công ty sẽ phát triển bộ mã nguồn NukeViet nhất quán theo con đường mã nguồn mở đã chọn, chuyên nghiệp và quy mô hơn bao giờ hết. Đặc biệt là hoàn toàn miễn phí đúng tinh thần mã nguồn mở quốc tế.<br /> <br /> NukeViet là một hệ quản trị nội dung mã nguồn mở (Opensource Content Management System) thuần Việt từ nền tảng PHP-Nuke và cơ sở dữ liệu MySQL. Người sử dụng thường gọi NukeViet là portal vì nó có khả năng tích hợp nhiều ứng dụng trên nền web, cho phép người sử dụng có thể dễ dàng xuất bản và quản trị các nội dung của họ lên internet hoặc intranet.<br /> <br /> NukeViet cung cấp nhiều dịch vụ và ứng dụng nhờ khả năng tăng cường tính năng thêm các module, block... tạo sự dễ dàng cài đặt, quản lý, ngay cả với những người mới tiếp cận với website. Người dùng có thể tìm hiểu thêm thông tin và tải về sản phẩm tại địa chỉ http://nukeviet.vn</p><blockquote> <p style=\"text-align: justify;\"> <em>Thông tin ra mắt công ty VINADES có thể tìm thấy trên trang 7 báo Hà Nội Mới ra ngày 25/02/2010 (<a href=\"http://hanoimoi.com.vn/newsdetail/Cong_nghe/309750/ra-mat-cong-ty-ma-nguon-mo-dau-tien-tai-viet-nam.htm\" target=\"_blank\">xem chi tiết</a>), Bản tin tiếng Anh của đài tiếng nói Việt Nam ngày 26/02/2010 (<a href=\"http://english.vovnews.vn/Home/First-opensource-company-starts-operation/20102/112960.vov\" target=\"_blank\">xem chi tiết</a>); trang 7 báo An ninh Thủ Đô số 2858 ra vào thứ 2 ngày 01/03/2010 và các trang tin tức, báo điện tử khác.</em></p></blockquote>', '', 'http://hanoimoi.com.vn/newsdetail/Cong_nghe/309750/ra-mat-cong-ty-ma-nguon-mo-dau-tien-tai-viet-nam.htm', NULL, 2, '', 0, 1, 1, 1)";
@@ -4892,11 +4892,11 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_news_detail`
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_news_logs`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_news_logs` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `sid` mediumint(8) NOT NULL DEFAULT '0',
-  `userid` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `status` tinyint(4) NOT NULL DEFAULT '0',
+  `sid` mediumint(8) NOT NULL DEFAULT 0,
+  `userid` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `status` tinyint(4) NOT NULL DEFAULT 0,
   `note` varchar(255) NOT NULL,
-  `set_time` int(11) unsigned NOT NULL DEFAULT '0',
+  `set_time` int(11) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `sid` (`sid`),
   KEY `userid` (`userid`)
@@ -4905,36 +4905,36 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_news_logs` 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_news_rows`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_news_rows` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `catid` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `catid` smallint(5) unsigned NOT NULL DEFAULT 0,
   `listcatid` varchar(255) NOT NULL DEFAULT '',
-  `topicid` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `admin_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `topicid` smallint(5) unsigned NOT NULL DEFAULT 0,
+  `admin_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `author` varchar(250) DEFAULT '',
-  `sourceid` mediumint(8) NOT NULL DEFAULT '0',
-  `addtime` int(11) unsigned NOT NULL DEFAULT '0',
-  `edittime` int(11) unsigned NOT NULL DEFAULT '0',
-  `status` tinyint(4) NOT NULL DEFAULT '1',
-  `weight` int(11) unsigned NOT NULL DEFAULT '0',
-  `publtime` int(11) unsigned NOT NULL DEFAULT '0',
-  `exptime` int(11) unsigned NOT NULL DEFAULT '0',
-  `archive` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `sourceid` mediumint(8) NOT NULL DEFAULT 0,
+  `addtime` int(11) unsigned NOT NULL DEFAULT 0,
+  `edittime` int(11) unsigned NOT NULL DEFAULT 0,
+  `status` tinyint(4) NOT NULL DEFAULT 1,
+  `weight` int(11) unsigned NOT NULL DEFAULT 0,
+  `publtime` int(11) unsigned NOT NULL DEFAULT 0,
+  `exptime` int(11) unsigned NOT NULL DEFAULT 0,
+  `archive` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `title` varchar(250) NOT NULL DEFAULT '',
   `alias` varchar(250) NOT NULL DEFAULT '',
   `hometext` text NOT NULL,
   `homeimgfile` varchar(255) DEFAULT '',
   `homeimgalt` varchar(255) DEFAULT '',
-  `homeimgthumb` tinyint(4) NOT NULL DEFAULT '0',
-  `inhome` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `homeimgthumb` tinyint(4) NOT NULL DEFAULT 0,
+  `inhome` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `allowed_comm` varchar(255) DEFAULT '',
-  `allowed_rating` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `external_link` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `hitstotal` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `hitscm` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `total_rating` int(11) NOT NULL DEFAULT '0',
-  `click_rating` int(11) NOT NULL DEFAULT '0',
-  `instant_active` tinyint(1) NOT NULL DEFAULT '0',
+  `allowed_rating` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `external_link` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `hitstotal` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `hitscm` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `total_rating` int(11) NOT NULL DEFAULT 0,
+  `click_rating` int(11) NOT NULL DEFAULT 0,
+  `instant_active` tinyint(1) NOT NULL DEFAULT 0,
   `instant_template` varchar(100) NOT NULL DEFAULT '',
-  `instant_creatauto` tinyint(1) NOT NULL DEFAULT '0',
+  `instant_creatauto` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `catid` (`catid`),
   KEY `topicid` (`topicid`),
@@ -4971,7 +4971,7 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_news_source
   `title` varchar(250) NOT NULL DEFAULT '',
   `link` varchar(255) DEFAULT '',
   `logo` varchar(255) DEFAULT '',
-  `weight` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `weight` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `add_time` int(11) unsigned NOT NULL,
   `edit_time` int(11) unsigned NOT NULL,
   PRIMARY KEY (`sourceid`),
@@ -4985,10 +4985,10 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_news_sources
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_news_tags`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_news_tags` (
   `tid` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `numnews` mediumint(8) NOT NULL DEFAULT '0',
+  `numnews` mediumint(8) NOT NULL DEFAULT 0,
   `alias` varchar(250) NOT NULL DEFAULT '',
   `image` varchar(255) DEFAULT '',
-  `description` text,
+  `description` text DEFAULT NULL,
   `keywords` varchar(255) DEFAULT '',
   PRIMARY KEY (`tid`),
   UNIQUE KEY `alias` (`alias`)
@@ -5119,7 +5119,7 @@ $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_news_tags_id
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_news_tmp`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_news_tmp` (
   `id` mediumint(8) unsigned NOT NULL,
-  `admin_id` int(11) NOT NULL DEFAULT '0',
+  `admin_id` int(11) NOT NULL DEFAULT 0,
   `time_edit` int(11) NOT NULL,
   `time_late` int(11) NOT NULL,
   `ip` varchar(50) NOT NULL,
@@ -5133,10 +5133,10 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_news_topics
   `alias` varchar(250) NOT NULL DEFAULT '',
   `image` varchar(255) DEFAULT '',
   `description` varchar(255) DEFAULT '',
-  `weight` smallint(5) NOT NULL DEFAULT '0',
-  `keywords` text,
-  `add_time` int(11) NOT NULL DEFAULT '0',
-  `edit_time` int(11) NOT NULL DEFAULT '0',
+  `weight` smallint(5) NOT NULL DEFAULT 0,
+  `keywords` text DEFAULT NULL,
+  `add_time` int(11) NOT NULL DEFAULT 0,
+  `edit_time` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`topicid`),
   UNIQUE KEY `title` (`title`),
   UNIQUE KEY `alias` (`alias`)
@@ -5158,20 +5158,20 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_page` (
   `alias` varchar(250) NOT NULL,
   `image` varchar(255) DEFAULT '',
   `imagealt` varchar(255) DEFAULT '',
-  `imageposition` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `description` text,
+  `imageposition` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `description` text DEFAULT NULL,
   `bodytext` mediumtext NOT NULL,
-  `keywords` text,
-  `socialbutton` tinyint(4) NOT NULL DEFAULT '0',
+  `keywords` text DEFAULT NULL,
+  `socialbutton` tinyint(4) NOT NULL DEFAULT 0,
   `activecomm` varchar(255) DEFAULT '',
   `layout_func` varchar(100) DEFAULT '',
-  `weight` smallint(4) NOT NULL DEFAULT '0',
-  `admin_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `add_time` int(11) NOT NULL DEFAULT '0',
-  `edit_time` int(11) NOT NULL DEFAULT '0',
-  `status` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `hitstotal` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `hot_post` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `weight` smallint(4) NOT NULL DEFAULT 0,
+  `admin_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `add_time` int(11) NOT NULL DEFAULT 0,
+  `edit_time` int(11) NOT NULL DEFAULT 0,
+  `status` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `hitstotal` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `hot_post` tinyint(1) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `alias` (`alias`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
@@ -5196,12 +5196,12 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_products` (
   `title` varchar(255) NOT NULL,
   `catid` smallint(4) unsigned NOT NULL,
   `price` double unsigned NOT NULL,
-  `vat` double unsigned NOT NULL DEFAULT '0',
+  `vat` double unsigned NOT NULL DEFAULT 0,
   `price_unit` tinyint(1) NOT NULL,
   `url` text NOT NULL,
-  `active` tinyint(1) unsigned NOT NULL DEFAULT '1',
+  `active` tinyint(1) unsigned NOT NULL DEFAULT 1,
   `note` text NOT NULL,
-  `weight` smallint(4) unsigned NOT NULL DEFAULT '0',
+  `weight` smallint(4) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  AUTO_INCREMENT=3  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 
@@ -5218,8 +5218,8 @@ $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_pro
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_products_price_unit` (
   `id` tinyint(2) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
-  `active` tinyint(1) unsigned NOT NULL DEFAULT '1',
-  `weight` tinyint(2) NOT NULL DEFAULT '0',
+  `active` tinyint(1) unsigned NOT NULL DEFAULT 1,
+  `weight` tinyint(2) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 
@@ -5230,20 +5230,20 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_projects` (
   `workforceid` varchar(255) NOT NULL COMMENT 'Nhân viên phụ trách',
   `title` varchar(255) NOT NULL,
   `begintime` int(11) unsigned NOT NULL,
-  `endtime` int(11) unsigned NOT NULL DEFAULT '0',
-  `realtime` int(11) unsigned NOT NULL DEFAULT '0',
-  `price` double unsigned NOT NULL DEFAULT '0',
-  `vat` double unsigned NOT NULL DEFAULT '0',
+  `endtime` int(11) unsigned NOT NULL DEFAULT 0,
+  `realtime` int(11) unsigned NOT NULL DEFAULT 0,
+  `price` double unsigned NOT NULL DEFAULT 0,
+  `vat` double unsigned NOT NULL DEFAULT 0,
   `url_code` text NOT NULL,
   `content` text NOT NULL,
   `files` text NOT NULL,
   `useradd` smallint(4) unsigned NOT NULL COMMENT 'Nhân viên tạo',
   `addtime` int(11) unsigned NOT NULL,
-  `edittime` int(11) unsigned NOT NULL DEFAULT '0',
-  `status` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `edittime` int(11) unsigned NOT NULL DEFAULT 0,
+  `status` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `type_id` smallint(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  AUTO_INCREMENT=16  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+) ENGINE=MyISAM  AUTO_INCREMENT=19  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_projects_econtent`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_projects_econtent` (
@@ -5282,17 +5282,17 @@ $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_pro
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_projects_field` (
   `fid` mediumint(8) NOT NULL AUTO_INCREMENT,
   `field` varchar(25) NOT NULL,
-  `weight` int(10) unsigned NOT NULL DEFAULT '1',
+  `weight` int(10) unsigned NOT NULL DEFAULT 1,
   `field_type` enum('number','date','textbox','textarea','editor','select','radio','checkbox','multiselect') NOT NULL DEFAULT 'textbox',
   `field_choices` text NOT NULL,
   `sql_choices` text NOT NULL,
   `match_type` enum('none','alphanumeric','email','url','regex','callback') NOT NULL DEFAULT 'none',
   `match_regex` varchar(250) NOT NULL DEFAULT '',
   `func_callback` varchar(75) NOT NULL DEFAULT '',
-  `min_length` int(11) NOT NULL DEFAULT '0',
-  `max_length` bigint(20) unsigned NOT NULL DEFAULT '0',
-  `required` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `show_profile` tinyint(4) NOT NULL DEFAULT '1',
+  `min_length` int(11) NOT NULL DEFAULT 0,
+  `max_length` bigint(20) unsigned NOT NULL DEFAULT 0,
+  `required` tinyint(3) unsigned NOT NULL DEFAULT 0,
+  `show_profile` tinyint(4) NOT NULL DEFAULT 1,
   `class` varchar(50) NOT NULL DEFAULT '',
   `language` text NOT NULL,
   `default_value` varchar(255) NOT NULL DEFAULT '',
@@ -5310,7 +5310,7 @@ $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_pro
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_projects_performer` (
   `projectid` int(11) unsigned NOT NULL,
   `userid` mediumint(8) unsigned NOT NULL,
-  `follow` tinyint(1) unsigned NOT NULL DEFAULT '1',
+  `follow` tinyint(1) unsigned NOT NULL DEFAULT 1,
   UNIQUE KEY `projectid` (`projectid`,`userid`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 
@@ -5318,7 +5318,7 @@ $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_pro
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_projects_task` (
   `taskid` int(11) unsigned NOT NULL,
   `projectid` mediumint(8) unsigned NOT NULL,
-  `weight` smallint(4) unsigned NOT NULL DEFAULT '0',
+  `weight` smallint(4) unsigned NOT NULL DEFAULT 0,
   UNIQUE KEY `taskid` (`taskid`,`projectid`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 
@@ -5328,27 +5328,27 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_projects_ty
   `title` varchar(255) NOT NULL COMMENT 'Loại dự án',
   `note` text NOT NULL COMMENT 'Ghi chú',
   `weight` smallint(4) unsigned NOT NULL,
-  `active` tinyint(1) unsigned NOT NULL DEFAULT '1',
+  `active` tinyint(1) unsigned NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  AUTO_INCREMENT=2  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_referer_stats`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_referer_stats` (
   `host` varchar(250) NOT NULL,
-  `total` int(11) NOT NULL DEFAULT '0',
-  `month01` int(11) NOT NULL DEFAULT '0',
-  `month02` int(11) NOT NULL DEFAULT '0',
-  `month03` int(11) NOT NULL DEFAULT '0',
-  `month04` int(11) NOT NULL DEFAULT '0',
-  `month05` int(11) NOT NULL DEFAULT '0',
-  `month06` int(11) NOT NULL DEFAULT '0',
-  `month07` int(11) NOT NULL DEFAULT '0',
-  `month08` int(11) NOT NULL DEFAULT '0',
-  `month09` int(11) NOT NULL DEFAULT '0',
-  `month10` int(11) NOT NULL DEFAULT '0',
-  `month11` int(11) NOT NULL DEFAULT '0',
-  `month12` int(11) NOT NULL DEFAULT '0',
-  `last_update` int(11) NOT NULL DEFAULT '0',
+  `total` int(11) NOT NULL DEFAULT 0,
+  `month01` int(11) NOT NULL DEFAULT 0,
+  `month02` int(11) NOT NULL DEFAULT 0,
+  `month03` int(11) NOT NULL DEFAULT 0,
+  `month04` int(11) NOT NULL DEFAULT 0,
+  `month05` int(11) NOT NULL DEFAULT 0,
+  `month06` int(11) NOT NULL DEFAULT 0,
+  `month07` int(11) NOT NULL DEFAULT 0,
+  `month08` int(11) NOT NULL DEFAULT 0,
+  `month09` int(11) NOT NULL DEFAULT 0,
+  `month10` int(11) NOT NULL DEFAULT 0,
+  `month11` int(11) NOT NULL DEFAULT 0,
+  `month12` int(11) NOT NULL DEFAULT 0,
+  `last_update` int(11) NOT NULL DEFAULT 0,
   UNIQUE KEY `host` (`host`),
   KEY `total` (`total`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
@@ -5368,7 +5368,7 @@ $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_sea
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_searchkeys` (
   `id` varchar(32) NOT NULL DEFAULT '',
   `skey` varchar(250) NOT NULL,
-  `total` int(11) NOT NULL DEFAULT '0',
+  `total` int(11) NOT NULL DEFAULT 0,
   `search_engine` varchar(50) NOT NULL,
   KEY `id` (`id`),
   KEY `skey` (`skey`),
@@ -5381,12 +5381,12 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_services` (
   `title` varchar(255) NOT NULL,
   `price` double unsigned NOT NULL,
   `price_unit` tinyint(1) NOT NULL,
-  `vat` double unsigned NOT NULL DEFAULT '0',
-  `active` tinyint(1) unsigned NOT NULL DEFAULT '1',
+  `vat` double unsigned NOT NULL DEFAULT 0,
+  `active` tinyint(1) unsigned NOT NULL DEFAULT 1,
   `note` text NOT NULL,
-  `weight` smallint(4) unsigned NOT NULL DEFAULT '0',
+  `weight` smallint(4) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  AUTO_INCREMENT=6  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+) ENGINE=MyISAM  AUTO_INCREMENT=7  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_services_customer`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_services_customer` (
@@ -5395,14 +5395,14 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_services_cu
   `serviceid` smallint(4) NOT NULL,
   `title` varchar(255) NOT NULL,
   `note` text NOT NULL,
-  `price` double unsigned NOT NULL DEFAULT '0',
+  `price` double unsigned NOT NULL DEFAULT 0,
   `month` smallint(4) unsigned NOT NULL COMMENT 'Số tháng thanh toán',
-  `begintime` int(11) unsigned NOT NULL DEFAULT '0',
-  `endtime` int(11) unsigned NOT NULL DEFAULT '0',
+  `begintime` int(11) unsigned NOT NULL DEFAULT 0,
+  `endtime` int(11) unsigned NOT NULL DEFAULT 0,
   `addtime` int(11) unsigned NOT NULL,
   `useradd` mediumint(8) unsigned NOT NULL,
-  `edittime` int(11) unsigned NOT NULL DEFAULT '0',
-  `useredit` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `edittime` int(11) unsigned NOT NULL DEFAULT 0,
+  `useredit` mediumint(8) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 
@@ -5411,8 +5411,8 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_services_pr
   `id` tinyint(2) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
   `note` text NOT NULL,
-  `active` tinyint(1) unsigned NOT NULL DEFAULT '1',
-  `weight` tinyint(2) NOT NULL DEFAULT '0',
+  `active` tinyint(1) unsigned NOT NULL DEFAULT 1,
+  `weight` tinyint(2) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 
@@ -5423,20 +5423,20 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_siteterms` 
   `alias` varchar(250) NOT NULL,
   `image` varchar(255) DEFAULT '',
   `imagealt` varchar(255) DEFAULT '',
-  `imageposition` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `description` text,
+  `imageposition` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `description` text DEFAULT NULL,
   `bodytext` mediumtext NOT NULL,
-  `keywords` text,
-  `socialbutton` tinyint(4) NOT NULL DEFAULT '0',
+  `keywords` text DEFAULT NULL,
+  `socialbutton` tinyint(4) NOT NULL DEFAULT 0,
   `activecomm` varchar(255) DEFAULT '',
   `layout_func` varchar(100) DEFAULT '',
-  `weight` smallint(4) NOT NULL DEFAULT '0',
-  `admin_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `add_time` int(11) NOT NULL DEFAULT '0',
-  `edit_time` int(11) NOT NULL DEFAULT '0',
-  `status` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `hitstotal` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `hot_post` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `weight` smallint(4) NOT NULL DEFAULT 0,
+  `admin_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `add_time` int(11) NOT NULL DEFAULT 0,
+  `edit_time` int(11) NOT NULL DEFAULT 0,
+  `status` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `hitstotal` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `hot_post` tinyint(1) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `alias` (`alias`)
 ) ENGINE=MyISAM  AUTO_INCREMENT=3  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
@@ -5462,13 +5462,13 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_voting` (
   `vid` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `question` varchar(250) NOT NULL,
   `link` varchar(255) DEFAULT '',
-  `acceptcm` int(2) NOT NULL DEFAULT '1',
-  `active_captcha` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `admin_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `acceptcm` int(2) NOT NULL DEFAULT 1,
+  `active_captcha` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `admin_id` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `groups_view` varchar(255) DEFAULT '',
-  `publ_time` int(11) unsigned NOT NULL DEFAULT '0',
-  `exp_time` int(11) unsigned NOT NULL DEFAULT '0',
-  `act` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `publ_time` int(11) unsigned NOT NULL DEFAULT 0,
+  `exp_time` int(11) unsigned NOT NULL DEFAULT 0,
+  `act` tinyint(1) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`vid`),
   UNIQUE KEY `question` (`question`)
 ) ENGINE=MyISAM  AUTO_INCREMENT=4  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
@@ -5481,7 +5481,7 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_voting_rows
   `vid` smallint(5) unsigned NOT NULL,
   `title` varchar(245) NOT NULL DEFAULT '',
   `url` varchar(255) DEFAULT '',
-  `hitstotal` int(11) unsigned NOT NULL DEFAULT '0',
+  `hitstotal` int(11) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `vid` (`vid`,`title`)
 ) ENGINE=MyISAM  AUTO_INCREMENT=14  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
@@ -5501,8 +5501,8 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_workforce` 
   `userid` mediumint(8) unsigned NOT NULL,
   `first_name` varchar(100) NOT NULL,
   `last_name` varchar(50) NOT NULL,
-  `gender` tinyint(1) unsigned NOT NULL DEFAULT '1',
-  `birthday` int(11) unsigned NOT NULL DEFAULT '0',
+  `gender` tinyint(1) unsigned NOT NULL DEFAULT 1,
+  `birthday` int(11) unsigned NOT NULL DEFAULT 0,
   `main_phone` varchar(20) NOT NULL,
   `other_phone` varchar(255) NOT NULL,
   `main_email` varchar(100) NOT NULL,
@@ -5510,36 +5510,35 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_workforce` 
   `address` varchar(255) NOT NULL,
   `knowledge` text NOT NULL COMMENT 'Thông tin học vấn',
   `image` varchar(255) NOT NULL,
-  `jointime` int(11) unsigned NOT NULL DEFAULT '0',
+  `jointime` int(11) unsigned NOT NULL DEFAULT 0,
   `position` varchar(100) NOT NULL,
   `part` varchar(100) NOT NULL COMMENT 'Thuộc bộ phận',
   `addtime` int(11) unsigned NOT NULL,
-  `edittime` int(11) unsigned NOT NULL DEFAULT '0',
-  `createtime` int(11) unsigned NOT NULL DEFAULT '0',
-  `duetime` int(11) unsigned NOT NULL DEFAULT '0',
-  `cycle` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `edittime` int(11) unsigned NOT NULL DEFAULT 0,
+  `createtime` int(11) unsigned NOT NULL DEFAULT 0,
+  `duetime` int(11) unsigned NOT NULL DEFAULT 0,
+  `cycle` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `useradd` mediumint(8) unsigned NOT NULL,
-  `status` tinyint(1) unsigned NOT NULL DEFAULT '1',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  AUTO_INCREMENT=3  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_workforce` (`id`, `userid`, `first_name`, `last_name`, `gender`, `birthday`, `main_phone`, `other_phone`, `main_email`, `other_email`, `address`, `knowledge`, `image`, `jointime`, `position`, `part`, `addtime`, `edittime`, `createtime`, `duetime`, `cycle`, `useradd`, `status`) VALUES (1, 1, 'admin', '', 1, 0, '', '', 'admin@mail.com', '', '', '', '', 1557583465, '', '1', 1557583465, 0, 0, 0, 0, 1, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_workforce` (`id`, `userid`, `first_name`, `last_name`, `gender`, `birthday`, `main_phone`, `other_phone`, `main_email`, `other_email`, `address`, `knowledge`, `image`, `jointime`, `position`, `part`, `addtime`, `edittime`, `createtime`, `duetime`, `cycle`, `useradd`, `status`) VALUES (2, 2, 'Trien', 'Ngoc', 1, 1557419039, '0905908430', '', 'hongoctrien@tdfoss.vn', 'hongoctrien@tdfoss.vn', '161 Tôn Thất Thuyết, Phường 5, TP Đông Hà, Tỉnh Quảng Trị', '', '', 0, '', '1', 1558192729, 1559361150, 1559406239, 1585758239, 10, 1, 1)";
+) ENGINE=MyISAM  AUTO_INCREMENT=2  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_workforce` (`id`, `userid`, `first_name`, `last_name`, `gender`, `birthday`, `main_phone`, `other_phone`, `main_email`, `other_email`, `address`, `knowledge`, `image`, `jointime`, `position`, `part`, `addtime`, `edittime`, `createtime`, `duetime`, `cycle`, `useradd`, `status`) VALUES (1, 1, 'admin', '', 1, 0, '', '', 'admin@mail.com', '', '', '', '', 1561189666, '', '1', 1561189666, 0, 0, 0, 0, 1, 1)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_workforce_field`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_workforce_field` (
   `fid` mediumint(8) NOT NULL AUTO_INCREMENT,
   `field` varchar(25) NOT NULL,
-  `weight` int(10) unsigned NOT NULL DEFAULT '1',
+  `weight` int(10) unsigned NOT NULL DEFAULT 1,
   `field_type` enum('number','date','textbox','textarea','editor','select','radio','checkbox','multiselect') NOT NULL DEFAULT 'textbox',
   `field_choices` text NOT NULL,
   `sql_choices` text NOT NULL,
   `match_type` enum('none','alphanumeric','email','url','regex','callback') NOT NULL DEFAULT 'none',
   `match_regex` varchar(250) NOT NULL DEFAULT '',
   `func_callback` varchar(75) NOT NULL DEFAULT '',
-  `min_length` int(11) NOT NULL DEFAULT '0',
-  `max_length` bigint(20) unsigned NOT NULL DEFAULT '0',
-  `required` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `show_profile` tinyint(4) NOT NULL DEFAULT '1',
+  `min_length` int(11) NOT NULL DEFAULT 0,
+  `max_length` bigint(20) unsigned NOT NULL DEFAULT 0,
+  `required` tinyint(3) unsigned NOT NULL DEFAULT 0,
+  `show_profile` tinyint(4) NOT NULL DEFAULT 1,
   `class` varchar(50) NOT NULL DEFAULT '',
   `language` text NOT NULL,
   `default_value` varchar(255) NOT NULL DEFAULT '',
@@ -5552,7 +5551,7 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_workforce_h
   `id` smallint(4) unsigned NOT NULL AUTO_INCREMENT,
   `userid` mediumint(8) unsigned NOT NULL,
   `salary` double unsigned NOT NULL,
-  `allowance` double unsigned NOT NULL DEFAULT '0' COMMENT 'Phụ cấp',
+  `allowance` double unsigned NOT NULL DEFAULT 0 COMMENT 'Phụ cấp',
   `useradd` mediumint(8) NOT NULL,
   `addtime` varchar(10) NOT NULL,
   PRIMARY KEY (`id`),
@@ -5569,7 +5568,7 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_workforce_i
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_workforce_part`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_workforce_part` (
   `id` smallint(4) unsigned NOT NULL AUTO_INCREMENT,
-  `parentid` smallint(4) unsigned NOT NULL DEFAULT '0',
+  `parentid` smallint(4) unsigned NOT NULL DEFAULT 0,
   `title` varchar(255) NOT NULL COMMENT 'Tên gọi bộ phận',
   `alias` varchar(255) NOT NULL DEFAULT '',
   `office` varchar(255) NOT NULL DEFAULT '',
@@ -5579,11 +5578,11 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_workforce_p
   `website` varchar(100) NOT NULL DEFAULT '',
   `email` varchar(255) NOT NULL DEFAULT '',
   `note` tinytext NOT NULL COMMENT 'Ghi chú',
-  `lev` smallint(4) unsigned NOT NULL DEFAULT '0',
-  `numsub` smallint(4) unsigned NOT NULL DEFAULT '0',
+  `lev` smallint(4) unsigned NOT NULL DEFAULT 0,
+  `numsub` smallint(4) unsigned NOT NULL DEFAULT 0,
   `subid` varchar(255) DEFAULT '',
-  `sort` smallint(4) unsigned NOT NULL DEFAULT '0',
-  `weight` smallint(4) unsigned NOT NULL DEFAULT '0',
+  `sort` smallint(4) unsigned NOT NULL DEFAULT 0,
+  `weight` smallint(4) unsigned NOT NULL DEFAULT 0,
   `status` tinyint(1) NOT NULL COMMENT 'Trạng thái',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  AUTO_INCREMENT=4  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
@@ -5596,7 +5595,6 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_workforce_p
   UNIQUE KEY `userid` (`userid`,`part`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_workforce_part_detail` (`userid`, `part`) VALUES (1, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_vi_workforce_part_detail` (`userid`, `part`) VALUES (2, 1)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_vi_workreport`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_vi_workreport` (

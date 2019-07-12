@@ -41,7 +41,7 @@ function nv_crm_list_workforce($in_groups = '', $partid = 0)
         $array_partid = nv_workforce_part_in_parent($partid);
         $where .= ' AND part IN (' . implode(',', $array_partid) . ')';
     }
-    $sql = 'SELECT t1.userid, t2.first_name, t2.last_name, t1.username, t1.photo, t2.main_email email, part, position FROM ' . NV_USERS_GLOBALTABLE . ' t1 INNER JOIN ' . NV_PREFIXLANG . '_workforce t2 ON t1.userid=t2.userid WHERE t1.active=1 AND t2.status=1' . $where;
+    $sql = 'SELECT t1.userid, t2.first_name, t2.last_name, t1.username, t1.photo, t2.main_email email, part, position FROM ' . NV_USERS_GLOBALTABLE . ' t1 INNER JOIN ' . NV_PREFIXLANG . '_workforce t2 ON t1.userid=t2.userid WHERE t1.active=1 AND t2.status=1' . $where . ' ORDER BY t2.weight, t2.first_name';
     $array_data = $nv_Cache->db($sql, 'userid', 'users');
     if (!empty($array_data)) {
         foreach ($array_data as $index => $value) {

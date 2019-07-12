@@ -212,7 +212,7 @@ function nv_sendmail_econtent($new_id, $adduser = 0, $location_file = array())
             foreach ($array_replace as $index => $value) {
                 $message = str_replace('[' . $index . ']', $value, $message);
             }
-
+            die($message);
             $cc_id = array();
             if (!empty($row['workforceid']) && $user_info['userid'] != $row['workforceid']) {
                 $cc_id[] = $row['workforceid'];
@@ -234,9 +234,12 @@ function nv_invoice_table($id)
     $row = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
     $row['vat_price'] = $row['item_total'] = $row['vat_total'] = 0;
 
-    $array_invoice_products = array();
+    $array_projectid = $array_projects = $array_invoice_products = array();
     $order_id = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_detail WHERE idinvoice=' . $id);
     while ($order = $order_id->fetch()) {
+        if ($order['module'] == 'projects') {
+            $array_projectid[] = $order['itemid'];
+        }
         $row['vat_price'] = ($order['price'] * $order['vat']) / 100;
         $row['item_total'] += $order['price'];
         $row['vat_total'] += $row['vat_price'];
@@ -250,6 +253,14 @@ function nv_invoice_table($id)
     $row['discount_value'] = nv_number_format($row['discount_value']);
 
     $templateCSS = file_exists(NV_ROOTDIR . '/themes/' . $global_config['module_theme'] . '/css/pdf.css') ? $global_config['module_theme'] : 'default';
+
+    if (!empty($array_projectid)) {
+        $result = $db->query('SELECT id, title FROM ' . NV_PREFIXLANG . '_projects WHERE id IN (' . implode(',', $array_projectid) . ')');
+        while ($_row = $result->fetch()) {
+            $array_projects[$_row['id']] = $_row;
+        }
+    }
+
     $xtpl = new XTemplate('table.tpl', NV_ROOTDIR . '/themes/default/modules/' . $module_file);
     $xtpl->assign('LANG', $lang_module);
     $xtpl->assign('TEMPLATE_CSS', $templateCSS);
@@ -274,6 +285,9 @@ function nv_invoice_table($id)
             } elseif ($orders['module'] == 'products') {
                 $orders['money_unit'] = $array_products[$orders['itemid']]['title_unit'];
                 $orders['itemid'] = $array_products[$orders['itemid']]['title'];
+            } elseif ($orders['module'] == 'projects') {
+                $orders['money_unit'] = $lang_module['projects'];
+                $orders['itemid'] = $array_projects[$orders['itemid']]['title'];
             }
 
             $xtpl->assign('CONTROL', $array_control);
