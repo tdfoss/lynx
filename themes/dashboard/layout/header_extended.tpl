@@ -58,16 +58,6 @@
         <aside class="main-sidebar">
             <section class="sidebar">
                 <div class="user-panel">[CONTACT_DEFAULT]</div>
-                <!-- BEGIN: sitemod_area  -->
-                <div class="headerSearch sidebar-form">
-                    <div class="input-group">
-                        <input type="text" class="form-control" maxlength="{NV_MAX_SEARCH_LENGTH}" placeholder="{LANG.search}...">
-                        <span class="input-group-btn"><button type="button" class="btn btn-info" data-url="{THEME_SEARCH_URL}" data-minlength="{NV_MIN_SEARCH_LENGTH}" data-click="y">
-                                <em class="fa fa-search fa-lg"></em>
-                            </button></span>
-                    </div>
-                </div>
-                <!-- END: sitemod_area  -->
                 [MENU_SITE]
             </section>
         </aside>
