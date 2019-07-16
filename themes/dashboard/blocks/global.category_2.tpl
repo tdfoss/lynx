@@ -10,14 +10,14 @@
 <!-- BEGIN: main -->
 <ul class="sidebar-menu visible-xs visible-sm" data-widget="tree">
     <!-- BEGIN: top_menu -->
-    <li class="treeview" ><a>
+    <li class="treeview" ><a style="cursor: pointer;">
     <i class="{TOP_MENU.css}"></i>
      <!-- BEGIN: icon -->
 <!--             <div class="icon-img"> -->
 <!--                 <img src="{TOP_MENU.icon}" alt="nav-cat" class="img-responsive"> -->
 <!--             </div> -->
      <!-- END: icon -->
-<span onclick="window.location='{TOP_MENU.link}'" title="{TOP_MENU.title}">{TOP_MENU.title_trim}</span> <!--  BEGIN: iconsub --> <span class="pull-right-container material-button-toggle"> <i class="fa fa-angle-left pull-right"></i>
+<span  onclick="window.location='{TOP_MENU.link}'" title="{TOP_MENU.title}">{TOP_MENU.title_trim}</span> <!--  BEGIN: iconsub --> <span class="pull-right-container material-button-toggle"> <i class="fa fa-angle-left pull-right"></i>
         </span> <!--  END: iconsub -->
     </a> <!-- BEGIN: sub --> {SUB} <!-- END: sub --></li>
     <!-- END: top_menu -->
