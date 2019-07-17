@@ -2326,3 +2326,9 @@ table.table-middle td span.help-block, table.table-middle td span.help-block ul
 	margin-bottom: 0;
 	font-size: 12px
 }
+
+.form-inline .form-control {
+   width: auto;
+   float:left;
+   margin-right: 5px;
+}
