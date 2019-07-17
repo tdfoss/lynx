@@ -2316,3 +2316,13 @@ button.close {
     float: left; 
     margin-top: 7px
 }
+
+table.table-middle td {
+	vertical-align: middle !important
+}
+
+table.table-middle td span.help-block, table.table-middle td span.help-block ul
+	{
+	margin-bottom: 0;
+	font-size: 12px
+}
