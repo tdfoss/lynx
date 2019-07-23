@@ -8,7 +8,6 @@
  * @License CC BY-SA (http://creativecommons.org/licenses/by-sa/4.0/)
  * @Createdate Mar 04, 2010, 03:22:00 PM
  */
-
 if (!defined('NV_ADMIN') or !defined('NV_MAINFILE')) {
     die('Stop!!!');
 }
@@ -282,3 +281,15 @@ $lang_module['cors_help'] = 'Bật tính năng này để hạn chế các truy 
 $lang_module['cors_restrict_domains'] = 'Giới hạn tên miền';
 $lang_module['cors_valid_domains'] = 'Tên miền hợp lệ';
 $lang_module['cors_valid_domains_help'] = 'Nhập mỗi tên miền một dòng (vui lòng nhập đầy đủ dạng http://yourdomain.com). Các truy vấn CORS từ các tên miền này được phép thực hiện';
+
+$lang_module['branch'] = 'Chi nhánh';
+$lang_module['branch_weight'] = 'STT';
+$lang_module['branch_title'] = 'Tên gọi';
+$lang_module['branch_address'] = 'Địa chỉ';
+$lang_module['branch_email'] = 'Thư điện tử';
+$lang_module['branch_phone'] = 'Điện thoại';
+$lang_module['branch_groups_manage'] = 'Nhóm quản lý';
+$lang_module['branch_active'] = 'Hoạt động';
+$lang_module['branch_keywords'] = 'Từ khóa tìm kiếm';
+$lang_module['branch_error_required_title'] = 'Lỗi: Bạn cần nhập Tên gọi';
+$lang_module['branch_error_required_groups_manage'] = 'Lỗi: Bạn cần chọn Nhóm quản lý';

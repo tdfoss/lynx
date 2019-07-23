@@ -27,6 +27,7 @@ if (defined('NV_IS_GODADMIN')) {
     $allow_func[] = 'plugin';
     $allow_func[] = 'variables';
     $allow_func[] = 'cdn';
+    $allow_func[] = 'branch';
 }
 
 $menu_top = array(

@@ -7,7 +7,6 @@
  * @License GNU/GPL version 2 or any later version
  * @Createdate 12/28/2009 20:8
  */
-
 if (!defined('NV_MAINFILE')) {
     die('Stop!!!');
 }
@@ -318,5 +317,17 @@ $sql_create_table[] = "CREATE TABLE " . $db_config['prefix'] . "_notification (
   content text NOT NULL,
   add_time int(11) unsigned NOT NULL,
   view tinyint(1) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (id)
+) ENGINE=MyISAM";
+
+$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_branch(
+  id smallint(4) NOT NULL AUTO_INCREMENT,
+  title varchar(255) NOT NULL,
+  address varchar(255) NOT NULL,
+  email varchar(100) NOT NULL,
+  phone varchar(50) NOT NULL,
+  groups_manage varchar(50) NOT NULL,
+  weight smallint(4) unsigned NOT NULL DEFAULT '0',
+  active tinyint(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (id)
 ) ENGINE=MyISAM";

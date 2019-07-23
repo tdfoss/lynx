@@ -17,6 +17,10 @@ if (defined('NV_IS_GODADMIN') or (defined('NV_IS_SPADMIN') and $global_config['i
     $submenu['system'] = $lang_module['global_config'];
 }
 
+if (defined('NV_IS_GODADMIN')) {
+    $submenu['branch'] = $lang_module['branch'];
+}
+
 if (isset($admin_mods['language'])) {
     $submenu['language'] = $lang_global['mod_language'];
 }
