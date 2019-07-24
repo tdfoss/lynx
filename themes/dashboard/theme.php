@@ -359,9 +359,6 @@ function nv_site_theme($contents, $full = true)
                 $xtpl->assign('BRANCH', $branch);
                 $xtpl->parse('main.branch.loop');
             }
-            if (sizeof($array_branch) > 1) {
-                $xtpl->parse('main.branch.branch_all');
-            }
             $xtpl->parse('main.branch');
         }
     }

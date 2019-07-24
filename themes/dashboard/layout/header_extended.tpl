@@ -81,7 +81,6 @@
                 <!-- BEGIN: branch -->
                 <select id="branch-select" class="form-control">
                     <!-- BEGIN: branch_all -->
-                    <option value="0">---{LANG.branch_all}---</option>
                     <!-- END: branch_all -->
                     <!-- BEGIN: loop -->
                     <option value="{BRANCH.id}"{BRANCH.selected}>{BRANCH.title}</option>

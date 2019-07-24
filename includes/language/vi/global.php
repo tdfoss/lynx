@@ -576,4 +576,3 @@ $lang_global['country_ZW'] = 'Zimbabwe';
 
 $lang_global['branch'] = 'Chi nhánh';
 $lang_global['branch_manage'] = 'Quản lý chi nhánh';
-$lang_global['branch_all'] = 'Tất cả chi nhánh';
