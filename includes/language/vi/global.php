@@ -573,3 +573,5 @@ $lang_global['country_YU'] = 'Serbia và Montenegro';
 $lang_global['country_ZA'] = 'Nam Phi';
 $lang_global['country_ZM'] = 'Zambia';
 $lang_global['country_ZW'] = 'Zimbabwe';
+
+$lang_global['branch_all'] = 'Tất cả chi nhánh';

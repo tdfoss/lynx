@@ -8,7 +8,6 @@
  * @License GNU/GPL version 2 or any later version
  * @Createdate 31/05/2010, 00:36
  */
-
 if (isset($_GET['response_headers_detect'])) {
     exit(0);
 }
@@ -21,6 +20,14 @@ define('NV_ROOTDIR', pathinfo(str_replace(DIRECTORY_SEPARATOR, '/', __file__), P
 require NV_ROOTDIR . '/includes/mainfile.php';
 
 require NV_ROOTDIR . '/includes/core/user_functions.php';
+
+// bắt giá trị branch_id khi chọn
+$branch_id = isset($_SESSION['branch_id']) ? $_SESSION['branch_id'] : reset($array_branch)['id'];
+if ($nv_Request->isset_request('set_branch', 'post')) {
+    $branch_id = $nv_Request->get_int('branch_id', 'post', 0);
+    $_SESSION['branch_id'] = $branch_id;
+    die('OK');
+}
 
 // Google Sitemap
 if ($nv_Request->isset_request(NV_NAME_VARIABLE, 'get') and $nv_Request->get_string(NV_NAME_VARIABLE, 'get') == 'SitemapIndex') {

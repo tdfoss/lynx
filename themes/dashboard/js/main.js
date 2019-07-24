@@ -636,6 +636,19 @@ $(function() {
         });
     });
     
+    $('#branch-select').change(function(){
+        $.ajax({
+            type : 'POST',
+            url : nv_base_siteurl + 'index.php',
+            data: 'set_branch=1&branch_id=' + $(this).val(),
+            success : function(res) {
+                if(res == 'OK'){
+                    window.location.href = window.location.href;
+                }
+            }
+        });
+    });
+    
 });
 // Fix bootstrap multiple modal
 $(document).on({

@@ -13,3 +13,11 @@ if (!defined('NV_MAINFILE')) {
 
 $sql = 'SELECT * FROM ' . $db_config['prefix'] . '_branch WHERE active=1';
 $array_branch = $nv_Cache->db($sql, 'id', 'settings');
+
+if (!empty($array_branch) && !defined('NV_IS_SPADMIN')) {
+    foreach ($array_branch as $index => $value) {
+        if (!nv_user_in_groups($value['groups_manage'])) {
+            unset($array_branch[$index]);
+        }
+    }
+}

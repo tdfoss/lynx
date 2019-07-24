@@ -16,6 +16,7 @@ if (!defined('NV_SYSTEM') and !defined('NV_ADMIN') and !defined('NV_WYSIWYG')) {
 error_reporting(0);
 
 define('NV_MAINFILE', true);
+define('LYNX', true);
 
 // Thoi gian bat dau phien lam viec
 define('NV_START_TIME', microtime(true));
