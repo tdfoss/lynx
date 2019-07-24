@@ -40,6 +40,7 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   cycle tinyint(1) unsigned NOT NULL DEFAULT '0',
   useradd mediumint(8) unsigned NOT NULL,
   weight smallint(4) unsigned NOT NULL DEFAULT '0',
+  branch_id smallint(4) unsigned NOT NULL DEFAULT '0',
   status tinyint(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (id)
 ) ENGINE=MyISAM";

@@ -90,9 +90,6 @@ $where = '';
 $inner = '';
 $per_page = 20;
 $page = $nv_Request->get_int('page', 'post,get', 1);
-$db->sqlreset()
-    ->select('COUNT(*)')
-    ->from('' . NV_PREFIXLANG . '_' . $module_data . ' t1');
 
 if (!empty($array_search['q'])) {
     $base_url .= '&q=' . $array_search['q'];
@@ -106,7 +103,6 @@ if (!empty($array_search['q'])) {
 }
 if (!empty($array_search['part'])) {
     $inner .= ' INNER JOIN ' . NV_PREFIXLANG . '_' . $module_data . '_part_detail t2 on t1.userid = t2.userid ';
-    //     die($base_url);
     $where .= ' AND t2.part=' . $array_search['part'];
 }
 
@@ -114,6 +110,12 @@ if ($array_search['status'] >= 0) {
     $where .= ' AND status=' . $array_search['status'];
 }
 
+$where .= !empty($global_config['branch_id']) ? ' AND branch_id=' . $global_config['branch_id'] : '';
+
+$db->sqlreset()
+    ->select('COUNT(*)')
+    ->from(NV_PREFIXLANG . '_' . $module_data . ' t1')
+    ->where('1=1 ' . $where);
 $sth = $db->prepare($db->sql());
 
 $sth->execute();
@@ -123,9 +125,7 @@ $db->select('*')
     ->order('t1.id DESC')
     ->limit($per_page)
     ->offset(($page - 1) * $per_page)
-    ->join($inner)
-    ->where(' 1=1 ' . $where);
-//     die($db->sql());
+    ->join($inner);
 $sth = $db->prepare($db->sql());
 
 $sth->execute();

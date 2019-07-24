@@ -234,7 +234,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $weight = $db->query('SELECT max(weight) FROM ' . NV_PREFIXLANG . '_' . $module_data)->fetchColumn();
                 $weight = intval($weight) + 1;
 
-                $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (userid, first_name, last_name, gender, birthday, main_phone, other_phone, main_email, other_email, address, knowledge, image, jointime, position, part, addtime, edittime, useradd, createtime, duetime, cycle, weight) VALUES (:userid, :first_name, :last_name, :gender, :birthday, :main_phone, :other_phone, :main_email, :other_email, :address, :knowledge, :image, :jointime, :position, :part, ' . NV_CURRENTTIME . ', ' . NV_CURRENTTIME . ', ' . $user_info['userid'] . ', :createtime, :duetime, :cycle, :weight)';
+                $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (userid, first_name, last_name, gender, birthday, main_phone, other_phone, main_email, other_email, address, knowledge, image, jointime, position, part, addtime, edittime, useradd, createtime, duetime, cycle, weight, branch_id) VALUES (:userid, :first_name, :last_name, :gender, :birthday, :main_phone, :other_phone, :main_email, :other_email, :address, :knowledge, :image, :jointime, :position, :part, ' . NV_CURRENTTIME . ', ' . NV_CURRENTTIME . ', ' . $user_info['userid'] . ', :createtime, :duetime, :cycle, :weight, :branch_id)';
                 $data_insert = array();
                 $data_insert['userid'] = $userid;
                 $data_insert['first_name'] = $row['first_name'];
@@ -255,6 +255,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
                 $data_insert['duetime'] = $row['duetime'];
                 $data_insert['cycle'] = $row['cycle'];
                 $data_insert['weight'] = $weight;
+                $data_insert['branch_id'] = $global_config['branch_id'];
                 $new_id = $db->insert_id($_sql, 'id', $data_insert);
             } else {
                 $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET userid = :userid, first_name = :first_name, last_name = :last_name, gender = :gender, birthday = :birthday, main_phone = :main_phone, other_phone = :other_phone, main_email = :main_email, other_email = :other_email, address = :address, knowledge = :knowledge, image = :image, jointime = :jointime, position = :position, part = :part, edittime = ' . NV_CURRENTTIME . ', createtime = :createtime, duetime = :duetime, cycle = :cycle WHERE id=' . $row['id']);
