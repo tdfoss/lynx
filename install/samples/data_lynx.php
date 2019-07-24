@@ -5,7 +5,7 @@
  * @Author VINADES.,JSC <contact@vinades.vn>
  * @Copyright (C) 2019 VINADES.,JSC. All rights reserved
  * @License GNU/GPL version 2 or any later version
- * @Createdate Tue, 23 Jul 2019 03:22:05 GMT
+ * @Createdate Wed, 24 Jul 2019 01:19:04 GMT
  */
 
 if (!defined('NV_MAINFILE')) {
@@ -78,8 +78,8 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_branch` (
   `active` tinyint(1) unsigned NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  AUTO_INCREMENT=4  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_branch` (`id`, `title`, `address`, `email`, `phone`, `groups_manage`, `weight`, `active`) VALUES (1, 'rthft h ft', '161 Tôn Thất Thuyết, Đông Hà', 'phanhuuhien@tdfoss.vn', '905908430', '', 1, 1)";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_branch` (`id`, `title`, `address`, `email`, `phone`, `groups_manage`, `weight`, `active`) VALUES (3, 'drg drg dr', '', '', '', '', 2, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_branch` (`id`, `title`, `address`, `email`, `phone`, `groups_manage`, `weight`, `active`) VALUES (1, 'rthft h ft', '161 Tôn Thất Thuyết, Đông Hà', 'phanhuuhien@tdfoss.vn', '905908430', '2', 1, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_branch` (`id`, `title`, `address`, `email`, `phone`, `groups_manage`, `weight`, `active`) VALUES (3, 'drg drg dr', '', '', '', '1', 2, 1)";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'site', 'closed_site', '0')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'site', 'admin_theme', 'admin_adminlte')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('sys', 'site', 'date_pattern', 'l, d/m/Y')";
@@ -211,7 +211,7 @@ $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'autologosize3', '30')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'autologomod', '')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'name_show', '0')";
-$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'cronjobs_next_time', '1563852405')";
+$sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'cronjobs_next_time', '1563931363')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'global', 'disable_site_content', 'Vì lý do kỹ thuật website tạm ngưng hoạt động. Thành thật xin lỗi các bạn vì sự bất tiện này!')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'seotools', 'prcservice', '')";
 $sql_create_table[] = "REPLACE INTO `" . $db_config['prefix'] . "_config` (`lang`, `module`, `config_name`, `config_value`) VALUES ('vi', 'about', 'auto_postcomm', '1')";
@@ -404,17 +404,17 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_cronjobs` (
   PRIMARY KEY (`id`),
   KEY `is_sys` (`is_sys`)
 ) ENGINE=MyISAM  AUTO_INCREMENT=15  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (1, 1514880771, 5, 0, 'online_expired_del.php', 'cron_online_expired_del', '', 0, 1, 1, 1563852105, 1, 'Xóa các dòng ghi trạng thái online đã cũ trong CSDL')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (1, 1514880771, 5, 0, 'online_expired_del.php', 'cron_online_expired_del', '', 0, 1, 1, 1563931063, 1, 'Xóa các dòng ghi trạng thái online đã cũ trong CSDL')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (2, 1514880771, 1440, 0, 'dump_autobackup.php', 'cron_dump_autobackup', '', 0, 1, 1, 1563848848, 1, 'Tự động lưu CSDL')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (3, 1514880771, 60, 0, 'temp_download_destroy.php', 'cron_auto_del_temp_download', '', 0, 1, 1, 1563848848, 1, 'Xóa các file tạm trong thư mục tmp')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (4, 1514880771, 30, 0, 'ip_logs_destroy.php', 'cron_del_ip_logs', '', 0, 1, 1, 1563850883, 1, 'Xóa IP log files, Xóa các file nhật ký truy cập')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (3, 1514880771, 60, 0, 'temp_download_destroy.php', 'cron_auto_del_temp_download', '', 0, 1, 1, 1563931063, 1, 'Xóa các file tạm trong thư mục tmp')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (4, 1514880771, 30, 0, 'ip_logs_destroy.php', 'cron_del_ip_logs', '', 0, 1, 1, 1563931063, 1, 'Xóa IP log files, Xóa các file nhật ký truy cập')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (5, 1514880771, 1440, 0, 'error_log_destroy.php', 'cron_auto_del_error_log', '', 0, 1, 1, 1563848848, 1, 'Xóa các file error_log quá hạn')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (6, 1514880771, 360, 0, 'error_log_sendmail.php', 'cron_auto_sendmail_error_log', '', 0, 1, 0, 0, 0, 'Gửi email các thông báo lỗi cho admin')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (7, 1514880771, 60, 0, 'ref_expired_del.php', 'cron_ref_expired_del', '', 0, 1, 1, 1563848848, 1, 'Xóa các referer quá hạn')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (8, 1514880771, 60, 0, 'check_version.php', 'cron_auto_check_version', '', 0, 1, 1, 1563848848, 1, 'Kiểm tra phiên bản NukeViet')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (7, 1514880771, 60, 0, 'ref_expired_del.php', 'cron_ref_expired_del', '', 0, 1, 1, 1563931063, 1, 'Xóa các referer quá hạn')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (8, 1514880771, 60, 0, 'check_version.php', 'cron_auto_check_version', '', 0, 1, 1, 1563931063, 1, 'Kiểm tra phiên bản NukeViet')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (9, 1514880771, 1440, 0, 'notification_autodel.php', 'cron_notification_autodel', '', 0, 1, 1, 1563848848, 1, 'Xóa thông báo cũ')";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (13, 1547513100, 1440, 0, 'workforce_birthday_reminder.php', 'cron_workforce_birthday_reminder', '', 0, 0, 1, 1563848848, 1, 'Nhắc nhở sinh nhật nhân viên')";
-$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (14, 1558116000, 1440, 1, 'customer_happy_birthday.php', 'cron_customer_happy_birthday', '', 0, 0, 1, 1563818400, 1, 'Chúc mừng sinh nhật khách hàng')";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_cronjobs` (`id`, `start_time`, `inter_val`, `inter_val_type`, `run_file`, `run_func`, `params`, `del`, `is_sys`, `act`, `last_time`, `last_result`, `vi_cron_name`) VALUES (14, 1558116000, 1440, 1, 'customer_happy_birthday.php', 'cron_customer_happy_birthday', '', 0, 0, 1, 1563904800, 1, 'Chúc mừng sinh nhật khách hàng')";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_extension_files`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_extension_files` (
@@ -512,10 +512,11 @@ $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_plugin` (
   `weight` tinyint(4) NOT NULL,
   PRIMARY KEY (`pid`),
   UNIQUE KEY `plugin_file` (`plugin_file`)
-) ENGINE=MyISAM  AUTO_INCREMENT=16  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
+) ENGINE=MyISAM  AUTO_INCREMENT=17  DEFAULT CHARSET=utf8mb4  COLLATE=utf8mb4_unicode_ci";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_plugin` (`pid`, `plugin_file`, `plugin_area`, `weight`) VALUES (1, 'qrcode.php', 1, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_plugin` (`pid`, `plugin_file`, `plugin_area`, `weight`) VALUES (2, 'cdn_js_css_image.php', 3, 1)";
 $sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_plugin` (`pid`, `plugin_file`, `plugin_area`, `weight`) VALUES (12, 'crm_check.php', 2, 1)";
+$sql_create_table[] = "INSERT INTO `" . $db_config['prefix'] . "_plugin` (`pid`, `plugin_file`, `plugin_area`, `weight`) VALUES (16, 'getListBranch.php', 2, 2)";
 
 $sql_create_table[] = "DROP TABLE IF EXISTS `" . $db_config['prefix'] . "_sendmail`";
 $sql_create_table[] = "CREATE TABLE `" . $db_config['prefix'] . "_sendmail` (
