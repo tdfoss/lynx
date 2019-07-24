@@ -22,10 +22,10 @@ require NV_ROOTDIR . '/includes/mainfile.php';
 require NV_ROOTDIR . '/includes/core/user_functions.php';
 
 // bắt giá trị branch_id khi chọn
-$branch_id = isset($_SESSION['branch_id']) ? $_SESSION['branch_id'] : reset($array_branch)['id'];
+$global_config['branch_id'] = isset($_SESSION['branch_id']) ? $_SESSION['branch_id'] : reset($array_branch)['id'];
 if ($nv_Request->isset_request('set_branch', 'post')) {
-    $branch_id = $nv_Request->get_int('branch_id', 'post', 0);
-    $_SESSION['branch_id'] = $branch_id;
+    $global_config['branch_id'] = $nv_Request->get_int('branch_id', 'post', 0);
+    $_SESSION['branch_id'] = $global_config['branch_id'];
     die('OK');
 }
 
