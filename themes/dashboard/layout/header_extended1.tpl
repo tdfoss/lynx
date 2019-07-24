@@ -88,13 +88,15 @@
                     <!-- END: loop -->
                 </ol>
                 <!-- END: breadcrumbs -->
+                <!-- BEGIN: branch -->
                 <select id="branch-select" class="form-control">
                     <!-- BEGIN: branch_all -->
                     <option value="0">---{LANG.branch_all}---</option>
                     <!-- END: branch_all -->
-                    <!-- BEGIN: branch -->
+                    <!-- BEGIN: loop -->
                     <option value="{BRANCH.id}"{BRANCH.selected}>{BRANCH.title}</option>
-                    <!-- END: branch -->
+                    <!-- END: loop -->
                 </select>
+                <!-- END: branch -->
             </section>
             [THEME_ERROR_INFO]

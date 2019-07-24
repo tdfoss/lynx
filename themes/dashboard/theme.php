@@ -357,11 +357,12 @@ function nv_site_theme($contents, $full = true)
             foreach ($array_branch as $branch) {
                 $branch['selected'] = (isset($_SESSION['branch_id']) && $_SESSION['branch_id'] == $branch['id']) ? 'selected="selected"' : '';
                 $xtpl->assign('BRANCH', $branch);
-                $xtpl->parse('main.branch');
+                $xtpl->parse('main.branch.loop');
             }
             if (sizeof($array_branch) > 1) {
-                $xtpl->parse('main.branch_all');
+                $xtpl->parse('main.branch.branch_all');
             }
+            $xtpl->parse('main.branch');
         }
     }
 

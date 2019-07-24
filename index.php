@@ -21,14 +21,6 @@ require NV_ROOTDIR . '/includes/mainfile.php';
 
 require NV_ROOTDIR . '/includes/core/user_functions.php';
 
-// bắt giá trị branch_id khi chọn
-$global_config['branch_id'] = isset($_SESSION['branch_id']) ? $_SESSION['branch_id'] : reset($array_branch)['id'];
-if ($nv_Request->isset_request('set_branch', 'post')) {
-    $global_config['branch_id'] = $nv_Request->get_int('branch_id', 'post', 0);
-    $_SESSION['branch_id'] = $global_config['branch_id'];
-    die('OK');
-}
-
 // Google Sitemap
 if ($nv_Request->isset_request(NV_NAME_VARIABLE, 'get') and $nv_Request->get_string(NV_NAME_VARIABLE, 'get') == 'SitemapIndex') {
     nv_xmlSitemapIndex_generate();
@@ -40,6 +32,19 @@ if (defined('NV_IS_USER')) {
     trigger_error('Hacking attempt', 256);
 }
 require NV_ROOTDIR . '/includes/core/is_user.php';
+
+// bắt giá trị branch_id khi chọn
+if (!empty($array_branch)) {
+    $global_config['branch_id'] = isset($_SESSION['branch_id']) ? $_SESSION['branch_id'] : reset($array_branch)['id'];
+} else {
+    $global_config['branch_id'] = $workforce_list[$user_info['userid']]['branch_id'];
+}
+
+if ($nv_Request->isset_request('set_branch', 'post')) {
+    $global_config['branch_id'] = $nv_Request->get_int('branch_id', 'post', 0);
+    $_SESSION['branch_id'] = $global_config['branch_id'];
+    die('OK');
+}
 
 // Cap nhat trang thai online
 if ($global_config['online_upd'] and !defined('NV_IS_AJAX') and !defined('NV_IS_MY_USER_AGENT')) {
