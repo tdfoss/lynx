@@ -33,6 +33,17 @@ if (defined('NV_IS_USER')) {
 }
 require NV_ROOTDIR . '/includes/core/is_user.php';
 
+$sql = 'SELECT * FROM ' . $db_config['prefix'] . '_branch WHERE active=1';
+$array_branch = $nv_Cache->db($sql, 'id', 'settings');
+
+if (!empty($array_branch) && !defined('NV_IS_SPADMIN')) {
+    foreach ($array_branch as $index => $value) {
+        if (!nv_user_in_groups($value['groups_manage'])) {
+            unset($array_branch[$index]);
+        }
+    }
+}
+
 // bắt giá trị branch_id khi chọn
 if (!empty($array_branch)) {
     $global_config['branch_id'] = isset($_SESSION['branch_id']) ? $_SESSION['branch_id'] : reset($array_branch)['id'];
