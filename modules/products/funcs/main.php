@@ -65,7 +65,7 @@ if ($nv_Request->isset_request('delete_id', 'get') and $nv_Request->isset_reques
 
 $page = $nv_Request->get_int('page', 'post,get', 1);
 $is_contact = $nv_Request->get_int('is_contact', 'get', 0);
-$base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;is_contact=' . $is_contact;
+$base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name;
 $array_search = array(
     'q' => $nv_Request->get_title('q', 'post,get'),
     'catid' => $nv_Request->get_int('catid', 'post,get', 0)
@@ -79,13 +79,13 @@ if ($nv_Request->isset_request('ordername', 'get')) {
 } elseif ($nv_Request->isset_request('ordername', 'cookie')) {
     $array_search['ordername'] = $nv_Request->get_title('ordername', 'cookie');
 } else {
-    $array_search['ordername'] = 'first_name';
+    $array_search['ordername'] = 'id';
 }
 
 if ($nv_Request->isset_request('ordertype', 'get')) {
     $array_search['ordertype'] = $nv_Request->get_title('ordertype', 'get');
     $nv_Request->set_Cookie('ordertype', $array_search['ordertype']);
-} elseif ($nv_Request->isset_request('ordername', 'cookie')) {
+} elseif ($nv_Request->isset_request('ordertype', 'cookie')) {
     $array_search['ordertype'] = $nv_Request->get_title('ordertype', 'cookie');
 } else {
     $array_search['ordertype'] = 'asc';
@@ -129,7 +129,7 @@ if (!$nv_Request->isset_request('id', 'post,get')) {
     $num_items = $sth->fetchColumn();
 
     $db->select('*')
-        ->order('id DESC')
+        ->order($array_search['ordername'] . ' ' . $array_search['ordertype'])
         ->limit($per_page)
         ->offset(($page - 1) * $per_page);
     $sth = $db->prepare($db->sql());
@@ -141,6 +141,11 @@ if (!$nv_Request->isset_request('id', 'post,get')) {
     $sth->execute();
 }
 
+$ordertype = $array_search['ordertype'] == 'asc' ? 'desc' : 'asc';
+$array_sort_url = array(
+    'purchase' => $base_url . '&ordername=purchase&ordertype=' . $ordertype
+);
+
 $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
 $xtpl->assign('LANG', $lang_module);
 $xtpl->assign('MODULE_NAME', $module_name);
@@ -148,18 +153,17 @@ $xtpl->assign('OP', $op);
 $xtpl->assign('ROW', $row);
 $xtpl->assign('Q', $array_search['q']);
 $xtpl->assign('URL_ADD', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $module_info['alias']['content']);
+$xtpl->assign('SORTURL', $array_sort_url);
 
 foreach ($array_type as $value) {
     $xtpl->assign('TYPE', array(
         'key' => $value['id'],
         'title' => $value['title'],
         'selected' => ($value['id'] == $array_search['catid']) ? ' selected="selected"' : ''
-
     ));
     $xtpl->parse('main.select_type');
 }
 
-$base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op;
 if (!empty($q)) {
     $base_url .= '&q=' . $q;
 }
@@ -184,6 +188,13 @@ while ($view = $sth->fetch()) {
         $xtpl->parse('main.loop.url');
     }
     $xtpl->parse('main.loop');
+}
+
+if ($array_search['ordername'] == 'purchase') {
+    $xtpl->parse('main.purchase.' . ($array_search['ordertype'] == 'desc' ? 'desc' : 'asc'));
+    $xtpl->parse('main.purchase');
+} else {
+    $xtpl->parse('main.purchase_no');
 }
 
 $array_action = array(

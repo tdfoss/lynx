@@ -10,6 +10,7 @@ define('NV_IS_MOD_INVOICE', true);
 require_once NV_ROOTDIR . '/modules/invoice/global.functions.php';
 require_once NV_ROOTDIR . '/modules/customer/site.functions.php';
 require_once NV_ROOTDIR . '/modules/invoice/site.functions.php';
+
 function nv_delete_invoice($id)
 {
     global $db, $module_name, $module_data, $user_info, $lang_module, $workforce_list;
@@ -17,20 +18,28 @@ function nv_delete_invoice($id)
     if (!defined('NV_INVOICE_ADMIN')) {
         return false;
     }
-    $rows = $db->query('SELECT code, title FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
+    $rows = $db->query('SELECT code, title, score, customerid FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
     if ($rows) {
         $count = $db->exec('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id = ' . $id);
         if ($count) {
+            // trừ đi số sản phẩm đã bán
+            $result = $db->query('SELECT itemid, quantity FROM ' . NV_PREFIXLANG . '_' . $module_data . '_detail WHERE idinvoice = ' . $id . ' AND module="products"');
+            while ($_row = $result->fetch()) {
+                $db->query('UPDATE ' . NV_PREFIXLANG . '_products SET purchase = purchase-' . $_row['quantity'] . ' WHERE id=' . $_row['itemid']);
+            }
             $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_detail WHERE idinvoice = ' . $id);
             $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_transaction WHERE invoiceid = ' . $id);
             $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_score_history WHERE invoiceid = ' . $id);
+
             // cập nhật lại điểm tích lũy
             $db->query('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . '_score SET score=score-' . $rows['score'] . ' WHERE customerid=' . $rows['customerid']);
+
             $content = sprintf($lang_module['logs_invoice_delete_note'], $workforce_list[$user_info['userid']]['fullname'], '[' . $rows['code'] . '] ' . $rows['title']);
             nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_invoice_delete'], $content, $user_info['userid']);
         }
     }
 }
+
 function nv_score_customer($customerid, $invoiceid, $type, $score, $addtime, $useradd, $note)
 {
     global $db, $module_name, $module_data, $workforce_list, $user_info;
@@ -53,12 +62,14 @@ function nv_score_customer($customerid, $invoiceid, $type, $score, $addtime, $us
         ));
     }
 }
+
 function nv_caculate_total($price, $quantity, $vat = 0)
 {
     $total = $price * $quantity;
     $total = $total + (($total * $vat) / 100);
     return $total;
 }
+
 function nv_sendmail_confirm($id)
 {
     global $db, $module_name, $module_data, $row, $lang_module, $array_invoice_status, $user_info, $workforce_list;
@@ -100,6 +111,7 @@ function nv_sendmail_confirm($id)
         }
     }
 }
+
 function nv_invoice_new_notification($id, $title, $workforceid)
 {
     global $db, $user_info, $lang_module, $module_name, $module_config, $array_config;
@@ -114,6 +126,7 @@ function nv_invoice_new_notification($id, $title, $workforceid)
         nv_send_notification($array_userid, $content, 'new_invoice', $module_name, $url);
     }
 }
+
 function nv_transaction_list($invoiceid)
 {
     global $db, $module_info, $module_data, $module_file, $lang_module, $array_transaction_status;
@@ -147,6 +160,7 @@ function nv_transaction_list($invoiceid)
     $xtpl->parse('transaction_list');
     return $xtpl->text('transaction_list');
 }
+
 function nv_transaction_update($invoiceid)
 {
     global $db, $module_data;
@@ -163,6 +177,7 @@ function nv_transaction_update($invoiceid)
         }
     }
 }
+
 function nv_status_wallet_invoice($status)
 {
     $nv_transaction_status = 1; // Đang thực hiện giao dịch
@@ -181,6 +196,7 @@ function nv_status_wallet_invoice($status)
     }
     return $nv_transaction_status;
 }
+
 function nv_invoice_confirm_payment($id)
 {
     global $db, $module_name, $module_data, $lang_module, $workforce_list, $user_info;
@@ -210,6 +226,7 @@ function nv_invoice_confirm_payment($id)
         }
     }
 }
+
 function nv_invoice_check_date($date)
 {
     global $db, $module_data, $array_users, $lang_module, $module_file, $module_info;

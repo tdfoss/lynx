@@ -299,10 +299,14 @@ if ($nv_Request->isset_request('submit', 'post')) {
 
                 $detail = array_keys($row['detail']);
                 $detail_old = array_keys($row['detail_old']);
+                $array_products_add = $array_products_edit = $array_products_del = array(); // mảng lưu id sản phẩm được thêm hoặc xóa
                 if ($detail != $detail_old) {
                     $sth = $db->prepare('INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_detail (idinvoice, idcustomer, module, itemid, unit_price, quantity, price, vat, total, note, weight) VALUES(:idinvoice, :idcustomer, :module, :itemid, :unit_price, :quantity, :price, :vat, :total, :note, :weight)');
                     foreach ($row['detail'] as $service) {
                         if (!in_array($service['itemid'] . '_' . $service['module'], array_keys($row['detail_old']), true)) {
+                            if ($service['module'] == 'products') {
+                                $array_products_add[$service['itemid']] = $service['quantity'];
+                            }
                             $service['note'] = !empty($service['note']) ? $service['note'] : '';
                             $total = $service['unit_price'] * $service['quantity'];
                             $total = $total + (($total * $service['vat']) / 100);
@@ -323,7 +327,23 @@ if ($nv_Request->isset_request('submit', 'post')) {
 
                     foreach ($row['detail_old'] as $serviceid_old) {
                         if (!in_array($serviceid_old['itemid'] . '_' . $serviceid_old['module'], array_keys($row['detail']))) {
+                            if ($serviceid_old['module'] == 'products') {
+                                $array_products_del[$serviceid_old['itemid']] = $serviceid_old['quantity'];
+                            }
                             $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_detail WHERE idcustomer = ' . $row['customerid'] . ' AND idinvoice=' . $new_id . ' AND module=' . $db->quote($serviceid_old['module']) . ' AND itemid=' . $serviceid_old['itemid']);
+                        }
+                    }
+
+                    // cập nhật lại số lượng mua sản phẩm
+                    if (!empty($array_products_add)) {
+                        foreach ($array_products_add as $product_id => $quantity) {
+                            $db->query('UPDATE ' . NV_PREFIXLANG . '_products SET purchase = purchase+' . $quantity . ' WHERE id=' . $product_id);
+                        }
+                    }
+
+                    if (!empty($array_products_del)) {
+                        foreach ($array_products_del as $product_id => $quantity) {
+                            $db->query('UPDATE ' . NV_PREFIXLANG . '_products SET purchase = purchase-' . $quantity . ' WHERE id=' . $product_id);
                         }
                     }
                 } else {
@@ -337,6 +357,9 @@ if ($nv_Request->isset_request('submit', 'post')) {
 
                     $sth = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . '_detail SET unit_price = :unit_price, quantity = :quantity, price = :price, vat = :vat, total = :total, note = :note, weight = :weight WHERE idinvoice = :idinvoice AND idcustomer = :idcustomer AND module = :module AND itemid = :itemid');
                     foreach ($row['detail'] as $service) {
+                        if ($service['module'] == 'products') {
+                            $array_products_edit[$service['itemid']] = $service['quantity'] - $row['detail_old'][$service['itemid'] . '_products']['quantity'];
+                        }
                         $total = $service['unit_price'] * $service['quantity'];
                         $total = $total + (($total * $service['vat']) / 100);
                         $sth->bindParam(':idinvoice', $new_id, PDO::PARAM_INT);
@@ -351,6 +374,12 @@ if ($nv_Request->isset_request('submit', 'post')) {
                         $sth->bindParam(':note', $service['note'], PDO::PARAM_STR);
                         $sth->bindParam(':weight', $service['weight'], PDO::PARAM_INT);
                         $sth->execute();
+                    }
+
+                    if (!empty($array_products_edit)) {
+                        foreach ($array_products_edit as $product_id => $quantity) {
+                            $db->query('UPDATE ' . NV_PREFIXLANG . '_products SET purchase = purchase+' . $quantity . ' WHERE id=' . $product_id);
+                        }
                     }
                 }
 

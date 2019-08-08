@@ -6,14 +6,12 @@
  * @Copyright (C) 2018 mynukeviet. All rights reserved
  * @Createdate Tue, 16 Jan 2018 10:00:54 GMT
  */
-
 if (!defined('NV_IS_FILE_MODULES')) die('Stop!!!');
 
 $sql_drop_module = array();
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data;
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_cat";
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_price_unit";
-
 
 $sql_create_module = $sql_drop_module;
 $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "(
@@ -24,8 +22,10 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   vat double unsigned NOT NULL DEFAULT '0',
   price_unit tinyint(1) NOT NULL,
   url text NOT NULL,
+  purchase mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT 'Lượt mua',
   active tinyint(1) unsigned NOT NULL DEFAULT '1',
   note text NOT NULL,
+  weight smallint(4) unsigned NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE=MyISAM";
 

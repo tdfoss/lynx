@@ -46,6 +46,9 @@
                     <th>{LANG.price}</th>
                     <th>{LANG.vat}</th>
                     <th>{LANG.price_unit}</th>
+                    <th width="120" class="text-center">
+                        <!-- BEGIN: purchase_no --> <em class="fa fa-sort">&nbsp;</em> <!-- END: purchase_no --> <!-- BEGIN: purchase --> <!-- BEGIN: desc --> <em class="fa fa-sort-numeric-desc">&nbsp;</em> <!-- END: desc --> <!-- BEGIN: asc --> <em class="fa fa-sort-numeric-asc">&nbsp;</em> <!-- END: asc --> <!-- END: purchase --> <a href="{SORTURL.purchase}" title="">{LANG.purchase}</a>
+                    </th>
                     <th width="100" class="text-center">{LANG.active}</th>
                     <th width="150">&nbsp;</th>
                 </tr>
@@ -67,6 +70,7 @@
                     <td>{VIEW.price}</td>
                     <td>{VIEW.vat}</td>
                     <td>{VIEW.price_unit}</td>
+                    <td class="text-center">{VIEW.purchase}</td>
                     <td class="text-center"><input type="checkbox" name="active" id="change_status_{VIEW.id}" value="{VIEW.id}" {CHECK} onclick="nv_change_status({VIEW.id});" /></td>
                     <td class="text-center"><i class="fa fa-edit fa-lg">&nbsp;</i> <a href="{VIEW.link_edit}">{LANG.edit}</a> - <em class="fa fa-trash-o fa-lg">&nbsp;</em> <a href="{VIEW.link_delete}" onclick="return confirm(nv_is_del_confirm[0]);">{LANG.delete}</a></td>
                 </tr>
