@@ -869,6 +869,12 @@ if ($step == 1) {
                                     $db->query("UPDATE " . NV_CONFIG_GLOBALTABLE . " SET config_value = 'news' WHERE lang='sys' AND module = 'global' AND config_name = 'rewrite_op_mod'");
                                 }
                             }
+
+                            // thêm chi nhánh mặc định
+                            $stmt = $db->prepare('INSERT INTO ' . $db_config['prefix'] . '_branch (title, email, groups_manage, weight) VALUES (:title, :email, 2, 1)');
+                            $stmt->bindParam(':title', $array_data['site_name'], PDO::PARAM_STR);
+                            $stmt->bindParam(':email', $array_data['nv_email'], PDO::PARAM_STR);
+                            $stmt->execute();
                         } catch (PDOException $e) {
                             trigger_error($e->getMessage());
                             die($e->getMessage());

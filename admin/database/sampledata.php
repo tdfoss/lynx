@@ -63,6 +63,10 @@ $array_ignore_drop = array(
     $db_config['prefix'] . '_config',
     NV_USERS_GLOBALTABLE
 );
+
+// lynx
+$array_ignore_drop[] = $db_config['prefix'] . '_branch';
+
 $array_method_update = array(
     $db_config['prefix'] . '_config' => array(
         'key' => array(

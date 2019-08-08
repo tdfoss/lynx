@@ -320,7 +320,7 @@ $sql_create_table[] = "CREATE TABLE " . $db_config['prefix'] . "_notification (
   PRIMARY KEY (id)
 ) ENGINE=MyISAM";
 
-$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_branch(
+$sql_create_table[] = "CREATE TABLE " . $db_config['prefix'] . "_branch(
   id smallint(4) NOT NULL AUTO_INCREMENT,
   title varchar(255) NOT NULL,
   address varchar(255) NOT NULL,
