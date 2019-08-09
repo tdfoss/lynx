@@ -40,12 +40,11 @@ if ($nv_Request->isset_request('submit', 'post')) {
     $row['url'] = $nv_Request->get_title('url', 'post', '');
     $row['note'] = $nv_Request->get_textarea('note', '', NV_ALLOWED_HTML_TAGS);
     $row['price'] = floatval(preg_replace('/[^0-9.]/', '', $row['price']));
-    
-    
+
     if (empty($row['title'])) {
         $error[] = $lang_module['error_required_title'];
     }
-    
+
     if (!empty($row['price_unit'])) {
         if (!is_numeric($row['price_unit'])) {
             $_sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_price_unit(title) VALUES (:title)';
@@ -55,7 +54,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
             $row['price_unit'] = $db->insert_id($_sql, 'id', $data_insert);
         }
     }
-    
+
     if (empty($error)) {
         try {
             if (empty($row['id'])) {
@@ -70,20 +69,19 @@ if ($nv_Request->isset_request('submit', 'post')) {
             $stmt->bindParam(':price_unit', $row['price_unit'], PDO::PARAM_INT);
             $stmt->bindParam(':url', $row['url'], PDO::PARAM_STR);
             $stmt->bindParam(':note', $row['note'], PDO::PARAM_STR, strlen($row['note']));
-            
+
             $exc = $stmt->execute();
-            
+
             if ($exc) {
-                
+
                 if (empty($row['id'])) {
-                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_product'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['content_product'] . " " . $row['title'], $workforce_list[$user_info['userid']]['fullname']);
+                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['content_product'], $row['title'], $user_info['userid']);
                 } else {
-                    
-                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['title_product'], $workforce_list[$user_info['userid']]['fullname'] . " " . $lang_module['edit_product'] . " " . $row['title'], $workforce_list[$user_info['userid']]['fullname']);
+                    nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['edit_product'], $row['title'], $user_info['userid']);
                 }
-                
+
                 $nv_Cache->delMod($module_name);
-                
+
                 Header('Location: ' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name);
                 die();
             }
@@ -101,7 +99,7 @@ if (defined('NV_EDITOR')) {
     define('NV_EDITOR', true);
     define('NV_IS_CKEDITOR', true);
     $my_head .= '<script type="text/javascript" src="' . NV_BASE_SITEURL . NV_EDITORSDIR . '/ckeditor/ckeditor.js"></script>';
-    
+
     function nv_aleditor($textareaname, $width = '100%', $height = '450px', $val = '', $customtoolbar = '')
     {
         global $module_data;
@@ -138,7 +136,6 @@ foreach ($array_type as $value) {
         'key' => $value['id'],
         'title' => $value['title'],
         'selected' => ($value['id'] == $row['catid']) ? ' selected="selected"' : ''
-    
     ));
     $xtpl->parse('main.select_type');
 }
