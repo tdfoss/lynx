@@ -229,7 +229,7 @@ function nv_invoice_confirm_payment($id)
 
 function nv_invoice_check_date($date)
 {
-    global $db, $module_data, $array_users, $lang_module, $module_file, $module_info;
+    global $db, $module_name, $module_data, $array_users, $lang_module, $module_file, $module_info;
     if ($date == 1) {
         $time = 604800;
         $lang = $lang_module['1week'];
@@ -268,6 +268,7 @@ function nv_invoice_check_date($date)
         $rows['createtime'] = (empty($rows['createtime'])) ? '' : nv_date('d/m/Y', $rows['createtime']);
         $rows['duetime'] = (empty($rows['duetime'])) ? ($lang_module['non_identify']) : nv_date('d/m/Y', $rows['duetime']);
         $rows['addtime'] = (empty($rows['addtime'])) ? '-' : nv_date('H:i d/m/Y', $rows['addtime']);
+        $rows['link_view'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $rows['id'];
         $data[] = $rows;
     }
     $xtpl = new XTemplate('main.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
