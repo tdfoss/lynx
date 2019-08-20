@@ -9,6 +9,7 @@
 if (!defined('NV_ADMIN')) die('Stop!!!');
 
 $submenu['types'] = $lang_module['types'];
+$submenu['events-type'] = $lang_module['events_type'];
 $submenu['unit'] = $lang_module['unit'];
 $submenu['config'] = $lang_module['config'];
 $submenu['tags'] = $lang_module['tags'];

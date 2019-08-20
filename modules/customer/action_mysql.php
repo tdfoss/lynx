@@ -17,6 +17,8 @@ $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lan
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_units";
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_field";
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_info";
+$sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_events";
+$sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_events_type";
 
 $sql_create_module = $sql_drop_module;
 $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "(
@@ -116,6 +118,28 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
 $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_info (
 	rows_id mediumint(8) unsigned NOT NULL,
 	PRIMARY KEY (rows_id)
+) ENGINE=MyISAM";
+
+$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_events (
+	id mediumint(8) unsigned NOT NULL,
+    customer_id mediumint(8) unsigned NOT NULL,
+    event_type_id tinyint(2) unsigned NOT NULL DEFATLT '0' COMMENT 'Loại sự kiện',
+    content text NOT NULL,
+    userid mediumint(8) unsigned NOT NULL COMMENT 'Người thực hiện',
+    eventtime int(11) unsigned NOT NULL,
+    addtime int(11) unsigned NOT NULL,
+	PRIMARY KEY (id),
+    KEY customer_id(customer_id),
+    KEY event_type_id(event_type_id)
+) ENGINE=MyISAM";
+
+$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_events_type(
+  id tinyint(2) NOT NULL AUTO_INCREMENT,
+  title varchar(255) NOT NULL,
+  note text NOT NULL COMMENT 'Ghi chú',
+  weight smallint(4) unsigned NOT NULL,
+  active tinyint(1) unsigned NOT NULL DEFAULT '1',
+  PRIMARY KEY (id)
 ) ENGINE=MyISAM";
 
 $data = array();

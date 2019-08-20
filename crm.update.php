@@ -20,6 +20,14 @@ $language_query = $db->query('SELECT lang FROM ' . $db_config['prefix'] . '_setu
 while (list ($lang) = $language_query->fetch(3)) {
     $sql = array();
 
+    $data = array();
+    $data['score_allow'] = 0;
+    $data['score_money'] = 100000;
+    $data['money_score'] = 10000;
+    foreach ($data as $config_name => $config_value) {
+        $sql[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', 'invoice', " . $db->quote($config_name) . ", " . $db->quote($config_value) . ")";
+    }
+
     $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_customer ADD unit VARCHAR(255) NOT NULL COMMENT 'Đơn vị cá nhân' AFTER address;";
 
     $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_support ADD priority TINYINT(1) UNSIGNED NOT NULL DEFAULT '2' COMMENT 'Mức độ ưu tiên' AFTER useradd";
@@ -206,15 +214,29 @@ while (list ($lang) = $language_query->fetch(3)) {
       PRIMARY KEY (id)
     ) ENGINE=MyISAM";
 
-    $data = array();
-    $data['score_allow'] = 0;
-    $data['score_money'] = 100000;
-    $data['money_score'] = 10000;
-    foreach ($data as $config_name => $config_value) {
-        $sql[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', 'invoice', " . $db->quote($config_name) . ", " . $db->quote($config_value) . ")";
-    }
-
     $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_invoice CHANGE code code VARCHAR(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '';";
+
+    $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_customer_events (
+    	id mediumint(8) unsigned NOT NULL,
+        customer_id mediumint(8) unsigned NOT NULL,
+        event_type_id tinyint(2) unsigned NOT NULL DEFATLT '0' COMMENT 'Loại sự kiện',
+        content text NOT NULL,
+        userid mediumint(8) unsigned NOT NULL COMMENT 'Người thực hiện',
+        eventtime int(11) unsigned NOT NULL,
+        addtime int(11) unsigned NOT NULL,
+    	PRIMARY KEY (id),
+        KEY customer_id(customer_id),
+        KEY event_type_id(event_type_id)
+    ) ENGINE=MyISAM";
+
+    $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_customer_events_type(
+      id tinyint(2) NOT NULL AUTO_INCREMENT,
+      title varchar(255) NOT NULL,
+      note text NOT NULL COMMENT 'Ghi chú',
+      weight smallint(4) unsigned NOT NULL,
+      active tinyint(1) unsigned NOT NULL DEFAULT '1',
+      PRIMARY KEY (id)
+    ) ENGINE=MyISAM";
 
     foreach ($sql as $_sql) {
         try {
