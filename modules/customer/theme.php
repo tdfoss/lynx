@@ -52,7 +52,7 @@ function nv_theme_result_import_customer($array_data, $total_row)
 
 function nv_theme_customer_detail($customer_info, $id)
 {
-    global $global_config, $module_name, $module_file, $lang_module, $module_config, $module_info, $op, $array_field_config, $custom_fields, $client_info, $array_email_list, $array_invoice, $array_customer_service, $array_customer_projects;
+    global $module_name, $module_file, $lang_module, $module_info, $op, $array_field_config, $custom_fields, $client_info, $array_email_list, $array_invoice, $array_events, $array_customer_service, $array_customer_projects;
 
     $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
     $xtpl->assign('LANG', $lang_module);
@@ -89,6 +89,17 @@ function nv_theme_customer_detail($customer_info, $id)
         }
         $xtpl->parse('main.invoice_tab_content');
         $xtpl->parse('main.iscontacts.invoice_tab_title');
+    }
+
+    if (!empty($array_events)) {
+        $i = 1;
+        foreach ($array_events as $events) {
+            $events['number'] = $i++;
+            $xtpl->assign('EVENTS', $events);
+            $xtpl->parse('main.events_tab_content.loop');
+        }
+        $xtpl->parse('main.events_tab_content');
+        $xtpl->parse('main.events_tab_title');
     }
 
     if ($customer_info['is_contacts'] == 0) {

@@ -111,6 +111,19 @@ if (isset($site_mods['invoice'])) {
     $customer_info['count_invoices'] = sizeof($array_invoice);
 }
 
+// sự kiện khách hàng
+$array_events = array();
+$result = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_customer_events WHERE customer_id=' . $id . ' ORDER BY eventtime DESC');
+while ($row = $result->fetch()) {
+    $row['user'] = $workforce_list[$row['userid']]['fullname'];
+    $row['addtime'] = nv_date('H:i d/m/Y', $row['addtime']);
+    $row['eventtime'] = nv_date('H:i d/m/Y', $row['eventtime']);
+    $row['link_view'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=events-detail&amp;id=' . $row['id'];
+    $row['events_type'] = $array_customer_events_type[$row['event_type_id']]['title'];
+    $array_events[] = $row;
+}
+$customer_info['count_events'] = sizeof($array_events);
+
 $customer_info['share_accs'] = array();
 if (!empty($customer_info['share_acc'])) {
     $customer_info['share_acc'] = explode(',', $customer_info['share_acc']);

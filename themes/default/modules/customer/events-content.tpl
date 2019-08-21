@@ -23,7 +23,7 @@
                 <div class="col-sm-19 col-md-19">
                     <select name="event_type_id" id="event_type_id" class="form-control">
                         <!-- BEGIN: events_type -->
-                        <option value="{EVENTS_TYPE.id}" selected="selected">{EVENTS_TYPE.title}</option>
+                        <option value="{EVENTS_TYPE.id}" {EVENTS_TYPE.selected}>{EVENTS_TYPE.title}</option>
                         <!-- END: events_type -->
                     </select>
                 </div>

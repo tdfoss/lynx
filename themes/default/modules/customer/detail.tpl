@@ -43,8 +43,11 @@
             <li><a href="#tab5success" data-toggle="tab">{LANG.project_detail} <span class="red">({CUSTOMER.count_projects})</span></a></li>
             <!-- END: projects_tab_title -->
             <!-- END: iscontacts -->
+            <!-- BEGIN: events_tab_title -->
+            <li><a href="#tab6success" data-toggle="tab">{LANG.events} <span class="red">({CUSTOMER.count_events})</span></a></li>
+            <!-- END: events_tab_title -->
             <!-- BEGIN: email_tab_title -->
-            <li><a href="#tab6success" data-toggle="tab">{LANG.email_detail} <span class="red">({CUSTOMER.count_emails})</span></a></li>
+            <li><a href="#tab7success" data-toggle="tab">{LANG.email_detail} <span class="red">({CUSTOMER.count_emails})</span></a></li>
             <!-- END: email_tab_title -->
         </ul>
     </div>
@@ -259,8 +262,34 @@
                 </table>
             </div>
             <!-- END: projects_tab_content -->
-            <!-- BEGIN: email_tab_content -->
+            <!-- BEGIN: events_tab_content -->
             <div class="tab-pane fade" id="tab6success">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th width="50" class="text-center"></th>
+                            <th width="200">{LANG.events_type}</th>
+                            <th width="200">{LANG.events_user}</th>
+                            <th width="200">{LANG.events_time}</th>
+                            <th width="150">{LANG.addtime}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- BEGIN: loop -->
+                        <tr onclick="nv_table_row_click(event, '{EVENTS.link_view}', false);">
+                            <td class="text-center">{EVENTS.number}</td>
+                            <td>{EVENTS.events_type}</td>
+                            <td>{EVENTS.user}</td>
+                            <td>{EVENTS.eventtime}</td>
+                            <td>{EVENTS.addtime}</td>
+                        </tr>
+                        <!-- END: loop -->
+                    </tbody>
+                </table>
+            </div>
+            <!-- END: events_tab_content -->
+            <!-- BEGIN: email_tab_content -->
+            <div class="tab-pane fade" id="tab7success">
                 <table class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>

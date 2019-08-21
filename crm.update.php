@@ -222,6 +222,7 @@ while (list ($lang) = $language_query->fetch(3)) {
         event_type_id tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT 'Loại sự kiện',
         content text NOT NULL,
         userid mediumint(8) unsigned NOT NULL COMMENT 'Người thực hiện',
+        care_staff mediumint(8) unsigned NOT NULL COMMENT 'Nhân viên chăm sóc KH',
         eventtime int(11) unsigned NOT NULL,
         addtime int(11) unsigned NOT NULL,
     	PRIMARY KEY (id),

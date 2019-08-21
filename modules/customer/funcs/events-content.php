@@ -156,6 +156,7 @@ if (!empty($customer_info)) {
 
 if (!empty($array_customer_events_type)) {
     foreach ($array_customer_events_type as $events_type) {
+        $events_type['selected'] = $events_type['id'] == $row['event_type_id'] ? 'selected="selected"' : '';
         $xtpl->assign('EVENTS_TYPE', $events_type);
         $xtpl->parse('main.events_type');
     }
