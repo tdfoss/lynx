@@ -53,17 +53,19 @@ $row['id'] = $nv_Request->get_int('id', 'post,get', 0);
 
 if ($row['id'] > 0) {
     $lang_module['events_add'] = $lang_module['events_edit'];
-    $row = $db->query('SELECT * FROM ' . $table_name . ' WHERE id=' . $row['id'])->fetch();
+    $row = $db->query('SELECT * FROM ' . $table_name . ' WHERE id=' . $row['id'] . nv_customer_premission($module_name))->fetch();
     if (empty($row)) {
         Header('Location: ' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=events');
         die();
     }
 } else {
-    $row['id'] = $row['customer_id'] = $row['event_type_id'] = 0;
+    $row['id'] = $row['event_type_id'] = 0;
+    $row['customer_id'] = $nv_Request->get_int('customer_id', 'post', 0);
     $row['content'] = '';
     $row['eventtime'] = NV_CURRENTTIME;
 }
 
+$row['ajax'] = $nv_Request->get_int('ajax', 'post', 0);
 $row['redirect'] = $nv_Request->get_string('redirect', 'post,get', '');
 
 if ($nv_Request->isset_request('submit', 'post')) {
@@ -115,6 +117,7 @@ if ($nv_Request->isset_request('submit', 'post')) {
 
             nv_jsonOutput(array(
                 'error' => 0,
+                'ajax' => $row['ajax'],
                 'redirect' => $url
             ));
         }
@@ -166,5 +169,5 @@ $array_mod_title[] = array(
 );
 
 include NV_ROOTDIR . '/includes/header.php';
-echo nv_site_theme($contents);
+echo nv_site_theme($contents, !($row['ajax']));
 include NV_ROOTDIR . '/includes/footer.php';

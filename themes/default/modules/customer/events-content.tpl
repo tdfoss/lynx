@@ -7,10 +7,10 @@
     <input type="hidden" name="submit" value="1" />
     <div class="panel panel-default col-md-24">
         <div class="panel-body">
-            <input type="hidden" name="id" value="{ROW.id}" />
+            <input type="hidden" name="id" value="{ROW.id}" /> <input type="hidden" name="ajax" value="{ROW.ajax}" /> <input type="hidden" name="redirect" value="{ROW.redirect}" />
             <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.customer}</strong> <span class="red">(*)</span></label>
-                <div class="col-sm-19 col-md-20">
+                <label class="col-sm-5 col-md-5 control-label"><strong>{LANG.customer}</strong> <span class="red">(*)</span></label>
+                <div class="col-sm-19 col-md-19">
                     <select name="customer_id" id="customer_id" class="form-control">
                         <!-- BEGIN: customer -->
                         <option value="{CUSTOMER.id}" selected="selected">{CUSTOMER.fullname}</option>
@@ -19,8 +19,8 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.events_type}</strong></label>
-                <div class="col-sm-19 col-md-20">
+                <label class="col-sm-5 col-md-5 control-label"><strong>{LANG.events_type}</strong></label>
+                <div class="col-sm-19 col-md-19">
                     <select name="event_type_id" id="event_type_id" class="form-control">
                         <!-- BEGIN: events_type -->
                         <option value="{EVENTS_TYPE.id}" selected="selected">{EVENTS_TYPE.title}</option>
@@ -29,8 +29,8 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.events_time}</strong></label>
-                <div class="col-sm-19 col-md-20">
+                <label class="col-sm-5 col-md-5 control-label"><strong>{LANG.events_time}</strong></label>
+                <div class="col-sm-19 col-md-19">
                     <div class="input-group">
                         <input id="eventtime" class="form-control datepicker required" value="{ROW.eventtime}" type="text" name="eventtime" autocomplete="off" /> <span class="input-group-btn">
                             <button class="btn btn-default" type="button">
@@ -41,8 +41,8 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-5 col-md-4 control-label"><strong>{LANG.content}</strong></label>
-                <div class="col-sm-19 col-md-20">
+                <label class="col-sm-5 col-md-5 control-label"><strong>{LANG.content}</strong></label>
+                <div class="col-sm-19 col-md-19">
                     <textarea class="form-control" name="content" rows="5">{ROW.content}</textarea>
                 </div>
             </div>
@@ -110,6 +110,8 @@
                     if (json.error) {
                         alert(json.msg);
                         $('#' + json.input).focus();
+                    } else if (json.ajax) {
+                        parent.location.reload();
                     } else {
                         window.location.href = json.redirect;
                     }

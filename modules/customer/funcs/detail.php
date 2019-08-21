@@ -16,10 +16,10 @@ if ($nv_Request->isset_request('change_contacts', 'post')) {
     if (empty($id)) {
         die('NO_' . $lang_module['error_no_id']);
     }
-    
+
     $query = 'UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET is_contacts=0 WHERE id=' . $id;
     $db->query($query);
-    
+
     $nv_Cache->delMod($module_name);
     die('OK_' . $lang_module['queue_success']);
 }
@@ -57,10 +57,10 @@ $current_link = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LAN
 
 if (isset($site_mods['services'])) {
     define('NV_SERVICES', true);
-    
+
     $_sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_services WHERE active=1 ORDER BY weight';
     $array_services = $nv_Cache->db($_sql, 'id', 'services');
-    
+
     $result = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_services_customer WHERE customerid=' . $id . ' ORDER BY id DESC');
     while ($row = $result->fetch()) {
         $array_customer_service[] = $row;
@@ -70,7 +70,7 @@ if (isset($site_mods['services'])) {
 
 if (isset($site_mods['projects'])) {
     define('NV_PROJECTS', true);
-    
+
     $result = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_projects WHERE customerid=' . $id . ' ORDER BY id DESC');
     while ($row = $result->fetch()) {
         $row['link_view'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=projects&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $row['id'];
@@ -81,13 +81,13 @@ if (isset($site_mods['projects'])) {
 
 if (isset($site_mods['email'])) {
     define('NV_EMAIL', true);
-    
+
     $result = $db->query('SELECT t1.id, t1.title, t1.addtime, t1.useradd FROM ' . NV_PREFIXLANG . '_email t1 INNER JOIN ' . NV_PREFIXLANG . '_email_sendto t2 ON t1.id=t2.email_id WHERE t2.customer_id=' . $id . ' ORDER BY id DESC');
     while ($row = $result->fetch()) {
         $row['link_view'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=email&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $row['id'];
         $row['addtime'] = nv_date('H:i d/m/Y', $row['addtime']);
         $row['useradd'] = !empty($row['useradd']) ? $workforce_list[$row['useradd']]['fullname'] : $lang_module['system'];
-        
+
         $array_email_list[] = $row;
     }
     $customer_info['count_emails'] = sizeof($array_email_list);
@@ -146,60 +146,6 @@ if ($customer_info['userid_link'] > 0) {
     $customer_info['userid_link'] = nv_show_name_user($user['first_name'], $user['last_name'], $user['username']);
 } else {
     $customer_info['userid_link'] = $lang_module['userid_link_empty'];
-}
-
-$xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
-$xtpl->assign('LANG', $lang_module);
-$xtpl->assign('CUSTOMER', $customer_info);
-$xtpl->assign('URL_EDIT', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=content&amp;id=' . $id . '&redirect=' . nv_redirect_encrypt($client_info['selfurl']));
-$xtpl->assign('URL_ADD', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=content');
-$xtpl->assign('URL_DELETE', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;delete_id=' . $id . '&amp;delete_checkss=' . md5($id . NV_CACHE_PREFIX . $client_info['session_id']));
-$xtpl->assign('URL_ADD_EMAIL', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=email&amp;' . NV_OP_VARIABLE . '=content&amp;customerid=' . $id . '&amp;redirect=' . nv_redirect_encrypt($client_info['selfurl']));
-$xtpl->assign('CURRENT_LINK', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=' . $op . '&id=' . $id);
-
-if (defined('NV_EMAIL')) {
-    if (!empty($array_email_list)) {
-        $i = 1;
-        foreach ($array_email_list as $email) {
-            $email['number'] = $i++;
-            $xtpl->assign('EMAIL', $email);
-            $xtpl->parse('main.email_tab_content.loop');
-        }
-    }
-    $xtpl->parse('main.email_tab_content');
-    $xtpl->parse('main.email_tab_title');
-}
-
-if (defined('NV_INVOICE')) {
-    if (!empty($array_invoice)) {
-        $i = 1;
-        foreach ($array_invoice as $invoice) {
-            $invoice['number'] = $i++;
-            $xtpl->assign('INVOICE', $invoice);
-            $xtpl->parse('main.invoice_tab_content.loop');
-        }
-    }
-    $xtpl->parse('main.invoice_tab_content');
-    $xtpl->parse('main.iscontacts.invoice_tab_title');
-}
-
-if ($customer_info['is_contacts'] == 0) {
-    if (defined('NV_SERVICES')) {
-        if (!empty($array_customer_service)) {
-            $i = 1;
-            foreach ($array_customer_service as $service) {
-                $service['number'] = $i++;
-                $service['service'] = $array_services[$service['serviceid']]['title'];
-                $service['begintime'] = (empty($service['begintime'])) ? '' : nv_date('d/m/Y', $service['begintime']);
-                $service['endtime'] = (empty($service['endtime'])) ? '' : nv_date('d/m/Y', $service['endtime']);
-                $service['addtime'] = (empty($service['addtime'])) ? '' : nv_date('H:i d/m/Y', $service['addtime']);
-                $xtpl->assign('SERVICE', $service);
-                $xtpl->parse('main.service_tab_content.loop');
-            }
-        }
-        $xtpl->parse('main.service_tab_content');
-        $xtpl->parse('main.iscontacts.service_tab_title');
-    }
 }
 
 $array_field_config = array();

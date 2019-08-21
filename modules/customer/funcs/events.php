@@ -68,6 +68,8 @@ if (!empty($array_search['q'])) {
     $where .= ' AND (content LIKE "%' . $array_search['q'] . '%")';
 }
 
+$where .= nv_customer_premission($module_name);
+
 $db->sqlreset()
     ->select('COUNT(*)')
     ->from(NV_PREFIXLANG . '_' . $module_data . '_events')

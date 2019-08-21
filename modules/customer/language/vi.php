@@ -149,7 +149,7 @@ $lang_module['events'] = 'Sự kiện';
 $lang_module['events_add'] = 'Thêm sự kiện';
 $lang_module['events_edit'] = 'Sửa sự kiện';
 $lang_module['events_type'] = 'Loại sự kiện';
-$lang_module['events_time'] = 'Thời gian sự kiện';
+$lang_module['events_time'] = 'Thời gian';
 $lang_module['events_user'] = 'Người thực hiện';
 $lang_module['content'] = 'Nội dung';
 

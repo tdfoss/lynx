@@ -1,5 +1,4 @@
 <!-- BEGIN: main -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/select2/select2.min.css" />
 <link rel="stylesheet" href="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/select2/select2-bootstrap.min.css" />
 <link type="text/css" href="{NV_BASE_SITEURL}{NV_ASSETS_DIR}/js/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
@@ -15,12 +14,13 @@
     <!-- BEGIN: contact_add -->
     <li><a href="{URL_ADD_CONTACT}" class="btn btn-primary btn-xs"><em class="fa fa-plus">&nbsp;</em> {LANG.contact_add}</a></li>
     <!-- END: contact_add -->
+    <li><a href="{URL_ADD_EVENT}" id="btn-events-add" class="btn btn-primary btn-xs"><em class="fa fa-plus">&nbsp;</em> {LANG.events_add}</a></li>
     <li><a href="{URL_ADD_EMAIL}" class="btn btn-primary btn-xs"><em class="fa fa-plus">&nbsp;</em>{LANG.email_add}</a></li>
     <!-- BEGIN: support -->
     <li><a href="{URL_ADD_SUPPORT}" class="btn btn-primary btn-xs"><em class="fa fa-user">&nbsp;</em>{LANG.add_support}</a></li>
     <!-- END: support -->
     <!-- BEGIN: admin -->
-    <li><a href="{URL_EDIT}" class="btn btn-default btn-xs"><em class="fa fa-edit">&nbsp;</em><!-- BEGIN: customer_edit -->{LANG.customer_edit}<!-- END: customer_edit --><!-- BEGIN: contact_edit -->{LANG.contact_edit}<!-- END: contact_edit --></a></li>
+    <li><a href="{URL_EDIT}" class="btn btn-default btn-xs"><em class="fa fa-edit">&nbsp;</em> <!-- BEGIN: customer_edit -->{LANG.customer_edit}<!-- END: customer_edit --> <!-- BEGIN: contact_edit -->{LANG.contact_edit}<!-- END: contact_edit --></a></li>
     <li><a href="{URL_DELETE}" class="btn btn-danger btn-xs" onclick="return confirm(nv_is_del_confirm[0]);"><em class="fa fa-trash-o">&nbsp;</em>{LANG.delete}</a></li>
     <!-- END: admin -->
 </ul>
@@ -67,9 +67,7 @@
                         </tr>
                         <tr>
                             <th>{LANG.main_email}</th>
-                            <td>
-                                <a href="mailto:{CUSTOMER.main_email}">{CUSTOMER.main_email}</a>
-                            </td>
+                            <td><a href="mailto:{CUSTOMER.main_email}">{CUSTOMER.main_email}</a></td>
                             <th>{LANG.other_email}</th>
                             <td>{CUSTOMER.other_email}</td>
                         </tr>
@@ -81,13 +79,9 @@
                         </tr>
                         <tr>
                             <th>Facebook</th>
-                            <td>
-                                <a href="{CUSTOMER.facebook}">{CUSTOMER.facebook}</a>
-                            </td>
+                            <td><a href="{CUSTOMER.facebook}">{CUSTOMER.facebook}</a></td>
                             <th>Skype</th>
-                            <td>
-                                <a href="skype:{CUSTOMER.skype}">{CUSTOMER.skype}</a>
-                            </td>
+                            <td><a href="skype:{CUSTOMER.skype}">{CUSTOMER.skype}</a></td>
                         </tr>
                         <tr>
                             <th>Zalo</th>
@@ -106,12 +100,8 @@
                             <td>{CUSTOMER.gender}</td>
                             <th>{LANG.unit}</th>
                             <td>
-                                <!-- BEGIN: unit -->
-                                <label class="label label-default">{UNITS}</label>
-                                <!-- END: unit -->
+                                <!-- BEGIN: unit --> <label class="label label-default">{UNITS}</label> <!-- END: unit -->
                             </td>
-                        
-                        
                         <tr>
                             <th>{LANG.addtime}</th>
                             <td>{CUSTOMER.addtime}</td>
@@ -123,17 +113,13 @@
                             <td>{CUSTOMER.edittime}</td>
                             <th><label class="control-label"><strong>{LANG.tags}</strong></label></th>
                             <td>
-                                <!-- BEGIN: tags -->
-                                <label class="label label-default">{TAGS}</label>
-                                <!-- END: tags -->
+                                <!-- BEGIN: tags --> <label class="label label-default">{TAGS}</label> <!-- END: tags -->
                             </td>
                         </tr>
                         <tr>
                             <th>{LANG.share_people}</th>
                             <td>
-                                <!-- BEGIN: share_accs -->
-                                <label class="label label-primary">{SHAREACC}</label>
-                                <!-- END: share_accs -->
+                                <!-- BEGIN: share_accs --> <label class="label label-primary">{SHAREACC}</label> <!-- END: share_accs -->
                             </td>
                             <th><label class="control-label"><strong>{LANG.share_groups}</strong></label></th>
                             <td>{CUSTOMER.share_groups}</td>
@@ -310,6 +296,18 @@
         theme : 'bootstrap'
     });
     
+    $('#btn-events-add').click(function(e) {
+        e.preventDefault();
+        $.ajax({
+            type : 'POST',
+            url : $(this).attr('href') + '&nocache=' + new Date().getTime(),
+            data : 'customer_id={CUSTOMER.id}&ajax=1',
+            success : function(html) {
+                modalShow('{LANG.events}', html);
+            }
+        });
+    });
+    
     function nv_chang_tags(customerid) {
         var tid = $('#change_tags_' + customerid).val();
         $.post(script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=detail&nocache=' + new Date().getTime(), 'change_tags=1&customerid=' + customerid + '&tid=' + tid, function(res) {
@@ -323,8 +321,6 @@
         return;
     }
 
-    //Change hash for page-reload
-   
     function nv_change_contacts() {
         if (confirm('{LANG.queue_confirm}')) {
             $.ajax({
