@@ -145,6 +145,14 @@ $lang_module['adduser_register_info3'] = '<br />Mật khẩu: %1$s';
 $lang_module['adduser_register_info4'] = '<br /><br />Đây là thư tự động được gửi đến hòm thư điện tử của bạn từ website %1$s. Nếu bạn không hiểu gì về nội dung bức thư này, đơn giản hãy xóa nó đi.<br /><br />Quản trị site';
 $lang_module['unknow'] = 'Không khai báo';
 $lang_module['remider_birthday'] = 'Hôm nay là sinh nhật của %s';
+$lang_module['events'] = 'Sự kiện';
+$lang_module['events_add'] = 'Thêm sự kiện';
+$lang_module['events_edit'] = 'Sửa sự kiện';
+$lang_module['events_type'] = 'Loại sự kiện';
+$lang_module['events_time'] = 'Thời gian sự kiện';
+$lang_module['events_user'] = 'Người thực hiện';
+$lang_module['content'] = 'Nội dung';
+
 
 $lang_module['error_required_userid'] = 'Lỗi: bạn cần chọn Tài khoản thành viên';
 $lang_module['error_required_first_name'] = 'Lỗi: bạn cần nhập dữ liệu cho Tên';
@@ -158,6 +166,8 @@ $lang_module['error_required_userid_link'] = 'Lỗi: bạn cần chọn tài kho
 $lang_module['error_password_like'] = 'Lỗi: mật khẩu không giống nhau';
 $lang_module['error_unknow'] = 'Vì lý do nào đó hệ thống không thể thực hiện yêu cầu của bạn lúc này, vui lòng liên hệ với người quản trị để biết thêm thông tin, xin cảm ơn!';
 $lang_module['error_required_username'] = 'Lỗi: bạn cần nhập tên truy cập';
+$lang_module['error_required_eventtime'] = 'Lỗi: bạn cần chọn Thời gian sự kiện';
+$lang_module['error_required_customer'] = 'Lỗi: bạn cần chọn Khách hàng';
 
 $lang_module['export'] = 'Xuất danh sách';
 $lang_module['export_title'] = 'Lựa chọn dữ liệu';

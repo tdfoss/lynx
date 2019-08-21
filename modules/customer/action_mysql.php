@@ -121,9 +121,9 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
 ) ENGINE=MyISAM";
 
 $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_events (
-	id mediumint(8) unsigned NOT NULL,
+	id mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
     customer_id mediumint(8) unsigned NOT NULL,
-    event_type_id tinyint(2) unsigned NOT NULL DEFATLT '0' COMMENT 'Loại sự kiện',
+    event_type_id tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT 'Loại sự kiện',
     content text NOT NULL,
     userid mediumint(8) unsigned NOT NULL COMMENT 'Người thực hiện',
     eventtime int(11) unsigned NOT NULL,

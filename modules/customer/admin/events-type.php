@@ -233,7 +233,7 @@ if ($show_view) {
 $xtpl->parse('main');
 $contents = $xtpl->text('main');
 
-$page_title = $lang_module['ebents_type'];
+$page_title = $lang_module['events_type'];
 
 include NV_ROOTDIR . '/includes/header.php';
 echo nv_admin_theme($contents);

@@ -125,3 +125,10 @@ function nv_customer_delete($customerid)
         return $count;
     }
 }
+
+function nv_customer_events_delete($id)
+{
+    global $db, $module_data;
+
+    $db->query('DELETE FROM ' . NV_PREFIXLANG . '_' . $module_data . '_events WHERE id=' . $id);
+}
