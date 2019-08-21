@@ -107,6 +107,12 @@ if ($nv_Request->isset_request('submit', 'post')) {
         $stmt->bindParam(':eventtime', $row['eventtime'], PDO::PARAM_INT);
         $exc = $stmt->execute();
         if ($exc) {
+
+            if (empty($row['id'])) {
+                // cập nhật lại thời gian cập nhật khách hàng
+                $db->query('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET edittime = ' . NV_CURRENTTIME . ' WHERE id=' . $row['customer_id']);
+            }
+
             $nv_Cache->delMod($module_name);
 
             if (!empty($row['redirect'])) {
