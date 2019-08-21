@@ -268,9 +268,10 @@
                     <thead>
                         <tr>
                             <th width="50" class="text-center"></th>
-                            <th width="200">{LANG.events_type}</th>
-                            <th width="200">{LANG.events_user}</th>
-                            <th width="200">{LANG.events_time}</th>
+                            <th width="150">{LANG.events_type}</th>
+                            <th>{LANG.content}</th>
+                            <th width="150">{LANG.events_user}</th>
+                            <th width="150">{LANG.events_time}</th>
                             <th width="150">{LANG.addtime}</th>
                         </tr>
                     </thead>
@@ -279,6 +280,7 @@
                         <tr onclick="nv_table_row_click(event, '{EVENTS.link_view}', false);">
                             <td class="text-center">{EVENTS.number}</td>
                             <td>{EVENTS.events_type}</td>
+                            <td>{EVENTS.content}</td>
                             <td>{EVENTS.user}</td>
                             <td>{EVENTS.eventtime}</td>
                             <td>{EVENTS.addtime}</td>

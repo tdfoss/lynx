@@ -39,10 +39,11 @@
             <thead>
                 <tr>
                     <th width="50" class="text-center"><input name="check_all[]" type="checkbox" value="yes" onclick="nv_checkAll(this.form, 'idcheck[]', 'check_all[]',this.checked);"></th>
-                    <th>{LANG.customer}</th>
-                    <th width="200">{LANG.events_type}</th>
-                    <th width="200">{LANG.events_user}</th>
-                    <th width="200">
+                    <th width="150">{LANG.customer}</th>
+                    <th width="150">{LANG.events_type}</th>
+                    <th>{LANG.content}</th>
+                    <th width="150">{LANG.events_user}</th>
+                    <th width="150">
                         <!-- BEGIN: eventtime_no --> <em class="fa fa-sort">&nbsp;</em> <!-- END: eventtime_no --> <!-- BEGIN: eventtime --> <!-- BEGIN: desc --> <em class="fa fa-sort-numeric-desc">&nbsp;</em> <!-- END: desc --> <!-- BEGIN: asc --> <em class="fa fa-sort-numeric-asc">&nbsp;</em> <!-- END: asc --> <!-- END: eventtime --> <a href="{SORTURL.eventtime}" title="">{LANG.events_time}</a>
                     </th>
                     <th width="150">
@@ -59,6 +60,7 @@
                     </td>
                     <td>{VIEW.customer}</td>
                     <td>{VIEW.events_type}</td>
+                    <td>{VIEW.content}</td>
                     <td>{VIEW.user}</td>
                     <td>{VIEW.eventtime}</td>
                     <td>{VIEW.addtime}</td>
