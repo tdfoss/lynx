@@ -114,16 +114,31 @@ function nv_sendmail_confirm($id)
 
 function nv_invoice_new_notification($id, $title, $workforceid)
 {
-    global $db, $user_info, $lang_module, $module_name, $module_config, $array_config;
+    global $lang_module, $module_name, $array_config, $workforce_list, $user_info;
+
+    require_once NV_ROOTDIR . '/modules/notification/site.functions.php';
+    $url = NV_MY_DOMAIN . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=detail&id=' . $id;
+
     // thông báo người phụ trách
     if ($workforceid != $user_info['userid']) {
-        require_once NV_ROOTDIR . '/modules/notification/site.functions.php';
         $array_userid = array(
             $workforceid
         );
         $content = sprintf($lang_module['new_invoice'], $title);
-        $url = NV_MY_DOMAIN . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=detail&id=' . $id;
         nv_send_notification($array_userid, $content, 'new_invoice', $module_name, $url);
+    }
+
+    // thông báo cho nhóm quản lý hóa đơn
+    if (!empty($array_config['groups_admin'])) {
+        $array_config['groups_admin'] = explode(',', $array_config['groups_admin']);
+        $array_userid = nv_invoice_get_user_groups($array_config['groups_admin']);
+        foreach ($array_userid as $key => $userid) {
+            if ($userid == $user_info['userid']) unset($array_userid[$key]);
+        }
+        if (!empty($array_userid)) {
+            $content = sprintf($lang_module['new_invoice_by_workforce'], $workforce_list[$workforceid]['fullname'], $title);
+            nv_send_notification($array_userid, $content, 'new_invoice_by_workforce', $module_name, $url);
+        }
     }
 }
 
@@ -199,8 +214,9 @@ function nv_status_wallet_invoice($status)
 
 function nv_invoice_confirm_payment($id)
 {
-    global $db, $module_name, $module_data, $lang_module, $workforce_list, $user_info;
-    $rows = $db->query('SELECT code, title, sended FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
+    global $db, $module_name, $module_data, $lang_module, $user_info, $workforce_list, $array_config;
+
+    $rows = $db->query('SELECT code, title, sended, workforceid FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id)->fetch();
     if ($rows) {
         $count = $db->exec('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET status=1, paytime=' . NV_CURRENTTIME . ' WHERE id=' . $id);
         if ($count) {
@@ -221,6 +237,32 @@ function nv_invoice_confirm_payment($id)
                     nv_sendmail_confirm($id);
                 }
                 $content = sprintf($lang_module['logs_invoice_confirm_note'], '[#' . $rows['code'] . '] ' . $rows['title']);
+
+                require_once NV_ROOTDIR . '/modules/notification/site.functions.php';
+                $url = NV_MY_DOMAIN . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=detail&id=' . $rows['id'];
+                $invoice_title = '#' . $rows['code'] . ' - ' . $rows['title'];
+                $content = sprintf($lang_module['confirm_invoice_by_workforce'], $workforce_list[$rows['workforceid']]['fullname'], $invoice_title);
+
+                // thông báo người phụ trách
+                if ($rows['workforceid'] != $user_info['userid']) {
+                    $array_userid = array(
+                        $rows['workforceid']
+                    );
+                    nv_send_notification($array_userid, $content, 'confirm_invoice_by_workforce', $module_name, $url);
+                }
+
+                // thông báo cho nhóm quản lý hóa đơn
+                if (!empty($array_config['groups_admin'])) {
+                    $array_config['groups_admin'] = explode(',', $array_config['groups_admin']);
+                    $array_userid = nv_invoice_get_user_groups($array_config['groups_admin']);
+                    foreach ($array_userid as $key => $userid) {
+                        if ($userid == $user_info['userid']) unset($array_userid[$key]);
+                    }
+                    if (!empty($array_userid)) {
+                        nv_send_notification($array_userid, $content, 'confirm_invoice_by_workforce', $module_name, $url);
+                    }
+                }
+
                 nv_insert_logs(NV_LANG_DATA, $module_name, $lang_module['logs_invoice_confirm'], $content, $user_info['userid']);
             }
         }
@@ -284,4 +326,16 @@ function nv_invoice_check_date($date)
     $xtpl->parse('list');
     $contents = $xtpl->text('list');
     return $contents;
+}
+
+function nv_invoice_get_user_groups($groups_list)
+{
+    global $db;
+
+    $array_userid = array();
+    $result = $db->query('SELECT t1.userid FROM ' . NV_USERS_GLOBALTABLE . ' t1 INNER JOIN ' . NV_USERS_GLOBALTABLE . '_groups_users t2 ON t1.userid=t2.userid WHERE t2.group_id IN (' . implode(',', $groups_list) . ')');
+    while (list ($userid) = $result->fetch(3)) {
+        $array_userid[] = $userid;
+    }
+    return array_map('intval', $array_userid);
 }
