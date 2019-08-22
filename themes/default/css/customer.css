@@ -52,3 +52,7 @@ table.row-click tr{
 .margin-left{
 	margin-left: 5px;
 }
+
+#ui-datepicker-div{
+    z-index: 999999999
+}
