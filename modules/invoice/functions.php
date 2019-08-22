@@ -239,7 +239,7 @@ function nv_invoice_confirm_payment($id)
                 $content = sprintf($lang_module['logs_invoice_confirm_note'], '[#' . $rows['code'] . '] ' . $rows['title']);
 
                 require_once NV_ROOTDIR . '/modules/notification/site.functions.php';
-                $url = NV_MY_DOMAIN . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=detail&id=' . $rows['id'];
+                $url = NV_MY_DOMAIN . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=detail&id=' . $id;
                 $invoice_title = '#' . $rows['code'] . ' - ' . $rows['title'];
                 $content = sprintf($lang_module['confirm_invoice_by_workforce'], $workforce_list[$rows['workforceid']]['fullname'], $invoice_title);
 
