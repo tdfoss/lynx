@@ -9,15 +9,16 @@
  */
 if (!defined('NV_MAINFILE')) die('Stop!!!');
 
-$array_config = $module_config['notification'];
+$array_notification_config = $module_config['notification'];
 
 function nv_send_notification($array_userid, $content, $type, $module, $url = '')
 {
-    global $db;
+    global $db, $user_info;
 
     if (empty($array_userid)) return false;
 
     foreach ($array_userid as $userid) {
+        if ($userid == $user_info['userid']) continue;
         nv_insert_notification($module, $type, array(
             'content' => $content,
             'url' => $url
@@ -41,14 +42,14 @@ function nv_send_notification($array_userid, $content, $type, $module, $url = ''
 
 function nv_onesignal_push($array_player, $content, $url = '')
 {
-    global $array_config;
+    global $array_notification_config;
 
-    if (empty($array_config['onesignal_appid'])) {
+    if (empty($array_notification_config['onesignal_appid'])) {
         return false;
     }
 
     $fields = array(
-        'app_id' => $array_config['onesignal_appid'],
+        'app_id' => $array_notification_config['onesignal_appid'],
         'include_player_ids' => $array_player,
         'contents' => $content,
         'url' => $url,
