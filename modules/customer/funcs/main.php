@@ -69,7 +69,7 @@ if (!class_exists('PHPExcel')) {
 if ($nv_Request->isset_request('ordername', 'get')) {
     $array_search['ordername'] = $nv_Request->get_title('ordername', 'get');
     $nv_Request->set_Cookie($module_data . '_' . $op . '_ordername', $array_search['ordername']);
-} elseif ($nv_Request->isset_request($module_data . '_' . $op . 'ordername', 'cookie')) {
+} elseif ($nv_Request->isset_request($module_data . '_' . $op . '_ordername', 'cookie')) {
     $array_search['ordername'] = $nv_Request->get_title($module_data . '_' . $op . '_ordername', 'cookie');
 } else {
     $array_search['ordername'] = 'first_name';
@@ -124,7 +124,7 @@ $where .= nv_customer_premission($module_name, 't3.');
 $where .= ' AND is_contacts=' . $array_search['is_contact'];
 
 $db->sqlreset()
-    ->select('COUNT(*)')
+    ->select('DISTINCT COUNT(*)')
     ->from(NV_PREFIXLANG . '_' . $module_data . ' t1')
     ->join($join)
     ->where('1=1' . $where);
@@ -133,7 +133,7 @@ $sth = $db->prepare($db->sql());
 $sth->execute();
 $num_items = $sth->fetchColumn();
 
-$db->select('t1.*, t3.permisson')
+$db->select('DISTINCT t1.*, t3.permisson')
     ->order($array_search['ordername'] . ' ' . $array_search['ordertype'])
     ->limit($per_page)
     ->offset(($page - 1) * $per_page);
