@@ -323,9 +323,9 @@ $sql_create_table[] = "CREATE TABLE " . $db_config['prefix'] . "_notification (
 $sql_create_table[] = "CREATE TABLE " . $db_config['prefix'] . "_branch(
   id smallint(4) NOT NULL AUTO_INCREMENT,
   title varchar(255) NOT NULL,
-  address varchar(255) NOT NULL,
-  email varchar(100) NOT NULL,
-  phone varchar(50) NOT NULL,
+  address varchar(255) NOT NULL DEFAULT '',
+  email varchar(100) NOT NULL DEFAULT '',
+  phone varchar(50) NOT NULL DEFAULT '',
   groups_manage varchar(50) NOT NULL,
   weight smallint(4) unsigned NOT NULL DEFAULT '0',
   active tinyint(1) unsigned NOT NULL DEFAULT '1',

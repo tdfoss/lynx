@@ -214,7 +214,15 @@ while (list ($lang) = $language_query->fetch(3)) {
       PRIMARY KEY (id)
     ) ENGINE=MyISAM";
 
-    $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_invoice CHANGE code code VARCHAR(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '';";
+    $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_invoice CHANGE code code VARCHAR(6) NOT NULL DEFAULT '';";
+
+    $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_workforce ADD weight SMALLINT(4) UNSIGNED NOT NULL DEFAULT '0' AFTER useradd;";
+
+    $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_branch( id smallint(4) NOT NULL AUTO_INCREMENT, title varchar(255) NOT NULL, address varchar(255) NOT NULL DEFAULT '', email varchar(100) NOT NULL DEFAULT '', phone varchar(50) NOT NULL DEFAULT '', groups_manage varchar(50) NOT NULL, weight smallint(4) unsigned NOT NULL DEFAULT '0', active tinyint(1) unsigned NOT NULL DEFAULT '1', PRIMARY KEY (id) ) ENGINE=MyISAM";
+
+    $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_workforce ADD branch_id SMALLINT(4) UNSIGNED NOT NULL DEFAULT '0' AFTER weight;";
+
+    $sql[] = "ALTER TABLE " . $db_config['prefix'] . "_" . $lang . "_products ADD purchase MEDIUMINT(8) UNSIGNED NOT NULL DEFAULT '0' AFTER url;";
 
     $sql[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_customer_events (
     	id mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
