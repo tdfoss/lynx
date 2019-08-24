@@ -39,6 +39,7 @@ $array_truncate_data = array(
     NV_PREFIXLANG . '_customer_units_customer',
     NV_PREFIXLANG . '_customer_field',
     NV_PREFIXLANG . '_customer_info',
+    NV_PREFIXLANG . '_customer_events',
     NV_PREFIXLANG . '_projects',
     NV_PREFIXLANG . '_projects_field',
     NV_PREFIXLANG . '_projects_info',
