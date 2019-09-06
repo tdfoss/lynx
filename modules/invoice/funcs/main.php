@@ -124,9 +124,9 @@ if (!empty($array_search['daterange'])) {
     }
 
     $base_url .= '&amp;daterange= ' . $array_search['daterange'];
-    $where .= ' AND createtime >= ' . $begin_time . ' AND createtime <= ' . $end_time . ' OR duetime >= ' . $begin_time . ' AND duetime <= ' . $end_time . ' OR createtime <= ' . $begin_time . ' AND duetime >= ' . $end_time;
+    $where .= ' AND (createtime >= ' . $begin_time . ' AND createtime <= ' . $end_time . ' OR duetime >= ' . $begin_time . ' AND duetime <= ' . $end_time . ' OR createtime <= ' . $begin_time . ' AND duetime >= ' . $end_time . ')';
 
-    
+
 }
 
 if ($array_search['status'] >= 0) {
