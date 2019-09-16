@@ -28,13 +28,14 @@
     }
 </script>
 <script>
-    $(function() {
-        $(".edm").hover(function() {
-            $(this).toggleClass('menu-open');
-        }, function() {
-            $(this).toggleClass('menu-open');
-        });
-    });
+    $("ul li.edm").hover(
+            function () {
+              $(this).addClass('menu-open');
+            }, 
+            function () {
+              $(this).removeClass('menu-open');
+            }
+            );
 </script>
 <script>
 $(window).resize(function() {
