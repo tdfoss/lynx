@@ -2316,3 +2316,23 @@ button.close {
     float: left; 
     margin-top: 7px
 }
+
+table.table-middle td {
+	vertical-align: middle !important
+}
+
+table.table-middle td span.help-block, table.table-middle td span.help-block ul
+	{
+	margin-bottom: 0;
+	font-size: 12px
+}
+
+.form-inline .form-control {
+   width: auto;
+   float:left;
+   margin-right: 5px;
+}
+
+.table-bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td {
+    border: 1px solid #cacaca;
+}
