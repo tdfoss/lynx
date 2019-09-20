@@ -12,7 +12,7 @@
                 </div>
             </div>
             <!-- BEGIN: admin -->
-            <div class="col-xs-24 col-md-5">
+            <div class="col-xs-24 col-md-3">
                 <div class="form-group">
                     <select name="customerid" id="customerid" class="form-control">
                         <!-- BEGIN: customer -->
@@ -21,7 +21,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-xs-24 col-md-5">
+            <div class="col-xs-24 col-md-3">
                 <div class="form-group">
                     <select class="form-control select2" name="workforceid">
                         <option value="0">---{LANG.workforceid_select}---</option>
@@ -31,7 +31,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-xs-24 col-md-5">
+            <div class="col-xs-24 col-md-3">
                 <div class="form-group">
                     <select class="form-control select2" name="presenterid">
                         <option value="0">---{LANG.presenterid_select}---</option>
@@ -41,7 +41,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-xs-24 col-md-5">
+            <div class="col-xs-24 col-md-3">
                 <div class="form-group">
                     <select class="form-control select2" name="performerid">
                         <option value="0">---{LANG.performerid_select}---</option>
@@ -51,7 +51,17 @@
                     </select>
                 </div>
             </div>
-            <div class="col-xs-12 col-md-5">
+            <!-- END: admin -->
+            <div class="col-xs-12 col-md-2">
+                <div class="form-group">
+                    <select class="form-control" name="datefield">
+                        <!-- BEGIN: datefield -->
+                        <option value="{DATEFIELD.index}"{DATEFIELD.selected}>{DATEFIELD.value}</option>
+                        <!-- END: datefield -->
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-3">
                 <div class="form-group">
                     <div class="input-group">
                         <input class="form-control" value="{SEARCH.daterange}" type="text" name="daterange" autocomplete="off" placeholder="{LANG.choice_time}" /><span class="input-group-btn">
@@ -62,7 +72,6 @@
                     </div>
                 </div>
             </div>
-            <!-- END: admin -->
             <div class="col-xs-24 col-md-3">
                 <div class="form-group">
                     <select name="status" class="form-control">

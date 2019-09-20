@@ -73,7 +73,8 @@ $array_search = array(
     'performerid' => $nv_Request->get_int('performerid', 'get', 0),
     'serviceid' => $nv_Request->get_int('serviceid', 'get', 0),
     'daterange' => $nv_Request->get_string('daterange', 'get', ''),
-    'status' => $nv_Request->get_int('status', 'post,get', -1)
+    'status' => $nv_Request->get_int('status', 'get', -1),
+    'datefield' => $nv_Request->get_string('datefield', 'get', 'addtime')
 );
 
 if (!empty($array_search['q'])) {
@@ -124,9 +125,7 @@ if (!empty($array_search['daterange'])) {
     }
 
     $base_url .= '&amp;daterange= ' . $array_search['daterange'];
-    $where .= ' AND (createtime >= ' . $begin_time . ' AND createtime <= ' . $end_time . ' OR duetime >= ' . $begin_time . ' AND duetime <= ' . $end_time . ' OR createtime <= ' . $begin_time . ' AND duetime >= ' . $end_time . ')';
-
-
+    $where .= ' AND (' . $array_search['datefield'] . ' >= ' . $begin_time . ' AND ' . $array_search['datefield'] . ' <= ' . $end_time . ')';
 }
 
 if ($array_search['status'] >= 0) {
@@ -296,6 +295,22 @@ if (defined('NV_INVOICE_ADMIN')) {
     $xtpl->parse('main.admin');
     $xtpl->parse('main.admin1');
     $xtpl->parse('main.admin2');
+}
+
+$array_date_field = array(
+    'createtime' => $lang_module['createtime'],
+    'duetime' => $lang_module['duetime'],
+    'addtime' => $lang_module['addtime'],
+    'paytime' => $lang_module['paytime']
+);
+foreach ($array_date_field as $index => $value) {
+    $sl = $index == $array_search['datefield'] ? 'selected="selected"' : '';
+    $xtpl->assign('DATEFIELD', array(
+        'index' => $index,
+        'value' => $value,
+        'selected' => $sl
+    ));
+    $xtpl->parse('main.datefield');
 }
 
 $xtpl->parse('main');
