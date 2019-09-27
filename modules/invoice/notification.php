@@ -7,7 +7,6 @@
  * @License GNU/GPL version 2 or any later version
  * @Createdate Apr 20, 2010 10:47:41 AM
  */
-
 if (!defined('NV_MAINFILE')) {
     die('Stop!!!');
 }
@@ -17,4 +16,4 @@ if ($data['module'] != $module_name) {
 }
 
 $data['title'] = $data['content']['content'];
-$data['link'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $data['module'] . '&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $data['obid'];
+$data['link'] = $data['content']['url'];
