@@ -41,8 +41,8 @@ while (list ($lang) = $language_query->fetch(3)) {
                     // thông tin hóa đơn vừa tạo
                     $info = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $new_id)->fetch();
                     if ($info) {
-                        // đổi ngày hóa đơn
-                        $info['createtime'] = NV_CURRENTTIME;
+                        // đổi ngày bắt đầu hóa đơn mới chính bằng ngày hết hạn hóa đơn cũ
+                        $info['createtime'] = $row['duetime'];
                         $info['duetime'] = nv_caculate_duetime($row['duetime'], $row['cycle']);
                         $stmt = $db->prepare('UPDATE ' . NV_PREFIXLANG . '_' . $module_data . ' SET createtime = :createtime, duetime = :duetime WHERE id=' . $new_id);
                         $stmt->bindParam(':createtime', $info['createtime'], PDO::PARAM_INT);

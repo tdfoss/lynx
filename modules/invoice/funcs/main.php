@@ -130,7 +130,12 @@ if (!empty($array_search['daterange'])) {
 
 if ($array_search['status'] >= 0) {
     $base_url .= '&amp;status=' . $array_search['status'];
-    $where .= ' AND status=' . $array_search['status'];
+    if ($array_search['status'] == 5) {
+        // lọc hóa đơn quá hạn thanh toán
+        $where .= ' AND status IN (0, 3, 4) AND duetime <= ' . NV_CURRENTTIME;
+    } else {
+        $where .= ' AND status=' . $array_search['status'];
+    }
 } elseif (!$array_search['search'] && !empty($array_config['default_status'])) {
     $where .= ' AND status IN (' . $array_config['default_status'] . ')';
 }

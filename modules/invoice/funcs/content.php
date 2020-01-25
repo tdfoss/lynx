@@ -122,7 +122,6 @@ if (!defined('NV_INVOICE_ADMIN')) {
 
 $row = array();
 $error = array();
-$row['redirect'] = $nv_Request->get_string('redirect', 'post,get', '');
 $row['id'] = $nv_Request->get_int('id', 'post,get', 0);
 $row['projectid'] = $nv_Request->get_int('projectid', 'post,get', 0);
 
@@ -164,6 +163,8 @@ if ($row['id'] > 0) {
         list ($row['customerid'], $row['title']) = $result->fetch(3);
     }
 }
+
+$row['redirect'] = $nv_Request->get_string('redirect', 'post,get', '');
 
 if ($nv_Request->isset_request('submit', 'post')) {
     $row['title'] = $nv_Request->get_title('title', 'post', '');
