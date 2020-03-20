@@ -6,13 +6,13 @@
     <form action="{NV_BASE_SITEURL}index.php" method="get">
         <input type="hidden" name="{NV_LANG_VARIABLE}" value="{NV_LANG_DATA}" /> <input type="hidden" name="{NV_NAME_VARIABLE}" value="{MODULE_NAME}" /> <input type="hidden" name="{NV_OP_VARIABLE}" value="{OP}" /> <input type="hidden" name="search" value="1" /> <input type="hidden" name="serviceid" value="{SEARCH.serviceid}" />
         <div class="row">
-            <div class="col-xs-24 col-md-4">
+            <div class="col-xs-12 col-md-4">
                 <div class="form-group">
                     <input class="form-control" type="text" value="{SEARCH.q}" name="q" maxlength="255" placeholder="{LANG.search_title}" />
                 </div>
             </div>
             <!-- BEGIN: admin -->
-            <div class="col-xs-24 col-md-3">
+            <div class="col-xs-12 col-md-3">
                 <div class="form-group">
                     <select name="customerid" id="customerid" class="form-control">
                         <!-- BEGIN: customer -->
@@ -21,7 +21,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-xs-24 col-md-3">
+            <div class="col-xs-12 col-md-3">
                 <div class="form-group">
                     <select class="form-control select2" name="workforceid">
                         <option value="0">---{LANG.workforceid_select}---</option>
@@ -31,7 +31,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-xs-24 col-md-3">
+            <div class="col-xs-12 col-md-3 hidden-xs">
                 <div class="form-group">
                     <select class="form-control select2" name="presenterid">
                         <option value="0">---{LANG.presenterid_select}---</option>
@@ -41,13 +41,23 @@
                     </select>
                 </div>
             </div>
-            <div class="col-xs-24 col-md-3">
+            <div class="col-xs-12 col-md-3 hidden-xs">
                 <div class="form-group">
                     <select class="form-control select2" name="performerid">
                         <option value="0">---{LANG.performerid_select}---</option>
                         <!-- BEGIN: user2 -->
                         <option value="{USER.userid}"{USER.selected2}>{USER.fullname}</option>
                         <!-- END: user2 -->
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-3">
+                <div class="form-group">
+                    <select name="status" class="form-control">
+                        <option value="-1">---{LANG.status_select}---</option>
+                        <!-- BEGIN: status -->
+                        <option value="{STATUS.index}"{STATUS.selected}>{STATUS.value}</option>
+                        <!-- END: status -->
                     </select>
                 </div>
             </div>
@@ -61,7 +71,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-xs-12 col-md-3">
+            <div class="col-xs-8 col-md-3">
                 <div class="form-group">
                     <div class="input-group">
                         <input class="form-control" value="{SEARCH.daterange}" type="text" name="daterange" autocomplete="off" placeholder="{LANG.choice_time}" /><span class="input-group-btn">
@@ -72,19 +82,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-24 col-md-3">
+            <div class="col-xs-4 col-md-3">
                 <div class="form-group">
-                    <select name="status" class="form-control">
-                        <option value="-1">---{LANG.status_select}---</option>
-                        <!-- BEGIN: status -->
-                        <option value="{STATUS.index}"{STATUS.selected}>{STATUS.value}</option>
-                        <!-- END: status -->
-                    </select>
-                </div>
-            </div>
-            <div class="col-xs-12 col-md-3">
-                <div class="form-group">
-                    <input class="btn btn-primary" type="submit" value="{LANG.search_submit}" />
+                    <button class="btn btn-primary visible-xs" type="submit"><em class="fa fa-search">&nbsp;</em></button>
+                    <input class="btn btn-primary hidden-xs" type="submit" value="{LANG.search_submit}" />
                 </div>
             </div>
         </div>
@@ -110,20 +111,17 @@
                 <table class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th width="100">{LANG.code}</th>
+                            <th class="hidden-xs" width="100">{LANG.code}</th>
                             <th>{LANG.title}</th>
                             <th>{LANG.customerid}</th>
-                            <th>{LANG.createtime}</th>
+                            <th class="hidden-xs">{LANG.createtime}</th>
                             <th>{LANG.duetime}</th>
-                            <th width="150">{LANG.addtime}</th>
+                            <th class="hidden-xs" width="150">{LANG.addtime}</th>
                             <th>{LANG.grand_total}</th>
                             <th>{LANG.status}</th>
                         </tr>
                     </thead>
                     <tbody id="tbody">
-                        <!-- BEGIN: empty_data_invoice -->
-                        <td colspan="8" class="text-center">{LANG.empty_data_invoice}</td>
-                        <!-- END: empty_data_invoice -->
                         {DATA_INVOICE}
                     </tbody>
                 </table>
@@ -138,9 +136,10 @@
         <option value="{ACTION.key}">{ACTION.value}</option>
         <!-- END: action_top -->
     </select>
-    <button class="btn btn-primary" onclick="nv_list_action( $('#action-top').val(), '{BASE_URL}', '{LANG.error_empty_data}' ); return false;">{LANG.perform}</button>
-    <a class="btn btn-primary" href="{URL_ADD}">{LANG.add}</a>
+    <button class="btn btn-primary" onclick="nv_list_action( $('#action-top').val(), '{BASE_URL}', '{LANG.error_empty_data}' ); return false;"><em class="fa fa-arrow-circle-right">&nbsp;</em><span class="hidden-xs">{LANG.perform}</span></button>
+    <button class="btn btn-success" onclick="{URL_ADD}"><em class="fa fa-plus-circle">&nbsp;</em><span class="hidden-xs">{LANG.add}</span></button>
 </form>
+<div class="clearfix"></div>
 <!-- END: admin2 -->
 <form action="{NV_BASE_SITEURL}index.php?{NV_LANG_VARIABLE}={NV_LANG_DATA}&amp;{NV_NAME_VARIABLE}={MODULE_NAME}&amp;{NV_OP_VARIABLE}={OP}" method="post">
     <div class="table-responsive">
@@ -153,7 +152,6 @@
                     <th>{LANG.customerid}</th>
                     <th>{LANG.createtime}</th>
                     <th>{LANG.duetime}</th>
-                    <th width="150">{LANG.addtime}</th>
                     <th>{LANG.grand_total}</th>
                     <th>{LANG.status}</th>
                     <!-- BEGIN: admin4 -->
@@ -177,7 +175,6 @@
                     <td><a href="{VIEW.customer.link}">{VIEW.customer.fullname}</a></td>
                     <td>{VIEW.createtime}</td>
                     <td>{VIEW.duetime}</td>
-                    <td>{VIEW.addtime}</td>
                     <td>{VIEW.grand_total}</td>
                     <td>{VIEW.status_str}</td>
                     <!-- BEGIN: admin3 -->
@@ -326,12 +323,12 @@
 <!-- BEGIN: list -->
 <!-- BEGIN: list_invoice -->
 <tr onclick="nv_table_row_click(event, '{LIST.link_view}', false);" class="pointer <!-- BEGIN: warning -->warning<!-- END: warning --> <!-- BEGIN: danger -->danger<!-- END: danger --> <!-- BEGIN: success -->success<!-- END: success -->">
-    <td>#{LIST.code}</td>
+    <td class="hidden-xs">#{LIST.code}</td>
     <td>{LIST.title}</td>
     <td><a href="{LIST.customer.link}">{LIST.customer.fullname}</a></td>
-    <td>{LIST.createtime}</td>
+    <td class="hidden-xs">{LIST.createtime}</td>
     <td>{LIST.duetime}</td>
-    <td>{LIST.addtime}</td>
+    <td class="hidden-xs">{LIST.addtime}</td>
     <td>{LIST.grand_total}</td>
     <td>{LIST.status_str}</td>
 </tr>

@@ -15,7 +15,8 @@ $array_invoice_status = array(
     1 => $lang_module['status_1'],
     3 => $lang_module['status_3'],
     2 => $lang_module['status_2'],
-    4 => $lang_module['status_4']
+    4 => $lang_module['status_4'],
+    5 => $lang_module['status_5']
 );
 
 $array_transaction_status = array(

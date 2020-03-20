@@ -67,6 +67,7 @@ $lang_module['status_1'] = 'Đã thanh toán đủ';
 $lang_module['status_2'] = 'Đã hủy';
 $lang_module['status_3'] = 'Đã thanh toán trước';
 $lang_module['status_4'] = 'Đang chờ xử lý';
+$lang_module['status_5'] = 'Quá hạn thanh toán';
 $lang_module['status_select'] = 'Chọn trạng thái';
 $lang_module['invoice_number'] = 'Hóa đơn số ';
 $lang_module['vnd'] = 'VNĐ';
