@@ -10,16 +10,16 @@
 <!-- BEGIN: button_funs -->
 <ul class="pull-right list-inline form-tooltip">
     <!-- BEGIN: invoice_payment_confirm -->
-    <li><a href="javascript:void(0);" onclick="nv_invoice_sendmail_confirm({ROW.id}); return !1;" class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="{LANG.send_mail_note_confirm}"><em class="fa fa-check-circle">&nbsp;</em>{LANG.confirm_payment}</a></li>
+    <li><a href="javascript:void(0);" onclick="nv_invoice_sendmail_confirm({ROW.id}); return !1;" class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="{LANG.send_mail_note_confirm}"><em class="fa fa-check-circle">&nbsp;</em><span class="hidden-xs">{LANG.confirm_payment}</span></a></li>
     <!-- END: invoice_payment_confirm -->
     <!--     <li><a href="javascript:void(0);" onclick="nv_invoice_sendmail({ROW.id}); return !1;" class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="{LANG.send_mail_note}"><em class="fa fa-envelope">&nbsp;</em>{LANG.send_mail}</a></li> -->
-    <li><a href="{CONTROL.url_sendmail}" onclick="nv_invoice_sendmail({ROW.id}); return !1;" class="btn btn-primary btn-xs loading" data-toggle="tooltip" data-original-title="{LANG.send_mail_note}"><em class="fa fa-envelope">&nbsp;</em>{LANG.send_mail}</a></li>
-    <li><a href="{CONTROL.url_edit}" class="btn btn-default btn-xs" data-toggle="tooltip" data-original-title="{LANG.edit_invoice}"><em class="fa fa-edit">&nbsp;</em>{LANG.edit}</a></li>
-    <li><a href="{CONTROL.url_delete}" class="btn btn-danger btn-xs" onclick="return confirm(nv_is_del_confirm[0]);" data-toggle="tooltip" data-original-title="{LANG.delete_invoice}"><em class="fa fa-trash-o">&nbsp;</em>{LANG.delete}</a></li>
+    <li><a href="{CONTROL.url_sendmail}" onclick="nv_invoice_sendmail({ROW.id}); return !1;" class="btn btn-primary btn-xs loading" data-toggle="tooltip" data-original-title="{LANG.send_mail_note}"><em class="fa fa-envelope">&nbsp;</em><span class="hidden-xs">{LANG.send_mail}</span></a></li>
+    <li><a href="{CONTROL.url_edit}" class="btn btn-default btn-xs" data-toggle="tooltip" data-original-title="{LANG.edit_invoice}"><em class="fa fa-edit">&nbsp;</em><span class="hidden-xs">{LANG.edit}</span></a></li>
+    <li><a href="{CONTROL.url_delete}" class="btn btn-danger btn-xs" onclick="return confirm(nv_is_del_confirm[0]);" data-toggle="tooltip" data-original-title="{LANG.delete_invoice}"><em class="fa fa-trash-o">&nbsp;</em><span class="hidden-xs">{LANG.delete}</span></a></li>
 </ul>
 <div class="dropdown dropdown-hover pull-right" style="padding-right: 10px">
     <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
-        <em class="fa fa-list-ul">&nbsp;</em>{LANG.other} <span class="caret"></span>
+        <em class="fa fa-list-ul">&nbsp;</em><span class="hidden-xs">{LANG.other}</span> <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
         <li><a href="{CONTROL.url_add}"><em class="fa fa-plus-square">&nbsp;</em>{LANG.add}</a></li>
@@ -52,12 +52,8 @@
                     <div class="col-sm-12 col-md-12 col-pdf-12">
                         <table class="info_customer">
                             <tr>
-                                <td width="150">
-                                    <strong>{LANG.customerid}:</strong>
-                                </td>
-                                <td>
-                                    <strong><a href="{ROW.customer.link_view}">{ROW.customer.fullname}</a></strong>
-                                </td>
+                                <td width="150"><strong>{LANG.customerid}:</strong></td>
+                                <td><strong><a href="{ROW.customer.link_view}">{ROW.customer.fullname}</a></strong></td>
                             </tr>
                             <tr>
                                 <td>
@@ -80,12 +76,8 @@
                     <div class="col-sm-12 col-md-12 col-pdf-12">
                         <table class="info_customer">
                             <tr>
-                                <td width="150">
-                                    <strong>{LANG.workforceid}:&nbsp;</strong>
-                                </td>
-                                <td>
-                                    <strong>{ROW.workforceid}</strong>
-                                </td>
+                                <td width="150"><strong>{LANG.workforceid}:&nbsp;</strong></td>
+                                <td><strong>{ROW.workforceid}</strong></td>
                             </tr>
                             <tr>
                                 <td>
@@ -100,77 +92,64 @@
                 </div>
                 <div class="col-sm-24 col-md-24 table_infoinvoice">
                     <p class="text-center title_table text-center text-bold">{LANG.list_pro_ser}</p>
-                    <table class="table table-striped table-bordered table-hover table-middle">
-                        <!--  BEGIN: invoice_list -->
-                        <thead>
-                            <tr>
-                                <th width="50" class="text-center stt">{LANG.number}</th>
-                                <th class="title_th">{LANG.title}</th>
-                                <th width="150">{LANG.unit_price}</th>
-                                <th width="150">{LANG.money_unit}</th>
-                                <th class="quantity text-center" width="100">{LANG.quantity}</th>
-                                <th class="price_string" width="150">{LANG.price_string}</th>
-                                <th class="vat" width="150">{LANG.vat}</th>
-                                <th class="total">{LANG.total}</th>
-                            </tr>
-                        </thead>
-                        <tbody id="item-detail">
-                            <!-- BEGIN: loop -->
-                            <tr>
-                                <td class="text-center">{ORDERS.number}</td>
-                                <td>
-                                    <strong>{ORDERS.itemid}</strong> <span class="help-block">{ORDERS.note}</span>
-                                </td>
-                                <td>{ORDERS.unit_price}</td>
-                                <td>{ORDERS.money_unit}</td>
-                                <td class="text-center">{ORDERS.quantity}</td>
-                                <td>{ORDERS.price}</td>
-                                <td>
-                                    <!-- BEGIN: vat -->
-                                    {ORDERS.vat_price} ({ORDERS.vat}%)
-                                    <!-- END: vat -->
-                                    <!-- BEGIN: vat_empty -->
-                                    -
-                                    <!-- END: vat_empty -->
-                                </td>
-                                <td>{ORDERS.total}</td>
-                            </tr>
-                            <!-- END: loop -->
-                        </tbody>
-                        <!--  END: invoice_list -->
-                        <tfoot>
-                            <tr>
-                                <td colspan="7" class="text-right">
-                                    <strong>{LANG.item_total}</strong>
-                                </td>
-                                <td>{ROW.item_total}</td>
-                            </tr>
-                            <tr>
-                                <th colspan="7" class="text-right"><strong>{LANG.vat_total}</strong></th>
-                                <td>{ROW.vat_total}</td>
-                            </tr>
-                            <!-- BEGIN: discount -->
-                            <tr>
-                                <td colspan="7" class="text-right">
-                                    <strong>{LANG.discount}</strong>
-                                </td>
-                                <td>{ROW.discount_value} ({ROW.discount_percent}%)</td>
-                            </tr>
-                            <!-- END: discount -->
-                            <tr>
-                                <td colspan="7" class="text-right">
-                                    <strong>{LANG.grand_total}</strong>
-                                </td>
-                                <td>{ROW.grand_total}</td>
-                            </tr>
-                            <tr>
-                                <td colspan="7" class="text-right">
-                                    <strong>{LANG.grand_total_string}</strong>
-                                </td>
-                                <td>{ROW.grand_total_string}</td>
-                            </tr>
-                        </tfoot>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover table-middle">
+                            <!--  BEGIN: invoice_list -->
+                            <thead>
+                                <tr>
+                                    <th width="50" class="text-center stt">{LANG.number}</th>
+                                    <th class="title_th">{LANG.title}</th>
+                                    <th width="150">{LANG.unit_price}</th>
+                                    <th width="150">{LANG.money_unit}</th>
+                                    <th class="quantity text-center" width="100">{LANG.quantity}</th>
+                                    <th class="price_string" width="150">{LANG.price_string}</th>
+                                    <th class="vat" width="150">{LANG.vat}</th>
+                                    <th class="total">{LANG.total}</th>
+                                </tr>
+                            </thead>
+                            <tbody id="item-detail">
+                                <!-- BEGIN: loop -->
+                                <tr>
+                                    <td class="text-center">{ORDERS.number}</td>
+                                    <td><strong>{ORDERS.itemid}</strong> <span class="help-block">{ORDERS.note}</span></td>
+                                    <td>{ORDERS.unit_price}</td>
+                                    <td>{ORDERS.money_unit}</td>
+                                    <td class="text-center">{ORDERS.quantity}</td>
+                                    <td>{ORDERS.price}</td>
+                                    <td>
+                                        <!-- BEGIN: vat --> {ORDERS.vat_price} ({ORDERS.vat}%) <!-- END: vat --> <!-- BEGIN: vat_empty --> - <!-- END: vat_empty -->
+                                    </td>
+                                    <td>{ORDERS.total}</td>
+                                </tr>
+                                <!-- END: loop -->
+                            </tbody>
+                            <!--  END: invoice_list -->
+                            <tfoot>
+                                <tr>
+                                    <td colspan="7" class="text-right"><strong>{LANG.item_total}</strong></td>
+                                    <td>{ROW.item_total}</td>
+                                </tr>
+                                <tr>
+                                    <th colspan="7" class="text-right"><strong>{LANG.vat_total}</strong></th>
+                                    <td>{ROW.vat_total}</td>
+                                </tr>
+                                <!-- BEGIN: discount -->
+                                <tr>
+                                    <td colspan="7" class="text-right"><strong>{LANG.discount}</strong></td>
+                                    <td>{ROW.discount_value} ({ROW.discount_percent}%)</td>
+                                </tr>
+                                <!-- END: discount -->
+                                <tr>
+                                    <td colspan="7" class="text-right"><strong>{LANG.grand_total}</strong></td>
+                                    <td>{ROW.grand_total}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="7" class="text-right"><strong>{LANG.grand_total_string}</strong></td>
+                                    <td>{ROW.grand_total_string}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

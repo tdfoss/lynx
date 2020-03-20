@@ -2241,6 +2241,8 @@ button.close {
     margin-top: 7px
 }
 
+<<<<<<<
+HEAD
 .content-header>.breadcrumb {
     float: none;
     position: inherit;
@@ -2276,4 +2278,17 @@ button.close {
     .table-bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td {
         border: 1px solid #cacaca;
     }
+}
+
+#action-top, #action-bottom {
+    float: left;
+    width: 100px;
+    margin-right: 5px
+}
+
+.form-inline button {
+    float: left;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    cursor: pointer
 }
