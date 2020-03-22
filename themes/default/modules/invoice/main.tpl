@@ -51,6 +51,7 @@
                     </select>
                 </div>
             </div>
+            <!-- END: admin -->
             <div class="col-xs-12 col-md-3">
                 <div class="form-group">
                     <select name="status" class="form-control">
@@ -61,7 +62,6 @@
                     </select>
                 </div>
             </div>
-            <!-- END: admin -->
             <div class="col-xs-12 col-md-2">
                 <div class="form-group">
                     <select class="form-control" name="datefield">
@@ -84,7 +84,9 @@
             </div>
             <div class="col-xs-4 col-md-3">
                 <div class="form-group">
-                    <button class="btn btn-primary visible-xs" type="submit"><em class="fa fa-search">&nbsp;</em></button>
+                    <button class="btn btn-primary visible-xs" type="submit">
+                        <em class="fa fa-search">&nbsp;</em>
+                    </button>
                     <input class="btn btn-primary hidden-xs" type="submit" value="{LANG.search_submit}" />
                 </div>
             </div>
@@ -121,8 +123,7 @@
                             <th>{LANG.status}</th>
                         </tr>
                     </thead>
-                    <tbody id="tbody">
-                        {DATA_INVOICE}
+                    <tbody id="tbody">{DATA_INVOICE}
                     </tbody>
                 </table>
             </div>
@@ -136,8 +137,12 @@
         <option value="{ACTION.key}">{ACTION.value}</option>
         <!-- END: action_top -->
     </select>
-    <button class="btn btn-primary" onclick="nv_list_action( $('#action-top').val(), '{BASE_URL}', '{LANG.error_empty_data}' ); return false;"><em class="fa fa-arrow-circle-right">&nbsp;</em><span class="hidden-xs">{LANG.perform}</span></button>
-    <button class="btn btn-success" onclick="{URL_ADD}"><em class="fa fa-plus-circle">&nbsp;</em><span class="hidden-xs">{LANG.add}</span></button>
+    <button class="btn btn-primary" onclick="nv_list_action( $('#action-top').val(), '{BASE_URL}', '{LANG.error_empty_data}' ); return false;">
+        <em class="fa fa-arrow-circle-right">&nbsp;</em><span class="hidden-xs">{LANG.perform}</span>
+    </button>
+    <button class="btn btn-success" onclick="{URL_ADD}">
+        <em class="fa fa-plus-circle">&nbsp;</em><span class="hidden-xs">{LANG.add}</span>
+    </button>
 </form>
 <div class="clearfix"></div>
 <!-- END: admin2 -->
