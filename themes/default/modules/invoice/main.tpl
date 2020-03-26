@@ -140,9 +140,9 @@
     <button class="btn btn-primary" onclick="nv_list_action( $('#action-top').val(), '{BASE_URL}', '{LANG.error_empty_data}' ); return false;">
         <em class="fa fa-arrow-circle-right">&nbsp;</em><span class="hidden-xs">{LANG.perform}</span>
     </button>
-    <button class="btn btn-success" onclick="{URL_ADD}">
+    <a class="btn btn-success" href="{URL_ADD}">
         <em class="fa fa-plus-circle">&nbsp;</em><span class="hidden-xs">{LANG.add}</span>
-    </button>
+    </a>
 </form>
 <div class="clearfix"></div>
 <!-- END: admin2 -->
