@@ -412,7 +412,7 @@ function convert_number_to_words($number)
     );
 
     if (!is_numeric($number)) {
-        return false;
+        return 0;
     }
 
     if (($number >= 0 && (int) $number < 0) || (int) $number < 0 - PHP_INT_MAX) {
