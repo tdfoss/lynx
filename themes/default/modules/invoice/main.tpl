@@ -140,8 +140,7 @@
     <button class="btn btn-primary" onclick="nv_list_action( $('#action-top').val(), '{BASE_URL}', '{LANG.error_empty_data}' ); return false;">
         <em class="fa fa-arrow-circle-right">&nbsp;</em><span class="hidden-xs">{LANG.perform}</span>
     </button>
-    <a class="btn btn-success" href="{URL_ADD}">
-        <em class="fa fa-plus-circle">&nbsp;</em><span class="hidden-xs">{LANG.add}</span>
+    <a class="btn btn-success" href="{URL_ADD}"> <em class="fa fa-plus-circle">&nbsp;</em><span class="hidden-xs">{LANG.add}</span>
     </a>
 </form>
 <div class="clearfix"></div>
@@ -164,13 +163,18 @@
                     <!-- END: admin4 -->
                 </tr>
             </thead>
-            <!-- BEGIN: generate_page -->
             <tfoot>
                 <tr>
-                    <td class="text-center" colspan="10">{NV_GENERATE_PAGE}</td>
+                    <td class="text-center" colspan="10">
+                        <!-- BEGIN: generate_page -->
+                        <div class="pull-right">{NV_GENERATE_PAGE}</div> <!-- END: generate_page --> <!-- BEGIN: total -->
+                        <div class="red pull-left" style="font-size: 15px; padding-top: 10px">
+                            <strong>{LANG.total}:</strong> {TOTAL_NUM} <span class="hidden-xs">({TOTAL_STR})</span>
+                        </div> <!-- END: total -->
+                        <div class="clearffix"></div>
+                    </td>
                 </tr>
             </tfoot>
-            <!-- END: generate_page -->
             <tbody>
                 <!-- BEGIN: loop -->
                 <tr onclick="nv_table_row_click(event, '{VIEW.link_view}', false);" class="pointer <!-- BEGIN: warning -->warning<!-- END: warning --> <!-- BEGIN: danger -->danger<!-- END: danger --> <!-- BEGIN: success -->success<!-- END: success -->">

@@ -61,6 +61,7 @@ if ($nv_Request->isset_request('confirm_payment', 'post')) {
 
 $base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op;
 $per_page = 20;
+$total = 0;
 $page = $nv_Request->get_int('page', 'post,get', 1);
 $join = $where = '';
 
@@ -164,6 +165,11 @@ $db->select('t1.*')
 $sth = $db->prepare($db->sql());
 $sth->execute();
 
+// tính tổng tiên trên danh sách
+if ($array_search['search']) {
+    $total = $db->query('SELECT SUM(grand_total) FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE 1=1' . $where . $join)->fetchColumn();
+}
+
 $customer_info = array();
 if (!empty($array_search['customerid'])) {
     $customer_info = nv_crm_customer_info($array_search['customerid']);
@@ -174,10 +180,15 @@ $xtpl->assign('LANG', $lang_module);
 $xtpl->assign('LANG_GLOBAL', $lang_global);
 $xtpl->assign('MODULE_NAME', $module_name);
 $xtpl->assign('OP', $op);
-$xtpl->assign('ROW', $row);
 $xtpl->assign('SEARCH', $array_search);
 $xtpl->assign('BASE_URL', $base_url);
 $xtpl->assign('URL_ADD', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=content');
+
+if ($array_search['search']) {
+    $xtpl->assign('TOTAL_NUM', nv_number_format($total));
+    $xtpl->assign('TOTAL_STR', nv_convert_number_to_words($total));
+    $xtpl->parse('main.total');
+}
 
 if (empty(nv_invoice_check_date(1))) {
     $xtpl->parse('main.empty_data_invoice');
