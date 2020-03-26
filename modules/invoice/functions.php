@@ -289,7 +289,7 @@ function nv_invoice_check_date($date)
         $lang = $lang_module['3month'];
     }
     $data = array();
-    $result = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE duetime > 0 AND duetime >= ' . NV_CURRENTTIME . ' AND duetime <= ' . NV_CURRENTTIME . ' + ' . $time . ' AND status NOT IN (1,2)');
+    $result = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE duetime > 0 AND duetime >= ' . (NV_CURRENTTIME - ($date * $time)) . ' AND duetime <= ' . NV_CURRENTTIME . ' + ' . $time . ' AND status NOT IN (1,2)');
     while ($rows = $result->fetch()) {
         if (!isset($array_users[$rows['customerid']])) {
             $users = nv_crm_customer_info($rows['customerid']);
